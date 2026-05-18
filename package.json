@@ -1,0 +1,29 @@
+{
+  "name": "@bma/doctor-design-system",
+  "version": "1.0.0",
+  "description": "BMA Doctor Design System — Vuetify 3 theme, tokens, and components for หมอ กทม.",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "type-check": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "@phosphor-icons/vue": "^2.2.1",
+    "chart.js": "^4.5.1",
+    "vue": "^3.5.0",
+    "vue-chartjs": "^5.3.3",
+    "vue-router": "^4.6.4",
+    "vuetify": "^3.7.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.0",
+    "sass": "^1.77.0",
+    "typescript": "^5.5.0",
+    "vite": "^5.4.0",
+    "vite-plugin-vuetify": "^2.0.4",
+    "vue-tsc": "^2.1.0"
+  }
+}

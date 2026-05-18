@@ -1,0 +1,146 @@
+// ─── BMA Doctor · Global Style Entry Point ────────────────────────────────────
+// Import order matters:
+//   1. Vuetify's compiled CSS  (handled by vite-plugin-vuetify automatically)
+//   2. BMA design tokens       (CSS custom properties, font imports)
+//   3. BMA component overrides (targets Vuetify-generated class names)
+
+// tokens.css is imported directly in main.ts (avoids Sass @import deprecation)
+@use './overrides' as *;
+
+// ─── Utility classes ──────────────────────────────────────────────────────────
+// Thin layer of BMA-specific utilities. Prefer using these over inline styles.
+
+// Typography utilities
+.bma-font-data {
+  font-family: var(--bma-font-data) !important;
+}
+
+.bma-text-primary   { color: var(--bma-text-primary);   }
+.bma-text-secondary { color: var(--bma-text-secondary);  }
+.bma-text-muted     { color: var(--bma-text-muted);      }
+.bma-text-green     { color: var(--bma-green-500);       }
+.bma-text-emergency { color: var(--bma-emergency);       }
+.bma-text-urgency   { color: var(--bma-urgency-text);    }
+.bma-text-elective  { color: var(--bma-elective);        }
+
+// KPI number display — Inter font, various sizes
+.bma-kpi-sm  { font-family: var(--bma-font-data); font-size: var(--bma-text-kpi-sm); font-weight: 700; line-height: 1; }
+.bma-kpi-md  { font-family: var(--bma-font-data); font-size: var(--bma-text-kpi-md); font-weight: 700; line-height: 1; }
+.bma-kpi-lg  { font-family: var(--bma-font-data); font-size: var(--bma-text-kpi-lg); font-weight: 900; line-height: 1; }
+.bma-kpi-xl  { font-family: var(--bma-font-data); font-size: var(--bma-text-kpi-xl); font-weight: 900; line-height: 1; }
+
+// Detail box — dashed inner panel used in consultation cards
+.bma-detail-box {
+  background: #FAFAFA;
+  border: 1px dashed var(--bma-border);
+  border-radius: var(--bma-radius-sm);
+  padding: 9px 11px;
+  font-size: 12px;
+  color: var(--bma-text-secondary);
+  line-height: 1.8;
+
+  strong {
+    color: var(--bma-text-primary);
+  }
+}
+
+// Waiting status bar — amber strip at bottom of patient cards
+.bma-waiting-bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  border-radius: var(--bma-radius-sm);
+  background: var(--bma-urgency-bg);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--bma-urgency-text);
+
+  &::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--bma-urgency);
+    flex-shrink: 0;
+  }
+}
+
+// Count tag — small pill for file/comment/image counts on cards
+.bma-count-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 9px;
+  border-radius: var(--bma-radius-full);
+  background: var(--bma-surface-subtle);
+  border: 1px solid var(--bma-border-subtle);
+  font-size: 11px;
+  color: var(--bma-text-secondary);
+  white-space: nowrap;
+}
+
+// INR value chip — colored data chip for INR range display
+.bma-inr-chip {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: var(--bma-radius-xs);
+  font-family: var(--bma-font-data);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.bma-inr-chip--low  { background: var(--bma-inr-low-bg);  color: var(--bma-inr-low-text);  }
+.bma-inr-chip--ok   { background: var(--bma-inr-ok-bg);   color: var(--bma-inr-ok-text);   }
+.bma-inr-chip--high { background: var(--bma-inr-high-bg); color: var(--bma-inr-high-text); }
+
+// Delta (percentage change) chips
+.bma-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-family: var(--bma-font-data);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: var(--bma-radius-full);
+}
+.bma-delta--up      { background: var(--bma-success-bg);   color: var(--bma-success-text);  }
+.bma-delta--down    { background: var(--bma-emergency-bg); color: var(--bma-emergency);     }
+.bma-delta--neutral { background: var(--bma-surface-subtle); color: var(--bma-text-muted);  }
+
+// Status pill — green "accepted" / "following" pill
+.bma-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: var(--bma-radius-full);
+  background: var(--bma-green-500);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+// Nav notification badge (red dot counter)
+.bma-nav-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: var(--bma-radius-full);
+  background: var(--bma-emergency);
+  color: #fff;
+  font-family: var(--bma-font-data);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+// Page background
+.bma-page {
+  background: var(--bma-surface-subtle);
+  min-height: 100vh;
+}

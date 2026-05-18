@@ -1,0 +1,119 @@
+{
+  "lastSyncedAt": "16 ก.พ. 2569 - 12:03:14",
+
+  "warfarin": [
+    {
+      "id": "w001",
+      "name": "นายทดสอบ สอบระบบ",
+      "hn": "1-1234-567xx-xx-x",
+      "hospital": "โรงพยาบาลกลาง",
+      "status": "in-range",
+      "crcl": { "value": 25, "alert": false },
+      "inr":  { "value": 2.1, "alert": false },
+      "weight": 65.0
+    },
+    {
+      "id": "w002",
+      "name": "นายทดสอบ สอบระบบ",
+      "hn": "1-1234-567xx-xx-x",
+      "hospital": "โรงพยาบาลตากสิน",
+      "status": "under-range",
+      "crcl": { "value": 35, "alert": true },
+      "inr":  { "value": 1.8, "alert": true },
+      "weight": 72.0
+    },
+    {
+      "id": "w003",
+      "name": "นายทดสอบ สอบระบบ",
+      "hn": "1-1234-567xx-xx-x",
+      "hospital": "โรงพยาบาลกลาง",
+      "status": "in-range",
+      "crcl": { "value": 85, "alert": false },
+      "inr":  { "value": 1.1, "alert": false },
+      "weight": 64.0
+    },
+    {
+      "id": "w004",
+      "name": "นายทดสอบ สอบระบบ",
+      "hn": "1-1234-567xx-xx-x",
+      "hospital": "โรงพยาบาลกลาง",
+      "status": "over-range",
+      "crcl": { "value": 25, "alert": false },
+      "inr":  { "value": 3.5, "alert": true },
+      "weight": 64.0
+    },
+    {
+      "id": "w005",
+      "name": "นางสาวทดสอบ สอบระบบ",
+      "hn": "1-1234-568xx-xx-x",
+      "hospital": "โรงพยาบาลเจริญกรุง",
+      "status": "in-range",
+      "crcl": { "value": 60, "alert": false },
+      "inr":  { "value": 2.8, "alert": false },
+      "weight": 52.5
+    }
+  ],
+
+  "noacs": [
+    {
+      "id": "n001",
+      "name": "นางสาวทดสอบ สอบระบบ",
+      "hn": "1-2345-678xx-xx-x",
+      "hospital": "โรงพยาบาลกลาง",
+      "status": "appropriate",
+      "crcl": { "value": 55, "alert": false },
+      "egfr": { "value": 62, "alert": false },
+      "weight": 55.0
+    },
+    {
+      "id": "n002",
+      "name": "นายทดสอบ สอบระบบ",
+      "hn": "1-2345-679xx-xx-x",
+      "hospital": "โรงพยาบาลตากสิน",
+      "status": "underdose",
+      "crcl": { "value": 28, "alert": true },
+      "egfr": { "value": 32, "alert": true },
+      "weight": 68.0
+    },
+    {
+      "id": "n003",
+      "name": "นางทดสอบ สอบระบบ",
+      "hn": "1-2345-680xx-xx-x",
+      "hospital": "โรงพยาบาลกลาง",
+      "status": "appropriate",
+      "crcl": { "value": 72, "alert": false },
+      "egfr": { "value": 78, "alert": false },
+      "weight": 52.0
+    },
+    {
+      "id": "n004",
+      "name": "นายทดสอบ สอบระบบ",
+      "hn": "1-2345-681xx-xx-x",
+      "hospital": "โรงพยาบาลหัวเฉียว",
+      "status": "overdose",
+      "crcl": { "value": 45, "alert": false },
+      "egfr": { "value": 28, "alert": true },
+      "weight": 78.0
+    },
+    {
+      "id": "n005",
+      "name": "นางสาวทดสอบ สอบระบบ",
+      "hn": "1-2345-682xx-xx-x",
+      "hospital": "โรงพยาบาลเจริญกรุง",
+      "status": "contra",
+      "crcl": { "value": 18, "alert": true },
+      "egfr": { "value": 15, "alert": true },
+      "weight": 48.0
+    },
+    {
+      "id": "n006",
+      "name": "นายทดสอบ สอบระบบ",
+      "hn": "1-2345-683xx-xx-x",
+      "hospital": "โรงพยาบาลกลาง",
+      "status": "interaction",
+      "crcl": { "value": 50, "alert": false },
+      "egfr": { "value": 55, "alert": false },
+      "weight": 70.0
+    }
+  ]
+}

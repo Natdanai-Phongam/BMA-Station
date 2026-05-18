@@ -1,0 +1,84 @@
+{
+  "warfarin": {
+    "id": "warfarin",
+    "title": "WARFARIN INR",
+    "subtitle": "ติดตามผล INR ของกลุ่มผู้ใช้ยา Warfarin",
+    "iconName": "PhChartBar",
+    "iconColor": "#5C6BC0",
+    "iconBg": "#EEF2FF",
+    "totalPatients": 90,
+    "inRangeCount": 65,
+    "inRangePct": "69%",
+    "inRangeLabel": "In Range",
+    "inRangeRange": "INR 2.0–3.0",
+    "outOfRangeCount": 25,
+    "outOfRangePct": "31%",
+    "outOfRangeLabel": "INR นอกช่วงเป้าหมาย",
+    "alertCount": 25,
+    "referralCount": 7,
+    "stats": [
+      {
+        "label": "Under Range",
+        "sublabel": "INR < 2.0",
+        "color": "#FB8C00",
+        "count": 12,
+        "pctDisplay": "(13.3%)"
+      },
+      {
+        "label": "Over Range",
+        "sublabel": "INR > 3.0",
+        "color": "#E91E63",
+        "count": 13,
+        "pctDisplay": "(14.5%)"
+      }
+    ]
+  },
+  "noacs": {
+    "id": "noacs",
+    "title": "NOACs",
+    "subtitle": "ติดตามผลการจ่ายยา NOACs",
+    "iconName": "PhFirstAid",
+    "iconColor": "#7B52AB",
+    "iconBg": "#F3EEFF",
+    "totalPatients": 120,
+    "inRangeCount": 72,
+    "inRangePct": "60%",
+    "inRangeLabel": "Appropriate",
+    "inRangeRange": "",
+    "outOfRangeCount": 48,
+    "outOfRangePct": "40%",
+    "outOfRangeLabel": "ตรวจพบยาตีกัน/ขนาดยาผิดปกติ",
+    "alertCount": 12,
+    "referralCount": 3,
+    "stats": [
+      {
+        "label": "Underdose",
+        "sublabel": "",
+        "color": "#FB8C00",
+        "count": 18,
+        "pctDisplay": "(15%)"
+      },
+      {
+        "label": "Overdose",
+        "sublabel": "",
+        "color": "#E91E63",
+        "count": 12,
+        "pctDisplay": "(10.0%)"
+      },
+      {
+        "label": "Contra",
+        "sublabel": "",
+        "color": "#29B6F6",
+        "count": 10,
+        "pctDisplay": "(8.3%)"
+      },
+      {
+        "label": "Interaction",
+        "sublabel": "",
+        "color": "#7B52AB",
+        "count": 8,
+        "pctDisplay": "(6.7%)"
+      }
+    ]
+  }
+}

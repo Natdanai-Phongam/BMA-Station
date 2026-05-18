@@ -1,0 +1,418 @@
+// ─── Vuetify Component Overrides ──────────────────────────────────────────────
+// Targeted CSS overrides that bridge Vuetify's Material Design defaults and
+// the BMA Doctor visual language. Loaded after Vuetify's own CSS via main.scss.
+//
+// Rules:
+//   - No colors hardcoded here — use var(--bma-*) or var(--v-theme-*)
+//   - Keep specificity minimal; prefer class selectors over deep nesting
+//   - Group by component, alphabetical
+
+// ── Global resets ─────────────────────────────────────────────────────────────
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--bma-font-thai);
+  color: var(--bma-text-primary);
+  background-color: var(--bma-surface-subtle);
+  -webkit-font-smoothing: antialiased;
+  margin: 0px;
+}
+
+// Disable Vuetify's default letter-spacing on everything
+.v-btn,
+.v-tab,
+.v-list-item,
+.v-chip,
+.v-label {
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+// ── VAppBar ───────────────────────────────────────────────────────────────────
+
+.v-app-bar {
+  border-bottom: 1px solid var(--bma-border-subtle) !important;
+}
+
+.v-app-bar .v-toolbar__content {
+  padding: 0 20px 0 0;
+}
+
+// ── VBtn ──────────────────────────────────────────────────────────────────────
+
+.v-btn {
+  border-radius: var(--bma-radius-md) !important;
+  font-family: var(--bma-font-thai);
+  font-weight: 700;
+  font-size: 15px;
+  min-width: unset;
+  transition: background-color var(--bma-transition-fast),
+              box-shadow var(--bma-transition-fast);
+}
+
+// Primary filled — standard CTA
+.v-btn--variant-flat.v-btn--color-primary:hover {
+  background-color: var(--bma-green-600) !important;
+}
+
+// Outlined danger — cancel / destructive
+.v-btn--variant-outlined.v-btn--color-error {
+  border-color: var(--bma-emergency) !important;
+  color: var(--bma-emergency) !important;
+}
+.v-btn--variant-outlined.v-btn--color-error:hover {
+  background-color: var(--bma-emergency-bg) !important;
+}
+
+// Size variants
+.v-btn.bma-btn-sm {
+  height: 32px !important;
+  font-size: 13px !important;
+  border-radius: var(--bma-radius-sm) !important;
+}
+
+.v-btn.bma-btn-lg {
+  height: 48px !important;
+  font-size: 16px !important;
+  border-radius: 10px !important;
+}
+
+// ── VCard ─────────────────────────────────────────────────────────────────────
+
+.v-card {
+  border-radius: var(--bma-radius-lg) !important;
+  border: 1px solid var(--bma-border) !important;
+  box-shadow: var(--bma-shadow-card) !important;
+  transition: box-shadow var(--bma-transition-default),
+              border-color var(--bma-transition-default);
+}
+
+.v-card:hover {
+  box-shadow: var(--bma-shadow-md) !important;
+  border-color: var(--bma-neutral-200) !important;
+}
+
+.v-card-item {
+  padding: 14px 16px 10px;
+}
+
+.v-card-text {
+  padding: 8px 16px;
+}
+
+.v-card-actions {
+  padding: 10px 16px 14px;
+  border-top: 1px solid var(--bma-border-subtle);
+  gap: 8px;
+}
+
+.v-card-actions .v-btn {
+  flex: 1;
+  height: 36px !important;
+}
+
+// ── VChip ─────────────────────────────────────────────────────────────────────
+
+.v-chip {
+  font-family: var(--bma-font-data);
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: var(--bma-radius-full) !important;
+}
+
+// Medical priority chips — applied via the `color` prop on <v-chip>
+.v-chip.v-chip--color-error {
+  background: var(--bma-emergency-bg) !important;
+  color: var(--bma-emergency) !important;
+  border: 1px solid var(--bma-emergency-ring) !important;
+}
+
+.v-chip.v-chip--color-warning {
+  background: var(--bma-urgency-bg) !important;
+  color: var(--bma-urgency-text) !important;
+  border: 1px solid var(--bma-urgency-ring) !important;
+}
+
+.v-chip.v-chip--color-info {
+  background: var(--bma-elective-bg) !important;
+  color: var(--bma-elective) !important;
+  border: 1px solid var(--bma-elective-ring) !important;
+}
+
+.v-chip.v-chip--color-success {
+  background: var(--bma-success-bg) !important;
+  color: var(--bma-success-text) !important;
+  border: 1px solid var(--bma-success-ring) !important;
+}
+
+// Filled variant chips (e.g., EMERGENCY badge filled)
+.v-chip.v-chip--variant-flat.v-chip--color-error {
+  background: var(--bma-emergency) !important;
+  color: #fff !important;
+  border: none !important;
+}
+.v-chip.v-chip--variant-flat.v-chip--color-warning {
+  background: var(--bma-urgency) !important;
+  color: #fff !important;
+  border: none !important;
+}
+.v-chip.v-chip--variant-flat.v-chip--color-info {
+  background: var(--bma-elective) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+// ── VDataTable ────────────────────────────────────────────────────────────────
+
+.v-data-table {
+  border: 1px solid var(--bma-border-subtle);
+  border-radius: var(--bma-radius-lg) !important;
+  overflow: hidden;
+}
+
+.v-data-table thead th {
+  background-color: var(--bma-surface-subtle) !important;
+  color: var(--bma-text-muted) !important;
+  font-family: var(--bma-font-data) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  border-bottom: 2px solid var(--bma-border) !important;
+  padding: 8px 12px !important;
+}
+
+.v-data-table td {
+  color: var(--bma-text-secondary);
+  font-size: 13px;
+  padding: 10px 12px !important;
+  border-bottom: 1px solid var(--bma-border-subtle) !important;
+}
+
+.v-data-table tbody tr:hover td {
+  background-color: #FAFAFA !important;
+}
+
+// ── VDialog ───────────────────────────────────────────────────────────────────
+
+.v-overlay__content > .v-card {
+  border-radius: var(--bma-radius-xl) !important;
+  box-shadow: var(--bma-shadow-lg) !important;
+}
+
+// ── VDivider ──────────────────────────────────────────────────────────────────
+
+.v-divider {
+  border-color: var(--bma-border-subtle) !important;
+  opacity: 1 !important;
+}
+
+// ── VList / VListItem (sidebar nav) ──────────────────────────────────────────
+
+.v-list {
+  padding: 8px 0;
+}
+
+.v-list-item {
+  border-radius: var(--bma-radius-sm) !important;
+  font-size: 14px;
+  color: var(--bma-text-secondary);
+  min-height: 40px !important;
+  transition: background-color var(--bma-transition-fast),
+              color var(--bma-transition-fast);
+}
+
+.v-list-item--active {
+  background-color: var(--bma-green-50) !important;
+  color: var(--bma-green-500) !important;
+  font-weight: 700;
+}
+
+// Active indicator bar on the left edge
+.v-list-item--active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  background: var(--bma-green-500);
+  border-radius: 0 3px 3px 0;
+}
+
+.v-list-item__prepend .v-icon {
+  font-size: 18px;
+  opacity: 0.7;
+  color: currentColor;
+}
+
+.v-list-item--active .v-list-item__prepend .v-icon {
+  opacity: 1;
+}
+
+.v-navigation-drawer .v-list-group__items .v-list-item {
+  font-size: 13px;
+  color: var(--bma-text-muted);
+  padding-inline-start: 40px !important;
+}
+
+.v-navigation-drawer .v-list-group__items .v-list-item--active {
+  color: var(--bma-green-500) !important;
+  background: transparent !important;
+}
+
+.v-navigation-drawer .v-list-group__items .v-list-item--active::before {
+  display: none;
+}
+
+// ── VNavigationDrawer ────────────────────────────────────────────────────────
+
+.v-navigation-drawer {
+  border-right: 1px solid var(--bma-border-subtle) !important;
+  box-shadow: none !important;
+}
+
+// ── VPagination ───────────────────────────────────────────────────────────────
+
+.v-pagination .v-btn {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  font-family: var(--bma-font-data);
+  font-size: 13px;
+  border: 1.5px solid var(--bma-border) !important;
+  background: #fff !important;
+  color: var(--bma-text-secondary) !important;
+}
+
+.v-pagination .v-btn:hover:not(.v-btn--active) {
+  border-color: var(--bma-green-500) !important;
+  color: var(--bma-green-500) !important;
+  background: var(--bma-green-50) !important;
+}
+
+.v-pagination .v-btn.v-btn--active {
+  background: var(--bma-green-500) !important;
+  border-color: var(--bma-green-500) !important;
+  color: #fff !important;
+}
+
+// ── VSelect ───────────────────────────────────────────────────────────────────
+
+.v-select .v-field {
+  border-radius: var(--bma-radius-md) !important;
+}
+
+// ── VTab / VTabs ─────────────────────────────────────────────────────────────
+
+.v-tabs {
+  border-bottom: 2px solid var(--bma-border);
+}
+
+.v-tab {
+  font-family: var(--bma-font-thai);
+  font-size: 14px;
+  color: var(--bma-text-muted) !important;
+  padding: 10px 20px !important;
+  min-width: unset !important;
+  transition: color var(--bma-transition-fast),
+              background-color var(--bma-transition-fast);
+}
+
+.v-tab:hover {
+  color: var(--bma-text-secondary) !important;
+}
+
+.v-tab.v-tab--selected {
+  color: var(--bma-green-500) !important;
+  font-weight: 700;
+}
+
+.v-tabs .v-tabs-slider-wrapper {
+  height: 2.5px !important;
+  bottom: -1px;  // Overlap the border
+}
+
+// Tab count badge (green when tab active, neutral when not)
+.v-tab .bma-tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: var(--bma-radius-full);
+  font-family: var(--bma-font-data);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bma-text-muted);
+  margin-left: 6px;
+  transition: background var(--bma-transition-fast),
+              color var(--bma-transition-fast);
+}
+
+.v-tab--selected .bma-tab-count {
+  background: var(--bma-green-500);
+}
+
+// ── VTextField ────────────────────────────────────────────────────────────────
+
+.v-field {
+  border-radius: var(--bma-radius-md) !important;
+}
+
+.v-field--variant-outlined .v-field__outline__start,
+.v-field--variant-outlined .v-field__outline__end,
+.v-field--variant-outlined .v-field__outline__notch {
+  border-color: var(--bma-border) !important;
+}
+
+.v-field--focused .v-field__outline__start,
+.v-field--focused .v-field__outline__end,
+.v-field--focused .v-field__outline__notch {
+  border-color: var(--bma-green-500) !important;
+  border-width: 1.5px !important;
+}
+
+.v-field--error .v-field__outline__start,
+.v-field--error .v-field__outline__end,
+.v-field--error .v-field__outline__notch {
+  border-color: var(--bma-emergency) !important;
+}
+
+.v-field__input {
+  font-family: var(--bma-font-thai);
+  font-size: 15px;
+  color: var(--bma-text-primary);
+  min-height: 40px;
+}
+
+.v-field__input::placeholder {
+  color: var(--bma-neutral-300) !important;
+  opacity: 1 !important;
+}
+
+.v-messages__message {
+  font-size: 12px;
+  color: var(--bma-text-muted);
+}
+
+// ── Scrollbar (subtle, medical-grade clean) ──────────────────────────────────
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bma-neutral-200);
+  border-radius: var(--bma-radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bma-neutral-300);
+}

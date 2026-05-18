@@ -1,0 +1,66 @@
+{
+  "id": "w002",
+  "name": "นายสมชาย มั่นคง",
+  "hn": "67123456",
+  "age": 24,
+  "insuranceType": "ประกันสุขภาพ ( ทดสอบลองระบบ )",
+  "totalComplications": 5,
+  "riskLevel": "high",
+  "complicationSummary": [
+    { "type": "bleeding",        "count": 2, "lastDate": "12 มิ.ย. 68" },
+    { "type": "thromboembolism", "count": 1, "lastDate": "04 มิ.ย. 68" },
+    { "type": "side-effects",    "count": 2, "lastDate": "27 พ.ค. 68"  }
+  ],
+  "complications": [
+    {
+      "id": "c001",
+      "date": "12 มิ.ย. 2568",
+      "month": 6,
+      "type": "bleeding",
+      "detail": "GI Bleed ( UGIB )",
+      "severity": "severe",
+      "treatment": "Endoscopy, Blood Transfusion",
+      "status": "สิ้นสุดการรักษา"
+    },
+    {
+      "id": "c002",
+      "date": "04 มิ.ย. 2568",
+      "month": 6,
+      "type": "thromboembolism",
+      "detail": "Deep Vein Thrombosis",
+      "severity": "moderate",
+      "treatment": "LMWH Adjustment",
+      "status": "สิ้นสุดการรักษา"
+    },
+    {
+      "id": "c003",
+      "date": "30 พ.ค. 2568",
+      "month": 5,
+      "type": "bleeding",
+      "detail": "GI Bleed ( UGIB )",
+      "severity": "mild",
+      "treatment": "Endoscopy, Blood Transfusion",
+      "status": "สิ้นสุดการรักษา"
+    },
+    {
+      "id": "c004",
+      "date": "27 พ.ค. 2568",
+      "month": 5,
+      "type": "side-effects",
+      "detail": "GI Bleed ( UGIB )",
+      "severity": "mild",
+      "treatment": "Anti-emetics medication",
+      "status": "สิ้นสุดการรักษา"
+    },
+    {
+      "id": "c005",
+      "date": "25 พ.ค. 2568",
+      "month": 5,
+      "type": "side-effects",
+      "detail": "GI Bleed ( UGIB )",
+      "severity": "mild",
+      "treatment": "Anti-emetics medication",
+      "status": "สิ้นสุดการรักษา"
+    }
+  ]
+}

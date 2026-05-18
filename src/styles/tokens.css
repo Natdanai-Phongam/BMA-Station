@@ -1,0 +1,121 @@
+/* ─── BMA Doctor Design Tokens ────────────────────────────────────────────────
+   CSS custom properties for all BMA visual primitives.
+   These complement the Vuetify theme variables (--v-theme-*) and can be used
+   directly in any component without importing anything.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Inter:wght@400;500;600;700;900&display=swap');
+
+:root {
+  /* ── Brand: BMA Green ──────────────────────────────────────────────────── */
+  --bma-green-50:   #E6F5EE;
+  --bma-green-100:  #C3E6D4;
+  --bma-green-200:  #8DCBAA;
+  --bma-green-300:  #5DB088;
+  --bma-green-500:  #00744B;  /* brand-primary — CTA buttons, active nav */
+  --bma-green-600:  #006A33;  /* brand-dark — hover state */
+  --bma-green-700:  #215A41;  /* brand-deeper */
+  --bma-green-800:  #1A3D2C;
+  --bma-green-900:  #0D1F16;
+
+  /* ── Neutral scale ─────────────────────────────────────────────────────── */
+  --bma-neutral-0:   #FFFFFF;
+  --bma-neutral-50:  #F5F5F5;
+  --bma-neutral-100: #F0F0F0;
+  --bma-neutral-200: #D9D9D9;
+  --bma-neutral-300: #BFBFBF;
+  --bma-neutral-400: #8C8C8C;
+  --bma-neutral-500: #595959;
+  --bma-neutral-600: #454545;
+  --bma-neutral-700: #343330;  /* near-black, warm undertone */
+  --bma-neutral-900: #1F1F1F;
+
+  /* ── Semantic text roles ────────────────────────────────────────────────── */
+  --bma-text-primary:   #343330;   /* headings, main content */
+  --bma-text-secondary: #454545;   /* supporting labels, captions */
+  --bma-text-muted:     #8C8C8C;   /* placeholder, helper text */
+  --bma-text-disabled:  #BFBFBF;
+
+  /* ── Surface roles ──────────────────────────────────────────────────────── */
+  --bma-surface:         #FFFFFF;  /* cards, panels */
+  --bma-surface-subtle:  #F5F5F5;  /* page background */
+  --bma-surface-light:   #FAFAFA;  /* inner panel backgrounds */
+
+  /* ── Border ─────────────────────────────────────────────────────────────── */
+  --bma-border:        #D9D9D9;    /* inputs, cards */
+  --bma-border-subtle: #F0F0F0;   /* dividers, table rows */
+
+  /* ── Medical status ─────────────────────────────────────────────────────── */
+  --bma-emergency:       #B72C2C;
+  --bma-emergency-bg:    rgba(183, 44, 44, 0.10);
+  --bma-emergency-ring:  rgba(183, 44, 44, 0.25);
+  --bma-urgency:         #FB8C00;
+  --bma-urgency-bg:      rgba(251, 140, 0, 0.10);
+  --bma-urgency-ring:    rgba(251, 140, 0, 0.25);
+  --bma-urgency-text:    #E07A00;  /* darkened for text on light bg */
+  --bma-elective:        #2B478B;
+  --bma-elective-bg:     rgba(43, 71, 139, 0.10);
+  --bma-elective-ring:   rgba(43, 71, 139, 0.25);
+  --bma-success:         #4CAF50;
+  --bma-success-bg:      rgba(76, 175, 80, 0.10);
+  --bma-success-ring:    rgba(76, 175, 80, 0.25);
+  --bma-success-text:    #2E7D32;  /* darkened for text on light bg */
+
+  /* INR value colors (used in data tables and chips) */
+  --bma-inr-low-bg:    rgba(183, 44, 44, 0.12);
+  --bma-inr-low-text:  #B72C2C;
+  --bma-inr-high-bg:   rgba(251, 140, 0, 0.12);
+  --bma-inr-high-text: #E07A00;
+  --bma-inr-ok-bg:     rgba(76, 175, 80, 0.12);
+  --bma-inr-ok-text:   #2E7D32;
+
+  /* ── Typography ──────────────────────────────────────────────────────────── */
+  --bma-font-thai:  'Sarabun', sans-serif;
+  --bma-font-data:  'Inter', sans-serif;
+
+  /* Type scale */
+  --bma-text-xs:   12px;
+  --bma-text-sm:   14px;
+  --bma-text-base: 16px;
+  --bma-text-lg:   18px;
+  --bma-text-xl:   20px;
+  --bma-text-2xl:  24px;
+  --bma-text-3xl:  32px;
+
+  /* KPI display sizes */
+  --bma-text-kpi-sm:  24px;
+  --bma-text-kpi-md:  32px;
+  --bma-text-kpi-lg:  48px;
+  --bma-text-kpi-xl:  72px;
+
+  /* ── Spacing (4px base grid) ─────────────────────────────────────────────── */
+  --bma-space-1:   4px;
+  --bma-space-2:   8px;
+  --bma-space-3:  12px;
+  --bma-space-4:  16px;
+  --bma-space-5:  20px;
+  --bma-space-6:  24px;
+  --bma-space-8:  32px;
+  --bma-space-10: 40px;
+  --bma-space-12: 48px;
+  --bma-space-16: 64px;
+
+  /* ── Border radius ───────────────────────────────────────────────────────── */
+  --bma-radius-xs:   4px;
+  --bma-radius-sm:   6px;
+  --bma-radius-md:   8px;   /* buttons, inputs */
+  --bma-radius-lg:  12px;   /* cards — canonical */
+  --bma-radius-xl:  16px;   /* modals */
+  --bma-radius-full: 9999px; /* badges, pills */
+
+  /* ── Elevation / Shadow ──────────────────────────────────────────────────── */
+  --bma-shadow-xs:   0 1px 2px rgba(0, 0, 0, 0.06);
+  --bma-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --bma-shadow-md:   0 4px 12px rgba(0, 0, 0, 0.10), 0 1px 3px rgba(0, 0, 0, 0.06);
+  --bma-shadow-lg:   0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
+
+  /* ── Motion ─────────────────────────────────────────────────────────────── */
+  --bma-transition-fast:    150ms ease;
+  --bma-transition-default: 200ms ease;
+  --bma-transition-slow:    300ms ease;
+}
