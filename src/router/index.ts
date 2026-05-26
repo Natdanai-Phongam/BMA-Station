@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import ConsultList      from '@/pages/ConsultList.vue'
-import DdAtsDashboard  from '@/pages/DdAtsDashboard.vue'
+import DdAtsDashboard   from '@/pages/DdAtsDashboard.vue'
 import AtsPatientDetail from '@/pages/AtsPatientDetail.vue'
 
 declare module 'vue-router' {

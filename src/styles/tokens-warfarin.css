@@ -1,0 +1,86 @@
+/* ─── Warfarin / INR Clinical Token System ──────────────────────────────────────
+   Clinical color layer for the DD-ATS Warfarin Dose Titration module.
+
+   Prefix  --inr-   INR-status driven colors (state cards, badges, hold boxes)
+   Prefix  --wf-    Warfarin-specific UI (pills, interaction flags)
+
+   Consumers:  WfDoseDrawer.vue  ·  WarfarinDoseTool.vue
+   Scope:      Module-only — do NOT use outside the warfarin module.
+               Use --bma-* tokens for app-wide values.
+   ────────────────────────────────────────────────────────────────────────────── */
+
+:root {
+
+  /* ╔══ INR STATUS COLOR SYSTEM ════════════════════════════════════════════════╗
+     Six clinical states. Each has up to 5 semantic roles:
+       -text    primary text / icon color
+       -bg      surface (card bg, badge fill, hold-box header)
+       -ring    border / outline
+       -body    hold-box interior panel background
+       -hover   CTA button :hover (where applicable)
+
+     "therapeutic" defers to --bma-success-* and --bma-green-* — no duplication.
+     ╚═══════════════════════════════════════════════════════════════════════════╝ */
+
+  /* ── low ── subtherapeutic  ·  ↑ thrombosis risk  ·  amber ─────────────── */
+  --inr-low-text:  #B45309;
+  --inr-low-bg:    #FFFBF2;
+  --inr-low-ring:  #FDE68A;
+
+  /* ── therapeutic ── in-range  ·  green ─────────────────────────────────── */
+  /*  text   →  var(--bma-success-text)   = #2E7D32                           */
+  /*  bg     →  var(--bma-green-50)       = #E6F5EE                           */
+  /*  cta    →  var(--bma-green-500)      = #00744B                           */
+  --inr-therapeutic-ring: #C8E6C9;   /* hero card border — slightly warmer than --bma-green-100 */
+
+  /* ── supra ── supratherapeutic  ·  ↑ bleed risk (mild)  ·  deep orange ─── */
+  --inr-supra-text:  #E65100;
+  --inr-supra-bg:    #FFF3E0;
+  --inr-supra-ring:  #FFCCBC;
+  --inr-supra-body:  #FFFAF5;   /* hold-box interior                          */
+  --inr-supra-hover: #BF360C;   /* CTA button :hover                          */
+
+  /* ── very-high ── HOLD 1 dose  ·  red ──────────────────────────────────── */
+  /*  text/cta  →  var(--bma-emergency)   = #B72C2C                           */
+  /*  cta-hover →  var(--inr-critical-text)                                   */
+  --inr-very-high-bg:   #FEECEC;
+  --inr-very-high-ring: #FFCDD2;
+  --inr-very-high-body: #FFF8F8;   /* hold-box interior                       */
+
+  /* ── critical ── HOLD + oral Vit K  ·  deep red ─────────────────────────── */
+  --inr-critical-text:  #B71C1C;
+  --inr-critical-bg:    #FEECEC;   /* hold-box header bg                       */
+  --inr-critical-ring:  #FFCDD2;
+  --inr-critical-body:  #FFFBFB;   /* hold-box interior                        */
+
+  /* ── emergency ── HOLD + IV Vit K  ·  darkest red + pulse ─────────────── */
+  --inr-emergency-text:  #B71C1C;   /* text / icon on light bg                 */
+  --inr-emergency-fill:  #B71C1C;   /* solid header fill (hold-box)            */
+  --inr-emergency-deep:  #6A0000;   /* context badge bg · CTA base             */
+  --inr-emergency-ring:  #B71C1C;   /* border / pulse glow                     */
+  --inr-emergency-body:  #FFF5F5;   /* hold-box interior                       */
+  --inr-emergency-hover: #4A0000;   /* CTA button :hover                       */
+
+
+  /* ╔══ WARFARIN PILL ════════════════════════════════════════════════════════╗
+     Physical tablet colors — used in the 7-day schedule pill widgets.
+     ╚═════════════════════════════════════════════════════════════════════════╝ */
+  --wf-pill-blue: #1565C0;   /* 5 mg — blue tablet  */
+  --wf-pill-pink: #C2185B;   /* 3 mg — pink tablet  */
+
+
+  /* ╔══ DRUG INTERACTION FLAG ════════════════════════════════════════════════╗
+     INR-modulating concurrent medications.
+     Shown in INR hero card and WfDoseDrawer medication strip.
+
+     "increase" (↑ INR — higher bleed risk)  →  amber palette, mirrors --inr-low-*
+     "decrease" (↓ INR — lower protection)   →  blue palette,  mirrors --wf-pill-blue
+     ╚═════════════════════════════════════════════════════════════════════════╝ */
+  --wf-interact-increase-text: #B45309;   /* = --inr-low-text  */
+  --wf-interact-increase-bg:   #FFFBF2;   /* = --inr-low-bg    */
+  --wf-interact-increase-ring: #FDE68A;   /* = --inr-low-ring  */
+
+  --wf-interact-decrease-text: #1565C0;   /* = --wf-pill-blue  */
+  --wf-interact-decrease-bg:   #E3F2FD;
+  --wf-interact-decrease-ring: #90CAF9;
+}

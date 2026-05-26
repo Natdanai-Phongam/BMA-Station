@@ -86,7 +86,7 @@ import {
   PhHouse, PhIdentificationCard, PhNewspaper,
   PhFirstAid, PhPhone, PhPresentationChart,
   PhNotepad, PhArrowsClockwise, PhChatsCircle,
-  PhAddressBook, PhFolderPlus, PhBuilding, PhBed, PhUserGear,
+  PhAddressBook, PhBuilding, PhBed, PhUserGear,
 } from '@phosphor-icons/vue'
 
 const route  = useRoute()
@@ -118,8 +118,6 @@ const navItems: NavItem[] = [
   { key: 'dd-ats',       label: 'โครงการ DD-ATS',                icon: PhArrowsClockwise,    children: false, route: '/dd-ats' },
   { key: 'chat',         label: 'Easy Chat',                     icon: PhChatsCircle,        children: false },
   { key: 'registry',     label: 'ทะเบียนผู้รับบริการ',            icon: PhAddressBook,        children: true  },
-  { key: 'collect',      label: 'ส่งเรียกเก็บการตรวจสุขภาพ',     icon: PhFolderPlus,         children: false },
-  { key: 'telemed-stat', label: 'สถิติการใช้งาน Telemed',         icon: PhPhone,              children: false },
   { key: 'store',        label: 'บันทึกทะเบียนสถานที่ตรวจ',       icon: PhBuilding,           children: false },
   { key: 'bed',          label: 'ระบบเตียง',                     icon: PhBed,                children: false },
   { key: 'user',         label: 'User Manager',                  icon: PhUserGear,           children: false },
@@ -168,33 +166,33 @@ function handleSubClick(sub: { key: string; route?: string }) {
   padding: 0 20px;
   width: 100%;
   height: 64px;
-  border-right: 1px solid #F0F0F0;
+  border-right: 1px solid var(--bma-border-subtle);
   flex-shrink: 0;
 }
 
-.logo-th { font-size: 15px; font-weight: 700; color: #00744B; line-height: 1.15; }
-.logo-en { font-size: 9px; color: #8C8C8C; letter-spacing: .06em; font-family: 'Inter', sans-serif; text-transform: uppercase; }
+.logo-th { font-size: 15px; font-weight: 700; color: var(--bma-green-500); line-height: 1.15; }
+.logo-en { font-size: 9px; color: var(--bma-text-muted); letter-spacing: .06em; font-family: var(--bma-font-data); text-transform: uppercase; }
 
 .topbar-right { display: flex; align-items: center; gap: 12px; }
 
 .lang-toggle {
   display: flex;
-  border: 1.5px solid #D9D9D9;
-  border-radius: 6px;
+  border: 1.5px solid var(--bma-border);
+  border-radius: var(--bma-radius-sm);
   overflow: hidden;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--bma-font-data);
   font-size: 12px;
   font-weight: 600;
 }
-.lang-btn    { padding: 4px 10px; cursor: pointer; color: #8C8C8C; }
-.lang-active { background: #00744B; color: #fff; }
+.lang-btn    { padding: 4px 10px; cursor: pointer; color: var(--bma-text-muted); }
+.lang-active { background: var(--bma-green-500); color: var(--bma-surface); }
 
 .notif-wrap {
   position: relative;
   width: 36px;
   height: 36px;
-  border: 1.5px solid #D9D9D9;
-  border-radius: 8px;
+  border: 1.5px solid var(--bma-border);
+  border-radius: var(--bma-radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -207,18 +205,18 @@ function handleSubClick(sub: { key: string; route?: string }) {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #B72C2C;
-  border: 1.5px solid #fff;
+  background: var(--bma-emergency);
+  border: 1.5px solid var(--bma-surface);
 }
 .user-chip {
   display: flex;
   align-items: center;
   gap: 4px;
   padding: 4px 10px;
-  border: 1.5px solid #D9D9D9;
-  border-radius: 99px;
+  border: 1.5px solid var(--bma-border);
+  border-radius: var(--bma-radius-full);
   font-size: 13px;
-  color: #454545;
+  color: var(--bma-text-secondary);
   cursor: pointer;
 }
 
@@ -234,23 +232,23 @@ function handleSubClick(sub: { key: string; route?: string }) {
   align-items: center;
   gap: 9px;
   padding: 9px 10px;
-  border-radius: 6px;
+  border-radius: var(--bma-radius-sm);
   font-size: 13px;
-  color: #595959;
+  color: var(--bma-text-tertiary);
   cursor: pointer;
-  transition: background .15s, color .15s;
+  transition: background var(--bma-transition-fast), color var(--bma-transition-fast);
   position: relative;
   user-select: none;
   margin-bottom: 1px;
 }
-.nav-item:hover { background: #E6F5EE; }
-.nav-item--active { background: #E6F5EE; color: #00744B; font-weight: 700; }
+.nav-item:hover { background: var(--bma-green-50); }
+.nav-item--active { background: var(--bma-green-50); color: var(--bma-green-500); font-weight: 700; }
 .nav-item--active::before {
   content: '';
   position: absolute;
   left: 0; top: 6px; bottom: 6px;
   width: 3px;
-  background: #00744B;
+  background: var(--bma-green-500);
   border-radius: 0 3px 3px 0;
 }
 .nav-icon  { flex-shrink: 0; display: block; }
@@ -262,13 +260,13 @@ function handleSubClick(sub: { key: string; route?: string }) {
   gap: 8px;
   padding: 7px 10px 7px 36px;
   font-size: 12.5px;
-  color: #8C8C8C;
+  color: var(--bma-text-muted);
   cursor: pointer;
-  transition: color .15s;
+  transition: color var(--bma-transition-fast);
   margin-bottom: 1px;
 }
-.nav-sub:hover { color: #00744B; }
-.nav-sub--active { color: #00744B; font-weight: 700; }
+.nav-sub:hover { color: var(--bma-green-500); }
+.nav-sub--active { color: var(--bma-green-500); font-weight: 700; }
 .nav-sub-bullet {
   width: 5px;
   height: 5px;

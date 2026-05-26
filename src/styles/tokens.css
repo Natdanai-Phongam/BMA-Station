@@ -33,6 +33,7 @@
   /* ── Semantic text roles ────────────────────────────────────────────────── */
   --bma-text-primary:   #343330;   /* headings, main content */
   --bma-text-secondary: #454545;   /* supporting labels, captions */
+  --bma-text-tertiary:  #595959;   /* body text, nav labels */
   --bma-text-muted:     #8C8C8C;   /* placeholder, helper text */
   --bma-text-disabled:  #BFBFBF;
 
@@ -43,6 +44,8 @@
 
   /* ── Border ─────────────────────────────────────────────────────────────── */
   --bma-border:        #D9D9D9;    /* inputs, cards */
+  --bma-border-muted:  #E0E0E0;   /* tab bars, section separators */
+  --bma-border-card:   #E8E8E8;   /* card / panel inner borders */
   --bma-border-subtle: #F0F0F0;   /* dividers, table rows */
 
   /* ── Medical status ─────────────────────────────────────────────────────── */

@@ -70,7 +70,7 @@ const valueColor = computed(() => {
 
 /* ── Label ─────────────────────────────────────────────────── */
 .bma-kpi-card__label {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--bma-font-data);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -81,7 +81,7 @@ const valueColor = computed(() => {
 
 /* ── Value (big number) ────────────────────────────────────── */
 .bma-kpi-card__value {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--bma-font-data);
   font-size: 28px;
   font-weight: 700;
   color: var(--bma-text-primary);
@@ -90,7 +90,7 @@ const valueColor = computed(() => {
 
 /* ── Unit ──────────────────────────────────────────────────── */
 .bma-kpi-card__unit {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--bma-font-data);
   font-size: 12px;
   color: var(--bma-text-muted);
   margin-top: 4px;
@@ -113,13 +113,14 @@ const valueColor = computed(() => {
 
 .bma-kpi-card--ttr .bma-kpi-card__label {
   color: rgba(255, 255, 255, 0.70);
+  font-family: var(--bma-font-data);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 10px;
 }
 
 .bma-kpi-card--ttr .bma-kpi-card__value {
-  color: #fff;
+  color: var(--bma-surface);
   font-size: 36px;
   font-weight: 900;
 }
@@ -134,10 +135,10 @@ const valueColor = computed(() => {
   display: inline-block;
   margin-top: 10px;
   padding: 3px 10px;
-  border-radius: 9999px;
+  border-radius: var(--bma-radius-full);
   background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  font-family: 'Inter', sans-serif;
+  color: var(--bma-surface);
+  font-family: var(--bma-font-data);
   font-size: 11px;
   font-weight: 700;
 }

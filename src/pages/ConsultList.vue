@@ -53,7 +53,7 @@
     <!-- Card grid -->
     <div class="card-grid">
       <div
-        v-for="card in visibleCards"
+        v-for="card in cards"
         :key="card.id"
         class="consult-card"
       >
@@ -65,7 +65,7 @@
               <span class="badge-dot" />
               {{ card.priority }}
             </span>
-            <span class="status-pill">
+            <span class="bma-status-pill">
               <PhCheckSquare :size="11" color="white" />
               {{ card.statusLabel }}
             </span>
@@ -90,10 +90,10 @@
           </template>
 
           <template v-if="card.details?.length">
-            <div class="detail-box">
+            <div class="bma-detail-box">
               <div v-for="(d, i) in card.details" :key="i" class="detail-line">
-                <span class="detail-label">{{ d.label }} :</span>
-                <span v-if="d.highlight" class="detail-highlight">{{ d.value }}</span>
+                <strong>{{ d.label }} :</strong>
+                <span v-if="d.highlight" class="bma-detail-highlight">{{ d.value }}</span>
                 <span v-else>{{ d.value }}</span>
               </div>
             </div>
@@ -106,13 +106,12 @@
           </template>
         </div>
 
-        <div v-if="card.waitingLabel" class="waiting-bar">
-          <span class="waiting-dot" />
+        <div v-if="card.waitingLabel" class="bma-waiting-bar" style="margin: 0 16px 10px">
           {{ card.waitingLabel }}
         </div>
 
         <div v-if="card.counts?.length" class="count-row">
-          <span v-for="(c, i) in card.counts" :key="i" class="count-tag">
+          <span v-for="(c, i) in card.counts" :key="i" class="bma-count-tag">
             <component :is="countIcons[i]?.icon" :size="12" :color="countIcons[i]?.color ?? '#595959'" />
             {{ c }}
           </span>
@@ -163,7 +162,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import {
   PhPlus, PhMagnifyingGlass, PhCalendar, PhCaretDown,
   PhCheckSquare, PhPaperclip, PhChatCircle, PhImage,
@@ -261,7 +260,6 @@ const cards: ConsultCard[] = [
   },
 ]
 
-const visibleCards = computed(() => cards)
 </script>
 
 <style scoped>
@@ -280,7 +278,7 @@ const visibleCards = computed(() => cards)
 .page-title {
   font-size: 18px;
   font-weight: 700;
-  color: #343330;
+  color: var(--bma-text-primary);
 }
 .btn-send {
   display: inline-flex;
@@ -288,39 +286,19 @@ const visibleCards = computed(() => cards)
   gap: 6px;
   height: 40px;
   padding: 16px;
-  background: #00744B;
-  color: #fff;
+  background: var(--bma-green-500);
+  color: var(--bma-surface);
   border: none;
-  border-radius: 8px;
-  font-family: 'Sarabun', sans-serif;
+  border-radius: var(--bma-radius-md);
+  font-family: var(--bma-font-thai);
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  transition: background .15s;
+  transition: background var(--bma-transition-fast);
 }
-.btn-send:hover { background: #006A33; }
+.btn-send:hover { background: var(--bma-green-600); }
 
-/* ── Tabs ─────────────────────────────────────────────────── */
-.tabs-wrap {
-  display: flex;
-  border-bottom: 2px solid #E0E0E0;
-}
-.bma-tab {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 16px;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  border-bottom: 2.5px solid transparent;
-  margin-bottom: -2px;
-  white-space: nowrap;
-  transition: color .15s;
-}
-.bma-tab:hover { color: #00744B; background: rgba(255,255,255,.25); }
-.bma-tab--active { color: #00744B; font-weight: 700; border-bottom-color: #00744B; }
-
+/* ── Tabs — .tabs-wrap / .bma-tab are global (main.scss) ─── */
 .tab-count {
   display: inline-flex;
   align-items: center;
@@ -328,15 +306,15 @@ const visibleCards = computed(() => cards)
   min-width: 40px;
   height: 24px;
   padding: 8px;
-  border-radius: 99px;
-  font-family: 'Inter', sans-serif;
+  border-radius: var(--bma-radius-full);
+  font-family: var(--bma-font-data);
   font-size: 12px;
   font-weight: 700;
-  background: #F0F0F0;
-  color: #595959;
-  transition: background .15s, color .15s;
+  background: var(--bma-border-subtle);
+  color: var(--bma-text-tertiary);
+  transition: background var(--bma-transition-fast), color var(--bma-transition-fast);
 }
-.tab-count--active { background: #00744B; color: #fff; }
+.tab-count--active { background: var(--bma-green-500); color: var(--bma-surface); }
 
 .main-wrap {
   padding: 24px;
@@ -348,8 +326,8 @@ const visibleCards = computed(() => cards)
   gap: 10px;
   align-items: center;
   padding: 14px 16px;
-  background: #fff;
-  border: 1px solid #E8E8E8;
+  background: var(--bma-surface);
+  border: 1px solid var(--bma-border-card);
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0,0,0,.05);
   margin-bottom: 22px;
@@ -374,19 +352,19 @@ const visibleCards = computed(() => cards)
 .filter-input {
   width: 100%;
   height: 40px;
-  border: 1.5px solid #D9D9D9;
-  border-radius: 8px;
-  font-family: 'Sarabun', sans-serif;
+  border: 1.5px solid var(--bma-border);
+  border-radius: var(--bma-radius-md);
+  font-family: var(--bma-font-thai);
   font-size: 14px;
-  color: #343330;
-  background: #fff;
+  color: var(--bma-text-primary);
+  background: var(--bma-surface);
   outline: none;
-  transition: border-color .15s;
+  transition: border-color var(--bma-transition-fast);
 }
 .filter-search .filter-input { padding: 0 12px 0 36px; }
 .filter-date   .filter-input { padding: 0 36px 0 12px; }
-.filter-input::placeholder   { color: #BFBFBF; }
-.filter-input:focus { border-color: #00744B; box-shadow: 0 0 0 3px rgba(0,116,75,.08); }
+.filter-input::placeholder   { color: var(--bma-text-disabled); }
+.filter-input:focus { border-color: var(--bma-green-500); box-shadow: 0 0 0 3px rgba(0,116,75,.08); }
 .filter-select-wrap {
   position: relative;
   width: 170px;
@@ -395,34 +373,34 @@ const visibleCards = computed(() => cards)
 .filter-select {
   width: 100%;
   height: 40px;
-  border: 1.5px solid #D9D9D9;
-  border-radius: 8px;
+  border: 1.5px solid var(--bma-border);
+  border-radius: var(--bma-radius-md);
   padding: 0 32px 0 12px;
-  font-family: 'Sarabun', sans-serif;
+  font-family: var(--bma-font-thai);
   font-size: 14px;
-  color: #343330;
-  background: #fff;
+  color: var(--bma-text-primary);
+  background: var(--bma-surface);
   appearance: none;
   outline: none;
   cursor: pointer;
 }
-.filter-select:focus { border-color: #00744B; }
+.filter-select:focus { border-color: var(--bma-green-500); }
 .select-arrow { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; }
 .btn-search {
   height: 40px;
   padding: 0 22px;
-  background: #00744B;
-  color: #fff;
+  background: var(--bma-green-500);
+  color: var(--bma-surface);
   border: none;
-  border-radius: 8px;
-  font-family: 'Sarabun', sans-serif;
+  border-radius: var(--bma-radius-md);
+  font-family: var(--bma-font-thai);
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   flex-shrink: 0;
-  transition: background .15s;
+  transition: background var(--bma-transition-fast);
 }
-.btn-search:hover { background: #006A33; }
+.btn-search:hover { background: var(--bma-green-600); }
 
 /* ── Card grid ────────────────────────────────────────────── */
 .card-grid {
@@ -433,18 +411,18 @@ const visibleCards = computed(() => cards)
 }
 
 .consult-card {
-  background: #fff;
-  border-radius: 12px;
-  border: 1px solid #E8E8E8;
-  box-shadow: 0 2px 8px rgba(0,0,0,.07);
+  background: var(--bma-surface);
+  border-radius: var(--bma-radius-lg);
+  border: 1px solid var(--bma-border-card);
+  box-shadow: var(--bma-shadow-card);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: box-shadow .2s, border-color .2s;
+  transition: box-shadow var(--bma-transition-default), border-color var(--bma-transition-default);
 }
 .consult-card:hover {
   box-shadow: 0 6px 20px rgba(0,0,0,.10);
-  border-color: #D9D9D9;
+  border-color: var(--bma-border);
 }
 
 .card-body { padding: 14px 16px 10px; flex: 1; }
@@ -452,7 +430,7 @@ const visibleCards = computed(() => cards)
 .card-diag {
   font-size: 14px;
   font-weight: 700;
-  color: #343330;
+  color: var(--bma-text-primary);
   margin-bottom: 10px;
   line-height: 1.4;
 }
@@ -469,8 +447,8 @@ const visibleCards = computed(() => cards)
   align-items: center;
   gap: 4px;
   padding: 3px 10px;
-  border-radius: 99px;
-  font-family: 'Inter', sans-serif;
+  border-radius: var(--bma-radius-full);
+  font-family: var(--bma-font-data);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: .03em;
@@ -478,86 +456,33 @@ const visibleCards = computed(() => cards)
 }
 .badge-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
-.priority-badge--emergency { background: #B72C2C; color: #fff; }
+.priority-badge--emergency { background: var(--bma-emergency); color: var(--bma-surface); }
 .priority-badge--emergency .badge-dot { background: rgba(255,255,255,.5); }
 
-.priority-badge--urgency { background: #FB8C00; color: #fff; }
+.priority-badge--urgency { background: var(--bma-urgency); color: var(--bma-surface); }
 .priority-badge--urgency .badge-dot { background: rgba(255,255,255,.5); }
 
-.priority-badge--elective { background: rgba(43,71,139,.10); color: #2B478B; border: 1px solid rgba(43,71,139,.25); }
-.priority-badge--elective .badge-dot { background: #2B478B; }
-
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 10px;
-  border-radius: 99px;
-  background: #00744B;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 600;
-  white-space: nowrap;
-}
+.priority-badge--elective { background: var(--bma-elective-bg); color: var(--bma-elective); border: 1px solid var(--bma-elective-ring); }
+.priority-badge--elective .badge-dot { background: var(--bma-elective); }
 
 .card-line {
   font-size: 13px;
-  color: #595959;
+  color: var(--bma-text-tertiary);
   margin-bottom: 4px;
   line-height: 1.5;
 }
-.card-field { font-weight: 700; color: #343330; margin-right: 3px; }
+.card-field { font-weight: 700; color: var(--bma-text-primary); margin-right: 3px; }
 
 .patient-info {
   font-size: 13px;
-  color: #595959;
+  color: var(--bma-text-tertiary);
   line-height: 1.75;
   margin-top: 8px;
 }
-.patient-info strong { color: #343330; }
+.patient-info strong { color: var(--bma-text-primary); }
 
-.detail-box {
-  background: #FAFAFA;
-  border: 1px dashed #D9D9D9;
-  border-radius: 7px;
-  padding: 9px 11px;
-  margin: 10px 0;
-  font-size: 12px;
-  color: #595959;
-}
-.detail-line  { line-height: 1.8; }
-.detail-label { font-weight: 700; color: #343330; margin-right: 3px; }
-.detail-highlight {
-  display: inline-block;
-  background: #B72C2C;
-  color: #fff;
-  padding: 1px 7px;
-  border-radius: 4px;
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  margin-left: 3px;
-}
-
-.waiting-bar {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin: 0 16px 10px;
-  padding: 7px 12px;
-  border-radius: 8px;
-  background: rgba(251,140,0,.09);
-  font-size: 13px;
-  font-weight: 700;
-  color: #D97706;
-}
-.waiting-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #FB8C00;
-  flex-shrink: 0;
-}
+/* .bma-detail-box, .bma-waiting-bar, .bma-count-tag, .bma-status-pill are global (main.scss) */
+.detail-line { line-height: 1.8; }
 
 .count-row {
   display: flex;
@@ -565,24 +490,12 @@ const visibleCards = computed(() => cards)
   flex-wrap: wrap;
   padding: 0 16px 8px;
 }
-.count-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  padding: 3px 9px;
-  border-radius: 99px;
-  background: #F5F5F5;
-  border: 1px solid #EBEBEB;
-  font-size: 11px;
-  color: #595959;
-  white-space: nowrap;
-}
 
 .card-footer {
   display: flex;
   gap: 8px;
   padding: 10px 16px 14px;
-  border-top: 1px solid #F0F0F0;
+  border-top: 1px solid var(--bma-border-subtle);
   margin-top: auto;
 }
 .btn-detail,
@@ -590,15 +503,15 @@ const visibleCards = computed(() => cards)
   flex: 1;
   height: 36px;
   border-radius: 7px;
-  font-family: 'Sarabun', sans-serif;
+  font-family: var(--bma-font-thai);
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  transition: background .15s;
+  transition: background var(--bma-transition-fast);
 }
-.btn-detail { background: #00744B; color: #fff; border: none; }
-.btn-detail:hover { background: #006A33; }
-.btn-cancel { background: #fff; color: #B72C2C; border: 1.5px solid #B72C2C; }
+.btn-detail { background: var(--bma-green-500); color: var(--bma-surface); border: none; }
+.btn-detail:hover { background: var(--bma-green-600); }
+.btn-cancel { background: var(--bma-surface); color: var(--bma-emergency); border: 1.5px solid var(--bma-emergency); }
 .btn-cancel:hover { background: rgba(183,44,44,.05); }
 
 /* ── Pagination ───────────────────────────────────────────── */
@@ -611,43 +524,43 @@ const visibleCards = computed(() => cards)
 .pg-btn {
   width: 32px;
   height: 32px;
-  border-radius: 6px;
-  border: 1.5px solid #D9D9D9;
-  background: #fff;
+  border-radius: var(--bma-radius-sm);
+  border: 1.5px solid var(--bma-border);
+  background: var(--bma-surface);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--bma-font-data);
   font-size: 13px;
   font-weight: 500;
-  color: #454545;
-  transition: all .15s;
+  color: var(--bma-text-secondary);
+  transition: all var(--bma-transition-fast);
 }
 .pg-btn:not(.pg-btn--active):not(.pg-btn--disabled):hover {
-  border-color: #00744B;
-  color: #00744B;
-  background: #E6F5EE;
+  border-color: var(--bma-green-500);
+  color: var(--bma-green-500);
+  background: var(--bma-green-50);
 }
-.pg-btn--active   { background: #00744B; border-color: #00744B; color: #fff; font-weight: 700; }
-.pg-btn--disabled { color: #D9D9D9; cursor: not-allowed; }
+.pg-btn--active   { background: var(--bma-green-500); border-color: var(--bma-green-500); color: var(--bma-surface); font-weight: 700; }
+.pg-btn--disabled { color: var(--bma-border); cursor: not-allowed; }
 
 .pg-info {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--bma-font-data);
   font-size: 12px;
-  color: #8C8C8C;
+  color: var(--bma-text-muted);
 }
 .pg-select {
   height: 28px;
-  border: 1.5px solid #D9D9D9;
-  border-radius: 6px;
+  border: 1.5px solid var(--bma-border);
+  border-radius: var(--bma-radius-sm);
   padding: 0 22px 0 8px;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--bma-font-data);
   font-size: 12px;
-  background: #fff url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 4l3 3 3-3' stroke='%238c8c8c' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 6px center;
+  background: var(--bma-surface) url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 4l3 3 3-3' stroke='%238c8c8c' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 6px center;
   cursor: pointer;
   appearance: none;
   outline: none;

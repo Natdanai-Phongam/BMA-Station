@@ -1,0 +1,333 @@
+{
+  "w001": {
+    "profile": {
+      "patientId": "w001",
+      "pillStrengthMg": 5,
+      "currentDoseMgWk": 35.0,
+      "targetRange": { "min": 2.0, "max": 3.0, "label": "Standard (2.0–3.0)" },
+      "therapyStartDate": "2025-08-10",
+      "protocol": { "id": "standard-warfarin-v1", "label": "Standard Warfarin Protocol", "inrBelow": 2.0, "inrAbove": 3.0, "minPct": 0.10, "maxPct": 0.20, "maxStepTab": 0.5, "roundingUnit": 0.5 },
+      "ttrGoalPct": 70,
+      "concurrentMeds": [
+        { "name": "Amiodarone 200 mg", "effect": "increase", "severity": "major", "note": "ยับยั้ง CYP2C9/3A4 — เพิ่ม INR อย่างมีนัยสำคัญ" },
+        { "name": "Fluconazole 150 mg", "effect": "increase", "severity": "major", "note": "เริ่มใช้เมื่อ 2 สัปดาห์ก่อน — ยับยั้ง CYP2C9" }
+      ]
+    },
+    "latestInr": { "id": "inr-w001-008", "patientId": "w001", "inrValue": 10.5, "measuredAt": "2026-02-10T09:30:00+07:00", "source": "manual", "notes": "" },
+    "inrHistory": [
+      { "id": "inr-w001-001", "patientId": "w001", "inrValue": 1.9, "measuredAt": "2025-09-02T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w001-002", "patientId": "w001", "inrValue": 2.5, "measuredAt": "2025-09-23T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w001-003", "patientId": "w001", "inrValue": 2.8, "measuredAt": "2025-10-14T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w001-004", "patientId": "w001", "inrValue": 3.3, "measuredAt": "2025-11-04T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w001-005", "patientId": "w001", "inrValue": 5.2, "measuredAt": "2025-11-25T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w001-006", "patientId": "w001", "inrValue": 7.6, "measuredAt": "2025-12-16T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w001-007", "patientId": "w001", "inrValue": 9.0, "measuredAt": "2026-01-13T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w001-008", "patientId": "w001", "inrValue": 10.5, "measuredAt": "2026-02-10T09:30:00+07:00", "source": "manual" }
+    ],
+    "doseAdjustments": [],
+    "ttr": { "value": 29.0, "status": "below-goal", "goalPct": 70, "fromDate": "2025-09-02", "toDate": "2026-02-10", "daysInRange": 47, "daysCalculable": 161 }
+  },
+
+  "w002": {
+    "profile": {
+      "patientId": "w002",
+      "pillStrengthMg": 3,
+      "currentDoseMgWk": 21.0,
+      "targetRange": { "min": 2.0, "max": 3.0, "label": "Standard (2.0–3.0)" },
+      "therapyStartDate": "2025-08-20",
+      "protocol": { "id": "standard-warfarin-v1", "label": "Standard Warfarin Protocol", "inrBelow": 2.0, "inrAbove": 3.0, "minPct": 0.10, "maxPct": 0.20, "maxStepTab": 0.5, "roundingUnit": 0.5 },
+      "ttrGoalPct": 70,
+      "concurrentMeds": [
+        { "name": "Ciprofloxacin 500 mg", "effect": "increase", "severity": "major", "note": "ลด Vitamin K flora ในลำไส้ — เพิ่ม INR" },
+        { "name": "Omeprazole 20 mg", "effect": "increase", "severity": "moderate", "note": "ยับยั้ง CYP2C19 อย่างอ่อน" }
+      ]
+    },
+    "latestInr": { "id": "inr-w002-008", "patientId": "w002", "inrValue": 5.8, "measuredAt": "2026-02-16T10:15:00+07:00", "source": "manual", "notes": "" },
+    "inrHistory": [
+      { "id": "inr-w002-001", "patientId": "w002", "inrValue": 2.1, "measuredAt": "2025-09-10T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w002-002", "patientId": "w002", "inrValue": 2.6, "measuredAt": "2025-09-30T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w002-003", "patientId": "w002", "inrValue": 3.0, "measuredAt": "2025-10-21T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w002-004", "patientId": "w002", "inrValue": 3.5, "measuredAt": "2025-11-11T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w002-005", "patientId": "w002", "inrValue": 4.1, "measuredAt": "2025-12-02T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w002-006", "patientId": "w002", "inrValue": 4.8, "measuredAt": "2025-12-23T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w002-007", "patientId": "w002", "inrValue": 5.3, "measuredAt": "2026-01-20T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w002-008", "patientId": "w002", "inrValue": 5.8, "measuredAt": "2026-02-16T10:15:00+07:00", "source": "manual" }
+    ],
+    "doseAdjustments": [],
+    "ttr": { "value": 26.0, "status": "below-goal", "goalPct": 70, "fromDate": "2025-09-10", "toDate": "2026-02-16", "daysInRange": 41, "daysCalculable": 159 }
+  },
+
+  "w003": {
+    "profile": {
+      "patientId": "w003",
+      "pillStrengthMg": 3,
+      "currentDoseMgWk": 18.0,
+      "targetRange": { "min": 2.0, "max": 3.0, "label": "Standard (2.0–3.0)" },
+      "therapyStartDate": "2025-07-15",
+      "protocol": { "id": "standard-warfarin-v1", "label": "Standard Warfarin Protocol", "inrBelow": 2.0, "inrAbove": 3.0, "minPct": 0.10, "maxPct": 0.20, "maxStepTab": 0.5, "roundingUnit": 0.5 },
+      "ttrGoalPct": 70,
+      "concurrentMeds": [
+        { "name": "Metronidazole 400 mg", "effect": "increase", "severity": "major", "note": "ยับยั้ง CYP2C9 — ระวังใช้ร่วมกับ Warfarin" },
+        { "name": "Simvastatin 20 mg", "effect": "increase", "severity": "moderate" }
+      ]
+    },
+    "latestInr": { "id": "inr-w003-008", "patientId": "w003", "inrValue": 4.2, "measuredAt": "2026-02-11T09:00:00+07:00", "source": "manual", "notes": "" },
+    "inrHistory": [
+      { "id": "inr-w003-001", "patientId": "w003", "inrValue": 1.6, "measuredAt": "2025-08-05T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w003-002", "patientId": "w003", "inrValue": 2.3, "measuredAt": "2025-08-26T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w003-003", "patientId": "w003", "inrValue": 2.7, "measuredAt": "2025-09-16T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w003-004", "patientId": "w003", "inrValue": 2.9, "measuredAt": "2025-10-07T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w003-005", "patientId": "w003", "inrValue": 3.1, "measuredAt": "2025-10-28T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w003-006", "patientId": "w003", "inrValue": 3.5, "measuredAt": "2025-11-18T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w003-007", "patientId": "w003", "inrValue": 3.9, "measuredAt": "2025-12-09T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w003-008", "patientId": "w003", "inrValue": 4.2, "measuredAt": "2026-02-11T09:00:00+07:00", "source": "manual" }
+    ],
+    "doseAdjustments": [],
+    "ttr": { "value": 31.0, "status": "below-goal", "goalPct": 70, "fromDate": "2025-08-05", "toDate": "2026-02-11", "daysInRange": 65, "daysCalculable": 190 }
+  },
+
+  "w004": {
+    "profile": {
+      "patientId": "w004",
+      "pillStrengthMg": 5,
+      "currentDoseMgWk": 25.0,
+      "targetRange": { "min": 2.0, "max": 3.0, "label": "Standard (2.0–3.0)" },
+      "therapyStartDate": "2025-09-22",
+      "protocol": { "id": "standard-warfarin-v1", "label": "Standard Warfarin Protocol", "inrBelow": 2.0, "inrAbove": 3.0, "minPct": 0.10, "maxPct": 0.20, "maxStepTab": 0.5, "roundingUnit": 0.5 },
+      "ttrGoalPct": 70,
+      "concurrentMeds": [
+        { "name": "Aspirin 81 mg", "effect": "increase", "severity": "moderate", "note": "เพิ่มความเสี่ยงเลือดออก แม้ขนาดต่ำ — ติดตาม GI" }
+      ]
+    },
+    "latestInr": { "id": "inr-w004-007", "patientId": "w004", "inrValue": 3.7, "measuredAt": "2026-02-13T09:00:00+07:00", "source": "manual", "notes": "" },
+    "inrHistory": [
+      { "id": "inr-w004-001", "patientId": "w004", "inrValue": 1.8, "measuredAt": "2025-10-13T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w004-002", "patientId": "w004", "inrValue": 2.3, "measuredAt": "2025-11-03T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w004-003", "patientId": "w004", "inrValue": 2.7, "measuredAt": "2025-11-24T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w004-004", "patientId": "w004", "inrValue": 2.9, "measuredAt": "2025-12-15T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w004-005", "patientId": "w004", "inrValue": 3.1, "measuredAt": "2026-01-05T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w004-006", "patientId": "w004", "inrValue": 3.4, "measuredAt": "2026-01-26T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w004-007", "patientId": "w004", "inrValue": 3.7, "measuredAt": "2026-02-13T09:00:00+07:00", "source": "manual" }
+    ],
+    "doseAdjustments": [],
+    "ttr": { "value": 48.0, "status": "below-goal", "goalPct": 70, "fromDate": "2025-10-13", "toDate": "2026-02-13", "daysInRange": 62, "daysCalculable": 123 }
+  },
+
+  "w005": {
+    "profile": {
+      "patientId": "w005",
+      "pillStrengthMg": 3,
+      "currentDoseMgWk": 15.0,
+      "targetRange": { "min": 2.0, "max": 3.0, "label": "Standard (2.0–3.0)" },
+      "therapyStartDate": "2025-08-08",
+      "protocol": { "id": "standard-warfarin-v1", "label": "Standard Warfarin Protocol", "inrBelow": 2.0, "inrAbove": 3.0, "minPct": 0.10, "maxPct": 0.20, "maxStepTab": 0.5, "roundingUnit": 0.5 },
+      "ttrGoalPct": 70,
+      "concurrentMeds": [
+        { "name": "Ibuprofen 400 mg (PRN)", "effect": "increase", "severity": "moderate", "note": "NSAID — เพิ่มความเสี่ยงเลือดออก GI ยับยั้ง COX-1" }
+      ]
+    },
+    "latestInr": { "id": "inr-w005-008", "patientId": "w005", "inrValue": 3.4, "measuredAt": "2026-02-14T09:15:00+07:00", "source": "manual", "notes": "" },
+    "inrHistory": [
+      { "id": "inr-w005-001", "patientId": "w005", "inrValue": 1.7, "measuredAt": "2025-08-29T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w005-002", "patientId": "w005", "inrValue": 2.2, "measuredAt": "2025-09-19T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w005-003", "patientId": "w005", "inrValue": 2.6, "measuredAt": "2025-10-10T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w005-004", "patientId": "w005", "inrValue": 2.4, "measuredAt": "2025-10-31T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w005-005", "patientId": "w005", "inrValue": 2.8, "measuredAt": "2025-11-21T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w005-006", "patientId": "w005", "inrValue": 2.9, "measuredAt": "2025-12-12T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w005-007", "patientId": "w005", "inrValue": 3.1, "measuredAt": "2026-01-09T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w005-008", "patientId": "w005", "inrValue": 3.4, "measuredAt": "2026-02-14T09:15:00+07:00", "source": "manual" }
+    ],
+    "doseAdjustments": [],
+    "ttr": { "value": 54.0, "status": "below-goal", "goalPct": 70, "fromDate": "2025-08-29", "toDate": "2026-02-14", "daysInRange": 93, "daysCalculable": 169 }
+  },
+
+  "w006": {
+    "profile": {
+      "patientId": "w006",
+      "pillStrengthMg": 3,
+      "currentDoseMgWk": 12.0,
+      "targetRange": { "min": 2.0, "max": 3.0, "label": "Standard (2.0–3.0)" },
+      "therapyStartDate": "2025-05-20",
+      "protocol": { "id": "standard-warfarin-v1", "label": "Standard Warfarin Protocol", "inrBelow": 2.0, "inrAbove": 3.0, "minPct": 0.10, "maxPct": 0.20, "maxStepTab": 0.5, "roundingUnit": 0.5 },
+      "ttrGoalPct": 70,
+      "concurrentMeds": [
+        { "name": "Rifampicin 600 mg", "effect": "decrease", "severity": "major", "note": "กระตุ้น CYP2C9 อย่างมาก — ลด Warfarin level อย่างมีนัยสำคัญ (TB Rx)" }
+      ]
+    },
+    "latestInr": { "id": "inr-w006-009", "patientId": "w006", "inrValue": 1.4, "measuredAt": "2026-02-09T09:00:00+07:00", "source": "manual", "notes": "" },
+    "inrHistory": [
+      { "id": "inr-w006-001", "patientId": "w006", "inrValue": 1.5, "measuredAt": "2025-06-10T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w006-002", "patientId": "w006", "inrValue": 1.9, "measuredAt": "2025-07-01T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w006-003", "patientId": "w006", "inrValue": 2.3, "measuredAt": "2025-07-22T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w006-004", "patientId": "w006", "inrValue": 2.5, "measuredAt": "2025-08-12T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w006-005", "patientId": "w006", "inrValue": 2.2, "measuredAt": "2025-09-02T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w006-006", "patientId": "w006", "inrValue": 2.0, "measuredAt": "2025-10-14T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w006-007", "patientId": "w006", "inrValue": 1.8, "measuredAt": "2025-11-25T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w006-008", "patientId": "w006", "inrValue": 1.6, "measuredAt": "2026-01-06T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w006-009", "patientId": "w006", "inrValue": 1.4, "measuredAt": "2026-02-09T09:00:00+07:00", "source": "manual" }
+    ],
+    "doseAdjustments": [],
+    "ttr": { "value": 38.0, "status": "below-goal", "goalPct": 70, "fromDate": "2025-06-10", "toDate": "2026-02-09", "daysInRange": 96, "daysCalculable": 244 }
+  },
+
+  "w007": {
+    "profile": {
+      "patientId": "w007",
+      "pillStrengthMg": 3,
+      "currentDoseMgWk": 10.5,
+      "targetRange": { "min": 2.0, "max": 3.0, "label": "Standard (2.0–3.0)" },
+      "therapyStartDate": "2025-09-10",
+      "protocol": { "id": "standard-warfarin-v1", "label": "Standard Warfarin Protocol", "inrBelow": 2.0, "inrAbove": 3.0, "minPct": 0.10, "maxPct": 0.20, "maxStepTab": 0.5, "roundingUnit": 0.5 },
+      "ttrGoalPct": 70,
+      "concurrentMeds": [
+        { "name": "Carbamazepine 200 mg", "effect": "decrease", "severity": "major", "note": "Enzyme inducer — กระตุ้น CYP2C9 ลด Warfarin level" }
+      ]
+    },
+    "latestInr": { "id": "inr-w007-007", "patientId": "w007", "inrValue": 1.7, "measuredAt": "2026-02-12T09:00:00+07:00", "source": "manual", "notes": "" },
+    "inrHistory": [
+      { "id": "inr-w007-001", "patientId": "w007", "inrValue": 1.3, "measuredAt": "2025-10-01T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w007-002", "patientId": "w007", "inrValue": 1.6, "measuredAt": "2025-10-22T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w007-003", "patientId": "w007", "inrValue": 2.1, "measuredAt": "2025-11-12T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w007-004", "patientId": "w007", "inrValue": 2.3, "measuredAt": "2025-12-03T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w007-005", "patientId": "w007", "inrValue": 2.0, "measuredAt": "2025-12-24T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w007-006", "patientId": "w007", "inrValue": 1.9, "measuredAt": "2026-01-21T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w007-007", "patientId": "w007", "inrValue": 1.7, "measuredAt": "2026-02-12T09:00:00+07:00", "source": "manual" }
+    ],
+    "doseAdjustments": [],
+    "ttr": { "value": 46.0, "status": "below-goal", "goalPct": 70, "fromDate": "2025-10-01", "toDate": "2026-02-12", "daysInRange": 62, "daysCalculable": 134 }
+  },
+
+  "w008": {
+    "profile": {
+      "patientId": "w008",
+      "pillStrengthMg": 3,
+      "currentDoseMgWk": 15.0,
+      "targetRange": { "min": 2.0, "max": 3.0, "label": "Standard (2.0–3.0)" },
+      "therapyStartDate": "2025-09-25",
+      "protocol": { "id": "standard-warfarin-v1", "label": "Standard Warfarin Protocol", "inrBelow": 2.0, "inrAbove": 3.0, "minPct": 0.10, "maxPct": 0.20, "maxStepTab": 0.5, "roundingUnit": 0.5 },
+      "ttrGoalPct": 70,
+      "concurrentMeds": [
+        { "name": "Phenobarbital 60 mg", "effect": "decrease", "severity": "major", "note": "Enzyme inducer — กระตุ้น CYP2C9 ลด anticoagulant effect" }
+      ]
+    },
+    "latestInr": { "id": "inr-w008-006", "patientId": "w008", "inrValue": 1.9, "measuredAt": "2026-02-15T09:00:00+07:00", "source": "manual", "notes": "" },
+    "inrHistory": [
+      { "id": "inr-w008-001", "patientId": "w008", "inrValue": 1.5, "measuredAt": "2025-10-16T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w008-002", "patientId": "w008", "inrValue": 2.0, "measuredAt": "2025-11-06T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w008-003", "patientId": "w008", "inrValue": 2.4, "measuredAt": "2025-11-27T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w008-004", "patientId": "w008", "inrValue": 2.6, "measuredAt": "2025-12-18T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w008-005", "patientId": "w008", "inrValue": 2.1, "measuredAt": "2026-01-15T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w008-006", "patientId": "w008", "inrValue": 1.9, "measuredAt": "2026-02-15T09:00:00+07:00", "source": "manual" }
+    ],
+    "doseAdjustments": [],
+    "ttr": { "value": 60.0, "status": "below-goal", "goalPct": 70, "fromDate": "2025-10-16", "toDate": "2026-02-15", "daysInRange": 61, "daysCalculable": 122 }
+  },
+
+  "w009": {
+    "profile": {
+      "patientId": "w009",
+      "pillStrengthMg": 3,
+      "currentDoseMgWk": 18.0,
+      "targetRange": { "min": 2.0, "max": 3.0, "label": "Standard (2.0–3.0)" },
+      "therapyStartDate": "2025-05-22",
+      "protocol": { "id": "standard-warfarin-v1", "label": "Standard Warfarin Protocol", "inrBelow": 2.0, "inrAbove": 3.0, "minPct": 0.10, "maxPct": 0.20, "maxStepTab": 0.5, "roundingUnit": 0.5 },
+      "ttrGoalPct": 70,
+      "concurrentMeds": []
+    },
+    "latestInr": { "id": "inr-w009-010", "patientId": "w009", "inrValue": 2.8, "measuredAt": "2026-02-16T09:00:00+07:00", "source": "manual", "notes": "" },
+    "inrHistory": [
+      { "id": "inr-w009-001", "patientId": "w009", "inrValue": 1.7, "measuredAt": "2025-06-12T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w009-002", "patientId": "w009", "inrValue": 2.1, "measuredAt": "2025-07-03T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w009-003", "patientId": "w009", "inrValue": 2.5, "measuredAt": "2025-07-24T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w009-004", "patientId": "w009", "inrValue": 2.7, "measuredAt": "2025-08-14T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w009-005", "patientId": "w009", "inrValue": 2.9, "measuredAt": "2025-09-04T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w009-006", "patientId": "w009", "inrValue": 2.6, "measuredAt": "2025-09-25T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w009-007", "patientId": "w009", "inrValue": 2.4, "measuredAt": "2025-10-16T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w009-008", "patientId": "w009", "inrValue": 2.7, "measuredAt": "2025-11-13T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w009-009", "patientId": "w009", "inrValue": 2.5, "measuredAt": "2025-12-18T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w009-010", "patientId": "w009", "inrValue": 2.8, "measuredAt": "2026-02-16T09:00:00+07:00", "source": "manual" }
+    ],
+    "doseAdjustments": [],
+    "ttr": { "value": 76.0, "status": "goal-met", "goalPct": 70, "fromDate": "2025-06-12", "toDate": "2026-02-16", "daysInRange": 188, "daysCalculable": 249 }
+  },
+
+  "w010": {
+    "profile": {
+      "patientId": "w010",
+      "pillStrengthMg": 3,
+      "currentDoseMgWk": 21.0,
+      "targetRange": { "min": 2.0, "max": 3.0, "label": "Standard (2.0–3.0)" },
+      "therapyStartDate": "2025-05-08",
+      "protocol": { "id": "standard-warfarin-v1", "label": "Standard Warfarin Protocol", "inrBelow": 2.0, "inrAbove": 3.0, "minPct": 0.10, "maxPct": 0.20, "maxStepTab": 0.5, "roundingUnit": 0.5 },
+      "ttrGoalPct": 70,
+      "concurrentMeds": [
+        { "name": "Atorvastatin 40 mg", "effect": "increase", "severity": "minor", "note": "ผลน้อยมาก — ติดตาม INR ตามปกติ ไม่จำเป็นต้องปรับขนาดยา" }
+      ]
+    },
+    "latestInr": { "id": "inr-w010-010", "patientId": "w010", "inrValue": 2.6, "measuredAt": "2026-02-14T09:30:00+07:00", "source": "manual", "notes": "" },
+    "inrHistory": [
+      { "id": "inr-w010-001", "patientId": "w010", "inrValue": 1.8, "measuredAt": "2025-05-29T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w010-002", "patientId": "w010", "inrValue": 2.2, "measuredAt": "2025-06-19T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w010-003", "patientId": "w010", "inrValue": 2.6, "measuredAt": "2025-07-10T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w010-004", "patientId": "w010", "inrValue": 2.8, "measuredAt": "2025-07-31T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w010-005", "patientId": "w010", "inrValue": 2.5, "measuredAt": "2025-08-21T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w010-006", "patientId": "w010", "inrValue": 2.7, "measuredAt": "2025-10-02T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w010-007", "patientId": "w010", "inrValue": 2.4, "measuredAt": "2025-11-06T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w010-008", "patientId": "w010", "inrValue": 2.9, "measuredAt": "2025-12-04T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w010-009", "patientId": "w010", "inrValue": 2.7, "measuredAt": "2026-01-08T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w010-010", "patientId": "w010", "inrValue": 2.6, "measuredAt": "2026-02-14T09:30:00+07:00", "source": "manual" }
+    ],
+    "doseAdjustments": [],
+    "ttr": { "value": 82.0, "status": "goal-met", "goalPct": 70, "fromDate": "2025-05-29", "toDate": "2026-02-14", "daysInRange": 228, "daysCalculable": 261 }
+  },
+
+  "w011": {
+    "profile": {
+      "patientId": "w011",
+      "pillStrengthMg": 3,
+      "currentDoseMgWk": 13.5,
+      "targetRange": { "min": 2.0, "max": 3.0, "label": "Standard (2.0–3.0)" },
+      "therapyStartDate": "2025-09-10",
+      "protocol": { "id": "standard-warfarin-v1", "label": "Standard Warfarin Protocol", "inrBelow": 2.0, "inrAbove": 3.0, "minPct": 0.10, "maxPct": 0.20, "maxStepTab": 0.5, "roundingUnit": 0.5 },
+      "ttrGoalPct": 70,
+      "concurrentMeds": []
+    },
+    "latestInr": { "id": "inr-w011-007", "patientId": "w011", "inrValue": 2.4, "measuredAt": "2026-02-11T09:15:00+07:00", "source": "manual", "notes": "" },
+    "inrHistory": [
+      { "id": "inr-w011-001", "patientId": "w011", "inrValue": 1.6, "measuredAt": "2025-10-01T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w011-002", "patientId": "w011", "inrValue": 2.0, "measuredAt": "2025-10-22T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w011-003", "patientId": "w011", "inrValue": 2.3, "measuredAt": "2025-11-12T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w011-004", "patientId": "w011", "inrValue": 2.6, "measuredAt": "2025-12-03T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w011-005", "patientId": "w011", "inrValue": 2.4, "measuredAt": "2025-12-24T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w011-006", "patientId": "w011", "inrValue": 2.2, "measuredAt": "2026-01-21T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w011-007", "patientId": "w011", "inrValue": 2.4, "measuredAt": "2026-02-11T09:15:00+07:00", "source": "manual" }
+    ],
+    "doseAdjustments": [],
+    "ttr": { "value": 73.0, "status": "goal-met", "goalPct": 70, "fromDate": "2025-10-01", "toDate": "2026-02-11", "daysInRange": 96, "daysCalculable": 133 }
+  },
+
+  "w012": {
+    "profile": {
+      "patientId": "w012",
+      "pillStrengthMg": 3,
+      "currentDoseMgWk": 10.5,
+      "targetRange": { "min": 2.0, "max": 3.0, "label": "Standard (2.0–3.0)" },
+      "therapyStartDate": "2025-08-18",
+      "protocol": { "id": "standard-warfarin-v1", "label": "Standard Warfarin Protocol", "inrBelow": 2.0, "inrAbove": 3.0, "minPct": 0.10, "maxPct": 0.20, "maxStepTab": 0.5, "roundingUnit": 0.5 },
+      "ttrGoalPct": 70,
+      "concurrentMeds": []
+    },
+    "latestInr": { "id": "inr-w012-007", "patientId": "w012", "inrValue": 2.2, "measuredAt": "2026-02-13T09:00:00+07:00", "source": "manual", "notes": "" },
+    "inrHistory": [
+      { "id": "inr-w012-001", "patientId": "w012", "inrValue": 1.5, "measuredAt": "2025-09-08T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w012-002", "patientId": "w012", "inrValue": 1.9, "measuredAt": "2025-09-29T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w012-003", "patientId": "w012", "inrValue": 2.1, "measuredAt": "2025-10-20T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w012-004", "patientId": "w012", "inrValue": 2.4, "measuredAt": "2025-11-10T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w012-005", "patientId": "w012", "inrValue": 2.3, "measuredAt": "2025-12-01T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w012-006", "patientId": "w012", "inrValue": 2.1, "measuredAt": "2026-01-12T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w012-007", "patientId": "w012", "inrValue": 2.2, "measuredAt": "2026-02-13T09:00:00+07:00", "source": "manual" }
+    ],
+    "doseAdjustments": [],
+    "ttr": { "value": 74.0, "status": "goal-met", "goalPct": 70, "fromDate": "2025-09-08", "toDate": "2026-02-13", "daysInRange": 123, "daysCalculable": 158 }
+  }
+}

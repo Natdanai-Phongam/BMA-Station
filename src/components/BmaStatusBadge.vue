@@ -48,8 +48,8 @@ const label = computed(() => LABELS[props.status])
   align-items: center;
   gap: 4px;
   padding: 3px 10px;
-  border-radius: 9999px;
-  font-family: 'Inter', sans-serif;
+  border-radius: var(--bma-radius-full);
+  font-family: var(--bma-font-data);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.03em;
@@ -67,57 +67,57 @@ const label = computed(() => LABELS[props.status])
 
 /* ── EMERGENCY ──────────────────────────────────────────── */
 .bma-status-badge--emergency.bma-status-badge--filled {
-  background: #B72C2C;
-  color: #fff;
+  background: var(--bma-emergency);
+  color: var(--bma-surface);
 }
 .bma-status-badge--emergency.bma-status-badge--filled .bma-status-badge__dot {
   background: rgba(255, 255, 255, 0.5);
 }
 .bma-status-badge--emergency.bma-status-badge--light {
-  background: rgba(183, 44, 44, 0.10);
-  color: #B72C2C;
-  border: 1px solid rgba(183, 44, 44, 0.25);
+  background: var(--bma-emergency-bg);
+  color: var(--bma-emergency);
+  border: 1px solid var(--bma-emergency-ring);
 }
 
 /* ── URGENCY ────────────────────────────────────────────── */
 .bma-status-badge--urgency.bma-status-badge--filled {
-  background: #FB8C00;
-  color: #fff;
+  background: var(--bma-urgency);
+  color: var(--bma-surface);
 }
 .bma-status-badge--urgency.bma-status-badge--filled .bma-status-badge__dot {
   background: rgba(255, 255, 255, 0.5);
 }
 .bma-status-badge--urgency.bma-status-badge--light {
-  background: rgba(251, 140, 0, 0.10);
-  color: #E07A00;
-  border: 1px solid rgba(251, 140, 0, 0.25);
+  background: var(--bma-urgency-bg);
+  color: var(--bma-urgency-text);
+  border: 1px solid var(--bma-urgency-ring);
 }
 
 /* ── ELECTIVE ───────────────────────────────────────────── */
 .bma-status-badge--elective.bma-status-badge--filled {
-  background: #2B478B;
-  color: #fff;
+  background: var(--bma-elective);
+  color: var(--bma-surface);
 }
 .bma-status-badge--elective.bma-status-badge--filled .bma-status-badge__dot {
   background: rgba(255, 255, 255, 0.5);
 }
 .bma-status-badge--elective.bma-status-badge--light {
-  background: rgba(43, 71, 139, 0.10);
-  color: #2B478B;
-  border: 1px solid rgba(43, 71, 139, 0.25);
+  background: var(--bma-elective-bg);
+  color: var(--bma-elective);
+  border: 1px solid var(--bma-elective-ring);
 }
 
 /* ── SUCCESS ────────────────────────────────────────────── */
 .bma-status-badge--success.bma-status-badge--filled {
-  background: #4CAF50;
-  color: #fff;
+  background: var(--bma-success);
+  color: var(--bma-surface);
 }
 .bma-status-badge--success.bma-status-badge--filled .bma-status-badge__dot {
   background: rgba(255, 255, 255, 0.5);
 }
 .bma-status-badge--success.bma-status-badge--light {
-  background: rgba(76, 175, 80, 0.10);
-  color: #2E7D32;
-  border: 1px solid rgba(76, 175, 80, 0.25);
+  background: var(--bma-success-bg);
+  color: var(--bma-success-text);
+  border: 1px solid var(--bma-success-ring);
 }
 </style>
