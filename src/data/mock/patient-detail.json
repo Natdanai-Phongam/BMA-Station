@@ -19,7 +19,7 @@
 
   "w002": {
     "id": "w002",
-    "name": "นายสมชาย มั่นคง",
+    "name": "นาย สมชาย มั่นคง",
     "hn": "692847391",
     "age": 24,
     "dob": "2002-05-15",
@@ -308,5 +308,126 @@
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
+  },
+
+  "n001": {
+    "id": "n001",
+    "name": "นางสาว พัชรินทร์ สุวรรณโกมล",
+    "hn": "696183274",
+    "age": 52,
+    "dob": "1973-05-10",
+    "sex": "หญิง",
+    "bloodGroup": "A+",
+    "phone": "082-736-4918",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "low",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+
+  "n002": {
+    "id": "n002",
+    "name": "นาย ชาญชัย บุญศักดิ์ดี",
+    "hn": "697824015",
+    "age": 71,
+    "dob": "1954-08-22",
+    "sex": "ชาย",
+    "bloodGroup": "O+",
+    "phone": "091-283-5470",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "high",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+
+  "n003": {
+    "id": "n003",
+    "name": "นาง สุกัญญา ทองประเสริฐ",
+    "hn": "692048376",
+    "age": 62,
+    "dob": "1963-11-03",
+    "sex": "หญิง",
+    "bloodGroup": "B+",
+    "phone": "084-592-1736",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "medium",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+
+  "n004": {
+    "id": "n004",
+    "name": "นาย พิชัย วงษ์มณี",
+    "hn": "694917285",
+    "age": 81,
+    "dob": "1944-07-15",
+    "sex": "ชาย",
+    "bloodGroup": "A+",
+    "phone": "089-417-6230",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [
+      { "substance": "NSAIDs", "reaction": "Peptic Ulcer", "severity": "mild" }
+    ],
+    "totalComplications": 0,
+    "riskLevel": "high",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+
+  "n005": {
+    "id": "n005",
+    "name": "นางสาว รัตนา เพียรพัฒน์",
+    "hn": "691673845",
+    "age": 74,
+    "dob": "1951-09-28",
+    "sex": "หญิง",
+    "bloodGroup": "O+",
+    "phone": "086-193-4057",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [
+      { "substance": "Aspirin", "reaction": "Gastritis", "severity": "mild" }
+    ],
+    "totalComplications": 0,
+    "riskLevel": "high",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+
+  "n006": {
+    "id": "n006",
+    "name": "นาย ธนกร วิชัยรัตน์",
+    "hn": "695304817",
+    "age": 58,
+    "dob": "1967-12-04",
+    "sex": "ชาย",
+    "bloodGroup": "B+",
+    "phone": "094-376-8523",
+    "insuranceType": "ข้าราชการ",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "medium",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs",
+    "concurrentMedications": [
+      {
+        "name":             "Dronedarone",
+        "dose":             "400 mg BID",
+        "category":         "P-gp / CYP3A4 Inhibitor (Antiarrhythmic)",
+        "interactionLevel": "warning",
+        "interactionNote":  "เพิ่มระดับ Apixaban ในเลือดผ่านการยับยั้ง P-gp — ควรพิจารณาลดขนาดยาต้านการแข็งตัวของเลือดหรือเปลี่ยนยาต้านภาวะหัวใจเต้นผิดจังหวะ"
+      }
+    ]
   }
 }

@@ -6,43 +6,280 @@
       "hasBleedScore":    3,
       "currentDrug":      "apixaban",
       "currentDose":      "5 mg BID",
-      "therapyStartDate": "2568-01-15",
-      "followUpMonths":   12
+      "therapyStartDate": "2569-01-15",
+      "followUpMonths":   6
     },
     "dispensingHistory": [
       {
         "id":                   "nd-w002-001",
         "patientId":            "w002",
-        "dispensedAt":          "2568-02-01T09:00:00+07:00",
+        "dispensedAt":          "2569-02-01T09:00:00+07:00",
         "labData": {
           "weightKg":   65,
           "scrMgDl":    1.4,
           "crClMlMin":  62,
-          "measuredAt": "2568-01-30"
+          "measuredAt": "2569-01-30"
         },
         "drugDispensed":        "apixaban",
         "dose":                 "5 mg BID",
         "systemRank":           1,
         "wasTopRecommendation": true,
         "pharmacistNote":       "เริ่มยาหลังหยุด Warfarin 2 วัน INR ณ วันสุดท้าย = 5.8",
-        "nextFollowUpDate":     "2569-02-01"
-      },
+        "nextFollowUpDate":     "2569-08-01"
+      }
+    ]
+  },
+
+  "n001": {
+    "profile": {
+      "patientId":        "n001",
+      "indication":       "NVAF",
+      "hasBleedScore":    1,
+      "currentDrug":      "apixaban",
+      "currentDose":      "5 mg BID",
+      "therapyStartDate": "2567-06-15",
+      "followUpMonths":   6
+    },
+    "dispensingHistory": [
       {
-        "id":                   "nd-w002-002",
-        "patientId":            "w002",
-        "dispensedAt":          "2568-05-20T09:00:00+07:00",
+        "id":                   "nd-n001-001",
+        "patientId":            "n001",
+        "dispensedAt":          "2567-07-01T09:00:00+07:00",
         "labData": {
-          "weightKg":   65,
-          "scrMgDl":    1.6,
-          "crClMlMin":  58,
-          "measuredAt": "2568-05-18"
+          "weightKg":   55,
+          "scrMgDl":    1.0,
+          "crClMlMin":  60,
+          "measuredAt": "2567-06-28"
         },
         "drugDispensed":        "apixaban",
         "dose":                 "5 mg BID",
         "systemRank":           1,
         "wasTopRecommendation": true,
-        "pharmacistNote":       "CrCl ลดลงจาก 62 → 58 ยังอยู่เหนือ 15 mL/min — ไม่ต้องปรับขนาดยา Apixaban",
-        "nextFollowUpDate":     "2569-05-20"
+        "pharmacistNote":       "เริ่มยา Apixaban 5 mg BID — ผู้ป่วย NVAF อายุ 52 ปี ไม่พบเกณฑ์ลดขนาดยา ไม่มีข้อห้ามใช้",
+        "nextFollowUpDate":     "2568-01-01"
+      },
+      {
+        "id":                   "nd-n001-002",
+        "patientId":            "n001",
+        "dispensedAt":          "2568-01-10T09:00:00+07:00",
+        "labData": {
+          "weightKg":   55,
+          "scrMgDl":    1.0,
+          "crClMlMin":  58,
+          "measuredAt": "2568-01-08"
+        },
+        "drugDispensed":        "apixaban",
+        "dose":                 "5 mg BID",
+        "systemRank":           1,
+        "wasTopRecommendation": true,
+        "pharmacistNote":       "ติดตามครั้งที่ 2 — CrCl คงที่ 60 → 58 mL/min การรักษาเหมาะสม ไม่ต้องปรับขนาดยา",
+        "nextFollowUpDate":     "2569-07-10"
+      }
+    ]
+  },
+
+  "n002": {
+    "profile": {
+      "patientId":        "n002",
+      "indication":       "NVAF",
+      "hasBleedScore":    2,
+      "currentDrug":      "rivaroxaban",
+      "currentDose":      "10 mg OD",
+      "therapyStartDate": "2567-09-01",
+      "followUpMonths":   3
+    },
+    "dispensingHistory": [
+      {
+        "id":                   "nd-n002-001",
+        "patientId":            "n002",
+        "dispensedAt":          "2567-09-15T09:00:00+07:00",
+        "labData": {
+          "weightKg":   68,
+          "scrMgDl":    2.3,
+          "crClMlMin":  30,
+          "measuredAt": "2567-09-12"
+        },
+        "drugDispensed":        "rivaroxaban",
+        "dose":                 "10 mg OD",
+        "systemRank":           2,
+        "wasTopRecommendation": false,
+        "pharmacistNote":       "⚠️ ขนาดยาต่ำกว่าเกณฑ์ — CrCl 30 mL/min ควรใช้ Rivaroxaban 15 mg OD สำหรับ NVAF แต่ได้รับ 10 mg OD ส่งปรึกษาเภสัชกรคลินิก",
+        "nextFollowUpDate":     "2567-12-15"
+      },
+      {
+        "id":                   "nd-n002-002",
+        "patientId":            "n002",
+        "dispensedAt":          "2567-12-20T09:00:00+07:00",
+        "labData": {
+          "weightKg":   68,
+          "scrMgDl":    2.5,
+          "crClMlMin":  28,
+          "measuredAt": "2567-12-18"
+        },
+        "drugDispensed":        "rivaroxaban",
+        "dose":                 "10 mg OD",
+        "systemRank":           2,
+        "wasTopRecommendation": false,
+        "pharmacistNote":       "⚠️ CrCl ลดลงต่อเนื่อง 30 → 28 mL/min ขนาดยายังต่ำกว่าเกณฑ์ ส่งเรื่องปรึกษาอายุรแพทย์โรคไตเพื่อพิจารณาปรับยาและการดูแลไตระยะยาว",
+        "nextFollowUpDate":     "2569-03-20"
+      }
+    ]
+  },
+
+  "n003": {
+    "profile": {
+      "patientId":        "n003",
+      "indication":       "NVAF",
+      "hasBleedScore":    0,
+      "currentDrug":      "apixaban",
+      "currentDose":      "5 mg BID",
+      "therapyStartDate": "2567-03-22",
+      "followUpMonths":   6
+    },
+    "dispensingHistory": [
+      {
+        "id":                   "nd-n003-001",
+        "patientId":            "n003",
+        "dispensedAt":          "2567-04-01T09:00:00+07:00",
+        "labData": {
+          "weightKg":   52,
+          "scrMgDl":    0.7,
+          "crClMlMin":  75,
+          "measuredAt": "2567-03-29"
+        },
+        "drugDispensed":        "apixaban",
+        "dose":                 "5 mg BID",
+        "systemRank":           1,
+        "wasTopRecommendation": true,
+        "pharmacistNote":       "เริ่มยา Apixaban 5 mg BID — ผู้ป่วย NVAF ไตปกติ ไม่มีข้อห้ามใช้ ไม่พบปฏิกิริยาระหว่างยา",
+        "nextFollowUpDate":     "2567-10-01"
+      },
+      {
+        "id":                   "nd-n003-002",
+        "patientId":            "n003",
+        "dispensedAt":          "2567-10-05T09:00:00+07:00",
+        "labData": {
+          "weightKg":   52,
+          "scrMgDl":    0.7,
+          "crClMlMin":  72,
+          "measuredAt": "2567-10-03"
+        },
+        "drugDispensed":        "apixaban",
+        "dose":                 "5 mg BID",
+        "systemRank":           1,
+        "wasTopRecommendation": true,
+        "pharmacistNote":       "ติดตามครั้งที่ 2 — CrCl คงที่ ไม่มีผลข้างเคียง การรักษาเหมาะสม",
+        "nextFollowUpDate":     "2569-04-05"
+      }
+    ]
+  },
+
+  "n004": {
+    "profile": {
+      "patientId":        "n004",
+      "indication":       "NVAF",
+      "hasBleedScore":    1,
+      "currentDrug":      "apixaban",
+      "currentDose":      "5 mg BID",
+      "therapyStartDate": "2567-11-10",
+      "followUpMonths":   3
+    },
+    "dispensingHistory": [
+      {
+        "id":                   "nd-n004-001",
+        "patientId":            "n004",
+        "dispensedAt":          "2567-11-20T09:00:00+07:00",
+        "labData": {
+          "weightKg":   78,
+          "scrMgDl":    1.6,
+          "crClMlMin":  45,
+          "measuredAt": "2567-11-18"
+        },
+        "drugDispensed":        "apixaban",
+        "dose":                 "5 mg BID",
+        "systemRank":           2,
+        "wasTopRecommendation": false,
+        "pharmacistNote":       "⚠️ ขนาดยาสูงเกินเกณฑ์ — อายุ 81 ปี และ sCr ≥ 1.5 mg/dL ตรงตาม 2 ใน 3 เกณฑ์ลดขนาดยา Apixaban ควรปรับเป็น 2.5 mg BID ส่งปรึกษาแพทย์เพื่อพิจารณาปรับขนาดยา",
+        "nextFollowUpDate":     "2569-03-01"
+      }
+    ]
+  },
+
+  "n005": {
+    "profile": {
+      "patientId":        "n005",
+      "indication":       "NVAF",
+      "hasBleedScore":    3,
+      "currentDrug":      "rivaroxaban",
+      "currentDose":      "15 mg OD",
+      "therapyStartDate": "2567-12-05",
+      "followUpMonths":   1
+    },
+    "dispensingHistory": [
+      {
+        "id":                   "nd-n005-001",
+        "patientId":            "n005",
+        "dispensedAt":          "2567-12-10T09:00:00+07:00",
+        "labData": {
+          "weightKg":   48,
+          "scrMgDl":    2.0,
+          "crClMlMin":  18,
+          "measuredAt": "2567-12-08"
+        },
+        "drugDispensed":        "rivaroxaban",
+        "dose":                 "15 mg OD",
+        "systemRank":           3,
+        "wasTopRecommendation": false,
+        "pharmacistNote":       "⛔ ข้อห้ามใช้ — CrCl 18 mL/min และ eGFR 15 mL/min/1.73m² บ่งชี้ภาวะไตวายรุนแรง Rivaroxaban สำหรับ NVAF มีข้อห้ามเมื่อ CrCl < 15 mL/min และควรหลีกเลี่ยงเมื่อ CrCl < 30 mL/min ส่งปรึกษาอายุรแพทย์โรคไตด่วน",
+        "nextFollowUpDate":     "2569-03-10"
+      }
+    ]
+  },
+
+  "n006": {
+    "profile": {
+      "patientId":        "n006",
+      "indication":       "NVAF",
+      "hasBleedScore":    1,
+      "currentDrug":      "apixaban",
+      "currentDose":      "5 mg BID",
+      "therapyStartDate": "2567-08-20",
+      "followUpMonths":   6
+    },
+    "dispensingHistory": [
+      {
+        "id":                   "nd-n006-001",
+        "patientId":            "n006",
+        "dispensedAt":          "2567-09-01T09:00:00+07:00",
+        "labData": {
+          "weightKg":   70,
+          "scrMgDl":    1.6,
+          "crClMlMin":  52,
+          "measuredAt": "2567-08-28"
+        },
+        "drugDispensed":        "apixaban",
+        "dose":                 "5 mg BID",
+        "systemRank":           1,
+        "wasTopRecommendation": true,
+        "pharmacistNote":       "เริ่มยา Apixaban 5 mg BID — ผู้ป่วยใช้ Dronedarone ร่วมด้วย (P-gp inhibitor) แนะนำติดตามอาการผิดปกติของการออกฤทธิ์ยาเพิ่มขึ้นอย่างใกล้ชิด",
+        "nextFollowUpDate":     "2568-03-01"
+      },
+      {
+        "id":                   "nd-n006-002",
+        "patientId":            "n006",
+        "dispensedAt":          "2568-03-05T09:00:00+07:00",
+        "labData": {
+          "weightKg":   70,
+          "scrMgDl":    1.5,
+          "crClMlMin":  50,
+          "measuredAt": "2568-03-03"
+        },
+        "drugDispensed":        "apixaban",
+        "dose":                 "5 mg BID",
+        "systemRank":           2,
+        "wasTopRecommendation": false,
+        "pharmacistNote":       "⚠️ ตรวจพบปฏิกิริยาระหว่างยา — Dronedarone (P-gp / CYP3A4 inhibitor) เพิ่มระดับ Apixaban ในเลือด ส่งปรึกษาแพทย์เพื่อพิจารณาเปลี่ยนยาต้านภาวะหัวใจเต้นผิดจังหวะหรือลดขนาดยาต้านการแข็งตัวของเลือด",
+        "nextFollowUpDate":     "2569-03-05"
       }
     ]
   }

@@ -55,7 +55,7 @@
                       <div class="inr-target-zone" :style="targetZoneStyle" />
                       <div class="inr-target-marker" :style="{ left: markerLeft }" :class="`inr-target-marker--${latestInrStatus}`" />
                     </div>
-                    <span class="inr-target-ref-val">{{ data.profile.targetRange.min.toFixed(1) }}–{{ data.profile.targetRange.max.toFixed(1) }}</span>
+                    <span class="inr-target-ref-val">{{ (data.profile.targetRange ?? DEFAULT_TARGET_RANGE).min.toFixed(1) }}–{{ (data.profile.targetRange ?? DEFAULT_TARGET_RANGE).max.toFixed(1) }}</span>
                   </div>
                 </div>
                 <div class="inr-hero-meta">
@@ -180,12 +180,12 @@
                 v-for="n in Math.floor(currentSchedule.days[day].tablets)"
                 :key="`f${n}`"
                 class="pill-icon pill-icon--full"
-                :class="`pill-icon--${pillColorClass}`"
+                :class="`pill-icon--${PILL_CONFIG[currentSchedule.days[day].pillMg].color}`"
               />
               <div
                 v-if="currentSchedule.days[day].tablets % 1 !== 0"
                 class="pill-icon pill-icon--half"
-                :class="`pill-icon--${pillColorClass}`"
+                :class="`pill-icon--${PILL_CONFIG[currentSchedule.days[day].pillMg].color}`"
               />
             </div>
             <div class="day-tablets">{{ currentSchedule.days[day].tablets }}</div>
@@ -202,14 +202,16 @@
             <div class="sched-pill-ref">
               <span class="sched-ref-label">PILL TYPE REFERENCE</span>
               <div class="sched-ref-items">
-                <span class="sched-ref-item">
-                  <span class="pill-icon pill-icon--full" :class="`pill-icon--${pillColorClass}`" />
-                  1 เม็ด ({{ data.profile.pillStrengthMg }} mg)
-                </span>
-                <span class="sched-ref-item">
-                  <span class="pill-icon pill-icon--half" :class="`pill-icon--${pillColorClass}`" />
-                  0.5 เม็ด ({{ (data.profile.pillStrengthMg / 2).toFixed(1) }} mg)
-                </span>
+                <template v-for="pill in currentSchedule.activePillsMg" :key="pill">
+                  <span class="sched-ref-item">
+                    <span class="pill-icon pill-icon--full" :class="`pill-icon--${PILL_CONFIG[pill].color}`" />
+                    1 เม็ด ({{ pill }} mg)
+                  </span>
+                  <span class="sched-ref-item">
+                    <span class="pill-icon pill-icon--half" :class="`pill-icon--${PILL_CONFIG[pill].color}`" />
+                    ½ เม็ด ({{ (pill / 2).toFixed(1) }} mg)
+                  </span>
+                </template>
               </div>
             </div>
           </div>
@@ -227,7 +229,7 @@
           <div class="chart-legend">
             <span class="legend-item">
               <span class="legend-band" />
-              Target ({{ data.profile.targetRange.min }}–{{ data.profile.targetRange.max }})
+              Target ({{ (data.profile.targetRange ?? DEFAULT_TARGET_RANGE).min }}–{{ (data.profile.targetRange ?? DEFAULT_TARGET_RANGE).max }})
             </span>
             <span class="legend-item">
               <span class="legend-dot" style="background:#E57373" />
@@ -355,7 +357,7 @@ import {
 import type { TooltipItem } from 'chart.js'
 import { Line } from 'vue-chartjs'
 import type { WarfarinPageData, WeeklySchedule, DoseAdjustment, InrRecord } from '@/data/types/warfarin'
-import { PILL_CONFIG, DAY_KEYS, DAY_LABELS } from '@/data/types/warfarin'
+import { PILL_CONFIG, DAY_KEYS, DAY_LABELS, DEFAULT_TARGET_RANGE } from '@/data/types/warfarin'
 import { buildWeeklySchedule, computeDosingSuggestion } from '@/utils/warfarinDosing'
 import { type InrStatus, getInrStatus, inrStatusLabel } from '@/utils/inrStatus'
 
@@ -409,13 +411,15 @@ function onDrawerSaved(payload: { newDoseMgWk: number; newAdj: DoseAdjustment; n
   }
   data.doseAdjustments.push(payload.newAdj)
   data.profile.currentDoseMgWk = payload.newDoseMgWk
+  data.profile.activePillsMg   = [...payload.newAdj.activePillsMg]
+  data.profile.pillStrengthMg  = payload.newAdj.activePillsMg[0]  // primary = largest
   visitSavedDose.value = payload.newDoseMgWk
   visitSaved.value     = true
 }
 
 // ── INR status ────────────────────────────────────────────────
 const latestInrStatus = computed<InrStatus>(() =>
-  getInrStatus(data.latestInr.inrValue, data.profile.targetRange)
+  getInrStatus(data.latestInr.inrValue, data.profile.targetRange ?? DEFAULT_TARGET_RANGE)
 )
 const heroSuggestion = computed(() =>
   computeDosingSuggestion(data.latestInr.inrValue, data.profile)
@@ -443,9 +447,8 @@ const suggestionIconColor = computed(() => ({
 }[latestInrStatus.value]))
 
 // ── Pill / schedule helpers ───────────────────────────────────
-const pillColorClass  = computed(() => PILL_CONFIG[data.profile.pillStrengthMg].color)
 const currentSchedule = computed<WeeklySchedule>(() =>
-  buildWeeklySchedule(data.profile.currentDoseMgWk, data.profile.pillStrengthMg)
+  buildWeeklySchedule(data.profile.currentDoseMgWk, data.profile.activePillsMg)
 )
 
 
@@ -464,7 +467,7 @@ const INR_TRACK_MIN = 1.0
 const INR_TRACK_MAX = 5.0
 
 const targetZoneStyle = computed(() => {
-  const { min, max } = data.profile.targetRange
+  const { min, max } = data.profile.targetRange ?? DEFAULT_TARGET_RANGE
   const left  = ((min - INR_TRACK_MIN) / (INR_TRACK_MAX - INR_TRACK_MIN)) * 100
   const width = ((max - min) / (INR_TRACK_MAX - INR_TRACK_MIN)) * 100
   return { left: `${left.toFixed(1)}%`, width: `${width.toFixed(1)}%` }
@@ -530,7 +533,7 @@ function saveEdit(adj: DoseAdjustment) {
 
 // ── INR chart with target-range band ─────────────────────────
 const inrChartData = computed(() => {
-  const { min: tMin, max: tMax } = data.profile.targetRange
+  const { min: tMin, max: tMax } = data.profile.targetRange ?? DEFAULT_TARGET_RANGE
   const records = [...data.inrHistory].sort(
     (a, b) => new Date(a.measuredAt).getTime() - new Date(b.measuredAt).getTime()
   )
@@ -624,8 +627,9 @@ function formatDateTime(iso: string) {
   }
 }
 function inrChipClass(inr: number) {
-  if (inr < data.profile.targetRange.min) return 'inr-chip--low'
-  if (inr > data.profile.targetRange.max) return 'inr-chip--high'
+  const tr = data.profile.targetRange ?? DEFAULT_TARGET_RANGE
+  if (inr < tr.min) return 'inr-chip--low'
+  if (inr > tr.max) return 'inr-chip--high'
   return 'inr-chip--ok'
 }
 function pctBadgeClass(pct: number) {

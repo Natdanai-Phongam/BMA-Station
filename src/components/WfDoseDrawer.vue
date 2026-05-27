@@ -108,10 +108,13 @@
                 max="15"
                 class="dwr-inr-input"
                 :class="`dwr-inr-input--${pendingStatus}`"
-                @blur="confirmInr"
                 @keydown.enter.prevent="confirmInr"
                 @keydown.escape="cancelEditMode"
               />
+              <button class="dwr-btn-confirm-inr" @click="confirmInr">
+                <PhCheck :size="11" />
+                <span>ยืนยัน</span>
+              </button>
               <button class="dwr-btn-cancel-inr" @click="cancelEditMode">
                 <PhX :size="11" />
                 <span>ยกเลิก</span>
@@ -123,8 +126,8 @@
               {{ inrStatusLabel(pendingStatus) }}
             </span>
 
-            <!-- Override note — edit mode only, when value was changed -->
-            <div v-if="inrEditMode && confirmedInr !== props.data.latestInr.inrValue" class="dwr-inr-override-note">
+            <!-- Override note — shows whenever a manual value is active (edit or confirmed) -->
+            <div v-if="confirmedInr !== props.data.latestInr.inrValue" class="dwr-inr-override-note">
               <PhWarning :size="11" color="currentColor" />
               <span>ค่าจากระบบ: {{ props.data.latestInr.inrValue.toFixed(1) }} · กำลังใช้ค่า Manual</span>
             </div>
@@ -193,7 +196,7 @@
 
             <div v-else-if="suggestion.trigger === 'therapeutic'" key="therapeutic" class="dwr-banner dwr-banner--ok">
               <PhCheckCircle :size="13" color="currentColor" />
-              <span>INR อยู่ในช่วงเป้าหมาย ({{ props.data.profile.targetRange.min }}–{{ props.data.profile.targetRange.max }}) · คงขนาดยาเดิม</span>
+              <span>INR อยู่ในช่วงเป้าหมาย ({{ (props.data.profile.targetRange ?? DEFAULT_TARGET_RANGE).min }}–{{ (props.data.profile.targetRange ?? DEFAULT_TARGET_RANGE).max }}) · คงขนาดยาเดิม</span>
             </div>
 
             <div v-else key="adjust" class="dwr-adjust">
@@ -276,12 +279,61 @@
                       <PhWarning :size="10" color="currentColor" />
                       {{ customDoseError }}
                     </div>
+                    <!-- Round-down / Round-up suggestions -->
+                    <Transition name="dwr-fade">
+                      <div v-if="hasSuggestions" class="dwr-custom-suggestions">
+                        <span class="dwr-custom-sugg-lbl">ลงตัวที่</span>
+                        <div class="dwr-custom-sugg-chips">
+                          <button
+                            v-if="nearbySuggestions[0] !== null"
+                            class="dwr-custom-sugg-chip dwr-custom-sugg-chip--down"
+                            @click.stop="applySuggestion(nearbySuggestions[0]!)"
+                          >
+                            ↓ {{ nearbySuggestions[0]!.toFixed(1) }} mg
+                          </button>
+                          <button
+                            v-if="nearbySuggestions[1] !== null"
+                            class="dwr-custom-sugg-chip dwr-custom-sugg-chip--up"
+                            @click.stop="applySuggestion(nearbySuggestions[1]!)"
+                          >
+                            ↑ {{ nearbySuggestions[1]!.toFixed(1) }} mg
+                          </button>
+                        </div>
+                      </div>
+                    </Transition>
                   </template>
                 </div>
               </div>
             </div>
 
           </Transition>
+        </div>
+
+        <!-- Pill selector — between dose selection and schedule preview -->
+        <div class="dwr-pill-selector" :class="activePillsLocal.length === 0 ? 'dwr-pill-selector--empty' : ''">
+          <div class="dwr-pill-selector-hd">
+            <PhPill :size="13" color="#595959" />
+            <span class="dwr-pill-selector-title">ขนาดเม็ดยาที่ใช้ในสัปดาห์นี้</span>
+            <span v-if="activePillsLocal.length === 0" class="dwr-pill-selector-required">
+              กรุณาเลือก
+            </span>
+          </div>
+          <div class="dwr-pill-chips">
+            <button
+              v-for="pill in (Object.keys(PILL_CONFIG).map(Number) as PillStrengthMg[])"
+              :key="pill"
+              class="dwr-pill-chip"
+              :class="[
+                `dwr-pill-chip--${PILL_CONFIG[pill].color}`,
+                activePillsLocal.includes(pill) ? 'dwr-pill-chip--active' : ''
+              ]"
+              @click="togglePill(pill)"
+            >
+              <span class="dwr-pill-chip-dot" :class="`dwr-chip-dot--${PILL_CONFIG[pill].color}`" />
+              <span class="dwr-pill-chip-label">{{ pill }} mg</span>
+              <PhCheck v-if="activePillsLocal.includes(pill)" class="dwr-pill-chip-check" :size="10" />
+            </button>
+          </div>
         </div>
 
         <!-- ③ Confirm + Save -->
@@ -325,12 +377,12 @@
                       v-for="n in Math.floor(selectedOption.schedule.days[day].tablets)"
                       :key="`f${n}`"
                       class="dwr-pill dwr-pill--full"
-                      :class="`dwr-pill--${pillColorClass}`"
+                      :class="`dwr-pill--${PILL_CONFIG[selectedOption.schedule.days[day].pillMg].color}`"
                     />
                     <div
                       v-if="selectedOption.schedule.days[day].tablets % 1 !== 0"
                       class="dwr-pill dwr-pill--half"
-                      :class="`dwr-pill--${pillColorClass}`"
+                      :class="`dwr-pill--${PILL_CONFIG[selectedOption.schedule.days[day].pillMg].color}`"
                     />
                   </div>
                   <span class="dwr-day-tab">{{ selectedOption.schedule.days[day].tablets }}</span>
@@ -396,15 +448,15 @@
 <script setup lang="ts">
 import { ref, computed, watch, nextTick } from 'vue'
 import {
-  PhX, PhWarning, PhCheckCircle,
+  PhX, PhWarning, PhCheckCircle, PhCheck,
   PhFloppyDisk, PhInfo, PhPill, PhPencilSimple,
 } from '@phosphor-icons/vue'
 import type {
   WarfarinPageData, DoseSuggestion, WeeklySchedule,
-  DayKey, DoseAdjustment, InrRecord,
+  DayKey, DoseAdjustment, InrRecord, PillStrengthMg,
 } from '@/data/types/warfarin'
-import { PILL_CONFIG, DAY_KEYS } from '@/data/types/warfarin'
-import { buildWeeklySchedule, computeDosingSuggestion } from '@/utils/warfarinDosing'
+import { PILL_CONFIG, DAY_KEYS, DEFAULT_TARGET_RANGE, DEFAULT_PROTOCOL } from '@/data/types/warfarin'
+import { buildWeeklySchedule, computeDosingSuggestion, suggestNearbyDoses } from '@/utils/warfarinDosing'
 import { type InrStatus, getInrStatus, inrStatusLabel } from '@/utils/inrStatus'
 
 const DAY_SHORT: Record<DayKey, string> = {
@@ -438,6 +490,7 @@ function resetForm() {
   customDoseInput.value   = null
   customDoseError.value   = ''
   saveError.value         = ''
+  activePillsLocal.value  = []   // doctor selects fresh each visit
   form.value = {
     newDoseMgWk:    props.data.profile.currentDoseMgWk,
     percentChange:  0,
@@ -455,6 +508,7 @@ const inrInputRef  = ref<HTMLInputElement | null>(null)
 function confirmInr() {
   if (inrInput.value > 0) {
     confirmedInr.value      = inrInput.value
+    inrEditMode.value       = false
     selectedOption.value    = null
     isCustomSelection.value = false
     customDoseInput.value   = null
@@ -485,22 +539,67 @@ function cancelEditMode() {
 
 // ── INR status ────────────────────────────────────────────────
 const pendingStatus = computed<InrStatus>(() =>
-  getInrStatus(inrInput.value, props.data.profile.targetRange)
+  getInrStatus(inrInput.value, props.data.profile.targetRange ?? DEFAULT_TARGET_RANGE)
 )
 const inrDirty = computed(() => inrInput.value !== confirmedInr.value)
 
 // Header always shows the original system INR — never the in-progress edit value
 const headerInrStatus = computed<InrStatus>(() =>
-  getInrStatus(props.data.latestInr.inrValue, props.data.profile.targetRange)
+  getInrStatus(props.data.latestInr.inrValue, props.data.profile.targetRange ?? DEFAULT_TARGET_RANGE)
 )
 const headerInrLabel = computed(() => inrStatusLabel(headerInrStatus.value))
 
 // ── Drawer header title ───────────────────────────────────────
 const drawerTitle = computed(() => 'บันทึกการจ่ายยา Warfarin')
 
+// ── Active pill sizes (local, doctor selects fresh each visit) ────
+const activePillsLocal = ref<PillStrengthMg[]>([])
+
+// Fallback to primary pill for schedule computation while no pills are selected yet,
+// so Step 2 suggestion cards always render even before the doctor makes a selection.
+const pillsForCalc = computed<PillStrengthMg[]>(() =>
+  activePillsLocal.value.length > 0
+    ? activePillsLocal.value
+    : [props.data.profile.pillStrengthMg]
+)
+
+function togglePill(pill: PillStrengthMg) {
+  if (activePillsLocal.value.includes(pill)) {
+    if (activePillsLocal.value.length === 1) return  // must keep at least one
+    activePillsLocal.value = activePillsLocal.value.filter(p => p !== pill)
+  } else {
+    activePillsLocal.value = [...activePillsLocal.value, pill].sort((a, b) => b - a) as PillStrengthMg[]
+  }
+  saveError.value = ''
+
+  if (selectedOption.value) {
+    // Pill selector is after dose selection — keep the chosen dose but rebuild
+    // its weekly schedule with the updated pill combination.
+    if (isCustomSelection.value) {
+      // Custom dose: rebuild the whole option (dose might now be achievable exactly)
+      const rebuilt = buildCustomOpt(selectedOption.value.newDoseMgWk)
+      selectedOption.value   = rebuilt
+      customDoseInput.value  = rebuilt.newDoseMgWk
+      form.value.newDoseMgWk   = rebuilt.newDoseMgWk
+      form.value.percentChange = rebuilt.percentChange
+    } else {
+      // System option: keep percentChange / dose, just rebuild the schedule
+      const newSched = buildWeeklySchedule(selectedOption.value.newDoseMgWk, pillsForCalc.value)
+      selectedOption.value = { ...selectedOption.value, schedule: newSched }
+    }
+  }
+  // If nothing selected yet, activeProfile recomputes → Step 2 cards re-render automatically
+}
+
+// Profile with locally selected pill sizes injected (uses fallback while empty)
+const activeProfile = computed(() => ({
+  ...props.data.profile,
+  activePillsMg: pillsForCalc.value,
+}))
+
 // ── Protocol suggestion ───────────────────────────────────────
 const suggestion = computed(() =>
-  computeDosingSuggestion(confirmedInr.value, props.data.profile)
+  computeDosingSuggestion(confirmedInr.value, activeProfile.value)
 )
 
 // ── Selection ─────────────────────────────────────────────────
@@ -525,9 +624,10 @@ const systemSuggested = computed(() =>
   (selectedOption.value !== null && !isCustomSelection.value)
 )
 
-// Save is blocked until the user picks an option (hold states are always saveable)
+// Save is blocked until: pill is selected + option chosen (hold states skip option check)
 const saveDisabled = computed(() =>
-  suggestion.value.direction !== 'hold' && !selectedOption.value
+  activePillsLocal.value.length === 0 ||
+  (suggestion.value.direction !== 'hold' && !selectedOption.value)
 )
 
 function selectOption(opt: DoseSuggestion) {
@@ -555,13 +655,26 @@ function openCustomCard() {
 
 function buildCustomOpt(mgWk: number): DoseSuggestion {
   const strength         = props.data.profile.pillStrengthMg
-  const { roundingUnit } = props.data.profile.protocol
-  const rounded          = Math.round(mgWk / strength / roundingUnit) * roundingUnit * strength
-  const tabs             = rounded / strength
-  const pct              = parseFloat(((rounded - props.data.profile.currentDoseMgWk) / props.data.profile.currentDoseMgWk * 100).toFixed(1))
+  const { roundingUnit } = props.data.profile.protocol ?? DEFAULT_PROTOCOL
+
+  // Prefer the exact dose when it's already achievable with the active pill combo.
+  // Only fall back to primary-pill rounding when no exact schedule exists.
+  const schedRaw = buildWeeklySchedule(mgWk, pillsForCalc.value)
+  const isClean  = Math.abs(schedRaw.totalMgWk - mgWk) < 0.005
+
+  const finalDose = isClean
+    ? mgWk
+    : Math.round(mgWk / strength / roundingUnit) * roundingUnit * strength
+  const sched     = isClean ? schedRaw : buildWeeklySchedule(finalDose, pillsForCalc.value)
+
+  // Total tablets = sum across all 7 days (accurate for multi-pill schedules)
+  const totalTabs = parseFloat(
+    Object.values(sched.days).reduce((s, d) => s + d.tablets, 0).toFixed(1)
+  )
+  const pct = parseFloat(((finalDose - props.data.profile.currentDoseMgWk) / props.data.profile.currentDoseMgWk * 100).toFixed(1))
   return {
-    percentChange: pct, newDoseMgWk: rounded, tabletsPerWeek: tabs,
-    schedule: buildWeeklySchedule(rounded, strength), label: `Custom: ${rounded.toFixed(1)} mg/wk`,
+    percentChange: pct, newDoseMgWk: finalDose, tabletsPerWeek: totalTabs,
+    schedule: sched, label: `Custom: ${finalDose.toFixed(1)} mg/wk`,
   }
 }
 
@@ -584,6 +697,9 @@ function selectCustomDose() {
     customDoseError.value = `เปลี่ยนแปลง ${pct.toFixed(0)}% จากขนาดเดิม — เกินกว่า 50%`
   }
   const opt = buildCustomOpt(customDoseInput.value)
+  // Sync input to the actual confirmed dose so the field always reflects what was committed.
+  // This also makes nearbySuggestions re-compute against a clean dose → they hide automatically.
+  customDoseInput.value    = opt.newDoseMgWk
   selectedOption.value     = opt
   isCustomSelection.value  = true
   saveError.value          = ''
@@ -592,11 +708,30 @@ function selectCustomDose() {
   nextTick(() => step3Ref.value?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
 }
 
-const pillColorClass = computed(() => PILL_CONFIG[props.data.profile.pillStrengthMg].color)
+// ── Nearby clean-dose suggestions (for custom card) ───────────
+// Returns [roundDown, roundUp] — both null when input is already clean.
+const nearbySuggestions = computed<[number | null, number | null]>(() => {
+  const open = customCardOpen.value || isCustomSelection.value
+  if (!open || !customDoseInput.value || customDoseInput.value <= 0) return [null, null]
+  // If the input is itself a clean dose, suppress suggestions
+  const sched = buildWeeklySchedule(customDoseInput.value, pillsForCalc.value)
+  if (Math.abs(sched.totalMgWk - customDoseInput.value) < 0.005) return [null, null]
+  return suggestNearbyDoses(customDoseInput.value, pillsForCalc.value)
+})
+
+const hasSuggestions = computed(() =>
+  nearbySuggestions.value[0] !== null || nearbySuggestions.value[1] !== null
+)
+
+function applySuggestion(dose: number) {
+  customDoseInput.value = dose
+  customDoseError.value = ''
+  selectCustomDose()
+}
 
 const activeSchedule = computed<WeeklySchedule>(() =>
   selectedOption.value?.schedule
-    ?? buildWeeklySchedule(props.data.profile.currentDoseMgWk, props.data.profile.pillStrengthMg)
+    ?? buildWeeklySchedule(props.data.profile.currentDoseMgWk, pillsForCalc.value)
 )
 
 const previewMinTablets = computed(() =>
@@ -638,6 +773,10 @@ function saveAdjustment() {
     showToast('กรุณายืนยัน INR ก่อนบันทึก', 'error')
     return
   }
+  if (activePillsLocal.value.length === 0) {
+    saveError.value = 'กรุณาเลือกขนาดเม็ดยาก่อนบันทึก'
+    return
+  }
   if (suggestion.value.direction !== 'hold' && !selectedOption.value) {
     saveError.value = 'กรุณาเลือกตัวเลือก หรือกำหนดขนาดยาใหม่ก่อนบันทึก'
     return
@@ -667,6 +806,7 @@ function saveAdjustment() {
     newDoseMgWk:     newDose,
     percentChange:   parseFloat(form.value.percentChange.toFixed(1)),
     pillStrengthMg:  props.data.profile.pillStrengthMg,
+    activePillsMg:   [...activePillsLocal.value],
     weeklySchedule:  activeSchedule.value,
     remarks:         form.value.remarks        || undefined,
     systemSuggested: systemSuggested.value,
@@ -882,14 +1022,23 @@ function formatDate(iso: string) {
 }
 .dwr-btn-edit-inr:hover { border-color: var(--bma-green-500); color: var(--bma-green-500); }
 
-.dwr-btn-cancel-inr {
+.dwr-btn-confirm-inr {
   height: 28px; padding: 0 10px; border-radius: 6px;
-  border: 1.5px solid #FFCDD2; background: #FEECEC;
+  border: 1.5px solid var(--bma-green-500); background: var(--bma-green-500);
   display: inline-flex; align-items: center; gap: 4px;
   font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600;
-  color: var(--bma-emergency); cursor: pointer; transition: background .15s;
+  color: #fff; cursor: pointer; transition: background .15s;
 }
-.dwr-btn-cancel-inr:hover { background: #FFCDD2; }
+.dwr-btn-confirm-inr:hover { background: var(--bma-green-600); border-color: var(--bma-green-600); }
+
+.dwr-btn-cancel-inr {
+  height: 28px; padding: 0 10px; border-radius: 6px;
+  border: 1.5px solid var(--bma-border); background: var(--bma-surface);
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600;
+  color: var(--bma-text-muted); cursor: pointer; transition: all .15s;
+}
+.dwr-btn-cancel-inr:hover { border-color: var(--bma-emergency); color: var(--bma-emergency); background: #FEECEC; }
 
 /* ── Manual override note (shown when edit value ≠ system value) */
 .dwr-inr-override-note {
@@ -1066,6 +1215,36 @@ function formatDate(iso: string) {
   align-self: flex-start; margin-top: 2px;
 }
 
+/* ── Round-down / Round-up suggestions ───────────────────────── */
+.dwr-custom-suggestions {
+  display: flex; align-items: center; gap: 7px;
+  margin-top: 8px; flex-wrap: wrap; width: 100%;
+}
+.dwr-custom-sugg-lbl {
+  font-size: 10px; font-weight: 700; color: var(--bma-text-muted);
+  letter-spacing: .03em; white-space: nowrap; flex-shrink: 0;
+}
+.dwr-custom-sugg-chips { display: flex; gap: 5px; }
+.dwr-custom-sugg-chip {
+  height: 24px; padding: 0 9px; border-radius: 6px;
+  border: 1.5px solid var(--bma-border-card); background: var(--bma-surface);
+  font-family: var(--bma-font-data); font-size: 11px; font-weight: 700;
+  color: var(--bma-text-secondary);
+  cursor: pointer; transition: border-color .12s, background .12s, color .12s;
+}
+/* Round down — hints toward red (lower dose = more cautious in an increase context) */
+.dwr-custom-sugg-chip--down:hover {
+  border-color: var(--bma-emergency);
+  background: #FEECEC;
+  color: var(--bma-emergency);
+}
+/* Round up — hints toward green (higher dose = more aggressive increase) */
+.dwr-custom-sugg-chip--up:hover {
+  border-color: var(--bma-green-500);
+  background: var(--bma-green-50);
+  color: var(--bma-green-500);
+}
+
 /* ── Zone ③ Confirm ──────────────────────────────────────────── */
 .dwr-confirm-summary {
   border: 1px solid var(--bma-border-card); border-radius: 8px;
@@ -1198,4 +1377,61 @@ function formatDate(iso: string) {
 }
 .dwr-med-effect--increase { background: var(--inr-very-high-bg);         color: var(--bma-emergency); }
 .dwr-med-effect--decrease { background: var(--wf-interact-decrease-bg);  color: var(--wf-interact-decrease-text); }
+
+/* ── Pill selector ────────────────────────────────────────────── */
+.dwr-pill-selector {
+  padding: 10px 12px; border-radius: 9px;
+  background: var(--bma-surface-light); border: 1px solid var(--bma-border-subtle);
+  display: flex; flex-direction: column; gap: 8px;
+  transition: border-color .15s;
+}
+.dwr-pill-selector--empty {
+  border-color: var(--bma-urgency-ring);
+  background: var(--bma-urgency-bg);
+}
+.dwr-pill-selector-hd {
+  display: flex; align-items: center; gap: 6px;
+}
+.dwr-pill-selector-title {
+  font-size: 11px; font-weight: 700; color: var(--bma-text-muted);
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.dwr-pill-selector-required {
+  margin-left: auto;
+  font-size: 10px; font-weight: 700; color: var(--bma-urgency-text);
+  letter-spacing: .03em;
+}
+.dwr-pill-chips { display: flex; gap: 7px; flex-wrap: wrap; }
+
+.dwr-pill-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px; border-radius: 8px;
+  border: 1.5px solid var(--bma-border-card); background: var(--bma-surface);
+  font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600;
+  color: var(--bma-text-secondary);
+  cursor: pointer; transition: all .15s; user-select: none;
+}
+.dwr-pill-chip:not(.dwr-pill-chip--active):hover {
+  border-color: var(--bma-text-muted); background: var(--bma-surface-subtle);
+}
+/* Active states per pill color */
+.dwr-pill-chip--orange.dwr-pill-chip--active {
+  border-color: var(--wf-pill-orange); background: #FFF3E0; color: #E65100;
+}
+.dwr-pill-chip--blue.dwr-pill-chip--active {
+  border-color: var(--wf-pill-blue); background: #E3F2FD; color: #1565C0;
+}
+.dwr-pill-chip--pink.dwr-pill-chip--active {
+  border-color: var(--wf-pill-pink); background: #FCE4EC; color: #AD1457;
+}
+
+.dwr-pill-chip-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+.dwr-chip-dot--orange { background: var(--wf-pill-orange); }
+.dwr-chip-dot--blue   { background: var(--wf-pill-blue); }
+.dwr-chip-dot--pink   { background: var(--wf-pill-pink); }
+
+.dwr-pill-chip-check  { flex-shrink: 0; }
+.dwr-pill-chip-label  { /* inherits from .dwr-pill-chip */ }
 </style>

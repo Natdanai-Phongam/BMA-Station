@@ -25,6 +25,10 @@ export const INR_TARGET_RANGES: InrTargetRange[] = [
   { min: 1.5, max: 2.5, label: 'Low-risk (1.5–2.5)'           },
 ]
 
+// System-wide default — applies to all BMA patients unless overridden per profile
+export const DEFAULT_TARGET_RANGE: InrTargetRange = INR_TARGET_RANGES[0]
+export const DEFAULT_TTR_GOAL_PCT = 70
+
 // ── Protocol rules (extensible for future indications) ────────
 export interface DoseAdjustmentProtocol {
   id:           string
@@ -74,13 +78,15 @@ export const DAY_LABELS: Record<DayKey, string> = {
 export const DAY_KEYS: DayKey[] = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
 
 export interface DailyDose {
-  tablets: number   // multiples of 0.5 only
-  mg:      number   // tablets × pillStrengthMg
+  tablets: number          // multiples of 0.5 only
+  mg:      number          // tablets × pillMg
+  pillMg:  PillStrengthMg  // which pill size is used this day
 }
 
 export interface WeeklySchedule {
   totalMgWk:      number
-  pillStrengthMg: PillStrengthMg
+  pillStrengthMg: PillStrengthMg    // primary / largest pill (display & backward compat)
+  activePillsMg:  PillStrengthMg[]  // all pill sizes used in this schedule
   days:           Record<DayKey, DailyDose>
 }
 
@@ -99,6 +105,7 @@ export interface DoseAdjustment {
   percentChange:    number    // e.g. +21.4 or -12.5
 
   pillStrengthMg:   PillStrengthMg
+  activePillsMg:    PillStrengthMg[]  // pills used in this prescription
   weeklySchedule:   WeeklySchedule
   remarks?:         string
   systemSuggested:  boolean
@@ -119,12 +126,15 @@ export interface ConcurrentMed {
 // ── Warfarin patient profile ──────────────────────────────────
 export interface WarfarinProfile {
   patientId:        string
-  pillStrengthMg:   PillStrengthMg
+  pillStrengthMg:   PillStrengthMg    // primary pill (largest in activePillsMg, for display & rounding)
+  activePillsMg:    PillStrengthMg[]  // sizes currently selected for scheduling
   currentDoseMgWk:  number
-  targetRange:      InrTargetRange
   therapyStartDate: string    // ISO date
-  protocol:         DoseAdjustmentProtocol
-  ttrGoalPct:       number    // 70
+  // targetRange, protocol, ttrGoalPct fall back to system-wide defaults;
+  // include on the profile only when this patient deviates from the norm
+  targetRange?:     InrTargetRange
+  protocol?:        DoseAdjustmentProtocol
+  ttrGoalPct?:      number
   concurrentMeds?:  ConcurrentMed[]
 }
 
@@ -153,7 +163,8 @@ export type TtrStatus = 'goal-met' | 'below-goal' | 'insufficient-data'
 export interface TtrResult {
   value:            number      // 0–100 percent
   status:           TtrStatus
-  goalPct:          number      // 70
+  // goalPct falls back to DEFAULT_TTR_GOAL_PCT (70) — include only when the patient deviates
+  goalPct?:         number
   fromDate:         string
   toDate:           string
   daysInRange:      number

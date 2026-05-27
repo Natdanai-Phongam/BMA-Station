@@ -6,7 +6,7 @@
       <div class="page-header">
         <div>
           <h1 class="page-title">
-            โครงการบูรณาการติดตามแผนยอดจ่ายในการกำกับดูแลการใช้ยาต้านการแข็งตัวของเลือด
+            โครงการบูรณาการดิจิทัลแดชบอร์ดเพื่อสนับสนุนการใช้ยาต้านการแข็งตัวของเลือดอย่างสมเหตุผล
           </h1>
           <div class="page-subtitle">
             (Digital Dashboard Integrated Anticoagulant Stewardship Program; DD-ATS)
@@ -23,12 +23,30 @@
           @click="activeTab = tab.value"
         >
           {{ tab.label }}
+          <span v-if="tab.count !== null" class="bma-tab-count">{{ tab.count }}</span>
         </div>
       </div>
     </div>
 
     <!-- ── Gray content zone ─────────────────────────────────── -->
     <div class="main-wrap">
+
+      <!-- ── KPI Strip — reactive to active tab ──────────────── -->
+      <div class="kpi-strip">
+        <div v-for="(metric, idx) in activeKpi" :key="idx" class="kpi-cell">
+          <div class="kpi-eyebrow">{{ metric.eyebrow }}</div>
+          <div class="kpi-value-row">
+            <span class="kpi-value">{{ metric.value }}</span>
+            <span v-if="metric.unit" class="kpi-unit">{{ metric.unit }}</span>
+            <span
+              v-if="metric.badge"
+              class="kpi-badge"
+              :class="metric.badge.good ? 'kpi-badge--good' : 'kpi-badge--alert'"
+            >{{ metric.badge.label }}</span>
+          </div>
+          <div class="kpi-context">{{ metric.context }}</div>
+        </div>
+      </div>
 
       <!-- Dashboard Tab -->
       <div v-show="activeTab === 'dashboard'">
@@ -118,20 +136,21 @@
         </div>
 
         <!-- Summary section -->
-        <div class="section-header">
-          <div class="section-icon-wrap">
-            <PhBell :size="15" color="#FB8C00" />
+        <div class="summary-container">
+          <div class="section-header">
+            <div class="section-icon-wrap">
+              <PhBell :size="15" color="#FB8C00" />
+            </div>
+            สรุปการแจ้งเตือนและปรับขนาดยา
+            <span class="section-badge">Consultation &amp; Adjustment Summary</span>
           </div>
-          สรุปการแจ้งเตือนและปรับขนาดยา
-          <span class="section-badge">Consultation &amp; Adjustment Summary</span>
-        </div>
 
-        <div class="summary-grid">
-          <div
-            v-for="card in cards"
-            :key="card.id"
-            class="summary-card"
-          >
+          <div class="summary-grid">
+            <div
+              v-for="card in cards"
+              :key="card.id"
+              class="summary-panel"
+            >
             <div class="sc-header">
               <div class="sc-title-wrap">
                 <div class="sc-icon" :style="`background:${card.iconBg}`">
@@ -145,26 +164,121 @@
               <div class="alert-badge">{{ card.alertCount }} Alerts</div>
             </div>
             <div class="sc-divider" />
-            <div class="sc-stat-row">
-              <div class="sc-stat-label">
-                <PhWarning :size="14" color="#8C8C8C" />
-                {{ card.outOfRangeLabel }}
+
+            <!-- Out-of-range row — hoverable when patients exist -->
+            <template v-if="getSummaryPatients(card.id, 'outOfRange').length > 0">
+              <v-menu
+                open-on-hover
+                :close-on-content-click="false"
+                location="bottom start"
+                content-class="summ-tt-overlay"
+                :open-delay="120"
+                :close-delay="200"
+              >
+                <template #activator="{ props: menuProps }">
+                  <div class="sc-stat-row sc-stat-row--hoverable sc-stat-row--primary" v-bind="menuProps">
+                    <div class="sc-stat-label">
+                      <PhWarning :size="14" color="#8C8C8C" />
+                      {{ card.outOfRangeLabel }}
+                    </div>
+                    <div class="sc-stat-right">
+                      <div class="sc-stat-value sc-stat-value--lg">{{ card.outOfRangeCount }} ราย</div>
+                      <PhInfo class="sc-hint-icon" :size="13" />
+                    </div>
+                  </div>
+                </template>
+                <div class="summ-tt-header">{{ card.outOfRangeLabel }}</div>
+                <div
+                  v-for="pt in getSummaryPatients(card.id, 'outOfRange')"
+                  :key="pt.id"
+                  class="summ-tt-row"
+                >
+                  <div class="summ-tt-info">
+                    <span class="summ-tt-name">{{ pt.name }}</span>
+                    <div class="summ-tt-sub">
+                      <span class="summ-tt-hn">HN {{ pt.hn }}</span>
+                      <span class="summ-tt-badge" :class="`summ-st--${pt.status}`">{{ pt.statusLabel }}</span>
+                    </div>
+                  </div>
+                  <button class="summ-tt-nav" @click="goToPatient(pt.id)" title="ดูรายละเอียด">
+                    <PhArrowSquareOut :size="14" />
+                  </button>
+                </div>
+              </v-menu>
+            </template>
+            <template v-else>
+              <div class="sc-stat-row sc-stat-row--primary">
+                <div class="sc-stat-label">
+                  <PhWarning :size="14" color="#8C8C8C" />
+                  {{ card.outOfRangeLabel }}
+                </div>
+                <div class="sc-stat-value sc-stat-value--lg">{{ card.outOfRangeCount }} ราย</div>
               </div>
-              <div class="sc-stat-value">{{ card.outOfRangeCount }} ราย</div>
-            </div>
-            <div class="sc-stat-row">
-              <div class="sc-stat-label">
-                <PhArrowCircleRight :size="14" color="#8C8C8C" />
-                ส่งต่อแพทย์ปรึกษา
+            </template>
+
+            <!-- Referrals row — hoverable when patients exist -->
+            <template v-if="getSummaryPatients(card.id, 'referrals').length > 0">
+              <v-menu
+                open-on-hover
+                :close-on-content-click="false"
+                location="bottom start"
+                content-class="summ-tt-overlay"
+                :open-delay="120"
+                :close-delay="200"
+              >
+                <template #activator="{ props: menuProps }">
+                  <div class="sc-stat-row sc-stat-row--hoverable sc-stat-row--secondary" v-bind="menuProps">
+                    <div class="sc-stat-label">
+                      <PhArrowCircleRight :size="14" color="#8C8C8C" />
+                      ส่งต่อแพทย์ปรึกษา
+                    </div>
+                    <div class="sc-stat-right">
+                      <div class="sc-stat-value">{{ card.referralCount }} ราย</div>
+                      <PhInfo class="sc-hint-icon" :size="13" />
+                    </div>
+                  </div>
+                </template>
+                <div class="summ-tt-header">ส่งต่อแพทย์ปรึกษา</div>
+                <div
+                  v-for="pt in getSummaryPatients(card.id, 'referrals')"
+                  :key="pt.id"
+                  class="summ-tt-row"
+                >
+                  <div class="summ-tt-info">
+                    <span class="summ-tt-name">{{ pt.name }}</span>
+                    <div class="summ-tt-sub">
+                      <span class="summ-tt-hn">HN {{ pt.hn }}</span>
+                      <span class="summ-tt-badge" :class="`summ-st--${pt.status}`">{{ pt.statusLabel }}</span>
+                    </div>
+                  </div>
+                  <button class="summ-tt-nav" @click="goToPatient(pt.id)" title="ดูรายละเอียด">
+                    <PhArrowSquareOut :size="14" />
+                  </button>
+                </div>
+              </v-menu>
+            </template>
+            <template v-else>
+              <div class="sc-stat-row sc-stat-row--secondary">
+                <div class="sc-stat-label">
+                  <PhArrowCircleRight :size="14" color="#8C8C8C" />
+                  ส่งต่อแพทย์ปรึกษา
+                </div>
+                <div class="sc-stat-value">{{ card.referralCount }} ราย</div>
               </div>
-              <div class="sc-stat-value">{{ card.referralCount }} ราย</div>
-            </div>
+            </template>
+          </div>
           </div>
         </div>
       </div>
 
       <!-- ── Warfarin patient list ─────────────────────────── -->
       <div v-show="activeTab === 'warfarin'">
+
+        <!-- Section header: identity + record count (Pattern 14) -->
+        <div class="tab-section-header">
+          <span class="tab-section-title">การจ่าย Warfarin</span>
+          <span class="tab-section-count">ผู้ป่วยทั้งหมด {{ warfarinTotal }} ราย</span>
+        </div>
 
         <!-- Main filter bar -->
         <div class="filter-bar">
@@ -318,6 +432,12 @@
       <!-- ── NOACs patient list ──────────────────────────────── -->
       <div v-show="activeTab === 'noacs'">
 
+        <!-- Section header: identity + record count (Pattern 14) -->
+        <div class="tab-section-header">
+          <span class="tab-section-title">การจ่าย NOACs</span>
+          <span class="tab-section-count">ผู้ป่วยทั้งหมด {{ noacsTotal }} ราย</span>
+        </div>
+
         <div class="filter-bar">
           <div class="filter-search">
             <PhMagnifyingGlass :size="15" color="#BFBFBF" class="fi-icon" />
@@ -442,14 +562,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, computed, watch, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import type { Component } from 'vue'
 import { Doughnut } from 'vue-chartjs'
 import { Chart as ChartJS, ArcElement, DoughnutController, Tooltip } from 'chart.js'
 import type { TooltipItem } from 'chart.js'
 import {
-  PhBell, PhArrowCircleRight, PhWarning,
+  PhBell, PhArrowCircleRight, PhWarning, PhInfo,
   PhChartBar, PhFirstAid,
   PhMagnifyingGlass, PhCalendar,
   PhArrowSquareOut, PhWarningCircle,
@@ -468,6 +588,7 @@ import allNoacRaw     from '@/data/mock/noac-patients.json'
 ChartJS.register(ArcElement, DoughnutController, Tooltip)
 
 const router = useRouter()
+const route  = useRoute()
 
 // Cast JSON to typed shapes — swap imports for fetch() calls when backend is ready
 const dashConfig  = rawConfig      as AtsDashboardConfigData
@@ -616,6 +737,128 @@ function goToPatient(id: string) {
   router.push(`/dd-ats/patient/${id}`)
 }
 
+// ── KPI Strip ─────────────────────────────────────────────────────────────────
+
+interface KpiMetric {
+  eyebrow: string
+  value: string | number
+  unit?: string
+  badge?: { label: string; good: boolean }
+  context: string
+}
+
+function parsePct(pctStr: string): number {
+  return parseInt(pctStr) || 0
+}
+
+const activeKpi = computed<KpiMetric[]>(() => {
+  const wCard = cards.value[0]
+  const nCard = cards.value[1]
+  if (!wCard || !nCard) return []
+
+  if (activeTab.value === 'dashboard') {
+    const total     = wCard.totalPatients   + nCard.totalPatients
+    const inRange   = wCard.inRangeCount    + nCard.inRangeCount
+    const outRange  = wCard.outOfRangeCount + nCard.outOfRangeCount
+    const alerts    = wCard.alertCount      + nCard.alertCount
+    const referrals = wCard.referralCount   + nCard.referralCount
+    const pct = total > 0 ? Math.round(inRange / total * 100) : 0
+    return [
+      {
+        eyebrow: 'TOTAL PATIENTS · ALL PROGRAMS',
+        value: total,
+        unit: 'ราย',
+        context: `Warfarin ${wCard.totalPatients} · NOACs ${nCard.totalPatients} ราย`,
+      },
+      {
+        eyebrow: 'IN THERAPEUTIC RANGE',
+        value: pct,
+        unit: '%',
+        badge: { label: pct >= 65 ? 'ผ่านเกณฑ์' : 'ต่ำกว่าเกณฑ์', good: pct >= 65 },
+        context: `${inRange} ราย จากทั้งหมด ${total} ราย`,
+      },
+      {
+        eyebrow: 'REQUIRES FOLLOW-UP',
+        value: outRange,
+        unit: 'ราย',
+        badge: alerts > 0 ? { label: `${alerts} แจ้งเตือน`, good: false } : undefined,
+        context: 'ต้องติดตามและปรับแผนการรักษา',
+      },
+      {
+        eyebrow: 'REFERRALS · THIS PERIOD',
+        value: referrals,
+        unit: 'ราย',
+        context: 'ส่งต่อแพทย์ปรึกษาทั้งสองโปรแกรม',
+      },
+    ]
+  }
+
+  if (activeTab.value === 'warfarin') {
+    const card = wCard
+    const pct  = parsePct(card.inRangePct)
+    return [
+      {
+        eyebrow: 'PATIENTS · WARFARIN',
+        value: card.totalPatients,
+        unit: 'ราย',
+        context: 'ผู้ป่วยในโปรแกรม Warfarin ทั้งหมด',
+      },
+      {
+        eyebrow: 'IN RANGE · INR 2.0–3.0',
+        value: pct,
+        unit: '%',
+        badge: { label: pct >= 65 ? 'ผ่านเกณฑ์' : 'ต่ำกว่าเกณฑ์', good: pct >= 65 },
+        context: `${card.inRangeCount} ราย อยู่ใน TTR เป้าหมาย`,
+      },
+      {
+        eyebrow: 'REQUIRES FOLLOW-UP',
+        value: card.outOfRangeCount,
+        unit: 'ราย',
+        badge: card.alertCount > 0 ? { label: `${card.alertCount} Alert`, good: false } : undefined,
+        context: `คิดเป็น ${card.outOfRangePct} ของผู้ป่วยทั้งหมด`,
+      },
+      {
+        eyebrow: 'REFERRALS · WARFARIN',
+        value: card.referralCount,
+        unit: 'ราย',
+        context: 'ส่งต่อแพทย์ปรึกษา',
+      },
+    ]
+  }
+
+  // NOACs
+  const card = nCard
+  const pct  = parsePct(card.inRangePct)
+  return [
+    {
+      eyebrow: 'PATIENTS · NOACs',
+      value: card.totalPatients,
+      unit: 'ราย',
+      context: 'ผู้ป่วยในโปรแกรม NOACs ทั้งหมด',
+    },
+    {
+      eyebrow: 'APPROPRIATE DOSE',
+      value: pct,
+      unit: '%',
+      badge: { label: pct >= 80 ? 'ผ่านเกณฑ์' : 'ต่ำกว่าเกณฑ์', good: pct >= 80 },
+      context: `${card.inRangeCount} ราย ขนาดยาเหมาะสม`,
+    },
+    {
+      eyebrow: 'LAB FLAGS · CrCl / WEIGHT',
+      value: card.alertCount,
+      unit: 'ราย',
+      badge: card.alertCount > 0 ? { label: 'ต้องตรวจสอบ', good: false } : undefined,
+      context: 'ค่า CrCl หรือน้ำหนักผิดปกติ',
+    },
+    {
+      eyebrow: 'REFERRALS · NOACs',
+      value: card.referralCount,
+      unit: 'ราย',
+      context: 'ส่งต่อแพทย์ปรึกษา',
+    },
+  ]
+})
+
 // ── Status labels ─────────────────────────────────────────────────────────────
 const warfarinStatusLabel: Record<WarfarinStatus, string> = {
   'in-range':    'In Range',
@@ -688,6 +931,55 @@ function concordanceLabel(disp: NoacDispensingRecord | undefined): string {
   return disp.overrideReason ? '✗ ปรับโดยมีเหตุผล' : '✗ ไม่ระบุเหตุผล'
 }
 
+// ── Summary section — hoverable patient lists ─────────────────────────────────
+
+interface SummaryPatientEntry {
+  id:          string
+  name:        string
+  hn:          string
+  status:      string
+  statusLabel: string
+}
+
+const summaryPatientLists = computed(() => {
+  const wList = patients.warfarin
+  const nList = patients.noacs
+
+  const toWEntry = (p: typeof wList[number]): SummaryPatientEntry => ({
+    id:          p.id,
+    name:        p.name,
+    hn:          p.hn,
+    status:      p.status,
+    statusLabel: warfarinStatusLabel[p.status as WarfarinStatus] ?? p.status,
+  })
+
+  const toNEntry = (p: typeof nList[number]): SummaryPatientEntry => ({
+    id:          p.id,
+    name:        p.name,
+    hn:          p.hn,
+    status:      p.status,
+    statusLabel: noacsStatusLabel[p.status as NoacsStatus] ?? p.status,
+  })
+
+  return {
+    warfarin: {
+      outOfRange: wList.filter(p => p.status !== dashConfig.warfarin.inRangeStatusKey).map(toWEntry),
+      referrals:  wList.filter(p => p.referred).map(toWEntry),
+    },
+    noacs: {
+      outOfRange: nList.filter(p => p.status !== dashConfig.noacs.inRangeStatusKey).map(toNEntry),
+      referrals:  nList.filter(p => p.referred).map(toNEntry),
+    },
+  }
+})
+
+function getSummaryPatients(cardId: string, type: 'outOfRange' | 'referrals'): SummaryPatientEntry[] {
+  const lists = summaryPatientLists.value
+  if (cardId === 'warfarin') return lists.warfarin[type]
+  if (cardId === 'noacs')    return lists.noacs[type]
+  return []
+}
+
 const drugDisplayLabel: Record<NoacDrug, string> = {
   apixaban:    'Apixaban',
   rivaroxaban: 'Rivaroxaban',
@@ -707,17 +999,26 @@ const noacsTotal    = computed(() => patients.noacs.length)
 type TabValue = 'dashboard' | 'warfarin' | 'noacs'
 const activeTab = ref<TabValue>('dashboard')
 
-watch(activeTab, () => {
+// Sync active tab from ?tab= query param (e.g. navigating back via breadcrumb)
+onMounted(() => {
+  const q = route.query.tab
+  if (q === 'warfarin' || q === 'noacs') activeTab.value = q
+})
+
+watch(activeTab, (tab) => {
+  // Keep URL in sync — replace (not push) so tab-switching doesn't stack history entries
+  router.replace({ path: '/dd-ats', query: tab !== 'dashboard' ? { tab } : {} })
+
   window.scrollTo(0, 0)
   document.documentElement.scrollTop = 0
   ;(document.querySelector('.v-main__wrap') as HTMLElement | null)?.scrollTo(0, 0)
 })
 
-const tabs: { value: TabValue; label: string }[] = [
-  { value: 'dashboard', label: 'Dashboard'        },
-  { value: 'warfarin',  label: 'การจ่าย Warfarin' },
-  { value: 'noacs',     label: 'การจ่าย NOACs'   },
-]
+const tabs = computed(() => [
+  { value: 'dashboard' as TabValue, label: 'Dashboard',        count: null as number | null },
+  { value: 'warfarin'  as TabValue, label: 'การจ่าย Warfarin', count: warfarinTotal.value   },
+  { value: 'noacs'     as TabValue, label: 'การจ่าย NOACs',    count: noacsTotal.value      },
+])
 </script>
 
 <style scoped>
@@ -919,14 +1220,23 @@ const tabs: { value: TabValue; label: string }[] = [
 }
 
 /* ── Summary section ──────────────────────────────────────── */
+.summary-container {
+  background:    var(--bma-surface);
+  border-radius: var(--bma-radius-lg);
+  border:        1px solid var(--bma-border-card);
+  box-shadow:    var(--bma-shadow-card);
+  overflow:      hidden;
+}
+
 .section-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--bma-text-primary);
-  margin-bottom: 14px;
+  display:       flex;
+  align-items:   center;
+  gap:           8px;
+  font-size:     15px;
+  font-weight:   700;
+  color:         var(--bma-text-primary);
+  padding:       16px 20px 14px;
+  border-bottom: 1px solid var(--bma-border-subtle);
 }
 
 .section-icon-wrap {
@@ -955,15 +1265,13 @@ const tabs: { value: TabValue; label: string }[] = [
 .summary-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
 }
 
-.summary-card {
-  background: var(--bma-surface);
-  border-radius: var(--bma-radius-lg);
-  border: 1px solid var(--bma-border-card);
-  box-shadow: var(--bma-shadow-card);
+.summary-panel {
   padding: 16px 20px;
+}
+.summary-panel:first-child {
+  border-right: 1px solid var(--bma-border-subtle);
 }
 
 .sc-header     { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
@@ -972,10 +1280,30 @@ const tabs: { value: TabValue; label: string }[] = [
 .sc-title      { font-size: 14px; font-weight: 700; color: var(--bma-text-primary); }
 .sc-subtitle   { font-size: 11px; color: var(--bma-text-muted); margin-top: 2px; }
 .alert-badge   { background: var(--bma-emergency); color: var(--bma-surface); border-radius: var(--bma-radius-full); padding: 2px 10px; font-family: var(--bma-font-data); font-size: 11px; font-weight: 700; white-space: nowrap; flex-shrink: 0; }
-.sc-divider    { height: 1px; background: var(--bma-border-subtle); margin-bottom: 12px; }
-.sc-stat-row   { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: 13px; }
-.sc-stat-label { display: flex; align-items: center; gap: 5px; color: var(--bma-text-tertiary); }
+.sc-divider    { height: 1px; background: var(--bma-border-subtle); margin-bottom: 8px; }
+.sc-stat-row   { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; font-size: 13px; }
+.sc-stat-row--primary   { padding-bottom: 9px; }
+.sc-stat-row--secondary { padding-top: 9px; border-top: 1px solid var(--bma-border-subtle); }
+.sc-stat-label { display: flex; align-items: center; gap: 5px; color: var(--bma-text-secondary); font-size: 13px; }
 .sc-stat-value { font-family: var(--bma-font-data); font-weight: 700; color: var(--bma-text-primary); font-size: 14px; }
+.sc-stat-value--lg { font-size: 16px; }
+
+/* Right-side container: value + hint icon inline */
+.sc-stat-right {
+  display:     flex;
+  align-items: center;
+  gap:         5px;
+}
+
+/* ⓘ hint icon — muted at rest, sharpens on row hover */
+.sc-hint-icon {
+  color:      var(--bma-text-disabled);
+  flex-shrink: 0;
+  transition: color var(--bma-transition-fast);
+}
+.sc-stat-row--hoverable:hover .sc-hint-icon {
+  color: var(--bma-text-muted);
+}
 
 
 /* ── Filter bar (main) ────────────────────────────────────── */
@@ -1434,8 +1762,121 @@ const tabs: { value: TabValue; label: string }[] = [
 /* ── Generic dash placeholder ─────────────────────────────── */
 .col-dash { color: var(--bma-text-disabled); font-size: 14px; }
 
+/* ── Tab section header (Pattern 14) ─────────────────────── */
+.tab-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.tab-section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bma-text-primary);
+  font-family: var(--bma-font-thai);
+}
+.tab-section-count {
+  font-family: var(--bma-font-data);
+  font-size: 12px;
+  color: var(--bma-text-muted);
+}
+
+/* ── KPI Strip ────────────────────────────────────────────── */
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--bma-surface);
+  border: 1px solid var(--bma-border-card);
+  border-radius: var(--bma-radius-lg);
+  box-shadow: var(--bma-shadow-card);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.kpi-cell {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-right: 1px solid var(--bma-border-subtle);
+}
+.kpi-cell:last-child { border-right: none; }
+
+.kpi-eyebrow {
+  font-family: var(--bma-font-data);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bma-text-muted);
+  line-height: 1;
+}
+
+.kpi-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.kpi-value {
+  font-family: var(--bma-font-data);
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--bma-text-primary);
+  line-height: 1;
+}
+
+.kpi-unit {
+  font-family: var(--bma-font-data);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--bma-text-muted);
+  line-height: 1;
+}
+
+.kpi-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--bma-radius-full);
+  font-family: var(--bma-font-thai);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.kpi-badge--good  { background: var(--bma-success-bg);   color: var(--bma-success-text); }
+.kpi-badge--alert { background: var(--bma-emergency-bg); color: var(--bma-emergency); }
+
+.kpi-context {
+  font-family: var(--bma-font-thai);
+  font-size: 12px;
+  color: var(--bma-text-muted);
+  line-height: 1.4;
+}
+
 /* Hoverable badge hint */
 .ixn-badge--hoverable { cursor: pointer; }
+
+/* ── Summary stat row — hoverable variant ─────────────────── */
+.sc-stat-row--hoverable {
+  cursor: pointer;
+  border-radius: var(--bma-radius-sm);
+  transition: background var(--bma-transition-fast);
+  padding: 6px 8px;
+  margin: 0 -8px;
+}
+.sc-stat-row--hoverable:hover {
+  background: var(--bma-surface-subtle);
+}
+.sc-stat-row--hoverable .sc-stat-label {
+  transition: color var(--bma-transition-fast);
+}
+.sc-stat-row--hoverable:hover .sc-stat-label {
+  color: var(--bma-text-secondary);
+}
 
 </style>
 
@@ -1506,5 +1947,110 @@ const tabs: { value: TabValue; label: string }[] = [
   font-size: 11.5px;
   color: var(--bma-text-secondary);
   line-height: 1.55;
+}
+
+/* ── Summary hover overlay ────────────────────────────────── */
+.summ-tt-overlay.v-overlay__content {
+  background:    var(--bma-surface) !important;
+  border:        1px solid var(--bma-border-card) !important;
+  border-radius: 10px !important;
+  box-shadow:    0 8px 28px rgba(0, 0, 0, 0.16) !important;
+  padding:       12px 14px !important;
+  color:         var(--bma-text-primary) !important;
+  min-width:     280px !important;
+  max-width:     340px !important;
+}
+
+.summ-tt-overlay .summ-tt-header {
+  font-family:    var(--bma-font-data);
+  font-size:      10px;
+  font-weight:    700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color:          var(--bma-text-muted);
+  padding-bottom: 8px;
+  margin-bottom:  4px;
+  border-bottom:  1px solid var(--bma-border-subtle);
+}
+
+.summ-tt-overlay .summ-tt-row {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             10px;
+  padding:         8px 0;
+}
+.summ-tt-overlay .summ-tt-row + .summ-tt-row {
+  border-top: 1px solid var(--bma-border-subtle);
+}
+
+.summ-tt-overlay .summ-tt-info {
+  display:        flex;
+  flex-direction: column;
+  gap:            3px;
+  min-width:      0;
+}
+
+.summ-tt-overlay .summ-tt-name {
+  font-family:   var(--bma-font-thai);
+  font-size:     13px;
+  font-weight:   600;
+  color:         var(--bma-text-primary);
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+}
+
+.summ-tt-overlay .summ-tt-sub {
+  display:     flex;
+  align-items: center;
+  gap:         6px;
+}
+
+.summ-tt-overlay .summ-tt-hn {
+  font-family: var(--bma-font-data);
+  font-size:   11px;
+  color:       var(--bma-text-muted);
+}
+
+.summ-tt-overlay .summ-tt-badge {
+  display:       inline-block;
+  padding:       1px 7px;
+  border-radius: var(--bma-radius-full);
+  font-family:   var(--bma-font-data);
+  font-size:     10px;
+  font-weight:   700;
+  white-space:   nowrap;
+}
+
+/* Status colors — Warfarin */
+.summ-tt-overlay .summ-st--in-range    { background: #E8F5E9; color: #2E7D32; }
+.summ-tt-overlay .summ-st--under-range { background: #FFF3E0; color: #E65100; }
+.summ-tt-overlay .summ-st--over-range  { background: #FCE4EC; color: #B72C2C; }
+/* Status colors — NOACs */
+.summ-tt-overlay .summ-st--appropriate { background: #E8F5E9; color: #2E7D32; }
+.summ-tt-overlay .summ-st--underdose   { background: #FFF3E0; color: #E65100; }
+.summ-tt-overlay .summ-st--overdose    { background: #FCE4EC; color: #B72C2C; }
+.summ-tt-overlay .summ-st--contra      { background: #E8EAF6; color: #3949AB; }
+.summ-tt-overlay .summ-st--interaction { background: #F3EEFF; color: #7B52AB; }
+
+.summ-tt-overlay .summ-tt-nav {
+  width:       28px;
+  height:      28px;
+  border-radius: 7px;
+  border:      1.5px solid var(--bma-border-card);
+  background:  var(--bma-surface);
+  display:     flex;
+  align-items: center;
+  justify-content: center;
+  cursor:      pointer;
+  color:       var(--bma-text-secondary);
+  flex-shrink: 0;
+  transition:  border-color 0.12s, background 0.12s, color 0.12s;
+}
+.summ-tt-overlay .summ-tt-nav:hover {
+  border-color: var(--bma-green-500);
+  background:   var(--bma-green-50);
+  color:        var(--bma-green-700);
 }
 </style>

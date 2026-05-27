@@ -183,6 +183,31 @@
   &--active    { color: var(--bma-green-500); font-weight: 700; border-bottom-color: var(--bma-green-500); }
 }
 
+// Tab count badge — shared across DdAtsDashboard and AtsPatientDetail
+// Usage: <span class="bma-tab-count">{{ count }}</span> inside .bma-tab
+.bma-tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: var(--bma-radius-full);
+  background: var(--bma-surface-subtle);
+  border: 1px solid var(--bma-border-muted);
+  font-family: var(--bma-font-data);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--bma-text-muted);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.bma-tab--active .bma-tab-count {
+  background: var(--bma-green-50);
+  border-color: var(--bma-green-200);
+  color: var(--bma-green-600);
+}
+
 // ─── Two-zone page layout ─────────────────────────────────────────────────────
 // White header zone (.bma-zone-header) over gray content zone (.bma-zone-main)
 .bma-zone-header {

@@ -138,6 +138,7 @@
 import { computed } from 'vue'
 import type { PatientDetail } from '@/data/types/patient-detail'
 import type { WarfarinPageData } from '@/data/types/warfarin'
+import { DEFAULT_TARGET_RANGE } from '@/data/types/warfarin'
 import type { NoacLabData } from '@/data/types/noac-dispensing'
 import { getInrStatus } from '@/utils/inrStatus'
 import { formatThaiDate } from '@/utils/date'
@@ -152,7 +153,7 @@ const props = defineProps<{
 // ── Warfarin derived values ────────────────────────────────────────────────────
 const wfInrStatus = computed(() =>
   props.wfData
-    ? getInrStatus(props.wfData.latestInr.inrValue, props.wfData.profile.targetRange)
+    ? getInrStatus(props.wfData.latestInr.inrValue, props.wfData.profile.targetRange ?? DEFAULT_TARGET_RANGE)
     : null,
 )
 

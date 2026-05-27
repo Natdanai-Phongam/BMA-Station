@@ -5,7 +5,7 @@
       "patientId":   "w002",
       "fromTherapy": "warfarin",
       "toTherapy":   "noacs",
-      "switchDate":  "2568-01-15",
+      "switchDate":  "2569-01-15",
       "reason":      "TTR ต่ำ (26%) ร่วมกับประวัติเลือดออกทางเดินอาหาร",
       "clinicalBasis": {
         "ttrPct":          26,
