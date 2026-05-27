@@ -1,0 +1,19 @@
+{
+  "w002": [
+    {
+      "id":          "ts-w002-001",
+      "patientId":   "w002",
+      "fromTherapy": "warfarin",
+      "toTherapy":   "noacs",
+      "switchDate":  "2568-01-15",
+      "reason":      "TTR ต่ำ (26%) ร่วมกับประวัติเลือดออกทางเดินอาหาร",
+      "clinicalBasis": {
+        "ttrPct":          26,
+        "inrAtSwitch":     5.8,
+        "bleedingHistory": true,
+        "clinicianNote":   "คนไข้มีประวัติ UGIB 2 ครั้ง ภายใน 1 เดือน และ TTR เพียง 26% หลังติดตาม 5 เดือน ไม่สามารถควบคุม INR ให้อยู่ในช่วงเป้าหมาย — เปลี่ยนแผนการรักษาเป็น NOACs (Apixaban)"
+      },
+      "requestedBy": "pharmacist"
+    }
+  ]
+}

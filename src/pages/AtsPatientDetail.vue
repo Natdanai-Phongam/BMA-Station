@@ -11,52 +11,12 @@
         <h1 class="page-title">รายละเอียดผู้ป่วย</h1>
       </div>
 
-      <!-- ── 2-column patient card ───────────────────────── -->
-      <div class="patient-card">
-
-        <!-- Left: identity + clinical context -->
-        <div class="pc-left">
-          <div class="avatar" />
-          <div class="pc-bio">
-            <div class="pc-name-row">
-              <span class="patient-name">{{ p.name }}</span>
-              <span class="hn-badge">HN {{ p.hn }}</span>
-              <span class="risk-badge" :class="`risk-badge--${p.riskLevel}`">
-                {{ riskLabel[p.riskLevel] }}
-              </span>
-            </div>
-            <div class="pc-demo-row">
-              <span>อายุ {{ p.age }} ปี</span>
-              <span class="sep">·</span>
-              <span>{{ p.sex }}</span>
-              <span class="sep">·</span>
-              <span>กรุ๊ปเลือด {{ p.bloodGroup }}</span>
-              <span class="sep">·</span>
-              <span>เกิด {{ formatThaiDate(p.dob) }}</span>
-              <span class="sep">·</span>
-              <span class="pc-phone">{{ p.phone }}</span>
-            </div>
-            <div class="pc-insurance-row">
-              <span class="field-label">สิทธิการรักษา</span>
-              <span class="field-value">{{ p.insuranceType }}</span>
-            </div>
-            <div class="pc-allergy-row">
-              <span class="field-label">แพ้ยา</span>
-              <template v-if="p.allergies.length">
-                <span
-                  v-for="a in p.allergies"
-                  :key="a.substance"
-                  class="allergy-tag"
-                  :class="`allergy-tag--${a.severity}`"
-                  :title="a.reaction"
-                >⚠ {{ a.substance }}</span>
-              </template>
-              <span v-else class="no-allergy">ไม่มีประวัติแพ้ยา</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <!-- ── Patient info card ─────────────────────────── -->
+      <AtsPatientHeader
+        :patient="p"
+        :wf-data="wfData"
+        :latest-noac-lab="latestNoacLab"
+      />
 
       <!-- ── Tabs ──────────────────────────────────────────── -->
       <div class="tabs-wrap">
@@ -77,6 +37,11 @@
       <!-- Tab: Warfarin Dose Tool -->
       <div v-show="activeTab === 'warfarin'">
         <WarfarinDoseTool :patient-id="patientId" :embedded="true" />
+      </div>
+
+      <!-- Tab: NOACs Algorithm -->
+      <div v-show="activeTab === 'noac'" class="tab-content">
+        <NoacAlgorithm :patient-id="patientId" :embedded="true" />
       </div>
 
       <!-- Tab: ภาวะแทรกซ้อน -->
@@ -191,7 +156,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import type { Component } from 'vue'
 import {
@@ -208,10 +173,15 @@ import {
 } from 'chart.js'
 import type { TooltipItem } from 'chart.js'
 import { Bar } from 'vue-chartjs'
-import type { PatientDetail, ComplicationType, RiskLevel } from '@/data/types/patient-detail'
-import allDetailRaw from '@/data/mock/patient-detail.json'
-import { formatThaiDate } from '@/utils/date'
-import WarfarinDoseTool from '@/pages/WarfarinDoseTool.vue'
+import type { PatientDetail, ComplicationType } from '@/data/types/patient-detail'
+import type { WarfarinPageData } from '@/data/types/warfarin'
+import type { NoacPatientData } from '@/data/types/noac-dispensing'
+import allDetailRaw   from '@/data/mock/patient-detail.json'
+import allWarfarinRaw from '@/data/mock/warfarin-patients.json'
+import allNoacRaw     from '@/data/mock/noac-patients.json'
+import WarfarinDoseTool  from '@/pages/WarfarinDoseTool.vue'
+import NoacAlgorithm     from '@/pages/NoacAlgorithm.vue'
+import AtsPatientHeader  from '@/components/AtsPatientHeader.vue'
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip)
 
@@ -219,21 +189,49 @@ const router = useRouter()
 const route  = useRoute()
 const patientId = computed(() => route.params.id as string)
 
-const allDetail = allDetailRaw as Record<string, PatientDetail>
-const p = computed<PatientDetail>(() => allDetail[patientId.value] ?? allDetail['w002'])
+const allDetail   = allDetailRaw   as Record<string, PatientDetail>
+const allWarfarin = allWarfarinRaw as Record<string, WarfarinPageData>
+const allNoac     = allNoacRaw     as Record<string, NoacPatientData>
 
-type TabValue = 'complications' | 'warfarin'
-const activeTab = ref<TabValue>('complications')
-const tabs: { value: TabValue; label: string }[] = [
-  { value: 'complications', label: 'ภาวะแทรกซ้อน'          },
-  { value: 'warfarin',      label: 'Warfarin Dose Tool'    },
-]
+const p        = computed<PatientDetail>(() => allDetail[patientId.value]  ?? allDetail['w002'])
+const wfData   = computed(() => allWarfarin[patientId.value] ?? null)
+const noacData = computed<NoacPatientData | null>(() => allNoac[patientId.value] ?? allNoac['w002'] ?? null)
+const latestNoacLab = computed(() => {
+  const history = noacData.value?.dispensingHistory
+  if (!history?.length) return null
+  return history[history.length - 1].labData
+})
+type TabValue = 'complications' | 'warfarin' | 'noac'
 
-const riskLabel: Record<RiskLevel, string> = {
-  low:    'ความเสี่ยงต่ำ',
-  medium: 'ความเสี่ยงปานกลาง',
-  high:   'ความเสี่ยงสูง (High Risk)',
+// Derive therapy from which clinical data source contains this patient.
+// This is the canonical source of truth and works even when patient-detail.json
+// doesn't have an entry for the patient yet.
+const derivedTherapy = computed<'warfarin' | 'noacs'>(() =>
+  patientId.value in allWarfarin ? 'warfarin' : 'noacs'
+)
+
+// Default tab follows the patient's active therapy so clicking a NOACs patient
+// lands directly on the NOACs view, and a Warfarin patient on the dosing tool.
+function defaultTab(therapy: 'warfarin' | 'noacs'): TabValue {
+  if (therapy === 'warfarin') return 'warfarin'
+  if (therapy === 'noacs')    return 'noac'
+  return 'complications'
 }
+const activeTab = ref<TabValue>(defaultTab(derivedTherapy.value))
+
+// Re-set the default tab when navigating between patients (route id changes).
+watch(patientId, () => {
+  activeTab.value = defaultTab(derivedTherapy.value)
+})
+
+// Only show therapy-specific tabs that match the patient's current enrollment.
+// A patient switching therapy will no longer see the previous drug's tool.
+const tabs = computed<{ value: TabValue; label: string }[]>(() => [
+  { value: 'complications', label: 'ภาวะแทรกซ้อน' },
+  ...(derivedTherapy.value === 'warfarin' ? [{ value: 'warfarin' as TabValue, label: 'Warfarin Dose Tool'      }] : []),
+  ...(derivedTherapy.value === 'noacs'   ? [{ value: 'noac'     as TabValue, label: 'คำแนะนำการจ่ายยา NOACs' }] : []),
+])
+
 
 const thaiMonths = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.']
 
@@ -308,9 +306,10 @@ const chartOptions = {
   display: flex;
   align-items: center;
   gap: 14px;
+  min-height: 40px;
   margin-bottom: 20px;
 }
-.page-title { font-size: 22px; font-weight: 700; color: var(--bma-text-primary); margin: 0; }
+.page-title { font-size: 18px; font-weight: 700; color: var(--bma-text-primary); margin: 0; line-height: 1.35; }
 
 .back-btn {
   width: 36px; height: 36px;
@@ -320,87 +319,8 @@ const chartOptions = {
 }
 .back-btn:hover { background: var(--bma-surface-subtle); }
 
-/* ── 2-column patient card ────────────────────────────── */
-.patient-card {
-  display: flex;
-  gap: 20px;
-  background: #F8FAFB;
-  border-radius: var(--bma-radius-lg);
-  border: 1px solid var(--bma-border-card);
-  padding: 18px 20px;
-  align-items: flex-start;
-}
-
-/* Left column */
-.pc-left {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-}
-
-.avatar {
-  width: 52px; height: 52px;
-  border-radius: 50%;
-  background: var(--bma-border);
-  flex-shrink: 0;
-}
-
-.pc-bio   { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
-
-.pc-name-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.patient-name { font-size: 16px; font-weight: 700; color: var(--bma-text-primary); }
-
-.hn-badge {
-  display: inline-block;
-  padding: 2px 10px;
-  border: 1.5px solid var(--bma-green-500);
-  border-radius: var(--bma-radius-full);
-  font-family: var(--bma-font-data);
-  font-size: 12px; font-weight: 700; color: var(--bma-green-500);
-}
-
-.risk-badge {
-  display: inline-block;
-  padding: 3px 12px;
-  border-radius: var(--bma-radius-full);
-  font-size: 12px; font-weight: 700;
-}
-.risk-badge--low    { background: #E8F5E9; color: #2E7D32; border: 1.5px solid #A5D6A7; }
-.risk-badge--medium { background: #FFF8E1; color: #F57F17; border: 1.5px solid #FFE082; }
-.risk-badge--high   { background: #FFF3E0; color: #E65100; border: 1.5px solid #FFB74D; }
-
-.pc-demo-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-  font-size: 13px;
-  color: var(--bma-text-tertiary);
-}
-.sep      { color: #D0D0D0; font-size: 12px; }
-.pc-phone { font-family: var(--bma-font-data); }
-
-.pc-insurance-row { display: flex; align-items: center; gap: 6px; }
-.field-label { font-size: 12px; color: var(--bma-text-muted); }
-.field-value { font-size: 13px; color: var(--bma-text-primary); font-weight: 600; }
-
-.pc-allergy-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-
-.allergy-tag {
-  display: inline-block;
-  padding: 2px 9px;
-  border-radius: 5px;
-  font-size: 12px; font-weight: 600;
-}
-.allergy-tag--mild     { background: oklch(93% 0.08 85);  color: oklch(38% 0.15 60); }
-.allergy-tag--moderate { background: oklch(92% 0.10 55);  color: oklch(38% 0.20 40); }
-.allergy-tag--severe   { background: oklch(88% 0.12 20);  color: oklch(35% 0.20 18); }
-.no-allergy { font-size: 12px; color: var(--bma-text-muted); font-style: italic; }
-
 /* ── Tabs ────────────────────────────────────────────── */
-.tabs-wrap { margin-top: 20px; }
+.tabs-wrap { margin-top: 12px; }
 
 /* ── Content area ─────────────────────────────────────── */
 .main-wrap {

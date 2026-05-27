@@ -272,13 +272,15 @@ const cards: ConsultCard[] = [
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 40px;
-  margin-bottom: 24px;
+  min-height: 40px;
+  margin-bottom: 20px;
 }
 .page-title {
   font-size: 18px;
   font-weight: 700;
   color: var(--bma-text-primary);
+  line-height: 1.35;
+  margin: 0;
 }
 .btn-send {
   display: inline-flex;

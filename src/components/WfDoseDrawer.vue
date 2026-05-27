@@ -19,25 +19,36 @@
 
       <!-- Header -->
       <div class="dwr-header">
-        <div class="dwr-header-left">
+        <div class="dwr-header-top">
           <button class="dwr-close-btn" @click="emit('close')">
             <PhX :size="16" color="#595959" />
           </button>
           <div class="dwr-title-wrap">
-            <component :is="drawerHeaderIcon" :size="13" :color="drawerHeaderIconColor" />
             <span class="dwr-title">{{ drawerTitle }}</span>
           </div>
         </div>
         <div class="dwr-ctx">
-          <span class="dwr-ctx-hn">HN: {{ patientId }}</span>
-          <span class="dwr-ctx-sep">·</span>
-          <span class="dwr-ctx-inr" :class="`dwr-ctx-inr--${headerInrStatus}`">
-            INR {{ props.data.latestInr.inrValue.toFixed(1) }} {{ headerInrLabel }}
-          </span>
-          <span class="dwr-ctx-sep">·</span>
-          <span class="dwr-ctx-dose">{{ props.data.profile.currentDoseMgWk.toFixed(1) }} mg/wk</span>
-          <span class="dwr-ctx-sep">·</span>
-          <span class="dwr-ctx-ttr">TTR {{ props.data.ttr.value.toFixed(0) }}%</span>
+          <div class="dwr-ctx-group">
+            <span class="dwr-ctx-label">HN</span>
+            <span class="dwr-ctx-hn">{{ hn ?? patientId }}</span>
+          </div>
+          <div class="dwr-ctx-div" />
+          <div class="dwr-ctx-group">
+            <span class="dwr-ctx-label">INR</span>
+            <span class="dwr-ctx-inr" :class="`dwr-ctx-inr--${headerInrStatus}`">
+              {{ props.data.latestInr.inrValue.toFixed(1) }} {{ headerInrLabel }}
+            </span>
+          </div>
+          <div class="dwr-ctx-div" />
+          <div class="dwr-ctx-group">
+            <span class="dwr-ctx-label">DOSE</span>
+            <span class="dwr-ctx-dose">{{ props.data.profile.currentDoseMgWk.toFixed(1) }}<span class="dwr-ctx-unit"> mg/wk</span></span>
+          </div>
+          <div class="dwr-ctx-div" />
+          <div class="dwr-ctx-group">
+            <span class="dwr-ctx-label">TTR</span>
+            <span class="dwr-ctx-ttr">{{ props.data.ttr.value.toFixed(0) }}%</span>
+          </div>
         </div>
       </div>
 
@@ -385,7 +396,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, nextTick } from 'vue'
 import {
-  PhX, PhCalculator, PhWarning, PhCheckCircle,
+  PhX, PhWarning, PhCheckCircle,
   PhFloppyDisk, PhInfo, PhPill, PhPencilSimple,
 } from '@phosphor-icons/vue'
 import type {
@@ -404,6 +415,7 @@ const props = defineProps<{
   data: WarfarinPageData
   isOpen: boolean
   patientId: string
+  hn?: string
 }>()
 
 const emit = defineEmits<{
@@ -483,28 +495,8 @@ const headerInrStatus = computed<InrStatus>(() =>
 )
 const headerInrLabel = computed(() => inrStatusLabel(headerInrStatus.value))
 
-// ── Drawer header: title + icon change per clinical state ─────
-// All three derive from headerInrStatus (the original system INR — never the in-progress edit).
-const drawerTitle = computed(() => {
-  const t = headerInrStatus.value
-  if (t === 'therapeutic')                                         return 'ยืนยัน Visit'
-  if (t === 'emergency' || t === 'critical' || t === 'very-high') return 'โปรโตคอล HOLD'
-  return 'ปรับขนาดยา'
-})
-const drawerHeaderIcon = computed(() => {
-  const t = headerInrStatus.value
-  if (t === 'therapeutic')                                         return PhCheckCircle
-  if (t === 'emergency' || t === 'critical' || t === 'very-high') return PhWarning
-  return PhCalculator
-})
-const drawerHeaderIconColor = computed(() => {
-  const t = headerInrStatus.value
-  if (t === 'therapeutic') return '#2E7D32'
-  if (t === 'emergency')   return '#B71C1C'
-  if (t === 'critical')    return '#B72C2C'
-  if (t === 'very-high')   return '#E65100'
-  return '#00744B'
-})
+// ── Drawer header title ───────────────────────────────────────
+const drawerTitle = computed(() => 'บันทึกการจ่ายยา Warfarin')
 
 // ── Protocol suggestion ───────────────────────────────────────
 const suggestion = computed(() =>
@@ -741,11 +733,14 @@ function formatDate(iso: string) {
 
 /* ── Header ──────────────────────────────────────────────────── */
 .dwr-header {
-  display: flex; flex-direction: column; gap: 8px;
-  padding: 14px 18px; border-bottom: 1px solid var(--bma-border-subtle);
+  display: flex; flex-direction: column;
+  border-bottom: 1px solid var(--bma-border-subtle);
   flex-shrink: 0; background: var(--bma-surface);
 }
-.dwr-header-left { display: flex; align-items: center; gap: 10px; }
+.dwr-header-top {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 18px;
+}
 .dwr-close-btn {
   width: 30px; height: 30px; border-radius: 7px;
   border: 1.5px solid var(--bma-border); background: var(--bma-surface);
@@ -754,16 +749,32 @@ function formatDate(iso: string) {
 }
 .dwr-close-btn:hover { background: var(--bma-surface-subtle); }
 .dwr-title-wrap { display: flex; align-items: center; gap: 6px; }
-.dwr-title { font-size: 14px; font-weight: 800; color: var(--bma-text-primary); }
+.dwr-title { font-family: var(--bma-font-thai); font-size: 14px; font-weight: 800; color: var(--bma-text-primary); }
+
+/* Context info strip */
 .dwr-ctx {
-  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
-  padding-left: 40px;
+  display: flex; align-items: stretch;
+  border-top: 1px solid var(--bma-border-subtle);
+  background: var(--bma-surface-light);
 }
-.dwr-ctx-hn  { font-family: var(--bma-font-data); font-size: 11px; font-weight: 700; color: var(--bma-text-muted); }
-.dwr-ctx-sep { color: var(--bma-border); font-size: 11px; }
+.dwr-ctx-group {
+  display: flex; flex-direction: column; gap: 3px;
+  padding: 8px 14px; flex: 1;
+}
+.dwr-ctx-div {
+  width: 1px; background: var(--bma-border-subtle); flex-shrink: 0;
+}
+.dwr-ctx-label {
+  font-family: var(--bma-font-data); font-size: 10px; font-weight: 700;
+  color: var(--bma-text-disabled); text-transform: uppercase; letter-spacing: .07em;
+}
+.dwr-ctx-hn {
+  font-family: var(--bma-font-data); font-size: 13px; font-weight: 800;
+  color: var(--bma-text-primary);
+}
 .dwr-ctx-inr {
   font-family: var(--bma-font-data); font-size: 11px; font-weight: 800;
-  padding: 2px 8px; border-radius: 99px;
+  padding: 2px 8px; border-radius: 99px; align-self: flex-start;
 }
 .dwr-ctx-inr--low          { background: var(--inr-very-high-bg);   color: var(--bma-emergency); }
 .dwr-ctx-inr--therapeutic  { background: var(--bma-green-50);       color: var(--bma-success-text); }
@@ -771,8 +782,18 @@ function formatDate(iso: string) {
 .dwr-ctx-inr--very-high    { background: var(--inr-very-high-bg);   color: var(--bma-emergency); }
 .dwr-ctx-inr--critical     { background: var(--bma-emergency);      color: var(--bma-surface); }
 .dwr-ctx-inr--emergency    { background: var(--inr-emergency-deep); color: var(--bma-surface); }
-.dwr-ctx-dose { font-family: var(--bma-font-data); font-size: 11px; font-weight: 700; color: var(--bma-text-tertiary); }
-.dwr-ctx-ttr  { font-family: var(--bma-font-data); font-size: 11px; color: var(--bma-text-muted); }
+.dwr-ctx-dose {
+  font-family: var(--bma-font-data); font-size: 13px; font-weight: 700;
+  color: var(--bma-text-primary);
+}
+.dwr-ctx-unit {
+  font-family: var(--bma-font-data); font-size: 10px; font-weight: 500;
+  color: var(--bma-text-muted);
+}
+.dwr-ctx-ttr {
+  font-family: var(--bma-font-data); font-size: 13px; font-weight: 700;
+  color: var(--bma-text-primary);
+}
 
 /* ── Body ────────────────────────────────────────────────────── */
 .dwr-body {
@@ -1073,7 +1094,7 @@ function formatDate(iso: string) {
   border: 1px solid var(--bma-border-subtle); background: var(--bma-surface-light);
 }
 .dwr-day--hi { border-color: var(--bma-green-200); background: var(--bma-green-50); }
-.dwr-day-lbl { font-size: 9px; font-weight: 700; color: var(--bma-text-muted); }
+.dwr-day-lbl { font-size: 10px; font-weight: 700; color: var(--bma-text-muted); }
 .dwr-day--hi .dwr-day-lbl { color: var(--bma-green-500); }
 .dwr-day-pills {
   display: flex; gap: 1px; align-items: center; justify-content: center;
@@ -1082,11 +1103,16 @@ function formatDate(iso: string) {
 .dwr-day-tab { font-family: var(--bma-font-data); font-size: 11px; font-weight: 800; color: var(--bma-text-primary); }
 .dwr-day--hi .dwr-day-tab { color: var(--bma-green-500); }
 
-.dwr-pill { border-radius: 99px; flex-shrink: 0; }
-.dwr-pill--full { width: 14px; height: 8px; }
-.dwr-pill--half { width: 7px;  height: 8px; border-radius: 99px 0 0 99px; }
-.dwr-pill--blue { background: var(--wf-pill-blue); }
-.dwr-pill--pink { background: var(--wf-pill-pink); }
+.dwr-pill {
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: inset 0 -1px 3px rgba(0,0,0,.20), inset 0 1px 2px rgba(255,255,255,.35);
+}
+.dwr-pill--full { width: 11px; height: 11px; }
+.dwr-pill--half { width: 5px;  height: 11px; border-radius: 6px 0 0 6px; }
+.dwr-pill--orange { background: var(--wf-pill-orange); }
+.dwr-pill--blue   { background: var(--wf-pill-blue); }
+.dwr-pill--pink   { background: var(--wf-pill-pink); }
 
 .dwr-hold-note {
   display: flex; align-items: center; gap: 6px;

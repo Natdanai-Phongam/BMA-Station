@@ -12,3 +12,5 @@ export type { BmaDetailItem } from './BmaPatientCard.vue'
 
 export { default as BmaKpiCard } from './BmaKpiCard.vue'
 export type { BmaKpiVariant, BmaDeltaType } from './BmaKpiCard.vue'
+
+export { default as AtsPatientHeader } from './AtsPatientHeader.vue'

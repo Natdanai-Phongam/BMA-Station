@@ -64,9 +64,11 @@
 
   /* ╔══ WARFARIN PILL ════════════════════════════════════════════════════════╗
      Physical tablet colors — used in the 7-day schedule pill widgets.
+     Circular shape; colors match the physical Waforan tablet reference.
      ╚═════════════════════════════════════════════════════════════════════════╝ */
-  --wf-pill-blue: #1565C0;   /* 5 mg — blue tablet  */
-  --wf-pill-pink: #C2185B;   /* 3 mg — pink tablet  */
+  --wf-pill-orange: #E07840;  /* 2 mg — orange tablet */
+  --wf-pill-blue:   #4A8FD4;  /* 3 mg — blue tablet   */
+  --wf-pill-pink:   #D94E8A;  /* 5 mg — pink tablet   */
 
 
   /* ╔══ DRUG INTERACTION FLAG ════════════════════════════════════════════════╗

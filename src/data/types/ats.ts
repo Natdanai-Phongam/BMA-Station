@@ -1,50 +1,56 @@
 // Types for DD-ATS (Digital Dashboard Anticoagulant Stewardship) data
-// Designed to mirror REST API response shape — swap mockData import for fetch() when backend is ready
+// Designed to mirror REST API response shape — swap mock imports for fetch() when backend is ready
 
-export interface AtsStatRow {
-  /** Display label e.g. "Under Range", "Underdose" */
-  label: string
-  /** Sub-label shown in smaller text e.g. "INR < 2.0" — empty string if none */
-  sublabel: string
-  /** CSS color hex for dot + progress fill */
-  color: string
-  /** Raw patient count */
-  count: number
-  /** Pre-formatted percentage string relative to total e.g. "(13.3%)" */
+// ── Display config (loaded from JSON, no computed numbers) ────────────────────
+export interface AtsDashboardStatConfig {
+  /** UI label e.g. "Under Range" */
+  label:     string
+  /** Smaller annotation e.g. "INR < 2.0" — empty string if none */
+  sublabel:  string
+  /** CSS color hex for dot + progress bar fill */
+  color:     string
+  /** Patient status key used to count matching patients from the list */
+  statusKey: string
+}
+
+export interface AtsDashboardCardConfig {
+  id:                'warfarin' | 'noacs'
+  title:             string
+  subtitle:          string
+  iconName:          string
+  iconColor:         string
+  iconBg:            string
+  /** Status key that counts as "in-range" — e.g. "in-range" or "appropriate" */
+  inRangeStatusKey:  string
+  inRangeLabel:      string
+  /** Range annotation e.g. "INR 2.0–3.0" — empty if not applicable */
+  inRangeRange:      string
+  /** Thai label for the out-of-range row in the summary card */
+  outOfRangeLabel:   string
+  stats:             AtsDashboardStatConfig[]
+}
+
+export interface AtsDashboardConfigData {
+  warfarin: AtsDashboardCardConfig
+  noacs:    AtsDashboardCardConfig
+}
+
+// ── Computed card shape (what the template renders) ───────────────────────────
+// Extends config with numbers derived at runtime from the patient list.
+export interface AtsStatRow extends AtsDashboardStatConfig {
+  count:      number
   pctDisplay: string
 }
 
-export interface AtsMonitoringCard {
-  id: 'warfarin' | 'noacs'
-  title: string
-  subtitle: string
-  /** Phosphor icon name to render in card header */
-  iconName: string
-  iconColor: string
-  iconBg: string
-  totalPatients: number
-  /** In-range (green zone) */
-  inRangeCount: number
-  inRangePct: string
-  inRangeLabel: string
-  /** Range annotation e.g. "INR 2.0–3.0" — empty if not applicable */
-  inRangeRange: string
-  /** Out-of-range total (sum of all stat rows) */
+export interface AtsMonitoringCard extends Omit<AtsDashboardCardConfig, 'stats'> {
+  totalPatients:   number
+  inRangeCount:    number
+  inRangePct:      string
   outOfRangeCount: number
-  outOfRangePct: string
-  /** Ordered list of out-of-range categories (used for stat rows + donut segments) */
-  stats: AtsStatRow[]
-
-  // ── Summary section fields ──────────────────────────────
-  /** Thai label for the out-of-range row in the summary card */
-  outOfRangeLabel: string
-  /** Active alert count shown in the summary badge (may differ from outOfRangeCount) */
-  alertCount: number
-  /** Patients referred for specialist consultation — new mock field */
-  referralCount: number
-}
-
-export interface AtsDashboardData {
-  warfarin: AtsMonitoringCard
-  noacs: AtsMonitoringCard
+  outOfRangePct:   string
+  /** Patients with at least one lab value flagged as alert */
+  alertCount:      number
+  /** Patients whose status triggered a specialist referral flag */
+  referralCount:   number
+  stats:           AtsStatRow[]
 }

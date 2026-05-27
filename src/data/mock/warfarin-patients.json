@@ -329,5 +329,61 @@
     ],
     "doseAdjustments": [],
     "ttr": { "value": 74.0, "status": "goal-met", "goalPct": 70, "fromDate": "2025-09-08", "toDate": "2026-02-13", "daysInRange": 123, "daysCalculable": 158 }
+  },
+
+  "w013": {
+    "profile": {
+      "patientId": "w013",
+      "pillStrengthMg": 2,
+      "currentDoseMgWk": 14.0,
+      "targetRange": { "min": 2.0, "max": 3.0, "label": "Standard (2.0–3.0)" },
+      "therapyStartDate": "2025-07-08",
+      "protocol": { "id": "standard-warfarin-v1", "label": "Standard Warfarin Protocol", "inrBelow": 2.0, "inrAbove": 3.0, "minPct": 0.10, "maxPct": 0.20, "maxStepTab": 0.5, "roundingUnit": 0.5 },
+      "ttrGoalPct": 70,
+      "concurrentMeds": [
+        { "name": "Paracetamol 500 mg PRN", "effect": "increase", "severity": "minor", "note": "ใช้ต่อเนื่องในปริมาณสูงอาจเพิ่ม INR เล็กน้อย" }
+      ]
+    },
+    "latestInr": { "id": "inr-w013-008", "patientId": "w013", "inrValue": 2.5, "measuredAt": "2026-02-11T09:00:00+07:00", "source": "manual", "notes": "" },
+    "inrHistory": [
+      { "id": "inr-w013-001", "patientId": "w013", "inrValue": 1.8, "measuredAt": "2025-07-08T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w013-002", "patientId": "w013", "inrValue": 1.8, "measuredAt": "2025-07-29T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w013-003", "patientId": "w013", "inrValue": 2.2, "measuredAt": "2025-08-19T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w013-004", "patientId": "w013", "inrValue": 2.5, "measuredAt": "2025-09-09T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w013-005", "patientId": "w013", "inrValue": 2.7, "measuredAt": "2025-09-30T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w013-006", "patientId": "w013", "inrValue": 2.4, "measuredAt": "2025-10-21T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w013-007", "patientId": "w013", "inrValue": 2.6, "measuredAt": "2025-11-11T09:00:00+07:00", "source": "manual" },
+      { "id": "inr-w013-008", "patientId": "w013", "inrValue": 2.5, "measuredAt": "2026-02-11T09:00:00+07:00", "source": "manual" }
+    ],
+    "doseAdjustments": [
+      {
+        "id": "adj-w013-001",
+        "patientId": "w013",
+        "adjustedAt": "2025-07-29T09:30:00+07:00",
+        "adjustedBy": "ภก. สมศักดิ์ วิชาญ",
+        "inrAtAdjustment": 1.8,
+        "inrSource": "manual",
+        "oldDoseMgWk": 12.0,
+        "newDoseMgWk": 14.0,
+        "percentChange": 16.7,
+        "pillStrengthMg": 2,
+        "weeklySchedule": {
+          "totalMgWk": 14.0,
+          "pillStrengthMg": 2,
+          "days": {
+            "mon": { "tablets": 1, "mg": 2.0 },
+            "tue": { "tablets": 1, "mg": 2.0 },
+            "wed": { "tablets": 1, "mg": 2.0 },
+            "thu": { "tablets": 1, "mg": 2.0 },
+            "fri": { "tablets": 1, "mg": 2.0 },
+            "sat": { "tablets": 1, "mg": 2.0 },
+            "sun": { "tablets": 1, "mg": 2.0 }
+          }
+        },
+        "remarks": "INR ต่ำกว่าเป้า 2 ครั้งติดต่อกัน — เพิ่มขนาดยา 2 mg/wk",
+        "systemSuggested": true
+      }
+    ],
+    "ttr": { "value": 76.0, "status": "goal-met", "goalPct": 70, "fromDate": "2025-07-08", "toDate": "2026-02-11", "daysInRange": 166, "daysCalculable": 218 }
   }
 }

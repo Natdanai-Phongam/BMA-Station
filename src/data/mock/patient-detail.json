@@ -1,8 +1,26 @@
 {
+  "w001": {
+    "id": "w001",
+    "name": "นาย บุญรอด ขจรศักดิ์",
+    "hn": "693514782",
+    "age": 68,
+    "dob": "1958-01-12",
+    "sex": "ชาย",
+    "bloodGroup": "B+",
+    "phone": "081-528-4732",
+    "insuranceType": "ข้าราชการ",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "high",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+
   "w002": {
     "id": "w002",
     "name": "นายสมชาย มั่นคง",
-    "hn": "67123456",
+    "hn": "692847391",
     "age": 24,
     "dob": "2002-05-15",
     "sex": "ชาย",
@@ -19,6 +37,22 @@
       { "type": "bleeding",        "count": 2, "lastDate": "12 มิ.ย. 68" },
       { "type": "thromboembolism", "count": 1, "lastDate": "04 มิ.ย. 68" },
       { "type": "side-effects",    "count": 2, "lastDate": "27 พ.ค. 68"  }
+    ],
+    "currentTherapy": "noacs",
+    "concurrentMedications": [
+      {
+        "name":             "Verapamil",
+        "dose":             "80 mg OD",
+        "category":         "P-gp Inhibitor (CCB)",
+        "interactionLevel": "warning",
+        "interactionNote":  "เพิ่มระดับยา NOACs บางชนิดในเลือด โดยเฉพาะ Dabigatran และ Edoxaban — ลดขนาดยาตามเกณฑ์"
+      },
+      {
+        "name":             "Omeprazole",
+        "dose":             "40 mg OD",
+        "category":         "Proton Pump Inhibitor",
+        "interactionLevel": null
+      }
     ],
     "complications": [
       {
@@ -72,5 +106,207 @@
         "status": "สิ้นสุดการรักษา"
       }
     ]
+  },
+
+  "w003": {
+    "id": "w003",
+    "name": "นาย ประวิทย์ ชมภูนุช",
+    "hn": "695823047",
+    "age": 62,
+    "dob": "1964-01-20",
+    "sex": "ชาย",
+    "bloodGroup": "O+",
+    "phone": "089-347-8562",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "high",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+
+  "w004": {
+    "id": "w004",
+    "name": "นาย ทวีชัย ศรีสมบูรณ์",
+    "hn": "694719265",
+    "age": 55,
+    "dob": "1971-02-08",
+    "sex": "ชาย",
+    "bloodGroup": "A+",
+    "phone": "086-219-5437",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "medium",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+
+  "w005": {
+    "id": "w005",
+    "name": "นางสาว กัญญา รัตนสิงห์",
+    "hn": "691036842",
+    "age": 70,
+    "dob": "1956-03-14",
+    "sex": "หญิง",
+    "bloodGroup": "B-",
+    "phone": "083-754-1928",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "medium",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+
+  "w006": {
+    "id": "w006",
+    "name": "นาง วิไลวรรณ สุขสวัสดิ์",
+    "hn": "693742819",
+    "age": 58,
+    "dob": "1968-02-22",
+    "sex": "หญิง",
+    "bloodGroup": "O+",
+    "phone": "091-486-2073",
+    "insuranceType": "ข้าราชการ",
+    "allergies": [
+      { "substance": "Aspirin", "reaction": "Urticaria", "severity": "mild" }
+    ],
+    "totalComplications": 0,
+    "riskLevel": "high",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+
+  "w007": {
+    "id": "w007",
+    "name": "นาง จิราภา เทพสุริยวงศ์",
+    "hn": "697519036",
+    "age": 65,
+    "dob": "1961-04-06",
+    "sex": "หญิง",
+    "bloodGroup": "A+",
+    "phone": "085-923-6741",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "medium",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+
+  "w008": {
+    "id": "w008",
+    "name": "นาง ลัดดา พรหมสวัสดิ์",
+    "hn": "694208357",
+    "age": 52,
+    "dob": "1974-03-17",
+    "sex": "หญิง",
+    "bloodGroup": "AB+",
+    "phone": "087-632-4195",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "medium",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+
+  "w009": {
+    "id": "w009",
+    "name": "นาย มานพ กิตติวงษ์",
+    "hn": "695817246",
+    "age": 60,
+    "dob": "1966-05-03",
+    "sex": "ชาย",
+    "bloodGroup": "O+",
+    "phone": "082-741-5836",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "low",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+
+  "w010": {
+    "id": "w010",
+    "name": "นาย สิทธิชัย นุชประยูร",
+    "hn": "692731584",
+    "age": 58,
+    "dob": "1968-02-15",
+    "sex": "ชาย",
+    "bloodGroup": "B+",
+    "phone": "084-395-7162",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [
+      { "substance": "Sulfonamide", "reaction": "Rash", "severity": "mild" }
+    ],
+    "totalComplications": 0,
+    "riskLevel": "low",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+
+  "w011": {
+    "id": "w011",
+    "name": "นาย สมชาย วงศ์ประเสริฐ",
+    "hn": "698024163",
+    "age": 63,
+    "dob": "1963-01-28",
+    "sex": "ชาย",
+    "bloodGroup": "A+",
+    "phone": "090-852-4317",
+    "insuranceType": "ข้าราชการ",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "low",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+
+  "w013": {
+    "id": "w013",
+    "name": "นาง อรุณี ทองสุข",
+    "hn": "695024817",
+    "age": 72,
+    "dob": "1954-03-08",
+    "sex": "หญิง",
+    "bloodGroup": "O+",
+    "phone": "082-519-3641",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "low",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+
+  "w012": {
+    "id": "w012",
+    "name": "นางสาว อภิญญา วิจิตรสุนทร",
+    "hn": "693517842",
+    "age": 45,
+    "dob": "1981-04-10",
+    "sex": "หญิง",
+    "bloodGroup": "O+",
+    "phone": "093-274-8605",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "low",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
   }
 }

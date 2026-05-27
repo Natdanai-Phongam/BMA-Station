@@ -51,7 +51,11 @@
                   <div class="inr-hero-value">{{ data.latestInr.inrValue.toFixed(1) }}</div>
                   <div class="inr-target-ref">
                     <span class="inr-target-ref-label">TARGET INR</span>
-                    <span class="inr-target-ref-val">{{ data.profile.targetRange.min }}–{{ data.profile.targetRange.max }}</span>
+                    <div class="inr-target-track">
+                      <div class="inr-target-zone" :style="targetZoneStyle" />
+                      <div class="inr-target-marker" :style="{ left: markerLeft }" :class="`inr-target-marker--${latestInrStatus}`" />
+                    </div>
+                    <span class="inr-target-ref-val">{{ data.profile.targetRange.min.toFixed(1) }}–{{ data.profile.targetRange.max.toFixed(1) }}</span>
                   </div>
                 </div>
                 <div class="inr-hero-meta">
@@ -75,10 +79,35 @@
                     </div>
                   </template>
 
-                  <div v-if="majorInteractions.length" class="inr-interact-flag" :class="`inr-interact-flag--${majorInteractionEffect}`">
-                    <PhWarning :size="12" />
-                    <span>{{ majorInteractions.length === 1 ? majorInteractions[0].name : `${majorInteractions.length} ปฏิกิริยาสำคัญ` }} · ดูใน Drawer</span>
-                  </div>
+                  <v-tooltip
+                    v-if="majorInteractions.length"
+                    location="bottom"
+                    content-class="inr-interact-tooltip"
+                    :open-delay="120"
+                  >
+                    <template #activator="{ props: tipProps }">
+                      <div
+                        class="inr-interact-flag"
+                        :class="`inr-interact-flag--${majorInteractionEffect}`"
+                        v-bind="tipProps"
+                      >
+                        <PhWarning :size="12" />
+                        <span>พบการใช้ยาที่มีปฏิกิริยา</span>
+                      </div>
+                    </template>
+                    <div class="interact-tip-inner">
+                      <div class="interact-tip-header">ยาที่มีปฏิกิริยาต่อ INR</div>
+                      <div v-for="med in majorInteractions" :key="med.name" class="interact-tip-row">
+                        <div class="interact-tip-drug">
+                          <span class="interact-tip-dir" :class="`interact-tip-dir--${med.effect}`">
+                            {{ med.effect === 'increase' ? '↑ INR' : med.effect === 'decrease' ? '↓ INR' : '→' }}
+                          </span>
+                          <span class="interact-tip-name">{{ med.name }}</span>
+                        </div>
+                        <p v-if="med.note" class="interact-tip-note">{{ med.note }}</p>
+                      </div>
+                    </div>
+                  </v-tooltip>
                 </div>
               </div>
             </div>
@@ -302,6 +331,7 @@
       :data="data"
       :is-open="drawerOpen"
       :patient-id="props.patientId"
+      :hn="patientHn"
       @close="drawerOpen = false"
       @saved="onDrawerSaved"
     />
@@ -329,7 +359,9 @@ import { PILL_CONFIG, DAY_KEYS, DAY_LABELS } from '@/data/types/warfarin'
 import { buildWeeklySchedule, computeDosingSuggestion } from '@/utils/warfarinDosing'
 import { type InrStatus, getInrStatus, inrStatusLabel } from '@/utils/inrStatus'
 
-import allPatientsRaw from '@/data/mock/warfarin-patients.json'
+import allPatientsRaw  from '@/data/mock/warfarin-patients.json'
+import atsPatientsRaw  from '@/data/mock/ats-patients.json'
+import type { AtsPatientsData } from '@/data/types/ats-patients'
 
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Filler)
 
@@ -349,8 +381,19 @@ const majorInteractionEffect = computed(() => {
 const props = defineProps<{ patientId: string; embedded?: boolean }>()
 
 const router = useRouter()
-const allPatients = allPatientsRaw as Record<string, WarfarinPageData>
+const allPatients  = allPatientsRaw  as Record<string, WarfarinPageData>
+const atsPatients  = atsPatientsRaw  as AtsPatientsData
 const data = reactive({ ...(allPatients[props.patientId] ?? allPatients['w009']) } as WarfarinPageData)
+
+// Resolve the real Hospital Number (HN) from the patient summary list.
+// Falls back to undefined so the drawer can gracefully degrade to showing the ID.
+const patientHn = computed(() => {
+  const id = props.patientId
+  return (
+    atsPatients.warfarin.find(p => p.id === id)?.hn ??
+    atsPatients.noacs.find(p => p.id === id)?.hn
+  )
+})
 
 // ── Drawer state ──────────────────────────────────────────────
 const drawerOpen = ref(false)
@@ -415,6 +458,25 @@ function showToast(message: string, type: 'success' | 'error' = 'success') {
   toast.value = { show: true, message, type }
   toastTimer = setTimeout(() => { toast.value.show = false }, 3000)
 }
+
+// ── INR range micro-track ────────────────────────────────────
+const INR_TRACK_MIN = 1.0
+const INR_TRACK_MAX = 5.0
+
+const targetZoneStyle = computed(() => {
+  const { min, max } = data.profile.targetRange
+  const left  = ((min - INR_TRACK_MIN) / (INR_TRACK_MAX - INR_TRACK_MIN)) * 100
+  const width = ((max - min) / (INR_TRACK_MAX - INR_TRACK_MIN)) * 100
+  return { left: `${left.toFixed(1)}%`, width: `${width.toFixed(1)}%` }
+})
+
+const markerLeft = computed(() => {
+  const inr = data.latestInr.inrValue
+  const pct = Math.min(Math.max(
+    (inr - INR_TRACK_MIN) / (INR_TRACK_MAX - INR_TRACK_MIN), 0.04
+  ), 0.96)
+  return `${(pct * 100).toFixed(1)}%`
+})
 
 // ── TTR display ───────────────────────────────────────────────
 const ttrColorClass = computed(() => ({
@@ -654,7 +716,7 @@ function pctBadgeClass(pct: number) {
   border-left: 1px solid var(--bma-border-subtle);
 }
 .inr-dose-info-label {
-  font-family: var(--bma-font-data); font-size: 9px; font-weight: 800;
+  font-family: var(--bma-font-data); font-size: 10px; font-weight: 800;
   color: var(--bma-text-muted); text-transform: uppercase; letter-spacing: .08em;
 }
 .inr-dose-info-num {
@@ -766,7 +828,7 @@ function pctBadgeClass(pct: number) {
 
 .sched-total-dose { display: flex; flex-direction: column; gap: 1px; flex-shrink: 0; }
 .sched-total-label {
-  font-family: var(--bma-font-data); font-size: 9px; font-weight: 800;
+  font-family: var(--bma-font-data); font-size: 10px; font-weight: 800;
   color: var(--bma-text-muted); text-transform: uppercase; letter-spacing: .08em;
 }
 .sched-total-val {
@@ -776,7 +838,7 @@ function pctBadgeClass(pct: number) {
 
 .sched-pill-ref { display: flex; flex-direction: column; gap: 5px; flex-shrink: 0; }
 .sched-ref-label {
-  font-family: var(--bma-font-data); font-size: 9px; font-weight: 800;
+  font-family: var(--bma-font-data); font-size: 10px; font-weight: 800;
   color: var(--bma-text-muted); text-transform: uppercase; letter-spacing: .08em;
 }
 .sched-ref-items { display: flex; gap: 12px; align-items: center; }
@@ -828,15 +890,36 @@ function pctBadgeClass(pct: number) {
 .inr-interact-flag--increase { background: var(--wf-interact-increase-bg); color: var(--wf-interact-increase-text); border: 1px solid var(--wf-interact-increase-ring); }
 .inr-interact-flag--decrease { background: var(--wf-interact-decrease-bg); color: var(--wf-interact-decrease-text); border: 1px solid var(--wf-interact-decrease-ring); }
 
-/* ── INR target ref (typographic, passive context) ───────────── */
-.inr-target-ref { display: flex; flex-direction: column; gap: 1px; }
+/* ── INR target ref + micro-track ────────────────────────────── */
+.inr-target-ref { display: flex; flex-direction: column; gap: 3px; min-width: 80px; }
 .inr-target-ref-label {
-  font-family: var(--bma-font-data); font-size: 8px; font-weight: 700;
-  color: var(--bma-text-disabled); text-transform: uppercase; letter-spacing: .08em;
+  font-family: var(--bma-font-data); font-size: 10px; font-weight: 700;
+  color: var(--bma-text-muted); text-transform: uppercase; letter-spacing: .08em;
 }
+.inr-target-track {
+  position: relative; height: 6px; border-radius: 3px;
+  background: var(--bma-border-subtle); overflow: visible;
+}
+.inr-target-zone {
+  position: absolute; top: 0; bottom: 0;
+  background: rgba(76, 175, 80, 0.22); border-radius: 3px;
+}
+.inr-target-marker {
+  position: absolute; top: 50%; transform: translate(-50%, -50%);
+  width: 10px; height: 10px; border-radius: 50%; z-index: 1;
+  background: var(--bma-text-muted);
+  border: 2px solid var(--bma-surface);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.20);
+}
+.inr-target-marker--therapeutic { background: var(--bma-success-text); }
+.inr-target-marker--low         { background: var(--inr-low-text); }
+.inr-target-marker--supra       { background: var(--inr-supra-text); }
+.inr-target-marker--very-high   { background: var(--bma-emergency); }
+.inr-target-marker--critical    { background: var(--inr-critical-text); }
+.inr-target-marker--emergency   { background: var(--inr-emergency-fill); }
 .inr-target-ref-val {
-  font-family: var(--bma-font-data); font-size: 11px; font-weight: 600;
-  color: var(--bma-text-muted);
+  font-family: var(--bma-font-data); font-size: 12px; font-weight: 700;
+  color: var(--bma-text-secondary);
 }
 
 /* (inr-dose-block removed — replaced by inr-dose-info in the body-row) */
@@ -849,7 +932,7 @@ function pctBadgeClass(pct: number) {
 .ttr-card--red   { background: var(--bma-emergency); }
 .ttr-card--gray  { background: var(--bma-neutral-600); }
 
-.ttr-eyebrow { font-family: var(--bma-font-data); font-size: 9px; font-weight: 700; letter-spacing: .1em; opacity: .8; }
+.ttr-eyebrow { font-family: var(--bma-font-data); font-size: 10px; font-weight: 700; letter-spacing: .1em; opacity: .8; }
 .ttr-value   { font-family: var(--bma-font-data); font-size: 34px; font-weight: 900; line-height: 1.1; }
 .ttr-meta    { font-size: 11px; opacity: .75; }
 .ttr-badge   {
@@ -890,14 +973,24 @@ function pctBadgeClass(pct: number) {
 .day-mg      { font-family: var(--bma-font-data); font-size: 10px; color: var(--bma-text-disabled); }
 
 .pill-icon-wrap { display: flex; gap: 2px; align-items: center; height: 24px; }
-.pill-icon { border-radius: var(--bma-radius-full); flex-shrink: 0; }
-.pill-icon--full { width: 18px; height: 10px; }
-.pill-icon--half { width: 9px;  height: 10px; border-radius: var(--bma-radius-full) 0 0 var(--bma-radius-full); }
-.pill-icon--blue { background: var(--wf-pill-blue); }
-.pill-icon--pink { background: var(--wf-pill-pink); }
+.pill-icon {
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: inset 0 -1px 3px rgba(0,0,0,.20), inset 0 1px 2px rgba(255,255,255,.35);
+}
+.pill-icon--full { width: 14px; height: 14px; }
+.pill-icon--half { width: 7px;  height: 14px; border-radius: 7px 0 0 7px; }
+.pill-icon--orange { background: var(--wf-pill-orange); }
+.pill-icon--blue   { background: var(--wf-pill-blue); }
+.pill-icon--pink   { background: var(--wf-pill-pink); }
 
-.pill-dot         { width: 14px; height: 8px; border-radius: var(--bma-radius-full); flex-shrink: 0; display: inline-block; }
-.pill-dot--half   { width: 7px; border-radius: var(--bma-radius-full) 0 0 var(--bma-radius-full); }
+.pill-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  flex-shrink: 0; display: inline-block;
+  box-shadow: inset 0 -1px 3px rgba(0,0,0,.20), inset 0 1px 2px rgba(255,255,255,.35);
+}
+.pill-dot--half   { width: 6px; border-radius: 6px 0 0 6px; }
+.pill-dot--orange { background: var(--wf-pill-orange); }
 .pill-dot--blue   { background: var(--wf-pill-blue); }
 .pill-dot--pink   { background: var(--wf-pill-pink); }
 
@@ -1055,6 +1148,9 @@ function pctBadgeClass(pct: number) {
 }
 .inr-hero-btn-hold:hover { background: var(--inr-critical-text); }
 
+/* ── Interaction flag cursor ─────────────────────────────────── */
+.inr-interact-flag { cursor: default; }
+
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 1099px) {
   .status-row { grid-template-columns: 1fr 1fr; }
@@ -1073,5 +1169,60 @@ function pctBadgeClass(pct: number) {
   .log-table th, .log-table td { padding: 8px 10px; }
   .inr-hero-body-row { flex-direction: column; }
   .inr-dose-info { border-left: none; border-top: 1px solid var(--bma-border-subtle); }
+}
+</style>
+
+<!-- Interaction tooltip — rendered outside component, cannot be scoped -->
+<style>
+.inr-interact-tooltip.v-overlay__content {
+  background: #fff !important;
+  color: #343330 !important;
+  border: 1px solid #E0E0E0 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.13) !important;
+  padding: 0 !important;
+  max-width: 288px;
+  min-width: 200px;
+  overflow: hidden;
+}
+.interact-tip-inner { font-size: 0; /* collapse whitespace */ }
+.interact-tip-header {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 800;
+  color: #00744B;
+  text-transform: uppercase; letter-spacing: .08em;
+  padding: 10px 14px 8px;
+  border-bottom: 1px solid #F0F0F0;
+}
+.interact-tip-row {
+  padding: 8px 14px;
+  border-top: 1px solid #F5F5F5;
+}
+.interact-tip-row:first-of-type { border-top: none; }
+.interact-tip-drug {
+  display: flex; align-items: center; gap: 7px;
+}
+.interact-tip-dir {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 800;
+  padding: 2px 6px; border-radius: 4px;
+  flex-shrink: 0; white-space: nowrap;
+}
+.interact-tip-dir--increase {
+  background: #FFFBF2; color: #B45309; border: 1px solid #FDE68A;
+}
+.interact-tip-dir--decrease {
+  background: #E3F2FD; color: #1565C0; border: 1px solid #90CAF9;
+}
+.interact-tip-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 700;
+  color: #343330;
+}
+.interact-tip-note {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px; line-height: 1.45;
+  color: #737373;
+  margin: 4px 0 0;
 }
 </style>

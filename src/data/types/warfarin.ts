@@ -2,12 +2,13 @@
 // All dose values in mg/week unless stated otherwise
 
 // ── Pill configuration ────────────────────────────────────────
-export type PillStrengthMg = 3 | 5
-export type PillColor      = 'blue' | 'pink'
+export type PillStrengthMg = 2 | 3 | 5
+export type PillColor      = 'orange' | 'blue' | 'pink'
 
 export const PILL_CONFIG: Record<PillStrengthMg, { color: PillColor; label: string }> = {
-  3: { color: 'blue', label: 'Warfarin 3 mg (น้ำเงิน)' },
-  5: { color: 'pink', label: 'Warfarin 5 mg (ชมพู)'   },
+  2: { color: 'orange', label: 'Warfarin 2 mg (ส้ม)'   },
+  3: { color: 'blue',   label: 'Warfarin 3 mg (น้ำเงิน)' },
+  5: { color: 'pink',   label: 'Warfarin 5 mg (ชมพู)'   },
 }
 
 // ── Target INR range ──────────────────────────────────────────

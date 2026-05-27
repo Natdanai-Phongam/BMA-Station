@@ -171,7 +171,7 @@ function handleSubClick(sub: { key: string; route?: string }) {
 }
 
 .logo-th { font-size: 15px; font-weight: 700; color: var(--bma-green-500); line-height: 1.15; }
-.logo-en { font-size: 9px; color: var(--bma-text-muted); letter-spacing: .06em; font-family: var(--bma-font-data); text-transform: uppercase; }
+.logo-en { font-size: 10px; color: var(--bma-text-muted); letter-spacing: .06em; font-family: var(--bma-font-data); text-transform: uppercase; }
 
 .topbar-right { display: flex; align-items: center; gap: 12px; }
 

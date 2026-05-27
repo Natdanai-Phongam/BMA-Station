@@ -1,0 +1,49 @@
+{
+  "w002": {
+    "profile": {
+      "patientId":        "w002",
+      "indication":       "NVAF",
+      "hasBleedScore":    3,
+      "currentDrug":      "apixaban",
+      "currentDose":      "5 mg BID",
+      "therapyStartDate": "2568-01-15",
+      "followUpMonths":   12
+    },
+    "dispensingHistory": [
+      {
+        "id":                   "nd-w002-001",
+        "patientId":            "w002",
+        "dispensedAt":          "2568-02-01T09:00:00+07:00",
+        "labData": {
+          "weightKg":   65,
+          "scrMgDl":    1.4,
+          "crClMlMin":  62,
+          "measuredAt": "2568-01-30"
+        },
+        "drugDispensed":        "apixaban",
+        "dose":                 "5 mg BID",
+        "systemRank":           1,
+        "wasTopRecommendation": true,
+        "pharmacistNote":       "เริ่มยาหลังหยุด Warfarin 2 วัน INR ณ วันสุดท้าย = 5.8",
+        "nextFollowUpDate":     "2569-02-01"
+      },
+      {
+        "id":                   "nd-w002-002",
+        "patientId":            "w002",
+        "dispensedAt":          "2568-05-20T09:00:00+07:00",
+        "labData": {
+          "weightKg":   65,
+          "scrMgDl":    1.6,
+          "crClMlMin":  58,
+          "measuredAt": "2568-05-18"
+        },
+        "drugDispensed":        "apixaban",
+        "dose":                 "5 mg BID",
+        "systemRank":           1,
+        "wasTopRecommendation": true,
+        "pharmacistNote":       "CrCl ลดลงจาก 62 → 58 ยังอยู่เหนือ 15 mL/min — ไม่ต้องปรับขนาดยา Apixaban",
+        "nextFollowUpDate":     "2569-05-20"
+      }
+    ]
+  }
+}
