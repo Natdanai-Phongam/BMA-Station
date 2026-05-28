@@ -205,7 +205,7 @@ import { useRouter, useRoute } from 'vue-router'
 import type { Component } from 'vue'
 import {
   PhArrowLeft, PhArrowSquareOut,
-  PhDrop, PhHeartbeat, PhPill,
+  PhDrop, PhHeartbeat,
   PhCaretDoubleLeft, PhCaretLeft, PhCaretRight, PhCaretDoubleRight,
 } from '@phosphor-icons/vue'
 import {
@@ -302,20 +302,17 @@ const thaiMonths = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.'
 const cfg: Record<ComplicationType, { label: string; color: string; iconBg: string; icon: Component }> = {
   'bleeding':        { label: 'Bleeding',        color: '#E57373', iconBg: '#FEECEC', icon: PhDrop      },
   'thromboembolism': { label: 'Thromboembolism', color: '#64B5F6', iconBg: '#E3F2FD', icon: PhHeartbeat },
-  'side-effects':    { label: 'Side Effects',    color: '#FFB74D', iconBg: '#FFF3E0', icon: PhPill      },
 }
 
 const typeLabel: Record<ComplicationType, string> = {
   'bleeding':        'Bleeding',
   'thromboembolism': 'Thromboembolism',
-  'side-effects':    'Side Effects',
 }
 
 const chartData = computed(() => {
   const counts: Record<ComplicationType, number[]> = {
     'bleeding':        new Array(12).fill(0),
     'thromboembolism': new Array(12).fill(0),
-    'side-effects':    new Array(12).fill(0),
   }
   for (const c of p.value.complications) counts[c.type][c.month - 1]++
 
@@ -324,7 +321,6 @@ const chartData = computed(() => {
     datasets: [
       { label: 'Bleeding',        data: counts['bleeding'],        backgroundColor: '#E57373' },
       { label: 'Thromboembolism', data: counts['thromboembolism'], backgroundColor: '#64B5F6' },
-      { label: 'Side Effects',    data: counts['side-effects'],    backgroundColor: '#FFB74D' },
     ],
   }
 })
@@ -346,7 +342,6 @@ const peakStats = computed(() => {
     byType: {
       'bleeding':        comps.filter(c => c.type === 'bleeding').length,
       'thromboembolism': comps.filter(c => c.type === 'thromboembolism').length,
-      'side-effects':    comps.filter(c => c.type === 'side-effects').length,
     } as Record<ComplicationType, number>,
   }
 })
@@ -714,7 +709,6 @@ const chartOptions = {
 }
 .comp-badge--bleeding        { background: #FEECEC; color: var(--bma-emergency); }
 .comp-badge--thromboembolism { background: #E3F2FD; color: #1565C0; }
-.comp-badge--side-effects    { background: #FFF3E0; color: #E65100; }
 
 .severity-badge {
   display: inline-block;

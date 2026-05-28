@@ -24,12 +24,11 @@
       ]
     },
     "latestInr": {
-      "id": "inr-w001-008",
+      "id": "inr-w001-5",
       "patientId": "w001",
       "inrValue": 10.5,
-      "measuredAt": "2026-02-10T09:30:00+07:00",
-      "source": "manual",
-      "notes": ""
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
     },
     "inrHistory": [
       {
@@ -75,17 +74,38 @@
         "source": "manual"
       },
       {
-        "id": "inr-w001-007",
+        "id": "inr-w001-1",
         "patientId": "w001",
-        "inrValue": 9,
-        "measuredAt": "2026-01-13T09:00:00+07:00",
+        "inrValue": 6.5,
+        "measuredAt": "2026-01-15T09:00:00",
         "source": "manual"
       },
       {
-        "id": "inr-w001-008",
+        "id": "inr-w001-2",
+        "patientId": "w001",
+        "inrValue": 7.1,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w001-3",
+        "patientId": "w001",
+        "inrValue": 9.5,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w001-4",
+        "patientId": "w001",
+        "inrValue": 7.5,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w001-5",
         "patientId": "w001",
         "inrValue": 10.5,
-        "measuredAt": "2026-02-10T09:30:00+07:00",
+        "measuredAt": "2026-05-15T09:00:00",
         "source": "manual"
       }
     ],
@@ -224,12 +244,11 @@
       ]
     },
     "latestInr": {
-      "id": "inr-w003-008",
+      "id": "inr-w003-5",
       "patientId": "w003",
       "inrValue": 4.2,
-      "measuredAt": "2026-02-11T09:00:00+07:00",
-      "source": "manual",
-      "notes": ""
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
     },
     "inrHistory": [
       {
@@ -282,10 +301,38 @@
         "source": "manual"
       },
       {
-        "id": "inr-w003-008",
+        "id": "inr-w003-1",
+        "patientId": "w003",
+        "inrValue": 4.6,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w003-2",
+        "patientId": "w003",
+        "inrValue": 4.7,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w003-3",
+        "patientId": "w003",
+        "inrValue": 4.4,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w003-4",
+        "patientId": "w003",
+        "inrValue": 5.3,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w003-5",
         "patientId": "w003",
         "inrValue": 4.2,
-        "measuredAt": "2026-02-11T09:00:00+07:00",
+        "measuredAt": "2026-05-15T09:00:00",
         "source": "manual"
       }
     ],
@@ -319,12 +366,11 @@
       ]
     },
     "latestInr": {
-      "id": "inr-w004-007",
+      "id": "inr-w004-5",
       "patientId": "w004",
-      "inrValue": 3.7,
-      "measuredAt": "2026-02-13T09:00:00+07:00",
-      "source": "manual",
-      "notes": ""
+      "inrValue": 2.4,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
     },
     "inrHistory": [
       {
@@ -356,31 +402,45 @@
         "source": "manual"
       },
       {
-        "id": "inr-w004-005",
+        "id": "inr-w004-1",
         "patientId": "w004",
-        "inrValue": 3.1,
-        "measuredAt": "2026-01-05T09:00:00+07:00",
+        "inrValue": 4.0,
+        "measuredAt": "2026-01-15T09:00:00",
         "source": "manual"
       },
       {
-        "id": "inr-w004-006",
+        "id": "inr-w004-2",
         "patientId": "w004",
-        "inrValue": 3.4,
-        "measuredAt": "2026-01-26T09:00:00+07:00",
+        "inrValue": 3.2,
+        "measuredAt": "2026-02-14T09:00:00",
         "source": "manual"
       },
       {
-        "id": "inr-w004-007",
+        "id": "inr-w004-3",
         "patientId": "w004",
-        "inrValue": 3.7,
-        "measuredAt": "2026-02-13T09:00:00+07:00",
+        "inrValue": 2.6,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w004-4",
+        "patientId": "w004",
+        "inrValue": 2.3,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w004-5",
+        "patientId": "w004",
+        "inrValue": 2.4,
+        "measuredAt": "2026-05-15T09:00:00",
         "source": "manual"
       }
     ],
     "doseAdjustments": [],
     "ttr": {
-      "value": 48,
-      "status": "below-goal",
+      "value": 67,
+      "status": "goal-met",
       "fromDate": "2025-10-13",
       "toDate": "2026-02-13",
       "daysInRange": 62,
@@ -406,12 +466,11 @@
       ]
     },
     "latestInr": {
-      "id": "inr-w005-008",
+      "id": "inr-w005-5",
       "patientId": "w005",
-      "inrValue": 3.4,
-      "measuredAt": "2026-02-14T09:15:00+07:00",
-      "source": "manual",
-      "notes": ""
+      "inrValue": 2.6,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
     },
     "inrHistory": [
       {
@@ -457,24 +516,45 @@
         "source": "manual"
       },
       {
-        "id": "inr-w005-007",
+        "id": "inr-w005-1",
         "patientId": "w005",
-        "inrValue": 3.1,
-        "measuredAt": "2026-01-09T09:00:00+07:00",
+        "inrValue": 2.2,
+        "measuredAt": "2026-01-15T09:00:00",
         "source": "manual"
       },
       {
-        "id": "inr-w005-008",
+        "id": "inr-w005-2",
         "patientId": "w005",
-        "inrValue": 3.4,
-        "measuredAt": "2026-02-14T09:15:00+07:00",
+        "inrValue": 2.5,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w005-3",
+        "patientId": "w005",
+        "inrValue": 2.8,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w005-4",
+        "patientId": "w005",
+        "inrValue": 2.5,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w005-5",
+        "patientId": "w005",
+        "inrValue": 2.6,
+        "measuredAt": "2026-05-15T09:00:00",
         "source": "manual"
       }
     ],
     "doseAdjustments": [],
     "ttr": {
-      "value": 54,
-      "status": "below-goal",
+      "value": 72,
+      "status": "goal-met",
       "fromDate": "2025-08-29",
       "toDate": "2026-02-14",
       "daysInRange": 93,
@@ -500,12 +580,11 @@
       ]
     },
     "latestInr": {
-      "id": "inr-w006-009",
+      "id": "inr-w006-5",
       "patientId": "w006",
-      "inrValue": 1.4,
-      "measuredAt": "2026-02-09T09:00:00+07:00",
-      "source": "manual",
-      "notes": ""
+      "inrValue": 2.1,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
     },
     "inrHistory": [
       {
@@ -558,24 +637,45 @@
         "source": "manual"
       },
       {
-        "id": "inr-w006-008",
+        "id": "inr-w006-1",
         "patientId": "w006",
-        "inrValue": 1.6,
-        "measuredAt": "2026-01-06T09:00:00+07:00",
+        "inrValue": 2.3,
+        "measuredAt": "2026-01-15T09:00:00",
         "source": "manual"
       },
       {
-        "id": "inr-w006-009",
+        "id": "inr-w006-2",
         "patientId": "w006",
-        "inrValue": 1.4,
-        "measuredAt": "2026-02-09T09:00:00+07:00",
+        "inrValue": 2.1,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w006-3",
+        "patientId": "w006",
+        "inrValue": 2.4,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w006-4",
+        "patientId": "w006",
+        "inrValue": 2.2,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w006-5",
+        "patientId": "w006",
+        "inrValue": 2.1,
+        "measuredAt": "2026-05-15T09:00:00",
         "source": "manual"
       }
     ],
     "doseAdjustments": [],
     "ttr": {
-      "value": 38,
-      "status": "below-goal",
+      "value": 75,
+      "status": "goal-met",
       "fromDate": "2025-06-10",
       "toDate": "2026-02-09",
       "daysInRange": 96,
@@ -601,12 +701,11 @@
       ]
     },
     "latestInr": {
-      "id": "inr-w007-007",
+      "id": "inr-w007-5",
       "patientId": "w007",
-      "inrValue": 1.7,
-      "measuredAt": "2026-02-12T09:00:00+07:00",
-      "source": "manual",
-      "notes": ""
+      "inrValue": 2.3,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
     },
     "inrHistory": [
       {
@@ -645,24 +744,45 @@
         "source": "manual"
       },
       {
-        "id": "inr-w007-006",
+        "id": "inr-w007-1",
         "patientId": "w007",
-        "inrValue": 1.9,
-        "measuredAt": "2026-01-21T09:00:00+07:00",
+        "inrValue": 1.5,
+        "measuredAt": "2026-01-15T09:00:00",
         "source": "manual"
       },
       {
-        "id": "inr-w007-007",
+        "id": "inr-w007-2",
         "patientId": "w007",
-        "inrValue": 1.7,
-        "measuredAt": "2026-02-12T09:00:00+07:00",
+        "inrValue": 1.8,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w007-3",
+        "patientId": "w007",
+        "inrValue": 2.0,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w007-4",
+        "patientId": "w007",
+        "inrValue": 2.2,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w007-5",
+        "patientId": "w007",
+        "inrValue": 2.3,
+        "measuredAt": "2026-05-15T09:00:00",
         "source": "manual"
       }
     ],
     "doseAdjustments": [],
     "ttr": {
-      "value": 46,
-      "status": "below-goal",
+      "value": 67,
+      "status": "goal-met",
       "fromDate": "2025-10-01",
       "toDate": "2026-02-12",
       "daysInRange": 62,
@@ -688,12 +808,11 @@
       ]
     },
     "latestInr": {
-      "id": "inr-w008-006",
+      "id": "inr-w008-5",
       "patientId": "w008",
-      "inrValue": 1.9,
-      "measuredAt": "2026-02-15T09:00:00+07:00",
-      "source": "manual",
-      "notes": ""
+      "inrValue": 2.4,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
     },
     "inrHistory": [
       {
@@ -725,24 +844,45 @@
         "source": "manual"
       },
       {
-        "id": "inr-w008-005",
+        "id": "inr-w008-1",
         "patientId": "w008",
-        "inrValue": 2.1,
-        "measuredAt": "2026-01-15T09:00:00+07:00",
+        "inrValue": 1.6,
+        "measuredAt": "2026-01-15T09:00:00",
         "source": "manual"
       },
       {
-        "id": "inr-w008-006",
+        "id": "inr-w008-2",
         "patientId": "w008",
         "inrValue": 1.9,
-        "measuredAt": "2026-02-15T09:00:00+07:00",
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w008-3",
+        "patientId": "w008",
+        "inrValue": 2.2,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w008-4",
+        "patientId": "w008",
+        "inrValue": 2.3,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w008-5",
+        "patientId": "w008",
+        "inrValue": 2.4,
+        "measuredAt": "2026-05-15T09:00:00",
         "source": "manual"
       }
     ],
     "doseAdjustments": [],
     "ttr": {
-      "value": 50,
-      "status": "below-goal",
+      "value": 68,
+      "status": "goal-met",
       "fromDate": "2025-10-16",
       "toDate": "2026-02-15",
       "daysInRange": 61,
@@ -761,12 +901,11 @@
       ]
     },
     "latestInr": {
-      "id": "inr-w009-010",
+      "id": "inr-w009-5",
       "patientId": "w009",
       "inrValue": 2.8,
-      "measuredAt": "2026-02-16T09:00:00+07:00",
-      "source": "manual",
-      "notes": ""
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
     },
     "inrHistory": [
       {
@@ -833,10 +972,38 @@
         "source": "manual"
       },
       {
-        "id": "inr-w009-010",
+        "id": "inr-w009-1",
+        "patientId": "w009",
+        "inrValue": 2.2,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w009-2",
         "patientId": "w009",
         "inrValue": 2.8,
-        "measuredAt": "2026-02-16T09:00:00+07:00",
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w009-3",
+        "patientId": "w009",
+        "inrValue": 2.5,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w009-4",
+        "patientId": "w009",
+        "inrValue": 2.8,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w009-5",
+        "patientId": "w009",
+        "inrValue": 2.8,
+        "measuredAt": "2026-05-15T09:00:00",
         "source": "manual"
       }
     ],
@@ -869,12 +1036,11 @@
       ]
     },
     "latestInr": {
-      "id": "inr-w010-010",
+      "id": "inr-w010-5",
       "patientId": "w010",
       "inrValue": 2.6,
-      "measuredAt": "2026-02-14T09:30:00+07:00",
-      "source": "manual",
-      "notes": ""
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
     },
     "inrHistory": [
       {
@@ -934,17 +1100,38 @@
         "source": "manual"
       },
       {
-        "id": "inr-w010-009",
+        "id": "inr-w010-1",
         "patientId": "w010",
-        "inrValue": 2.7,
-        "measuredAt": "2026-01-08T09:00:00+07:00",
+        "inrValue": 2.5,
+        "measuredAt": "2026-01-15T09:00:00",
         "source": "manual"
       },
       {
-        "id": "inr-w010-010",
+        "id": "inr-w010-2",
+        "patientId": "w010",
+        "inrValue": 2.4,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w010-3",
+        "patientId": "w010",
+        "inrValue": 2.2,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w010-4",
+        "patientId": "w010",
+        "inrValue": 2.1,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w010-5",
         "patientId": "w010",
         "inrValue": 2.6,
-        "measuredAt": "2026-02-14T09:30:00+07:00",
+        "measuredAt": "2026-05-15T09:00:00",
         "source": "manual"
       }
     ],
@@ -970,12 +1157,11 @@
       ]
     },
     "latestInr": {
-      "id": "inr-w011-007",
+      "id": "inr-w011-5",
       "patientId": "w011",
       "inrValue": 2.4,
-      "measuredAt": "2026-02-11T09:15:00+07:00",
-      "source": "manual",
-      "notes": ""
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
     },
     "inrHistory": [
       {
@@ -1014,17 +1200,38 @@
         "source": "manual"
       },
       {
-        "id": "inr-w011-006",
+        "id": "inr-w011-1",
         "patientId": "w011",
-        "inrValue": 2.2,
-        "measuredAt": "2026-01-21T09:00:00+07:00",
+        "inrValue": 1.5,
+        "measuredAt": "2026-01-15T09:00:00",
         "source": "manual"
       },
       {
-        "id": "inr-w011-007",
+        "id": "inr-w011-2",
+        "patientId": "w011",
+        "inrValue": 1.7,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w011-3",
         "patientId": "w011",
         "inrValue": 2.4,
-        "measuredAt": "2026-02-11T09:15:00+07:00",
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w011-4",
+        "patientId": "w011",
+        "inrValue": 2.1,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w011-5",
+        "patientId": "w011",
+        "inrValue": 2.4,
+        "measuredAt": "2026-05-15T09:00:00",
         "source": "manual"
       }
     ],
@@ -1050,12 +1257,11 @@
       ]
     },
     "latestInr": {
-      "id": "inr-w012-007",
+      "id": "inr-w012-5",
       "patientId": "w012",
       "inrValue": 2.2,
-      "measuredAt": "2026-02-13T09:00:00+07:00",
-      "source": "manual",
-      "notes": ""
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
     },
     "inrHistory": [
       {
@@ -1094,17 +1300,38 @@
         "source": "manual"
       },
       {
-        "id": "inr-w012-006",
+        "id": "inr-w012-1",
         "patientId": "w012",
-        "inrValue": 2.1,
-        "measuredAt": "2026-01-12T09:00:00+07:00",
+        "inrValue": 1.1,
+        "measuredAt": "2026-01-15T09:00:00",
         "source": "manual"
       },
       {
-        "id": "inr-w012-007",
+        "id": "inr-w012-2",
+        "patientId": "w012",
+        "inrValue": 1.2,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w012-3",
+        "patientId": "w012",
+        "inrValue": 1.5,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w012-4",
+        "patientId": "w012",
+        "inrValue": 2.3,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w012-5",
         "patientId": "w012",
         "inrValue": 2.2,
-        "measuredAt": "2026-02-13T09:00:00+07:00",
+        "measuredAt": "2026-05-15T09:00:00",
         "source": "manual"
       }
     ],
@@ -1137,12 +1364,11 @@
       ]
     },
     "latestInr": {
-      "id": "inr-w013-008",
+      "id": "inr-w013-5",
       "patientId": "w013",
       "inrValue": 2.5,
-      "measuredAt": "2026-02-11T09:00:00+07:00",
-      "source": "manual",
-      "notes": ""
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
     },
     "inrHistory": [
       {
@@ -1195,10 +1421,38 @@
         "source": "manual"
       },
       {
-        "id": "inr-w013-008",
+        "id": "inr-w013-1",
+        "patientId": "w013",
+        "inrValue": 2.2,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w013-2",
+        "patientId": "w013",
+        "inrValue": 2.7,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w013-3",
+        "patientId": "w013",
+        "inrValue": 2.6,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w013-4",
+        "patientId": "w013",
+        "inrValue": 2.8,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w013-5",
         "patientId": "w013",
         "inrValue": 2.5,
-        "measuredAt": "2026-02-11T09:00:00+07:00",
+        "measuredAt": "2026-05-15T09:00:00",
         "source": "manual"
       }
     ],
@@ -1272,6 +1526,1158 @@
       "toDate": "2026-02-11",
       "daysInRange": 166,
       "daysCalculable": 218
+    }
+  },
+  "w014": {
+    "profile": {
+      "patientId": "w014",
+      "pillStrengthMg": 2,
+      "activePillsMg": [
+        2
+      ],
+      "currentDoseMgWk": 17.0,
+      "therapyStartDate": "2026-01-19"
+    },
+    "latestInr": {
+      "id": "inr-w014-5",
+      "patientId": "w014",
+      "inrValue": 2.1,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w014-1",
+        "patientId": "w014",
+        "inrValue": 2.5,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w014-2",
+        "patientId": "w014",
+        "inrValue": 2.6,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w014-3",
+        "patientId": "w014",
+        "inrValue": 2.1,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w014-4",
+        "patientId": "w014",
+        "inrValue": 2.1,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w014-5",
+        "patientId": "w014",
+        "inrValue": 2.1,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 100,
+      "status": "goal-met",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 120,
+      "daysCalculable": 120
+    }
+  },
+  "w015": {
+    "profile": {
+      "patientId": "w015",
+      "pillStrengthMg": 2,
+      "activePillsMg": [
+        3
+      ],
+      "currentDoseMgWk": 8.0,
+      "therapyStartDate": "2026-01-11"
+    },
+    "latestInr": {
+      "id": "inr-w015-5",
+      "patientId": "w015",
+      "inrValue": 2.3,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w015-1",
+        "patientId": "w015",
+        "inrValue": 2.4,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w015-2",
+        "patientId": "w015",
+        "inrValue": 2.4,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w015-3",
+        "patientId": "w015",
+        "inrValue": 2.3,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w015-4",
+        "patientId": "w015",
+        "inrValue": 2.1,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w015-5",
+        "patientId": "w015",
+        "inrValue": 2.3,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 100,
+      "status": "goal-met",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 120,
+      "daysCalculable": 120
+    }
+  },
+  "w016": {
+    "profile": {
+      "patientId": "w016",
+      "pillStrengthMg": 2,
+      "activePillsMg": [
+        2
+      ],
+      "currentDoseMgWk": 14.0,
+      "therapyStartDate": "2026-01-09"
+    },
+    "latestInr": {
+      "id": "inr-w016-5",
+      "patientId": "w016",
+      "inrValue": 2.9,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w016-1",
+        "patientId": "w016",
+        "inrValue": 5.0,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w016-2",
+        "patientId": "w016",
+        "inrValue": 2.4,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w016-3",
+        "patientId": "w016",
+        "inrValue": 2.4,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w016-4",
+        "patientId": "w016",
+        "inrValue": 2.2,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w016-5",
+        "patientId": "w016",
+        "inrValue": 2.9,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 80,
+      "status": "goal-met",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 96,
+      "daysCalculable": 120
+    }
+  },
+  "w017": {
+    "profile": {
+      "patientId": "w017",
+      "pillStrengthMg": 3,
+      "activePillsMg": [
+        2
+      ],
+      "currentDoseMgWk": 10.0,
+      "therapyStartDate": "2026-01-19"
+    },
+    "latestInr": {
+      "id": "inr-w017-5",
+      "patientId": "w017",
+      "inrValue": 2.8,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w017-1",
+        "patientId": "w017",
+        "inrValue": 4.1,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w017-2",
+        "patientId": "w017",
+        "inrValue": 5.1,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w017-3",
+        "patientId": "w017",
+        "inrValue": 2.4,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w017-4",
+        "patientId": "w017",
+        "inrValue": 2.9,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w017-5",
+        "patientId": "w017",
+        "inrValue": 2.8,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 68,
+      "status": "goal-met",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 72,
+      "daysCalculable": 120
+    }
+  },
+  "w018": {
+    "profile": {
+      "patientId": "w018",
+      "pillStrengthMg": 3,
+      "activePillsMg": [
+        2
+      ],
+      "currentDoseMgWk": 17.0,
+      "therapyStartDate": "2026-01-05"
+    },
+    "latestInr": {
+      "id": "inr-w018-5",
+      "patientId": "w018",
+      "inrValue": 2.5,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w018-1",
+        "patientId": "w018",
+        "inrValue": 5.4,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w018-2",
+        "patientId": "w018",
+        "inrValue": 4.4,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w018-3",
+        "patientId": "w018",
+        "inrValue": 3.5,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w018-4",
+        "patientId": "w018",
+        "inrValue": 2.4,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w018-5",
+        "patientId": "w018",
+        "inrValue": 2.5,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 67,
+      "status": "goal-met",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 48,
+      "daysCalculable": 120
+    }
+  },
+  "w019": {
+    "profile": {
+      "patientId": "w019",
+      "pillStrengthMg": 3,
+      "activePillsMg": [
+        2
+      ],
+      "currentDoseMgWk": 15.0,
+      "therapyStartDate": "2026-01-18"
+    },
+    "latestInr": {
+      "id": "inr-w019-5",
+      "patientId": "w019",
+      "inrValue": 2.9,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w019-1",
+        "patientId": "w019",
+        "inrValue": 1.8,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w019-2",
+        "patientId": "w019",
+        "inrValue": 3.6,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w019-3",
+        "patientId": "w019",
+        "inrValue": 2.8,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w019-4",
+        "patientId": "w019",
+        "inrValue": 2.6,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w019-5",
+        "patientId": "w019",
+        "inrValue": 2.9,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 69,
+      "status": "goal-met",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 24,
+      "daysCalculable": 120
+    }
+  },
+  "w020": {
+    "profile": {
+      "patientId": "w020",
+      "pillStrengthMg": 3,
+      "activePillsMg": [
+        2
+      ],
+      "currentDoseMgWk": 20.0,
+      "therapyStartDate": "2026-01-08"
+    },
+    "latestInr": {
+      "id": "inr-w020-5",
+      "patientId": "w020",
+      "inrValue": 2.3,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w020-1",
+        "patientId": "w020",
+        "inrValue": 2.0,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w020-2",
+        "patientId": "w020",
+        "inrValue": 2.4,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w020-3",
+        "patientId": "w020",
+        "inrValue": 3.2,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w020-4",
+        "patientId": "w020",
+        "inrValue": 2.7,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w020-5",
+        "patientId": "w020",
+        "inrValue": 2.3,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 71,
+      "status": "goal-met",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 24,
+      "daysCalculable": 120
+    }
+  },
+  "w021": {
+    "profile": {
+      "patientId": "w021",
+      "pillStrengthMg": 2,
+      "activePillsMg": [
+        2
+      ],
+      "currentDoseMgWk": 11.0,
+      "therapyStartDate": "2026-01-17"
+    },
+    "latestInr": {
+      "id": "inr-w021-5",
+      "patientId": "w021",
+      "inrValue": 2.7,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w021-1",
+        "patientId": "w021",
+        "inrValue": 1.7,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w021-2",
+        "patientId": "w021",
+        "inrValue": 3.6,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w021-3",
+        "patientId": "w021",
+        "inrValue": 2.9,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w021-4",
+        "patientId": "w021",
+        "inrValue": 2.5,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w021-5",
+        "patientId": "w021",
+        "inrValue": 2.7,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 67,
+      "status": "goal-met",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 0,
+      "daysCalculable": 120
+    }
+  },
+  "w022": {
+    "profile": {
+      "patientId": "w022",
+      "pillStrengthMg": 3,
+      "activePillsMg": [
+        2
+      ],
+      "currentDoseMgWk": 10.0,
+      "therapyStartDate": "2026-01-08"
+    },
+    "latestInr": {
+      "id": "inr-w022-5",
+      "patientId": "w022",
+      "inrValue": 2.2,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w022-1",
+        "patientId": "w022",
+        "inrValue": 2.1,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w022-2",
+        "patientId": "w022",
+        "inrValue": 2.0,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w022-3",
+        "patientId": "w022",
+        "inrValue": 2.2,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w022-4",
+        "patientId": "w022",
+        "inrValue": 2.3,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w022-5",
+        "patientId": "w022",
+        "inrValue": 2.2,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 78,
+      "status": "goal-met",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 0,
+      "daysCalculable": 120
+    }
+  },
+  "w023": {
+    "profile": {
+      "patientId": "w023",
+      "pillStrengthMg": 3,
+      "activePillsMg": [
+        3
+      ],
+      "currentDoseMgWk": 10.0,
+      "therapyStartDate": "2026-01-14"
+    },
+    "latestInr": {
+      "id": "inr-w023-5",
+      "patientId": "w023",
+      "inrValue": 2.4,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w023-1",
+        "patientId": "w023",
+        "inrValue": 3.0,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w023-2",
+        "patientId": "w023",
+        "inrValue": 2.8,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w023-3",
+        "patientId": "w023",
+        "inrValue": 2.5,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w023-4",
+        "patientId": "w023",
+        "inrValue": 2.2,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w023-5",
+        "patientId": "w023",
+        "inrValue": 2.4,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 70,
+      "status": "goal-met",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 0,
+      "daysCalculable": 120
+    }
+  },
+  "w024": {
+    "profile": {
+      "patientId": "w024",
+      "pillStrengthMg": 2,
+      "activePillsMg": [
+        2
+      ],
+      "currentDoseMgWk": 20.0,
+      "therapyStartDate": "2026-01-04"
+    },
+    "latestInr": {
+      "id": "inr-w024-5",
+      "patientId": "w024",
+      "inrValue": 1.6,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w024-1",
+        "patientId": "w024",
+        "inrValue": 1.5,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w024-2",
+        "patientId": "w024",
+        "inrValue": 1.5,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w024-3",
+        "patientId": "w024",
+        "inrValue": 1.7,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w024-4",
+        "patientId": "w024",
+        "inrValue": 1.1,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w024-5",
+        "patientId": "w024",
+        "inrValue": 1.6,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 0,
+      "status": "below-goal",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 0,
+      "daysCalculable": 120
+    }
+  },
+  "w025": {
+    "profile": {
+      "patientId": "w025",
+      "pillStrengthMg": 3,
+      "activePillsMg": [
+        3
+      ],
+      "currentDoseMgWk": 11.0,
+      "therapyStartDate": "2026-01-04"
+    },
+    "latestInr": {
+      "id": "inr-w025-5",
+      "patientId": "w025",
+      "inrValue": 4.9,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w025-1",
+        "patientId": "w025",
+        "inrValue": 5.8,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w025-2",
+        "patientId": "w025",
+        "inrValue": 3.9,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w025-3",
+        "patientId": "w025",
+        "inrValue": 5.2,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w025-4",
+        "patientId": "w025",
+        "inrValue": 3.9,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w025-5",
+        "patientId": "w025",
+        "inrValue": 4.9,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 0,
+      "status": "below-goal",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 0,
+      "daysCalculable": 120
+    }
+  },
+  "w026": {
+    "profile": {
+      "patientId": "w026",
+      "pillStrengthMg": 2,
+      "activePillsMg": [
+        3
+      ],
+      "currentDoseMgWk": 20.0,
+      "therapyStartDate": "2026-01-05"
+    },
+    "latestInr": {
+      "id": "inr-w026-5",
+      "patientId": "w026",
+      "inrValue": 3.7,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w026-1",
+        "patientId": "w026",
+        "inrValue": 5.6,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w026-2",
+        "patientId": "w026",
+        "inrValue": 5.2,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w026-3",
+        "patientId": "w026",
+        "inrValue": 5.0,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w026-4",
+        "patientId": "w026",
+        "inrValue": 6.0,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w026-5",
+        "patientId": "w026",
+        "inrValue": 3.7,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 0,
+      "status": "below-goal",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 0,
+      "daysCalculable": 120
+    }
+  },
+  "w027": {
+    "profile": {
+      "patientId": "w027",
+      "pillStrengthMg": 3,
+      "activePillsMg": [
+        2
+      ],
+      "currentDoseMgWk": 16.0,
+      "therapyStartDate": "2026-01-10"
+    },
+    "latestInr": {
+      "id": "inr-w027-5",
+      "patientId": "w027",
+      "inrValue": 2.4,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w027-1",
+        "patientId": "w027",
+        "inrValue": 2.4,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w027-2",
+        "patientId": "w027",
+        "inrValue": 2.2,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w027-3",
+        "patientId": "w027",
+        "inrValue": 2.5,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w027-4",
+        "patientId": "w027",
+        "inrValue": 2.3,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w027-5",
+        "patientId": "w027",
+        "inrValue": 2.4,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 0,
+      "status": "below-goal",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 0,
+      "daysCalculable": 120
+    }
+  },
+  "w028": {
+    "profile": {
+      "patientId": "w028",
+      "pillStrengthMg": 2,
+      "activePillsMg": [
+        3
+      ],
+      "currentDoseMgWk": 10.0,
+      "therapyStartDate": "2026-01-09"
+    },
+    "latestInr": {
+      "id": "inr-w028-5",
+      "patientId": "w028",
+      "inrValue": 5.9,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w028-1",
+        "patientId": "w028",
+        "inrValue": 3.7,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w028-2",
+        "patientId": "w028",
+        "inrValue": 3.6,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w028-3",
+        "patientId": "w028",
+        "inrValue": 4.1,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w028-4",
+        "patientId": "w028",
+        "inrValue": 5.7,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w028-5",
+        "patientId": "w028",
+        "inrValue": 5.9,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 0,
+      "status": "below-goal",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 0,
+      "daysCalculable": 120
+    }
+  },
+  "w029": {
+    "profile": {
+      "patientId": "w029",
+      "pillStrengthMg": 2,
+      "activePillsMg": [
+        3
+      ],
+      "currentDoseMgWk": 9.0,
+      "therapyStartDate": "2026-01-05"
+    },
+    "latestInr": {
+      "id": "inr-w029-5",
+      "patientId": "w029",
+      "inrValue": 1.7,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w029-1",
+        "patientId": "w029",
+        "inrValue": 1.8,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w029-2",
+        "patientId": "w029",
+        "inrValue": 1.7,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w029-3",
+        "patientId": "w029",
+        "inrValue": 1.4,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w029-4",
+        "patientId": "w029",
+        "inrValue": 1.6,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w029-5",
+        "patientId": "w029",
+        "inrValue": 1.7,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 0,
+      "status": "below-goal",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 0,
+      "daysCalculable": 120
+    }
+  },
+  "w030": {
+    "profile": {
+      "patientId": "w030",
+      "pillStrengthMg": 3,
+      "activePillsMg": [
+        2
+      ],
+      "currentDoseMgWk": 9.0,
+      "therapyStartDate": "2026-01-10"
+    },
+    "latestInr": {
+      "id": "inr-w030-5",
+      "patientId": "w030",
+      "inrValue": 3.9,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w030-1",
+        "patientId": "w030",
+        "inrValue": 5.9,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w030-2",
+        "patientId": "w030",
+        "inrValue": 4.1,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w030-3",
+        "patientId": "w030",
+        "inrValue": 5.0,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w030-4",
+        "patientId": "w030",
+        "inrValue": 4.4,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w030-5",
+        "patientId": "w030",
+        "inrValue": 3.9,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 0,
+      "status": "below-goal",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 0,
+      "daysCalculable": 120
+    }
+  },
+  "w031": {
+    "profile": {
+      "patientId": "w031",
+      "pillStrengthMg": 2,
+      "activePillsMg": [
+        3
+      ],
+      "currentDoseMgWk": 13.0,
+      "therapyStartDate": "2026-01-12"
+    },
+    "latestInr": {
+      "id": "inr-w031-5",
+      "patientId": "w031",
+      "inrValue": 1.6,
+      "measuredAt": "2026-05-15T09:00:00",
+      "source": "manual"
+    },
+    "inrHistory": [
+      {
+        "id": "inr-w031-1",
+        "patientId": "w031",
+        "inrValue": 1.6,
+        "measuredAt": "2026-01-15T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w031-2",
+        "patientId": "w031",
+        "inrValue": 1.1,
+        "measuredAt": "2026-02-14T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w031-3",
+        "patientId": "w031",
+        "inrValue": 1.8,
+        "measuredAt": "2026-03-13T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w031-4",
+        "patientId": "w031",
+        "inrValue": 1.5,
+        "measuredAt": "2026-04-11T09:00:00",
+        "source": "manual"
+      },
+      {
+        "id": "inr-w031-5",
+        "patientId": "w031",
+        "inrValue": 1.6,
+        "measuredAt": "2026-05-15T09:00:00",
+        "source": "manual"
+      }
+    ],
+    "doseAdjustments": [],
+    "ttr": {
+      "value": 0,
+      "status": "below-goal",
+      "fromDate": "2026-01-15",
+      "toDate": "2026-05-15",
+      "daysInRange": 0,
+      "daysCalculable": 120
     }
   }
 }

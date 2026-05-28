@@ -228,11 +228,16 @@
                   @keydown.enter="selectOption(opt)"
                   @keydown.space.prevent="selectOption(opt)"
                 >
+                  <span class="dwr-opt-check" aria-hidden="true">
+                    <PhCheck :size="10" />
+                  </span>
                   <template v-if="!opt.holdNote">
+                    <div class="dwr-opt-dose">
+                      {{ opt.newDoseMgWk.toFixed(1) }}<span class="dwr-opt-dose-unit"> mg/wk</span>
+                    </div>
                     <div class="dwr-opt-pct" :class="opt.percentChange > 0 ? 'dwr-pct--up' : 'dwr-pct--down'">
                       {{ opt.percentChange >= 0 ? '+' : '' }}{{ opt.percentChange }}%
                     </div>
-                    <div class="dwr-opt-dose">{{ opt.newDoseMgWk.toFixed(1) }} mg/wk</div>
                     <div class="dwr-opt-tabs">{{ opt.tabletsPerWeek }} Tabs/wk</div>
                   </template>
                   <template v-else>
@@ -245,16 +250,22 @@
                 <div
                   class="dwr-opt-card dwr-opt-card--custom"
                   :class="[
-                    isCustomSelection ? 'dwr-opt-card--selected' : '',
+                    customCardOpen || isCustomSelection ? 'dwr-opt-card--selected' : '',
                     customCardOpen || isCustomSelection ? 'dwr-opt-card--custom-open' : ''
                   ]"
                   @click="!customCardOpen && !isCustomSelection ? openCustomCard() : undefined"
                 >
+                  <span class="dwr-opt-check" aria-hidden="true">
+                    <PhCheck :size="10" />
+                  </span>
                   <template v-if="!customCardOpen && !isCustomSelection">
-                    <span class="dwr-opt-custom-placeholder">กำหนดเอง</span>
+                    <div class="dwr-opt-custom-placeholder">
+                      <PhPencilSimple :size="13" color="currentColor" weight="bold" />
+                      <span>กำหนดเอง</span>
+                    </div>
                   </template>
                   <template v-else>
-                    <span class="dwr-opt-custom-open-lbl">ขนาดยา (mg/wk)</span>
+                    <div class="dwr-opt-custom-title">กำหนดเอง</div>
                     <div class="dwr-opt-custom-input-row">
                       <div class="dwr-input-with-unit">
                         <input
@@ -282,7 +293,7 @@
                     <!-- Round-down / Round-up suggestions -->
                     <Transition name="dwr-fade">
                       <div v-if="hasSuggestions" class="dwr-custom-suggestions">
-                        <span class="dwr-custom-sugg-lbl">ลงตัวที่</span>
+                        <span class="dwr-custom-sugg-lbl">ลงตัวกับเม็ดยา</span>
                         <div class="dwr-custom-sugg-chips">
                           <button
                             v-if="nearbySuggestions[0] !== null"
@@ -345,14 +356,15 @@
 
           <Transition name="dwr-fade">
             <div v-if="selectedOption" key="has-sel" class="dwr-confirm-summary">
-              <!-- Hold note option selected (คงขนาดยาเดิม) -->
+
+              <!-- Hold note strip — คงขนาดยาเดิม -->
               <div v-if="selectedOption.holdNote" class="dwr-hold-note dwr-hold-note--chosen">
                 <PhInfo :size="13" color="#595959" />
                 <span>{{ selectedOption.label }} · {{ selectedOption.holdNote }}</span>
               </div>
-              <!-- Regular dose change -->
-              <template v-else>
-              <div class="dwr-confirm-dose-row">
+
+              <!-- Dose change row — non-hold options only -->
+              <div v-else class="dwr-confirm-dose-row">
                 <span class="dwr-old-dose">{{ props.data.profile.currentDoseMgWk.toFixed(1) }} mg/wk</span>
                 <span class="dwr-arrow">→</span>
                 <span class="dwr-new-dose">{{ selectedOption.newDoseMgWk.toFixed(1) }} mg/wk</span>
@@ -362,33 +374,55 @@
                 >
                   {{ selectedOption.percentChange > 0 ? '+' : '' }}{{ selectedOption.percentChange.toFixed(1) }}%
                 </span>
-                <span class="dwr-admin-method">{{ adminMethod }}</span>
+                <span v-if="activePillsLocal.length > 0" class="dwr-admin-method">{{ adminMethod }}</span>
               </div>
-              <div class="dwr-week-row">
-                <div
-                  v-for="day in DAY_KEYS"
-                  :key="day"
-                  class="dwr-day"
-                  :class="selectedOption.schedule.days[day].tablets > previewMinTablets ? 'dwr-day--hi' : ''"
-                >
-                  <span class="dwr-day-lbl">{{ DAY_SHORT[day] }}</span>
-                  <div class="dwr-day-pills">
-                    <div
-                      v-for="n in Math.floor(selectedOption.schedule.days[day].tablets)"
-                      :key="`f${n}`"
-                      class="dwr-pill dwr-pill--full"
-                      :class="`dwr-pill--${PILL_CONFIG[selectedOption.schedule.days[day].pillMg].color}`"
-                    />
-                    <div
-                      v-if="selectedOption.schedule.days[day].tablets % 1 !== 0"
-                      class="dwr-pill dwr-pill--half"
-                      :class="`dwr-pill--${PILL_CONFIG[selectedOption.schedule.days[day].pillMg].color}`"
-                    />
+
+              <!-- Week table + daily bar: ALL option types, when pills are selected -->
+              <template v-if="activePillsLocal.length > 0">
+                <div class="dwr-week-row">
+                  <div
+                    v-for="day in DAY_KEYS"
+                    :key="day"
+                    class="dwr-day"
+                    :class="selectedOption.schedule.days[day].tablets > previewMinTablets ? 'dwr-day--hi' : ''"
+                  >
+                    <span class="dwr-day-lbl">{{ DAY_SHORT[day] }}</span>
+                    <div class="dwr-day-pills">
+                      <div
+                        v-for="n in Math.floor(selectedOption.schedule.days[day].tablets)"
+                        :key="`f${n}`"
+                        class="dwr-pill dwr-pill--full"
+                        :class="`dwr-pill--${PILL_CONFIG[selectedOption.schedule.days[day].pillMg].color}`"
+                      />
+                      <div
+                        v-if="selectedOption.schedule.days[day].tablets % 1 !== 0"
+                        class="dwr-pill dwr-pill--half"
+                        :class="`dwr-pill--${PILL_CONFIG[selectedOption.schedule.days[day].pillMg].color}`"
+                      />
+                    </div>
+                    <span class="dwr-day-tab">{{ selectedOption.schedule.days[day].tablets }}</span>
                   </div>
-                  <span class="dwr-day-tab">{{ selectedOption.schedule.days[day].tablets }}</span>
                 </div>
-              </div>
+
+                <!-- Per-day customization affordance -->
+                <div class="dwr-daily-bar">
+                  <span v-if="isManualSchedule" class="dwr-manual-badge">
+                    <PhCheck :size="9" />
+                    ปรับรายวันแล้ว
+                  </span>
+                  <button class="dwr-btn-daily" @click="showDailyModal = true">
+                    <PhCalendarBlank :size="12" />
+                    {{ isManualSchedule ? 'แก้ไขตาราง' : 'ปรับรายวัน' }}
+                  </button>
+                </div>
               </template>
+
+              <!-- Pill not yet chosen — applies to both hold and non-hold -->
+              <div v-else class="dwr-step3-hint dwr-step3-hint--pill">
+                <PhPill :size="13" color="currentColor" />
+                <span>เลือกขนาดเม็ดยา (ด้านบน) เพื่อดูตารางการจ่ายยา</span>
+              </div>
+
             </div>
             <div v-else-if="suggestion.direction === 'hold'" key="hold" class="dwr-hold-note">
               <PhInfo :size="12" color="#595959" />
@@ -397,8 +431,9 @@
                 · {{ props.data.profile.currentDoseMgWk.toFixed(1) }} mg/wk
               </span>
             </div>
-            <div v-else key="no-sel" class="dwr-placeholder">
-              เลือกตัวเลือกจากขั้นที่ 2 เพื่อดำเนินการต่อ
+            <div v-else key="no-sel" class="dwr-step3-hint">
+              <PhInfo :size="13" color="currentColor" />
+              <span>ยังไม่ได้เลือกขนาดยา — เลือกจากขั้นที่ 2 ด้านบนก่อน</span>
             </div>
           </Transition>
 
@@ -443,13 +478,24 @@
       </div><!-- /.dwr-body -->
     </div><!-- /.dwr-panel -->
   </Transition>
+
+  <!-- Per-day dose customization modal (Teleports to body) -->
+  <WfDailyScheduleModal
+    v-if="selectedOption"
+    :show="showDailyModal"
+    :schedule="selectedOption.schedule"
+    :active-pills="activePillsLocal"
+    :target-mg-wk="selectedOption.newDoseMgWk"
+    @close="showDailyModal = false"
+    @confirm="onDailyConfirm"
+  />
 </template>
 
 <script setup lang="ts">
 import { ref, computed, watch, nextTick } from 'vue'
 import {
   PhX, PhWarning, PhCheckCircle, PhCheck,
-  PhFloppyDisk, PhInfo, PhPill, PhPencilSimple,
+  PhFloppyDisk, PhInfo, PhPill, PhPencilSimple, PhCalendarBlank,
 } from '@phosphor-icons/vue'
 import type {
   WarfarinPageData, DoseSuggestion, WeeklySchedule,
@@ -458,6 +504,7 @@ import type {
 import { PILL_CONFIG, DAY_KEYS, DEFAULT_TARGET_RANGE, DEFAULT_PROTOCOL } from '@/data/types/warfarin'
 import { buildWeeklySchedule, computeDosingSuggestion, suggestNearbyDoses } from '@/utils/warfarinDosing'
 import { type InrStatus, getInrStatus, inrStatusLabel } from '@/utils/inrStatus'
+import WfDailyScheduleModal from './WfDailyScheduleModal.vue'
 
 const DAY_SHORT: Record<DayKey, string> = {
   mon: 'จ', tue: 'อ', wed: 'พ', thu: 'พฤ', fri: 'ศ', sat: 'ส', sun: 'อา',
@@ -490,6 +537,8 @@ function resetForm() {
   customDoseInput.value   = null
   customDoseError.value   = ''
   saveError.value         = ''
+  showDailyModal.value    = false
+  isManualSchedule.value  = false
   activePillsLocal.value  = []   // doctor selects fresh each visit
   form.value = {
     newDoseMgWk:    props.data.profile.currentDoseMgWk,
@@ -587,6 +636,8 @@ function togglePill(pill: PillStrengthMg) {
       const newSched = buildWeeklySchedule(selectedOption.value.newDoseMgWk, pillsForCalc.value)
       selectedOption.value = { ...selectedOption.value, schedule: newSched }
     }
+    // Pill change invalidates any manual per-day layout — rebuild from scratch above
+    isManualSchedule.value = false
   }
   // If nothing selected yet, activeProfile recomputes → Step 2 cards re-render automatically
 }
@@ -611,6 +662,8 @@ const customInputRef    = ref<HTMLInputElement | null>(null)
 const step3Ref          = ref<HTMLElement | null>(null)
 const saveError         = ref('')
 const customDoseError   = ref('')
+const showDailyModal    = ref(false)
+const isManualSchedule  = ref(false)
 
 const form = ref({
   newDoseMgWk:    props.data.profile.currentDoseMgWk,
@@ -727,6 +780,13 @@ function applySuggestion(dose: number) {
   customDoseInput.value = dose
   customDoseError.value = ''
   selectCustomDose()
+}
+
+function onDailyConfirm(schedule: WeeklySchedule) {
+  if (!selectedOption.value) return
+  selectedOption.value   = { ...selectedOption.value, schedule }
+  isManualSchedule.value = true
+  showDailyModal.value   = false
 }
 
 const activeSchedule = computed<WeeklySchedule>(() =>
@@ -1146,24 +1206,46 @@ function formatDate(iso: string) {
 
 .dwr-opt-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 .dwr-opt-card {
+  position: relative;
   padding: 11px 13px; border-radius: 10px;
   border: 1.5px solid var(--bma-border-card); background: var(--bma-surface);
-  cursor: pointer; transition: border-color .15s, background .15s;
+  cursor: pointer; transition: border-color .15s, background .15s, border-width .15s;
   display: flex; flex-direction: column; gap: 3px;
 }
 .dwr-opt-card:hover                { border-color: var(--bma-green-500); background: var(--bma-green-50); }
 .dwr-opt-card:focus-visible        { outline: 2px solid var(--bma-green-500); outline-offset: 2px; }
-.dwr-opt-card--selected            { border-color: var(--bma-green-500); background: var(--bma-green-50); }
-.dwr-opt-pct { font-family: var(--bma-font-data); font-size: 20px; font-weight: 900; line-height: 1; }
-.dwr-pct--up   { color: var(--bma-success-text); }
-.dwr-pct--down { color: var(--bma-emergency); }
-.dwr-opt-dose  { font-family: var(--bma-font-data); font-size: 13px; font-weight: 700; color: var(--bma-text-primary); }
+.dwr-opt-card--selected            { border: 2px solid var(--bma-green-500); background: var(--bma-green-50); }
+
+/* ── Checkmark badge ─────────────────────────────────────────── */
+.dwr-opt-check {
+  position: absolute; top: 8px; right: 8px; z-index: 1;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--bma-green-500); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: scale(0.5);
+  transition: opacity .15s ease-out, transform .2s cubic-bezier(0.34, 1.4, 0.64, 1);
+  pointer-events: none;
+}
+.dwr-opt-card--selected .dwr-opt-check { opacity: 1; transform: scale(1); }
+/* Hold card uses neutral checkmark */
+.dwr-opt-card--hold .dwr-opt-check { background: var(--bma-text-tertiary); }
+/* Dose is the prescription — primary headline */
+.dwr-opt-dose      { font-family: var(--bma-font-data); font-size: 20px; font-weight: 900; line-height: 1; color: var(--bma-text-primary); }
+.dwr-opt-dose-unit { font-family: var(--bma-font-data); font-size: 11px; font-weight: 400; color: var(--bma-text-muted); }
+/* Percentage change — directional badge (secondary) */
+.dwr-opt-pct {
+  font-family: var(--bma-font-data); font-size: 11px; font-weight: 700; line-height: 1;
+  display: inline-flex; align-items: center; padding: 2px 6px; border-radius: 4px; width: fit-content;
+}
+.dwr-pct--up   { color: var(--bma-success-text); background: oklch(96% 0.04 145); }
+/* Amber — decrease is a clinical adjustment, not an emergency */
+.dwr-pct--down { color: oklch(46% 0.13 45); background: oklch(96% 0.04 50); }
 .dwr-opt-tabs  { font-size: 11px; color: var(--bma-text-muted); }
 
 /* Hold option card (คงขนาดยาเดิม) */
 .dwr-opt-card--hold { border-style: dashed; }
 .dwr-opt-card--hold:hover     { border-color: var(--bma-text-tertiary); background: var(--bma-surface-light); }
-.dwr-opt-card--hold.dwr-opt-card--selected { border-color: var(--bma-text-tertiary); background: var(--bma-surface-subtle); border-style: solid; }
+.dwr-opt-card--hold.dwr-opt-card--selected { border: 2px solid var(--bma-text-tertiary); background: var(--bma-surface-subtle); }
 .dwr-opt-hold-label { font-family: var(--bma-font-data); font-size: 13px; font-weight: 700; color: var(--bma-text-primary); }
 .dwr-opt-hold-sub   { font-size: 11px; color: var(--bma-text-muted); }
 
@@ -1172,15 +1254,25 @@ function formatDate(iso: string) {
   grid-column: 1 / -1; border-style: dashed;
   align-items: center; justify-content: center; min-height: 46px;
 }
-.dwr-opt-card--custom:hover { border-color: var(--bma-text-tertiary); background: var(--bma-surface-light); }
-.dwr-opt-card--custom-open  { cursor: default; }
-.dwr-opt-card--custom-open:hover { background: var(--bma-surface); border-color: var(--bma-green-500); }
-.dwr-opt-custom-placeholder {
-  font-size: 12px; font-weight: 600; color: var(--bma-text-muted); letter-spacing: .02em;
+.dwr-opt-card--custom:hover                          { border-color: var(--bma-text-tertiary); background: var(--bma-surface-light); }
+.dwr-opt-card--custom.dwr-opt-card--selected         { border-style: solid; }
+.dwr-opt-card--custom-open  {
+  cursor: default;
+  align-items: flex-start;
+  padding: 13px 14px 13px;
+  gap: 8px;  /* override the 3px base gap — open state needs breathing room */
+  border-color: var(--bma-green-500);  /* always green when open — matches focused input */
 }
-.dwr-opt-custom-open-lbl {
-  font-size: 10px; font-weight: 700; color: var(--bma-text-muted);
-  text-transform: uppercase; letter-spacing: .06em; align-self: flex-start;
+.dwr-opt-card--custom-open:hover { background: var(--bma-surface); }
+.dwr-opt-custom-placeholder {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600; color: var(--bma-text-secondary); letter-spacing: .02em;
+  transition: color .15s;
+}
+.dwr-opt-card--custom:hover .dwr-opt-custom-placeholder { color: var(--bma-text-primary); }
+.dwr-opt-custom-title {
+  font-family: var(--bma-font-data); font-size: 13px; font-weight: 700;
+  color: var(--bma-text-primary); line-height: 1;
 }
 .dwr-opt-custom-input-row { display: flex; align-items: center; gap: 7px; width: 100%; }
 .dwr-input-with-unit { position: relative; flex: 1; }
@@ -1218,7 +1310,9 @@ function formatDate(iso: string) {
 /* ── Round-down / Round-up suggestions ───────────────────────── */
 .dwr-custom-suggestions {
   display: flex; align-items: center; gap: 7px;
-  margin-top: 8px; flex-wrap: wrap; width: 100%;
+  padding-top: 9px;
+  border-top: 1px solid var(--bma-border-card);
+  flex-wrap: wrap; width: 100%;
 }
 .dwr-custom-sugg-lbl {
   font-size: 10px; font-weight: 700; color: var(--bma-text-muted);
@@ -1232,11 +1326,11 @@ function formatDate(iso: string) {
   color: var(--bma-text-secondary);
   cursor: pointer; transition: border-color .12s, background .12s, color .12s;
 }
-/* Round down — hints toward red (lower dose = more cautious in an increase context) */
+/* Round down — amber, consistent with dwr-pct--down */
 .dwr-custom-sugg-chip--down:hover {
-  border-color: var(--bma-emergency);
-  background: #FEECEC;
-  color: var(--bma-emergency);
+  border-color: oklch(62% 0.13 45);
+  background: oklch(96% 0.04 50);
+  color: oklch(46% 0.13 45);
 }
 /* Round up — hints toward green (higher dose = more aggressive increase) */
 .dwr-custom-sugg-chip--up:hover {
@@ -1302,7 +1396,23 @@ function formatDate(iso: string) {
 .dwr-hold-note--chosen {
   background: var(--bma-surface-subtle); border-color: var(--bma-text-tertiary); font-weight: 600;
 }
-.dwr-placeholder { font-size: 13px; color: var(--bma-text-disabled); padding: 4px 0; }
+/* Step 3 — contextual hint cards */
+.dwr-step3-hint {
+  display: flex; align-items: center; gap: 7px;
+  padding: 10px 12px; border-radius: 8px;
+  border: 1px dashed var(--bma-border-card);
+  background: var(--bma-surface-light);
+  font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600;
+  color: var(--bma-text-muted);
+}
+.dwr-step3-hint svg { flex-shrink: 0; color: var(--bma-text-disabled); }
+/* Pill-needed variant: amber tint matches pill-selector--empty signal */
+.dwr-step3-hint--pill {
+  border-color: var(--bma-urgency-ring);
+  background: var(--bma-urgency-bg);
+  color: var(--bma-text-tertiary);
+}
+.dwr-step3-hint--pill svg { color: var(--bma-urgency-text); }
 
 /* Confirm actions */
 .dwr-confirm-actions {
@@ -1434,4 +1544,28 @@ function formatDate(iso: string) {
 
 .dwr-pill-chip-check  { flex-shrink: 0; }
 .dwr-pill-chip-label  { /* inherits from .dwr-pill-chip */ }
+
+/* ── Per-day customization bar (Step 3) ──────────────────────── */
+.dwr-daily-bar {
+  display: flex; align-items: center; justify-content: flex-end; gap: 8px;
+  padding-top: 5px;
+}
+.dwr-manual-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: 99px;
+  background: var(--bma-green-50); border: 1px solid var(--bma-green-200);
+  font-family: var(--bma-font-thai); font-size: 10px; font-weight: 700;
+  color: var(--bma-success-text);
+}
+.dwr-btn-daily {
+  height: 26px; padding: 0 10px; border-radius: 6px;
+  border: 1.5px solid var(--bma-border); background: var(--bma-surface);
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: var(--bma-font-thai); font-size: 11px; font-weight: 600;
+  color: var(--bma-text-muted); cursor: pointer; transition: all .15s;
+}
+.dwr-btn-daily:hover {
+  border-color: var(--bma-green-500); color: var(--bma-green-500);
+  background: var(--bma-green-50);
+}
 </style>

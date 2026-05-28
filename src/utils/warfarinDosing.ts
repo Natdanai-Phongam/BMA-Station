@@ -197,13 +197,18 @@ export function computeDosingSuggestion(
   // Build a single dose option from a target percentage change
   function buildOpt(pct: number): DoseSuggestion {
     const newDose   = rounded(current * (1 + pct))
-    const tabs      = newDose / strength
     const actualPct = parseFloat(((newDose - current) / current * 100).toFixed(1))
+    const schedule  = buildWeeklySchedule(newDose, pills)
+    // Sum across all days — accurate for both single-pill and multi-pill schedules.
+    // (newDose / strength would be wrong whenever more than one pill size is used.)
+    const tabs = parseFloat(
+      Object.values(schedule.days).reduce((s, d) => s + d.tablets, 0).toFixed(1)
+    )
     return {
       percentChange:  actualPct,
       newDoseMgWk:    newDose,
       tabletsPerWeek: tabs,
-      schedule:       buildWeeklySchedule(newDose, pills),
+      schedule,
       label:          `${actualPct >= 0 ? '+' : ''}${actualPct}% (${newDose.toFixed(1)} mg)`,
     }
   }

@@ -44,10 +44,12 @@ export interface NoacDispensingRecord {
   systemRank:           number
   /** True when dispensed drug matched the engine's #1 recommendation */
   wasTopRecommendation: boolean
+  /** True when the dispensed drug and dose are clinically appropriate given patient labs/comorbidities */
+  clinicallyAppropriate?: boolean
   /** Reason for overriding top recommendation (if wasTopRecommendation is false) */
   overrideReason?:      string
-  /** Free-text pharmacist note for this visit */
-  pharmacistNote?:      string
+  /** Free-text pharmacist note for this visit (null = no note recorded) */
+  pharmacistNote?:      string | null
   /** ISO date of next scheduled follow-up */
   nextFollowUpDate:     string
 }

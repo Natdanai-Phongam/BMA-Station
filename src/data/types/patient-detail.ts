@@ -1,4 +1,4 @@
-export type ComplicationType    = 'bleeding' | 'thromboembolism' | 'side-effects'
+export type ComplicationType    = 'bleeding' | 'thromboembolism'
 export type Severity            = 'mild' | 'moderate' | 'severe'
 export type RiskLevel           = 'low' | 'medium' | 'high'
 export type AllergySeverity     = 'mild' | 'moderate' | 'severe'
@@ -29,6 +29,8 @@ export interface ComplicationEvent {
   date:      string
   /** month 1–12, used for chart x-axis positioning */
   month:     number
+  /** ISO date string e.g. "2026-05-12" — used for multi-year date-range filtering */
+  dateISO?:  string
   type:      ComplicationType
   detail:    string
   severity:  Severity

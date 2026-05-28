@@ -1,0 +1,87 @@
+{
+  "_note": "SUPERSEDED — no longer imported. Derivable KPI values (wfAppropriateness, noacAppropriateness, wfTtrGoal, acceptanceRate, safety events) are now computed live from patient data in DdAtsDashboard.vue. Non-derivable mock data (staff, LOS, ATS response metrics, prev/target values) moved to kpi-operational.json.",
+
+  "month": {
+    "label": "พ.ค. 2569",
+    "patientCount": 19,
+    "safety": {
+      "bleeding":          { "events": 1, "pct": 5.3, "prev": 0.0,  "target": 2 },
+      "thrombosis":        { "events": 0, "pct": 0.0, "prev": 5.3,  "target": 2 },
+      "aeHospitalization": { "events": 1, "pct": 5.3, "prev": 5.3,  "target": 5 },
+      "death":             { "events": 0, "pct": 0.0, "prev": 0.0,  "target": 1 },
+      "medError":          { "events": 0, "pct": 0.0, "prev": 5.3,  "target": 1 }
+    },
+    "quality": {
+      "wfAppropriateness":  { "value": 41.7, "n": 5,  "d": 12, "prev": 36.4, "target": 70 },
+      "noacAppropriateness":{ "value": 42.9, "n": 3,  "d": 7,  "prev": 42.9, "target": 80 },
+      "wfTtrGoal":          { "value": 38.5, "n": 5,  "d": 13, "prev": 34.6, "target": 65 },
+      "avgLOS":             { "value": 3.5,            "prev": 4.2,  "target": 5  }
+    },
+    "atsResponse": {
+      "resolutionRate":  { "value": 66.7, "n": 4,  "d": 6,  "prev": 60.0, "target": 80 },
+      "acceptanceRate":  { "value": 58.3, "n": 7,  "d": 12, "prev": 54.5, "target": 75 },
+      "responseTimeHr":  { "value": 1.8,            "prev": 2.1,  "target": 2  }
+    },
+    "efficiency": {
+      "staff": { "pharmacist": 2, "physician": 1, "nurse": 2, "total": 5 },
+      "patientsPerDay": 3.2,
+      "workloadRatio":  9.5
+    }
+  },
+
+  "quarter": {
+    "label": "ไตรมาส 2/2569",
+    "patientCount": 57,
+    "safety": {
+      "bleeding":          { "events": 2, "pct": 3.5, "prev": 5.8,  "target": 2 },
+      "thrombosis":        { "events": 1, "pct": 1.8, "prev": 3.5,  "target": 2 },
+      "aeHospitalization": { "events": 2, "pct": 3.5, "prev": 5.3,  "target": 5 },
+      "death":             { "events": 0, "pct": 0.0, "prev": 0.0,  "target": 1 },
+      "medError":          { "events": 1, "pct": 1.8, "prev": 3.5,  "target": 1 }
+    },
+    "quality": {
+      "wfAppropriateness":  { "value": 44.2, "n": 16, "d": 36, "prev": 41.7, "target": 70 },
+      "noacAppropriateness":{ "value": 45.7, "n": 10, "d": 21, "prev": 42.9, "target": 80 },
+      "wfTtrGoal":          { "value": 40.0, "n": 16, "d": 40, "prev": 38.5, "target": 65 },
+      "avgLOS":             { "value": 3.8,            "prev": 3.5,  "target": 5  }
+    },
+    "atsResponse": {
+      "resolutionRate":  { "value": 71.4, "n": 15, "d": 21, "prev": 66.7, "target": 80 },
+      "acceptanceRate":  { "value": 61.5, "n": 24, "d": 39, "prev": 58.3, "target": 75 },
+      "responseTimeHr":  { "value": 1.9,            "prev": 1.8,  "target": 2  }
+    },
+    "efficiency": {
+      "staff": { "pharmacist": 2, "physician": 1, "nurse": 2, "total": 5 },
+      "patientsPerDay": 3.1,
+      "workloadRatio":  9.7
+    }
+  },
+
+  "year": {
+    "label": "ปี 2569 (ม.ค.–พ.ค.)",
+    "patientCount": 76,
+    "safety": {
+      "bleeding":          { "events": 3, "pct": 3.9, "prev": 5.3,  "target": 2 },
+      "thrombosis":        { "events": 1, "pct": 1.3, "prev": 1.8,  "target": 2 },
+      "aeHospitalization": { "events": 3, "pct": 3.9, "prev": 3.5,  "target": 5 },
+      "death":             { "events": 0, "pct": 0.0, "prev": 0.0,  "target": 1 },
+      "medError":          { "events": 1, "pct": 1.3, "prev": 1.8,  "target": 1 }
+    },
+    "quality": {
+      "wfAppropriateness":  { "value": 46.1, "n": 22, "d": 48, "prev": 44.2, "target": 70 },
+      "noacAppropriateness":{ "value": 48.3, "n": 14, "d": 29, "prev": 45.7, "target": 80 },
+      "wfTtrGoal":          { "value": 41.8, "n": 22, "d": 53, "prev": 40.0, "target": 65 },
+      "avgLOS":             { "value": 4.1,            "prev": 3.8,  "target": 5  }
+    },
+    "atsResponse": {
+      "resolutionRate":  { "value": 74.2, "n": 23, "d": 31, "prev": 71.4, "target": 80 },
+      "acceptanceRate":  { "value": 63.8, "n": 37, "d": 58, "prev": 61.5, "target": 75 },
+      "responseTimeHr":  { "value": 1.7,            "prev": 1.9,  "target": 2  }
+    },
+    "efficiency": {
+      "staff": { "pharmacist": 2, "physician": 1, "nurse": 2, "total": 5 },
+      "patientsPerDay": 3.5,
+      "workloadRatio":  10.2
+    }
+  }
+}

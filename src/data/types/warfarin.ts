@@ -88,6 +88,7 @@ export interface WeeklySchedule {
   pillStrengthMg: PillStrengthMg    // primary / largest pill (display & backward compat)
   activePillsMg:  PillStrengthMg[]  // all pill sizes used in this schedule
   days:           Record<DayKey, DailyDose>
+  isManual?:      boolean           // true when the doctor has manually redistributed daily doses
 }
 
 // ── Dose adjustment record ────────────────────────────────────

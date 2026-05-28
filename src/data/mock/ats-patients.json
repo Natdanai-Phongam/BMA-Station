@@ -1,6 +1,5 @@
 {
   "lastSyncedAt": "16 ก.พ. 2569 - 12:03:14",
-
   "warfarin": [
     {
       "id": "w001",
@@ -8,8 +7,14 @@
       "hn": "693514782",
       "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
       "status": "over-range",
-      "crcl":  { "value": 22,  "alert": true  },
-      "inr":   { "value": 10.5, "alert": true  },
+      "crcl": {
+        "value": 22,
+        "alert": true
+      },
+      "inr": {
+        "value": 10.5,
+        "alert": true
+      },
       "weight": 63.0,
       "referred": true
     },
@@ -19,8 +24,14 @@
       "hn": "695823047",
       "hospital": "โรงพยาบาลกลาง",
       "status": "over-range",
-      "crcl":  { "value": 44, "alert": false },
-      "inr":   { "value": 4.2, "alert": true  },
+      "crcl": {
+        "value": 44,
+        "alert": false
+      },
+      "inr": {
+        "value": 4.2,
+        "alert": true
+      },
       "weight": 71.0,
       "referred": false
     },
@@ -30,8 +41,14 @@
       "hn": "694719265",
       "hospital": "โรงพยาบาลบางขุนเทียน",
       "status": "over-range",
-      "crcl":  { "value": 48, "alert": false },
-      "inr":   { "value": 3.7, "alert": true  },
+      "crcl": {
+        "value": 48,
+        "alert": false
+      },
+      "inr": {
+        "value": 3.7,
+        "alert": true
+      },
       "weight": 82.0,
       "referred": false
     },
@@ -41,8 +58,14 @@
       "hn": "691036842",
       "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
       "status": "over-range",
-      "crcl":  { "value": 55, "alert": false },
-      "inr":   { "value": 3.4, "alert": true  },
+      "crcl": {
+        "value": 55,
+        "alert": false
+      },
+      "inr": {
+        "value": 3.4,
+        "alert": true
+      },
       "weight": 49.0,
       "referred": false
     },
@@ -52,8 +75,14 @@
       "hn": "693742819",
       "hospital": "โรงพยาบาลตากสิน",
       "status": "under-range",
-      "crcl":  { "value": 38, "alert": false },
-      "inr":   { "value": 1.4, "alert": true  },
+      "crcl": {
+        "value": 38,
+        "alert": false
+      },
+      "inr": {
+        "value": 1.4,
+        "alert": true
+      },
       "weight": 55.0,
       "referred": true
     },
@@ -63,8 +92,14 @@
       "hn": "697519036",
       "hospital": "โรงพยาบาลสิรินธร",
       "status": "under-range",
-      "crcl":  { "value": 50, "alert": false },
-      "inr":   { "value": 1.7, "alert": true  },
+      "crcl": {
+        "value": 50,
+        "alert": false
+      },
+      "inr": {
+        "value": 1.7,
+        "alert": true
+      },
       "weight": 52.0,
       "referred": false
     },
@@ -74,8 +109,14 @@
       "hn": "694208357",
       "hospital": "โรงพยาบาลกลาง",
       "status": "under-range",
-      "crcl":  { "value": 75, "alert": false },
-      "inr":   { "value": 1.9, "alert": true  },
+      "crcl": {
+        "value": 75,
+        "alert": false
+      },
+      "inr": {
+        "value": 1.9,
+        "alert": true
+      },
       "weight": 58.0,
       "referred": false
     },
@@ -85,8 +126,14 @@
       "hn": "695817246",
       "hospital": "โรงพยาบาลตากสิน",
       "status": "in-range",
-      "crcl":  { "value": 70, "alert": false },
-      "inr":   { "value": 2.8, "alert": false },
+      "crcl": {
+        "value": 70,
+        "alert": false
+      },
+      "inr": {
+        "value": 2.8,
+        "alert": false
+      },
       "weight": 74.0,
       "referred": false
     },
@@ -96,8 +143,14 @@
       "hn": "692731584",
       "hospital": "โรงพยาบาลตากสิน",
       "status": "in-range",
-      "crcl":  { "value": 65, "alert": false },
-      "inr":   { "value": 2.6, "alert": false },
+      "crcl": {
+        "value": 65,
+        "alert": false
+      },
+      "inr": {
+        "value": 2.6,
+        "alert": false
+      },
       "weight": 76.0,
       "referred": false
     },
@@ -107,8 +160,14 @@
       "hn": "698024163",
       "hospital": "โรงพยาบาลกลาง",
       "status": "in-range",
-      "crcl":  { "value": 62, "alert": false },
-      "inr":   { "value": 2.4, "alert": false },
+      "crcl": {
+        "value": 62,
+        "alert": false
+      },
+      "inr": {
+        "value": 2.4,
+        "alert": false
+      },
       "weight": 68.0,
       "referred": false
     },
@@ -118,8 +177,14 @@
       "hn": "693517842",
       "hospital": "โรงพยาบาลราษฎร์บูรณะ",
       "status": "in-range",
-      "crcl":  { "value": 58, "alert": false },
-      "inr":   { "value": 2.2, "alert": false },
+      "crcl": {
+        "value": 58,
+        "alert": false
+      },
+      "inr": {
+        "value": 2.2,
+        "alert": false
+      },
       "weight": 47.0,
       "referred": false
     },
@@ -129,13 +194,324 @@
       "hn": "695024817",
       "hospital": "โรงพยาบาลสิรินธร",
       "status": "in-range",
-      "crcl":  { "value": 48, "alert": false },
-      "inr":   { "value": 2.5, "alert": false },
+      "crcl": {
+        "value": 48,
+        "alert": false
+      },
+      "inr": {
+        "value": 2.5,
+        "alert": false
+      },
       "weight": 46.0,
+      "referred": false
+    },
+    {
+      "id": "w014",
+      "name": "นาง ปิยะภรณ์ ธีระ",
+      "hn": "691719583",
+      "hospital": "โรงพยาบาลบางขุนเทียน",
+      "status": "in-range",
+      "crcl": {
+        "value": 45,
+        "alert": false
+      },
+      "inr": {
+        "value": 2.1,
+        "alert": false
+      },
+      "weight": 76.8,
+      "referred": false
+    },
+    {
+      "id": "w015",
+      "name": "นาย รัฐกร ทรงเดช",
+      "hn": "691714803",
+      "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
+      "status": "in-range",
+      "crcl": {
+        "value": 41,
+        "alert": false
+      },
+      "inr": {
+        "value": 2.3,
+        "alert": false
+      },
+      "weight": 61.3,
+      "referred": false
+    },
+    {
+      "id": "w016",
+      "name": "นาย สุรชัย สุขีวงษ์",
+      "hn": "691694522",
+      "hospital": "โรงพยาบาลสิรินธร",
+      "status": "in-range",
+      "crcl": {
+        "value": 82,
+        "alert": false
+      },
+      "inr": {
+        "value": 2.9,
+        "alert": false
+      },
+      "weight": 57.0,
+      "referred": false
+    },
+    {
+      "id": "w017",
+      "name": "นาย ณัฐพล ศรีไทย",
+      "hn": "693539704",
+      "hospital": "โรงพยาบาลราษฎร์บูรณะ",
+      "status": "in-range",
+      "crcl": {
+        "value": 53,
+        "alert": false
+      },
+      "inr": {
+        "value": 2.8,
+        "alert": false
+      },
+      "weight": 82.7,
+      "referred": false
+    },
+    {
+      "id": "w018",
+      "name": "นาย วิชัย สุขีวงษ์",
+      "hn": "691839607",
+      "hospital": "โรงพยาบาลกลาง",
+      "status": "in-range",
+      "crcl": {
+        "value": 76,
+        "alert": false
+      },
+      "inr": {
+        "value": 2.5,
+        "alert": false
+      },
+      "weight": 72.0,
+      "referred": false
+    },
+    {
+      "id": "w019",
+      "name": "นาย ปิยพงษ์ ชัยวัฒน์",
+      "hn": "698398441",
+      "hospital": "โรงพยาบาลกลาง",
+      "status": "in-range",
+      "crcl": {
+        "value": 84,
+        "alert": false
+      },
+      "inr": {
+        "value": 2.9,
+        "alert": false
+      },
+      "weight": 66.8,
+      "referred": false
+    },
+    {
+      "id": "w020",
+      "name": "นาย ประเสริฐ ศรีไทย",
+      "hn": "698153566",
+      "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
+      "status": "in-range",
+      "crcl": {
+        "value": 64,
+        "alert": false
+      },
+      "inr": {
+        "value": 2.3,
+        "alert": false
+      },
+      "weight": 87.1,
+      "referred": false
+    },
+    {
+      "id": "w021",
+      "name": "นาย พงษ์พันธ์ ดีงาม",
+      "hn": "693860684",
+      "hospital": "โรงพยาบาลราษฎร์บูรณะ",
+      "status": "over-range",
+      "crcl": {
+        "value": 29,
+        "alert": true
+      },
+      "inr": {
+        "value": 3.5,
+        "alert": true
+      },
+      "weight": 54.5,
+      "referred": false
+    },
+    {
+      "id": "w022",
+      "name": "นาย สมบัติ วงศ์สว่าง",
+      "hn": "697106470",
+      "hospital": "โรงพยาบาลสิรินธร",
+      "status": "under-range",
+      "crcl": {
+        "value": 70,
+        "alert": false
+      },
+      "inr": {
+        "value": 1.2,
+        "alert": true
+      },
+      "weight": 65.1,
+      "referred": false
+    },
+    {
+      "id": "w023",
+      "name": "นาย จักรพงษ์ วิชัย",
+      "hn": "690848731",
+      "hospital": "โรงพยาบาลบางขุนเทียน",
+      "status": "over-range",
+      "crcl": {
+        "value": 82,
+        "alert": false
+      },
+      "inr": {
+        "value": 5.5,
+        "alert": true
+      },
+      "weight": 88.0,
+      "referred": false
+    },
+    {
+      "id": "w024",
+      "name": "นาย ชัยชนะ สุขใจ",
+      "hn": "694977931",
+      "hospital": "โรงพยาบาลกลาง",
+      "status": "under-range",
+      "crcl": {
+        "value": 59,
+        "alert": false
+      },
+      "inr": {
+        "value": 1.6,
+        "alert": true
+      },
+      "weight": 86.7,
+      "referred": false
+    },
+    {
+      "id": "w025",
+      "name": "นางสาว ดวงพร ศรีไทย",
+      "hn": "699792396",
+      "hospital": "โรงพยาบาลราษฎร์บูรณะ",
+      "status": "over-range",
+      "crcl": {
+        "value": 30,
+        "alert": false
+      },
+      "inr": {
+        "value": 4.9,
+        "alert": true
+      },
+      "weight": 67.5,
+      "referred": false
+    },
+    {
+      "id": "w026",
+      "name": "นาง ประนอม บัวทอง",
+      "hn": "696199635",
+      "hospital": "โรงพยาบาลตากสิน",
+      "status": "over-range",
+      "crcl": {
+        "value": 50,
+        "alert": false
+      },
+      "inr": {
+        "value": 3.7,
+        "alert": true
+      },
+      "weight": 51.8,
+      "referred": false
+    },
+    {
+      "id": "w027",
+      "name": "นางสาว วิภาพร ค้าขาย",
+      "hn": "698479356",
+      "hospital": "โรงพยาบาลสิรินธร",
+      "status": "under-range",
+      "crcl": {
+        "value": 41,
+        "alert": false
+      },
+      "inr": {
+        "value": 1.6,
+        "alert": true
+      },
+      "weight": 55.8,
+      "referred": false
+    },
+    {
+      "id": "w028",
+      "name": "นาย ชัยชนะ ดีงาม",
+      "hn": "690604451",
+      "hospital": "โรงพยาบาลตากสิน",
+      "status": "over-range",
+      "crcl": {
+        "value": 72,
+        "alert": false
+      },
+      "inr": {
+        "value": 5.9,
+        "alert": true
+      },
+      "weight": 70.0,
+      "referred": false
+    },
+    {
+      "id": "w029",
+      "name": "นาย กิตติพงษ์ บัวทอง",
+      "hn": "696917152",
+      "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
+      "status": "under-range",
+      "crcl": {
+        "value": 90,
+        "alert": false
+      },
+      "inr": {
+        "value": 1.7,
+        "alert": true
+      },
+      "weight": 52.7,
+      "referred": false
+    },
+    {
+      "id": "w030",
+      "name": "นาย อนุชาติ ดวงเดือน",
+      "hn": "695507321",
+      "hospital": "โรงพยาบาลตากสิน",
+      "status": "over-range",
+      "crcl": {
+        "value": 70,
+        "alert": false
+      },
+      "inr": {
+        "value": 3.9,
+        "alert": true
+      },
+      "weight": 82.2,
+      "referred": false
+    },
+    {
+      "id": "w031",
+      "name": "นาย สุพจน์ ดวงเดือน",
+      "hn": "699673542",
+      "hospital": "โรงพยาบาลกลาง",
+      "status": "under-range",
+      "crcl": {
+        "value": 60,
+        "alert": false
+      },
+      "inr": {
+        "value": 1.6,
+        "alert": true
+      },
+      "weight": 56.0,
       "referred": false
     }
   ],
-
   "noacs": [
     {
       "id": "w002",
@@ -143,8 +519,14 @@
       "hn": "692847391",
       "hospital": "โรงพยาบาลกลาง",
       "status": "appropriate",
-      "crcl":  { "value": 58, "alert": false },
-      "egfr":  { "value": 55, "alert": false },
+      "crcl": {
+        "value": 58,
+        "alert": false
+      },
+      "egfr": {
+        "value": 55,
+        "alert": false
+      },
       "weight": 65.0,
       "referred": false
     },
@@ -154,8 +536,14 @@
       "hn": "696183274",
       "hospital": "โรงพยาบาลกลาง",
       "status": "appropriate",
-      "crcl":  { "value": 55, "alert": false },
-      "egfr":  { "value": 62, "alert": false },
+      "crcl": {
+        "value": 55,
+        "alert": false
+      },
+      "egfr": {
+        "value": 62,
+        "alert": false
+      },
       "weight": 55.0,
       "referred": false
     },
@@ -165,8 +553,14 @@
       "hn": "697824015",
       "hospital": "โรงพยาบาลตากสิน",
       "status": "underdose",
-      "crcl":  { "value": 28, "alert": true },
-      "egfr":  { "value": 32, "alert": true },
+      "crcl": {
+        "value": 28,
+        "alert": true
+      },
+      "egfr": {
+        "value": 32,
+        "alert": true
+      },
       "weight": 68.0,
       "referred": true
     },
@@ -176,8 +570,14 @@
       "hn": "692048376",
       "hospital": "โรงพยาบาลกลาง",
       "status": "appropriate",
-      "crcl":  { "value": 72, "alert": false },
-      "egfr":  { "value": 78, "alert": false },
+      "crcl": {
+        "value": 72,
+        "alert": false
+      },
+      "egfr": {
+        "value": 78,
+        "alert": false
+      },
       "weight": 52.0,
       "referred": false
     },
@@ -187,8 +587,14 @@
       "hn": "694917285",
       "hospital": "โรงพยาบาลหัวเฉียว",
       "status": "overdose",
-      "crcl":  { "value": 45, "alert": false },
-      "egfr":  { "value": 28, "alert": true },
+      "crcl": {
+        "value": 45,
+        "alert": false
+      },
+      "egfr": {
+        "value": 28,
+        "alert": true
+      },
       "weight": 78.0,
       "referred": true
     },
@@ -198,8 +604,14 @@
       "hn": "691673845",
       "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
       "status": "contra",
-      "crcl":  { "value": 18, "alert": true },
-      "egfr":  { "value": 15, "alert": true },
+      "crcl": {
+        "value": 18,
+        "alert": true
+      },
+      "egfr": {
+        "value": 15,
+        "alert": true
+      },
       "weight": 48.0,
       "referred": true
     },
@@ -209,9 +621,151 @@
       "hn": "695304817",
       "hospital": "โรงพยาบาลกลาง",
       "status": "interaction",
-      "crcl":  { "value": 50, "alert": false },
-      "egfr":  { "value": 55, "alert": false },
+      "crcl": {
+        "value": 50,
+        "alert": false
+      },
+      "egfr": {
+        "value": 55,
+        "alert": false
+      },
       "weight": 70.0,
+      "referred": true
+    },
+    {
+      "id": "n007",
+      "name": "นาง สุรีรัตน์ บุญช่วย",
+      "hn": "693218542",
+      "hospital": "โรงพยาบาลสิรินธร",
+      "status": "appropriate",
+      "crcl": {
+        "value": 55,
+        "alert": false
+      },
+      "egfr": {
+        "value": 55,
+        "alert": false
+      },
+      "weight": 69.3,
+      "referred": false
+    },
+    {
+      "id": "n008",
+      "name": "นาย สุรชัย พันธุ์ดี",
+      "hn": "693340845",
+      "hospital": "โรงพยาบาลกลาง",
+      "status": "appropriate",
+      "crcl": {
+        "value": 78,
+        "alert": false
+      },
+      "egfr": {
+        "value": 49,
+        "alert": false
+      },
+      "weight": 48.8,
+      "referred": false
+    },
+    {
+      "id": "n009",
+      "name": "นาย วรเดช แสงทอง",
+      "hn": "699377210",
+      "hospital": "โรงพยาบาลราษฎร์บูรณะ",
+      "status": "appropriate",
+      "crcl": {
+        "value": 43,
+        "alert": false
+      },
+      "egfr": {
+        "value": 59,
+        "alert": false
+      },
+      "weight": 58.2,
+      "referred": false
+    },
+    {
+      "id": "n010",
+      "name": "นาง ปิยะภรณ์ ดวงเดือน",
+      "hn": "693589533",
+      "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
+      "status": "underdose",
+      "crcl": {
+        "value": 26,
+        "alert": true
+      },
+      "egfr": {
+        "value": 39,
+        "alert": false
+      },
+      "weight": 61.3,
+      "referred": true
+    },
+    {
+      "id": "n011",
+      "name": "นาย จักรพงษ์ สมบูรณ์",
+      "hn": "696610562",
+      "hospital": "โรงพยาบาลราษฎร์บูรณะ",
+      "status": "underdose",
+      "crcl": {
+        "value": 80,
+        "alert": false
+      },
+      "egfr": {
+        "value": 69,
+        "alert": false
+      },
+      "weight": 66.1,
+      "referred": true
+    },
+    {
+      "id": "n012",
+      "name": "นาย ชานนท์ ธีระ",
+      "hn": "691151225",
+      "hospital": "โรงพยาบาลบางขุนเทียน",
+      "status": "overdose",
+      "crcl": {
+        "value": 69,
+        "alert": false
+      },
+      "egfr": {
+        "value": 33,
+        "alert": false
+      },
+      "weight": 49.3,
+      "referred": true
+    },
+    {
+      "id": "n013",
+      "name": "นาย พิษณุ ภูมิใจ",
+      "hn": "694074336",
+      "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
+      "status": "appropriate",
+      "crcl": {
+        "value": 39,
+        "alert": false
+      },
+      "egfr": {
+        "value": 67,
+        "alert": false
+      },
+      "weight": 70.3,
+      "referred": false
+    },
+    {
+      "id": "n014",
+      "name": "นาย วรากร สุขีวงษ์",
+      "hn": "694118725",
+      "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
+      "status": "interaction",
+      "crcl": {
+        "value": 72,
+        "alert": false
+      },
+      "egfr": {
+        "value": 47,
+        "alert": false
+      },
+      "weight": 56.9,
       "referred": true
     }
   ]

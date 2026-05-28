@@ -16,7 +16,6 @@
     "complications": [],
     "currentTherapy": "warfarin"
   },
-
   "w002": {
     "id": "w002",
     "name": "นาย สมชาย มั่นคง",
@@ -28,86 +27,83 @@
     "phone": "081-234-5678",
     "insuranceType": "ประกันสุขภาพ ( ทดสอบลองระบบ )",
     "allergies": [
-      { "substance": "Aspirin",    "reaction": "Urticaria",   "severity": "moderate" },
-      { "substance": "Penicillin", "reaction": "Anaphylaxis", "severity": "severe"   }
+      {
+        "substance": "Aspirin",
+        "reaction": "Urticaria",
+        "severity": "moderate"
+      },
+      {
+        "substance": "Penicillin",
+        "reaction": "Anaphylaxis",
+        "severity": "severe"
+      }
     ],
-    "totalComplications": 5,
+    "totalComplications": 3,
     "riskLevel": "high",
     "complicationSummary": [
-      { "type": "bleeding",        "count": 2, "lastDate": "12 มิ.ย. 68" },
-      { "type": "thromboembolism", "count": 1, "lastDate": "04 มิ.ย. 68" },
-      { "type": "side-effects",    "count": 2, "lastDate": "27 พ.ค. 68"  }
+      {
+        "type": "bleeding",
+        "count": 2,
+        "lastDate": "12 พ.ค. 69"
+      },
+      {
+        "type": "thromboembolism",
+        "count": 1,
+        "lastDate": "08 เม.ย. 69"
+      }
     ],
     "currentTherapy": "noacs",
     "concurrentMedications": [
       {
-        "name":             "Verapamil",
-        "dose":             "80 mg OD",
-        "category":         "P-gp Inhibitor (CCB)",
+        "name": "Verapamil",
+        "dose": "80 mg OD",
+        "category": "P-gp Inhibitor (CCB)",
         "interactionLevel": "warning",
-        "interactionNote":  "เพิ่มระดับยา NOACs บางชนิดในเลือด โดยเฉพาะ Dabigatran และ Edoxaban — ลดขนาดยาตามเกณฑ์"
+        "interactionNote": "เพิ่มระดับยา NOACs บางชนิดในเลือด โดยเฉพาะ Dabigatran และ Edoxaban — ลดขนาดยาตามเกณฑ์"
       },
       {
-        "name":             "Omeprazole",
-        "dose":             "40 mg OD",
-        "category":         "Proton Pump Inhibitor",
+        "name": "Omeprazole",
+        "dose": "40 mg OD",
+        "category": "Proton Pump Inhibitor",
         "interactionLevel": null
       }
     ],
     "complications": [
       {
         "id": "c001",
-        "date": "12 มิ.ย. 2568",
-        "month": 6,
+        "date": "12 พ.ค. 2569",
+        "month": 5,
         "type": "bleeding",
         "detail": "GI Bleed ( UGIB )",
         "severity": "severe",
         "treatment": "Endoscopy, Blood Transfusion",
-        "status": "สิ้นสุดการรักษา"
+        "status": "สิ้นสุดการรักษา",
+        "dateISO": "2026-05-12"
       },
       {
         "id": "c002",
-        "date": "04 มิ.ย. 2568",
-        "month": 6,
+        "date": "08 เม.ย. 2569",
+        "month": 4,
         "type": "thromboembolism",
         "detail": "Deep Vein Thrombosis",
         "severity": "moderate",
         "treatment": "LMWH Adjustment",
-        "status": "สิ้นสุดการรักษา"
+        "status": "สิ้นสุดการรักษา",
+        "dateISO": "2026-04-08"
       },
       {
         "id": "c003",
-        "date": "30 พ.ค. 2568",
-        "month": 5,
+        "date": "25 มี.ค. 2569",
+        "month": 3,
         "type": "bleeding",
         "detail": "GI Bleed ( UGIB )",
         "severity": "mild",
         "treatment": "Endoscopy, Blood Transfusion",
-        "status": "สิ้นสุดการรักษา"
-      },
-      {
-        "id": "c004",
-        "date": "27 พ.ค. 2568",
-        "month": 5,
-        "type": "side-effects",
-        "detail": "คลื่นไส้ อาเจียน",
-        "severity": "mild",
-        "treatment": "Anti-emetics medication",
-        "status": "สิ้นสุดการรักษา"
-      },
-      {
-        "id": "c005",
-        "date": "25 พ.ค. 2568",
-        "month": 5,
-        "type": "side-effects",
-        "detail": "ผื่นคัน",
-        "severity": "mild",
-        "treatment": "Anti-emetics medication",
-        "status": "สิ้นสุดการรักษา"
+        "status": "สิ้นสุดการรักษา",
+        "dateISO": "2026-03-25"
       }
     ]
   },
-
   "w003": {
     "id": "w003",
     "name": "นาย ประวิทย์ ชมภูนุช",
@@ -125,7 +121,6 @@
     "complications": [],
     "currentTherapy": "warfarin"
   },
-
   "w004": {
     "id": "w004",
     "name": "นาย ทวีชัย ศรีสมบูรณ์",
@@ -143,7 +138,6 @@
     "complications": [],
     "currentTherapy": "warfarin"
   },
-
   "w005": {
     "id": "w005",
     "name": "นางสาว กัญญา รัตนสิงห์",
@@ -161,7 +155,6 @@
     "complications": [],
     "currentTherapy": "warfarin"
   },
-
   "w006": {
     "id": "w006",
     "name": "นาง วิไลวรรณ สุขสวัสดิ์",
@@ -173,7 +166,11 @@
     "phone": "091-486-2073",
     "insuranceType": "ข้าราชการ",
     "allergies": [
-      { "substance": "Aspirin", "reaction": "Urticaria", "severity": "mild" }
+      {
+        "substance": "Aspirin",
+        "reaction": "Urticaria",
+        "severity": "mild"
+      }
     ],
     "totalComplications": 0,
     "riskLevel": "high",
@@ -181,7 +178,6 @@
     "complications": [],
     "currentTherapy": "warfarin"
   },
-
   "w007": {
     "id": "w007",
     "name": "นาง จิราภา เทพสุริยวงศ์",
@@ -199,7 +195,6 @@
     "complications": [],
     "currentTherapy": "warfarin"
   },
-
   "w008": {
     "id": "w008",
     "name": "นาง ลัดดา พรหมสวัสดิ์",
@@ -217,7 +212,6 @@
     "complications": [],
     "currentTherapy": "warfarin"
   },
-
   "w009": {
     "id": "w009",
     "name": "นาย มานพ กิตติวงษ์",
@@ -229,13 +223,30 @@
     "phone": "082-741-5836",
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
-    "totalComplications": 0,
+    "totalComplications": 1,
     "riskLevel": "low",
-    "complicationSummary": [],
-    "complications": [],
+    "complicationSummary": [
+      {
+        "type": "bleeding",
+        "count": 1,
+        "lastDate": "20 ม.ค. 69"
+      }
+    ],
+    "complications": [
+      {
+        "id": "c-w009-001",
+        "date": "20 ม.ค. 2569",
+        "month": 1,
+        "dateISO": "2026-01-20",
+        "type": "bleeding",
+        "detail": "เลือดออกจากเหงือกขณะแปรงฟัน",
+        "severity": "mild",
+        "treatment": "หยุดยาชั่วคราว 1 วัน แนะนำการดูแลสุขอนามัยช่องปาก",
+        "status": "หายแล้ว"
+      }
+    ],
     "currentTherapy": "warfarin"
   },
-
   "w010": {
     "id": "w010",
     "name": "นาย สิทธิชัย นุชประยูร",
@@ -247,15 +258,36 @@
     "phone": "084-395-7162",
     "insuranceType": "ประกันสังคม",
     "allergies": [
-      { "substance": "Sulfonamide", "reaction": "Rash", "severity": "mild" }
+      {
+        "substance": "Sulfonamide",
+        "reaction": "Rash",
+        "severity": "mild"
+      }
     ],
-    "totalComplications": 0,
+    "totalComplications": 1,
     "riskLevel": "low",
-    "complicationSummary": [],
-    "complications": [],
+    "complicationSummary": [
+      {
+        "type": "thromboembolism",
+        "count": 1,
+        "lastDate": "15 ก.พ. 69"
+      }
+    ],
+    "complications": [
+      {
+        "id": "c-w010-001",
+        "date": "15 ก.พ. 2569",
+        "month": 2,
+        "dateISO": "2026-02-15",
+        "type": "thromboembolism",
+        "detail": "DVT ขาซ้าย ตรวจพบโดย Doppler ultrasound",
+        "severity": "severe",
+        "treatment": "ปรับยา Warfarin เพิ่มขนาด INR target 2.5–3.5",
+        "status": "กำลังรักษา"
+      }
+    ],
     "currentTherapy": "warfarin"
   },
-
   "w011": {
     "id": "w011",
     "name": "นาย สมชาย วงศ์ประเสริฐ",
@@ -273,7 +305,6 @@
     "complications": [],
     "currentTherapy": "warfarin"
   },
-
   "w013": {
     "id": "w013",
     "name": "นาง อรุณี ทองสุข",
@@ -291,7 +322,6 @@
     "complications": [],
     "currentTherapy": "warfarin"
   },
-
   "w012": {
     "id": "w012",
     "name": "นางสาว อภิญญา วิจิตรสุนทร",
@@ -309,7 +339,6 @@
     "complications": [],
     "currentTherapy": "warfarin"
   },
-
   "n001": {
     "id": "n001",
     "name": "นางสาว พัชรินทร์ สุวรรณโกมล",
@@ -327,7 +356,6 @@
     "complications": [],
     "currentTherapy": "noacs"
   },
-
   "n002": {
     "id": "n002",
     "name": "นาย ชาญชัย บุญศักดิ์ดี",
@@ -345,7 +373,6 @@
     "complications": [],
     "currentTherapy": "noacs"
   },
-
   "n003": {
     "id": "n003",
     "name": "นาง สุกัญญา ทองประเสริฐ",
@@ -363,7 +390,6 @@
     "complications": [],
     "currentTherapy": "noacs"
   },
-
   "n004": {
     "id": "n004",
     "name": "นาย พิชัย วงษ์มณี",
@@ -375,7 +401,11 @@
     "phone": "089-417-6230",
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [
-      { "substance": "NSAIDs", "reaction": "Peptic Ulcer", "severity": "mild" }
+      {
+        "substance": "NSAIDs",
+        "reaction": "Peptic Ulcer",
+        "severity": "mild"
+      }
     ],
     "totalComplications": 0,
     "riskLevel": "high",
@@ -383,7 +413,6 @@
     "complications": [],
     "currentTherapy": "noacs"
   },
-
   "n005": {
     "id": "n005",
     "name": "นางสาว รัตนา เพียรพัฒน์",
@@ -395,7 +424,11 @@
     "phone": "086-193-4057",
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [
-      { "substance": "Aspirin", "reaction": "Gastritis", "severity": "mild" }
+      {
+        "substance": "Aspirin",
+        "reaction": "Gastritis",
+        "severity": "mild"
+      }
     ],
     "totalComplications": 0,
     "riskLevel": "high",
@@ -403,7 +436,6 @@
     "complications": [],
     "currentTherapy": "noacs"
   },
-
   "n006": {
     "id": "n006",
     "name": "นาย ธนกร วิชัยรัตน์",
@@ -422,12 +454,454 @@
     "currentTherapy": "noacs",
     "concurrentMedications": [
       {
-        "name":             "Dronedarone",
-        "dose":             "400 mg BID",
-        "category":         "P-gp / CYP3A4 Inhibitor (Antiarrhythmic)",
+        "name": "Dronedarone",
+        "dose": "400 mg BID",
+        "category": "P-gp / CYP3A4 Inhibitor (Antiarrhythmic)",
         "interactionLevel": "warning",
-        "interactionNote":  "เพิ่มระดับ Apixaban ในเลือดผ่านการยับยั้ง P-gp — ควรพิจารณาลดขนาดยาต้านการแข็งตัวของเลือดหรือเปลี่ยนยาต้านภาวะหัวใจเต้นผิดจังหวะ"
+        "interactionNote": "เพิ่มระดับ Apixaban ในเลือดผ่านการยับยั้ง P-gp — ควรพิจารณาลดขนาดยาต้านการแข็งตัวของเลือดหรือเปลี่ยนยาต้านภาวะหัวใจเต้นผิดจังหวะ"
       }
     ]
+  },
+  "w014": {
+    "id": "w014",
+    "name": "นาง ปิยะภรณ์ ธีระ",
+    "hn": "691719583",
+    "age": 52,
+    "dob": "1974-07-08",
+    "sex": "หญิง",
+    "bloodGroup": "AB+",
+    "phone": "098-384-1106",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "high",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "w015": {
+    "id": "w015",
+    "name": "นาย รัฐกร ทรงเดช",
+    "hn": "691714803",
+    "age": 66,
+    "dob": "1960-11-20",
+    "sex": "ชาย",
+    "bloodGroup": "O+",
+    "phone": "098-296-2139",
+    "insuranceType": "ข้าราชการ",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "high",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "w016": {
+    "id": "w016",
+    "name": "นาย สุรชัย สุขีวงษ์",
+    "hn": "691694522",
+    "age": 63,
+    "dob": "1963-03-15",
+    "sex": "ชาย",
+    "bloodGroup": "AB+",
+    "phone": "088-755-4598",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "low",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "w017": {
+    "id": "w017",
+    "name": "นาย ณัฐพล ศรีไทย",
+    "hn": "693539704",
+    "age": 47,
+    "dob": "1979-09-09",
+    "sex": "ชาย",
+    "bloodGroup": "O-",
+    "phone": "098-538-7543",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "low",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "w018": {
+    "id": "w018",
+    "name": "นาย วิชัย สุขีวงษ์",
+    "hn": "691839607",
+    "age": 77,
+    "dob": "1949-11-18",
+    "sex": "ชาย",
+    "bloodGroup": "O+",
+    "phone": "090-214-5808",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "low",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "w019": {
+    "id": "w019",
+    "name": "นาย ปิยพงษ์ ชัยวัฒน์",
+    "hn": "698398441",
+    "age": 45,
+    "dob": "1981-01-20",
+    "sex": "ชาย",
+    "bloodGroup": "O+",
+    "phone": "095-119-2832",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "medium",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "w020": {
+    "id": "w020",
+    "name": "นาย ประเสริฐ ศรีไทย",
+    "hn": "698153566",
+    "age": 48,
+    "dob": "1978-12-10",
+    "sex": "ชาย",
+    "bloodGroup": "AB+",
+    "phone": "091-548-9479",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "low",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "w021": {
+    "id": "w021",
+    "name": "นาย พงษ์พันธ์ ดีงาม",
+    "hn": "693860684",
+    "age": 59,
+    "dob": "1967-04-18",
+    "sex": "ชาย",
+    "bloodGroup": "B+",
+    "phone": "098-690-8744",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "medium",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "w022": {
+    "id": "w022",
+    "name": "นาย สมบัติ วงศ์สว่าง",
+    "hn": "697106470",
+    "age": 57,
+    "dob": "1969-09-15",
+    "sex": "ชาย",
+    "bloodGroup": "B+",
+    "phone": "093-287-5563",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "low",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "w023": {
+    "id": "w023",
+    "name": "นาย จักรพงษ์ วิชัย",
+    "hn": "690848731",
+    "age": 73,
+    "dob": "1953-01-06",
+    "sex": "ชาย",
+    "bloodGroup": "AB+",
+    "phone": "080-499-5345",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "medium",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "w024": {
+    "id": "w024",
+    "name": "นาย ชัยชนะ สุขใจ",
+    "hn": "694977931",
+    "age": 80,
+    "dob": "1946-03-03",
+    "sex": "ชาย",
+    "bloodGroup": "A-",
+    "phone": "082-791-4853",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "low",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "w025": {
+    "id": "w025",
+    "name": "นางสาว ดวงพร ศรีไทย",
+    "hn": "699792396",
+    "age": 60,
+    "dob": "1966-01-15",
+    "sex": "หญิง",
+    "bloodGroup": "A-",
+    "phone": "098-202-2200",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "low",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "w026": {
+    "id": "w026",
+    "name": "นาง ประนอม บัวทอง",
+    "hn": "696199635",
+    "age": 61,
+    "dob": "1965-03-09",
+    "sex": "หญิง",
+    "bloodGroup": "A+",
+    "phone": "083-860-3546",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "medium",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "w027": {
+    "id": "w027",
+    "name": "นางสาว วิภาพร ค้าขาย",
+    "hn": "698479356",
+    "age": 58,
+    "dob": "1968-03-24",
+    "sex": "หญิง",
+    "bloodGroup": "AB+",
+    "phone": "097-822-8007",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "low",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "w028": {
+    "id": "w028",
+    "name": "นาย ชัยชนะ ดีงาม",
+    "hn": "690604451",
+    "age": 49,
+    "dob": "1977-11-04",
+    "sex": "ชาย",
+    "bloodGroup": "O+",
+    "phone": "097-995-7658",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "high",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "w029": {
+    "id": "w029",
+    "name": "นาย กิตติพงษ์ บัวทอง",
+    "hn": "696917152",
+    "age": 60,
+    "dob": "1966-07-28",
+    "sex": "ชาย",
+    "bloodGroup": "A+",
+    "phone": "095-327-4269",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "medium",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "w030": {
+    "id": "w030",
+    "name": "นาย อนุชาติ ดวงเดือน",
+    "hn": "695507321",
+    "age": 59,
+    "dob": "1967-03-19",
+    "sex": "ชาย",
+    "bloodGroup": "O+",
+    "phone": "081-211-8119",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "high",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "w031": {
+    "id": "w031",
+    "name": "นาย สุพจน์ ดวงเดือน",
+    "hn": "699673542",
+    "age": 72,
+    "dob": "1954-10-11",
+    "sex": "ชาย",
+    "bloodGroup": "O-",
+    "phone": "083-837-5920",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "medium",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "warfarin"
+  },
+  "n007": {
+    "id": "n007",
+    "name": "นาง สุรีรัตน์ บุญช่วย",
+    "hn": "693218542",
+    "age": 74,
+    "dob": "1952-12-06",
+    "sex": "หญิง",
+    "bloodGroup": "O-",
+    "phone": "082-390-9445",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "high",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+  "n008": {
+    "id": "n008",
+    "name": "นาย สุรชัย พันธุ์ดี",
+    "hn": "693340845",
+    "age": 63,
+    "dob": "1963-03-26",
+    "sex": "ชาย",
+    "bloodGroup": "O-",
+    "phone": "096-575-1822",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "medium",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+  "n009": {
+    "id": "n009",
+    "name": "นาย วรเดช แสงทอง",
+    "hn": "699377210",
+    "age": 77,
+    "dob": "1949-08-03",
+    "sex": "ชาย",
+    "bloodGroup": "O-",
+    "phone": "089-340-5451",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "high",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+  "n010": {
+    "id": "n010",
+    "name": "นาง ปิยะภรณ์ ดวงเดือน",
+    "hn": "693589533",
+    "age": 53,
+    "dob": "1973-05-14",
+    "sex": "หญิง",
+    "bloodGroup": "AB+",
+    "phone": "080-498-6507",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "medium",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+  "n011": {
+    "id": "n011",
+    "name": "นาย จักรพงษ์ สมบูรณ์",
+    "hn": "696610562",
+    "age": 56,
+    "dob": "1970-06-25",
+    "sex": "ชาย",
+    "bloodGroup": "AB+",
+    "phone": "088-870-7906",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "medium",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+  "n012": {
+    "id": "n012",
+    "name": "นาย ชานนท์ ธีระ",
+    "hn": "691151225",
+    "age": 49,
+    "dob": "1977-03-10",
+    "sex": "ชาย",
+    "bloodGroup": "A+",
+    "phone": "098-126-6111",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "high",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+  "n013": {
+    "id": "n013",
+    "name": "นาย พิษณุ ภูมิใจ",
+    "hn": "694074336",
+    "age": 60,
+    "dob": "1966-12-05",
+    "sex": "ชาย",
+    "bloodGroup": "AB+",
+    "phone": "085-851-9548",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "high",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+  "n014": {
+    "id": "n014",
+    "name": "นาย วรากร สุขีวงษ์",
+    "hn": "694118725",
+    "age": 75,
+    "dob": "1951-08-18",
+    "sex": "ชาย",
+    "bloodGroup": "B+",
+    "phone": "095-761-9041",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "riskLevel": "medium",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
   }
 }
