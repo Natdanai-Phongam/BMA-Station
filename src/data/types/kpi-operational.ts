@@ -91,3 +91,62 @@ export interface KpiOperationalData {
    */
   wfTtrMonthly: number[]
 }
+
+// ── Runtime-only types (computed display shapes, not stored in JSON) ──────────
+
+export type StatusLevel = 'pass' | 'warn' | 'fail'
+
+/** All period metrics computed in a single pass — cached by DdAtsDashboard */
+export interface PeriodMetrics {
+  comps: {
+    bleeding:          number
+    thrombosis:        number
+    aeHospitalization: number
+    death:             number
+    medError:          number
+  }
+  wf: {
+    active:      number
+    appropriate: number
+    ttrGoalMet:  number
+    ttrTotal:    number
+  }
+  noac: {
+    active:       number
+    appropriate:  number
+    dispTotal:    number
+    dispAccepted: number
+  }
+}
+
+export interface SafetyRow {
+  key:         string
+  name:        string
+  events:      number
+  pct:         number
+  target:      number
+  status:      StatusLevel
+  trendLabel:  string
+  trendDir:    'up' | 'down' | 'flat'
+  statusLabel: string
+}
+
+export interface QualityBarRow {
+  key:         string
+  name:        string
+  value:       number
+  n:           number
+  d:           number
+  target:      number
+  status:      StatusLevel
+  statusLabel: string
+}
+
+export interface AtsRow {
+  key:          string
+  name:         string
+  displayValue: string
+  targetLabel:  string
+  status:       StatusLevel
+  statusLabel:  string
+}

@@ -8,7 +8,9 @@ export interface LabValue {
 }
 
 export type WarfarinStatus = 'in-range' | 'under-range' | 'over-range'
-export type NoacsStatus   = 'appropriate' | 'underdose' | 'overdose' | 'contra' | 'interaction'
+// Authoritative definition lives in noac-dispensing.ts as NoacClinicalStatus
+import type { NoacClinicalStatus } from './noac-dispensing'
+export type NoacsStatus = NoacClinicalStatus
 
 interface AtsPatientBase {
   id:       string
@@ -22,15 +24,18 @@ interface AtsPatientBase {
 }
 
 export interface AtsWarfarinPatient extends AtsPatientBase {
-  status: WarfarinStatus
-  crcl:   LabValue
-  inr:    LabValue
+  /** Absent from JSON — derived live from warfarin-patients.json latestInr */
+  status?: WarfarinStatus
+  crcl:    LabValue
+  inr:     LabValue
 }
 
 export interface AtsNoacsPatient extends AtsPatientBase {
-  status: NoacsStatus
-  crcl:   LabValue
-  egfr:   LabValue
+  /** Absent from JSON — derived live from noac-patients.json profile.status */
+  status?: NoacsStatus
+  /** Absent from JSON — derived live from latest dispensing labData.crClMlMin */
+  crcl?:   LabValue
+  egfr:    LabValue
 }
 
 export interface AtsPatientsData {
@@ -38,4 +43,13 @@ export interface AtsPatientsData {
   lastSyncedAt: string
   warfarin:     AtsWarfarinPatient[]
   noacs:        AtsNoacsPatient[]
+}
+
+/** Minimal patient entry used in the summary hover-tooltip lists */
+export interface SummaryPatientEntry {
+  id:          string
+  name:        string
+  hn:          string
+  status:      string
+  statusLabel: string
 }

@@ -8,11 +8,7 @@
       </div>
       <v-spacer />
       <div class="topbar-right">
-        <div class="lang-toggle">
-          <span class="lang-btn">EN</span>
-          <span class="lang-btn lang-active">TH</span>
-        </div>
-        <div class="notif-wrap">
+<div class="notif-wrap">
           <PhBell :size="20" color="#595959" />
           <span class="notif-dot" />
         </div>
@@ -173,51 +169,57 @@ function handleSubClick(sub: { key: string; route?: string }) {
 .logo-th { font-size: 15px; font-weight: 700; color: var(--bma-green-500); line-height: 1.15; }
 .logo-en { font-size: 10px; color: var(--bma-text-muted); letter-spacing: .06em; font-family: var(--bma-font-data); text-transform: uppercase; }
 
-.topbar-right { display: flex; align-items: center; gap: 12px; }
-
-.lang-toggle {
-  display: flex;
-  border: 1.5px solid var(--bma-border);
-  border-radius: var(--bma-radius-sm);
-  overflow: hidden;
-  font-family: var(--bma-font-data);
-  font-size: 12px;
-  font-weight: 600;
+.topbar-right {
+  display:     flex;
+  align-items: center;
+  gap:         8px;
 }
-.lang-btn    { padding: 4px 10px; cursor: pointer; color: var(--bma-text-muted); }
-.lang-active { background: var(--bma-green-500); color: var(--bma-surface); }
 
+/* Bell — filled circle, no border */
 .notif-wrap {
-  position: relative;
-  width: 36px;
-  height: 36px;
-  border: 1.5px solid var(--bma-border);
-  border-radius: var(--bma-radius-md);
-  display: flex;
-  align-items: center;
+  position:        relative;
+  width:           36px;
+  height:          36px;
+  background:      var(--bma-neutral-100, #F5F5F5);
+  border-radius:   50%;
+  display:         flex;
+  align-items:     center;
   justify-content: center;
-  cursor: pointer;
+  cursor:          pointer;
+  flex-shrink:     0;
+  transition:      background 0.15s;
 }
+.notif-wrap:hover {
+  background: var(--bma-neutral-200, #EBEBEB);
+}
+/* Dot sits at the top-right arc of the circle */
 .notif-dot {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 7px;
-  height: 7px;
+  position:      absolute;
+  top:           4px;
+  right:         4px;
+  width:         7px;
+  height:        7px;
   border-radius: 50%;
-  background: var(--bma-emergency);
-  border: 1.5px solid var(--bma-surface);
+  background:    var(--bma-emergency);
+  border:        1.5px solid white;
 }
+
 .user-chip {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
-  border: 1.5px solid var(--bma-border);
+  display:       flex;
+  align-items:   center;
+  gap:           6px;
+  padding:       5px 12px 5px 6px;
+  background:    var(--bma-neutral-100, #F5F5F5);
   border-radius: var(--bma-radius-full);
-  font-size: 13px;
-  color: var(--bma-text-secondary);
-  cursor: pointer;
+  font-family:   var(--bma-font-thai);
+  font-size:     13px;
+  font-weight:   500;
+  color:         var(--bma-text-secondary);
+  cursor:        pointer;
+  transition:    background 0.15s;
+}
+.user-chip:hover {
+  background: var(--bma-neutral-200, #EBEBEB);
 }
 
 /* ── Sidebar ────────────────────────────────────────────── */

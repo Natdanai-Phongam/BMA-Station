@@ -89,3 +89,21 @@ export interface AtsKpiData {
   quarter: KpiPeriodData
   year:    KpiPeriodData
 }
+
+// ── KPI period mode (replaces the old KpiDisplayPeriod with 'custom') ────────
+// 'month'   → user picks a from/to month range
+// 'quarter' → user picks Q1–Q4 + year
+// 'year'    → current year, Jan to current month
+export type KpiMode = 'month' | 'quarter' | 'year'
+
+/** @deprecated use KpiMode — kept temporarily for any lingering references */
+export type KpiDisplayPeriod = KpiMode
+
+// ── KPI strip metric card (4 cards shown above each tab) ─────
+export interface KpiMetric {
+  eyebrow:  string
+  value:    string | number
+  unit?:    string
+  badge?:   { label: string; good: boolean }
+  context:  string
+}

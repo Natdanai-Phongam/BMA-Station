@@ -592,52 +592,73 @@
       </div>
 
       <!-- ── KPI Tab ──────────────────────────────────────────── -->
-      <div v-show="activeTab === 'kpi'">
+      <div v-if="activeTab === 'kpi'">
 
         <!-- ── Primary KPIs container ──────────────────────────── -->
         <div class="kpi-container">
-          <!-- Container header: title + period toggle -->
+          <!-- Container header: title + mode selector -->
           <div class="kpi-container-header">
             <div class="kpi-header-left">
               <span class="kpi-st-text">ตัวชี้วัดหลัก</span>
               <span class="kpi-st-eng">Primary KPIs</span>
+              <button class="kpi-refresh-btn" @click="refreshKpiData" title="รีเฟรชข้อมูล">
+                <PhArrowsClockwise :size="13" />
+              </button>
             </div>
             <div class="kpi-period-group">
               <span class="kpi-period-current">{{ kpiPeriodLabel }}</span>
               <div class="kpi-period-seg">
                 <button
-                  v-for="p in KPI_PERIODS" :key="p.value"
+                  v-for="m in KPI_MODES" :key="m.value"
                   class="kpi-seg-btn"
-                  :class="{ 'kpi-seg-btn--on': kpiPeriod === p.value }"
-                  @click="kpiPeriod = p.value"
-                >{{ p.label }}</button>
+                  :class="{ 'kpi-seg-btn--on': kpiMode === m.value }"
+                  @click="kpiMode = m.value"
+                >{{ m.label }}</button>
               </div>
             </div>
           </div>
 
-          <!-- Custom date range row (animates in when กำหนดเอง is active) -->
+          <!-- Sub-controls row: animates in based on mode -->
           <Transition name="kpi-custom-slide">
-            <div v-if="kpiPeriod === 'custom'" class="kpi-custom-row">
+
+            <!-- Month mode: from → to range -->
+            <div v-if="kpiMode === 'month'" class="kpi-custom-row">
               <PhCalendar :size="13" color="#8C8C8C" />
-              <span class="kpi-custom-label">ช่วงเวลา</span>
+              <span class="kpi-custom-label">ช่วงเดือน</span>
               <div class="kpi-custom-inputs">
-                <input
-                  type="month"
-                  v-model="kpiCustomFrom"
-                  class="kpi-month-input"
-                  max="2026-05"
-                />
+                <input type="month" v-model="monthFrom" class="kpi-month-input" :max="_curYearMonth" />
                 <span class="kpi-custom-sep">ถึง</span>
-                <input
-                  type="month"
-                  v-model="kpiCustomTo"
-                  class="kpi-month-input"
-                  :min="kpiCustomFrom"
-                  max="2026-05"
-                />
+                <input type="month" v-model="monthTo" class="kpi-month-input" :min="monthFrom" :max="_curYearMonth" />
               </div>
-              <span class="kpi-custom-range-display">{{ customRangeLabel }}</span>
             </div>
+
+            <!-- Quarter mode: year picker + Q1–Q4 -->
+            <div v-else-if="kpiMode === 'quarter'" class="kpi-custom-row">
+              <PhCalendar :size="13" color="#8C8C8C" />
+              <span class="kpi-custom-label">ปี</span>
+              <select class="kpi-year-select" v-model.number="quarterYear">
+                <option v-for="y in availableYears" :key="y" :value="y">{{ y + 543 }}</option>
+              </select>
+              <div class="kpi-q-seg">
+                <button
+                  v-for="q in ([1,2,3,4] as const)" :key="q"
+                  class="kpi-q-btn"
+                  :class="{ 'kpi-q-btn--on': quarterNum === q, 'kpi-q-btn--disabled': isQuarterDisabled(q) }"
+                  :disabled="isQuarterDisabled(q)"
+                  @click="quarterNum = q"
+                >Q{{ q }}</button>
+              </div>
+            </div>
+
+            <!-- Year mode: year picker -->
+            <div v-else-if="kpiMode === 'year'" class="kpi-custom-row">
+              <PhCalendar :size="13" color="#8C8C8C" />
+              <span class="kpi-custom-label">ปี</span>
+              <select class="kpi-year-select" v-model.number="yearNum">
+                <option v-for="y in availableYears" :key="y" :value="y">{{ y + 543 }}</option>
+              </select>
+            </div>
+
           </Transition>
 
           <!-- Primary grid: Safety (3fr) + Quality (2fr) -->
@@ -812,23 +833,28 @@ import { useRouter, useRoute } from 'vue-router'
 import type { Component } from 'vue'
 import { Doughnut } from 'vue-chartjs'
 import { Chart as ChartJS, ArcElement, DoughnutController, Tooltip } from 'chart.js'
-import type { TooltipItem } from 'chart.js'
 import {
   PhBell, PhArrowCircleRight, PhWarning, PhInfo,
   PhChartBar, PhFirstAid,
   PhMagnifyingGlass, PhCalendar,
   PhArrowSquareOut, PhWarningCircle,
   PhCaretDoubleLeft, PhCaretLeft, PhCaretRight, PhCaretDoubleRight,
-  PhShieldCheck, PhUsers, PhPulse,
+  PhShieldCheck, PhUsers, PhPulse, PhArrowsClockwise,
 } from '@phosphor-icons/vue'
 import type { AtsDashboardConfigData, AtsMonitoringCard } from '@/data/types/ats'
-import type { AtsPatientsData, WarfarinStatus, NoacsStatus } from '@/data/types/ats-patients'
-import type { WarfarinPageData, DoseAdjustment } from '@/data/types/warfarin'
+import type { AtsPatientsData, WarfarinStatus, NoacsStatus, SummaryPatientEntry } from '@/data/types/ats-patients'
+import type { WarfarinPageData } from '@/data/types/warfarin'
 import type { NoacPatientData, NoacDispensingRecord } from '@/data/types/noac-dispensing'
-import type { NoacDrug, NoacIndication } from '@/data/types/noac'
-import type { KpiPeriod, KpiPeriodData } from '@/data/types/ats-kpi'
+import type { KpiPeriodData, KpiMode, KpiMetric } from '@/data/types/ats-kpi'
+import { getAppDate, getAppYearMonth, monthToQuarter, monthStart, monthEnd } from '@/utils/app-date'
 import type { PatientDetail, ComplicationEvent } from '@/data/types/patient-detail'
-import type { KpiOperationalData, KpiOperationalPeriod } from '@/data/types/kpi-operational'
+import type { KpiOperationalData, KpiOperationalPeriod, PeriodMetrics, StatusLevel, SafetyRow, QualityBarRow, AtsRow } from '@/data/types/kpi-operational'
+import { thaiMonth }                   from '@/utils/date'
+import { parsePct, visiblePages }      from '@/utils/number-helpers'
+import { majorIxnCount, getMajorIxns, lastDoseAdjustment, wfConcordanceBadgeClass, wfConcordanceLabel, warfarinStatusLabel, effectLabel, ttrStatusLabel } from '@/utils/warfarin-helpers'
+import { lastDispensing, concordanceBadgeClass, concordanceLabel, noacsStatusLabel, drugDisplayLabel, indicationChipLabel } from '@/utils/noac-helpers'
+import { safetyStatus, qualityStatus, safetyStatusLabel, qualityStatusLabel } from '@/utils/kpi-status'
+import { makeCenterPlugin, donutChartData, donutOptions } from '@/composables/useChartPlugins'
 import { KPI_SAFETY_TARGETS, KPI_QUALITY_TARGETS, KPI_ATS_TARGETS } from '@/data/config/kpi-targets'
 import rawConfig      from '@/data/mock/ats-dashboard.json'
 import rawPatients    from '@/data/mock/ats-patients.json'
@@ -848,12 +874,39 @@ const patients    = rawPatients    as AtsPatientsData
 const allWarfarin = allWarfarinRaw as Record<string, WarfarinPageData>
 const allNoac     = allNoacRaw     as Record<string, NoacPatientData>
 
-// Enriched patient lists — join ats-patients summary with therapy-specific clinical data
+// Enriched patient lists — join ats-patients summary with therapy-specific clinical data.
+// WF status is derived from warfarin-patients.json latestInr (single source of truth)
+// rather than the static status field in ats-patients.json, which can become stale.
 const enrichedWarfarin = computed(() =>
-  patients.warfarin.map(p => ({ ...p, wf: allWarfarin[p.id] ?? null }))
+  patients.warfarin.map(p => {
+    const wf  = allWarfarin[p.id] ?? null
+    const inr = wf?.latestInr?.inrValue
+    const status: WarfarinStatus = inr == null
+      ? (p.status ?? 'under-range')
+      : inr < 2.0 ? 'under-range'
+      : inr > 3.0 ? 'over-range'
+      : 'in-range'
+    return { ...p, status, wf }
+  })
 )
 const enrichedNoacs = computed(() =>
-  patients.noacs.map(p => ({ ...p, noac: allNoac[p.id] ?? null }))
+  patients.noacs.map(p => {
+    const noac   = allNoac[p.id] ?? null
+    const disps  = (noac?.dispensingHistory as NoacDispensingRecord[]) ?? []
+    const latest = disps.length ? disps[disps.length - 1] : null
+
+    // Status: from noac-patients.json profile (single source of truth)
+    const status = noac?.profile?.status ?? 'appropriate'
+
+    // Lab values from the most recent dispensing record
+    const lab    = latest?.labData ?? null
+    const crcl   = lab
+      ? { value: Math.round(lab.crClMlMin), alert: lab.crClMlMin < 30 }
+      : (p.crcl ?? { value: 0, alert: false })
+    const weight = lab?.weightKg ?? p.weight
+
+    return { ...p, status, crcl, weight, noac }
+  })
 )
 
 // Map icon name strings from JSON to Phosphor icon components
@@ -863,8 +916,8 @@ const iconMap: Record<string, Component> = { PhChartBar, PhFirstAid }
 // Produces a fully-typed AtsMonitoringCard from display config + patient counts.
 // Replace the patient list source (fetch → reactive ref) to get live updates.
 const cards = computed<AtsMonitoringCard[]>(() => {
-  const wList = patients.warfarin
-  const nList = patients.noacs
+  const wList = enrichedWarfarin.value
+  const nList = enrichedNoacs.value
 
   // Warfarin
   const wTotal   = wList.length
@@ -881,11 +934,15 @@ const cards = computed<AtsMonitoringCard[]>(() => {
     outOfRangePct:   wTotal > 0 ? `${Math.round(wOut / wTotal * 100)}%` : '0%',
     alertCount:      wAlerts,
     referralCount:   wRefer,
-    stats: dashConfig.warfarin.stats.map(s => {
-      const count = wList.filter(p => p.status === s.statusKey).length
-      const pct   = wTotal > 0 ? ((count / wTotal) * 100).toFixed(1) : '0'
-      return { ...s, count, pctDisplay: `(${pct}%)` }
-    }),
+    stats: (() => {
+      const byStatus = new Map<string, number>()
+      for (const p of wList) byStatus.set(p.status, (byStatus.get(p.status) ?? 0) + 1)
+      return dashConfig.warfarin.stats.map(s => {
+        const count = byStatus.get(s.statusKey) ?? 0
+        const pct   = wTotal > 0 ? ((count / wTotal) * 100).toFixed(1) : '0'
+        return { ...s, count, pctDisplay: `(${pct}%)` }
+      })
+    })(),
   }
 
   // NOACs
@@ -903,11 +960,15 @@ const cards = computed<AtsMonitoringCard[]>(() => {
     outOfRangePct:   nTotal > 0 ? `${Math.round(nOut / nTotal * 100)}%` : '0%',
     alertCount:      nAlerts,
     referralCount:   nRefer,
-    stats: dashConfig.noacs.stats.map(s => {
-      const count = nList.filter(p => p.status === s.statusKey).length
-      const pct   = nTotal > 0 ? ((count / nTotal) * 100).toFixed(1) : '0'
-      return { ...s, count, pctDisplay: `(${pct}%)` }
-    }),
+    stats: (() => {
+      const byStatus = new Map<string, number>()
+      for (const p of nList) byStatus.set(p.status, (byStatus.get(p.status) ?? 0) + 1)
+      return dashConfig.noacs.stats.map(s => {
+        const count = byStatus.get(s.statusKey) ?? 0
+        const pct   = nTotal > 0 ? ((count / nTotal) * 100).toFixed(1) : '0'
+        return { ...s, count, pctDisplay: `(${pct}%)` }
+      })
+    })(),
   }
 
   return [wCard, nCard]
@@ -928,61 +989,6 @@ const chartPropsMap = computed(() => {
   return map
 })
 
-// Chart.js plugin that draws center text on the canvas itself.
-// Runs in afterDraw so the tooltip (drawn after all plugins) always sits on top.
-function makeCenterPlugin(total: number) {
-  return {
-    id: `center-${total}`,
-    afterDraw(chart: ChartJS) {
-      const { ctx, chartArea } = chart
-      const cx = (chartArea.left + chartArea.right) / 2
-      const cy = (chartArea.top + chartArea.bottom) / 2
-      ctx.save()
-      ctx.textAlign    = 'center'
-      ctx.textBaseline = 'middle'
-      ctx.font         = '900 26px Inter, sans-serif'
-      ctx.fillStyle    = '#343330'
-      ctx.fillText(String(total), cx, cy - 9)
-      ctx.font         = '400 10px Sarabun, sans-serif'
-      ctx.fillStyle    = '#8C8C8C'
-      ctx.fillText('ผู้ป่วยทั้งหมด', cx, cy + 10)
-      ctx.restore()
-    },
-  }
-}
-
-function donutChartData(card: AtsMonitoringCard) {
-  return {
-    labels: [card.inRangeLabel, ...card.stats.map(s => s.label)],
-    datasets: [{
-      data:            [card.inRangeCount,    ...card.stats.map(s => s.count)],
-      backgroundColor: ['#4CAF50',            ...card.stats.map(s => s.color)],
-      borderWidth: 0,
-      hoverOffset: 4,
-    }],
-  }
-}
-
-const donutOptions = {
-  responsive: true,
-  maintainAspectRatio: false,
-  cutout: '72%',
-  animation: { duration: 600 },
-  layout: { padding: 8 },
-  plugins: {
-    legend: { display: false },
-    tooltip: {
-      callbacks: {
-        title: () => '',
-        label: (ctx: TooltipItem<'doughnut'>) => {
-          const total = (ctx.dataset.data as number[]).reduce((a, b) => a + b, 0)
-          const pct   = total > 0 ? ((ctx.parsed / total) * 100).toFixed(1) : '0'
-          return `  ${ctx.label}: ${ctx.parsed} ราย (${pct}%)`
-        },
-      },
-    },
-  },
-} as const
 
 // ── Navigation ────────────────────────────────────────────────────────────────
 function goToPatient(id: string) {
@@ -990,19 +996,6 @@ function goToPatient(id: string) {
 }
 
 // ── KPI Strip ─────────────────────────────────────────────────────────────────
-
-interface KpiMetric {
-  eyebrow: string
-  value: string | number
-  unit?: string
-  badge?: { label: string; good: boolean }
-  context: string
-}
-
-function parsePct(pctStr: string): number {
-  return parseInt(pctStr) || 0
-}
-
 const activeKpi = computed<KpiMetric[]>(() => {
   const wCard = cards.value[0]
   const nCard = cards.value[1]
@@ -1150,91 +1143,10 @@ const activeKpi = computed<KpiMetric[]>(() => {
   ]
 })
 
-// ── Status labels ─────────────────────────────────────────────────────────────
-const warfarinStatusLabel: Record<WarfarinStatus, string> = {
-  'in-range':    'In Range',
-  'under-range': 'Under Range',
-  'over-range':  'Over Range',
-}
-
-const noacsStatusLabel: Record<NoacsStatus, string> = {
-  'appropriate': 'Appropriate',
-  'underdose':   'Underdose',
-  'overdose':    'Overdose',
-  'contra':      'Contra',
-  'interaction': 'Interaction',
-}
-
-// ── Warfarin enrichment helpers ───────────────────────────────────────────────
-function majorIxnCount(wf: WarfarinPageData | null): number {
-  if (!wf?.profile.concurrentMeds) return 0
-  return wf.profile.concurrentMeds.filter(m => m.severity === 'major').length
-}
-
-function getMajorIxns(wf: WarfarinPageData | null) {
-  return wf?.profile.concurrentMeds?.filter(m => m.severity === 'major') ?? []
-}
-
-const effectLabel: Record<string, string> = {
-  increase: '↑ เพิ่ม INR',
-  decrease: '↓ ลด INR',
-  none:     'ไม่มีผล',
-}
-
-const ttrStatusLabel: Record<string, string> = {
-  'goal-met':          'ผ่านเกณฑ์',
-  'below-goal':        'ต่ำกว่าเกณฑ์',
-  'insufficient-data': 'ข้อมูลไม่พอ',
-}
-
-function lastDoseAdjustment(wf: WarfarinPageData | null): DoseAdjustment | undefined {
-  const adj = wf?.doseAdjustments
-  return adj?.length ? adj[adj.length - 1] : undefined
-}
-
-function wfConcordanceBadgeClass(adj: DoseAdjustment | undefined): string {
-  if (!adj) return 'concordance--none'
-  if (adj.systemSuggested) return 'concordance--yes'
-  return adj.overrideReason ? 'concordance--adjusted' : 'concordance--no'
-}
-
-function wfConcordanceLabel(adj: DoseAdjustment | undefined): string {
-  if (!adj) return '—'
-  if (adj.systemSuggested) return '✓ ตามแนวทาง'
-  return adj.overrideReason ? '✗ ปรับโดยมีเหตุผล' : '✗ ไม่ระบุเหตุผล'
-}
-
-// ── NOACs enrichment helpers ──────────────────────────────────────────────────
-function lastDispensing(noacData: NoacPatientData | null): NoacDispensingRecord | undefined {
-  const h = noacData?.dispensingHistory
-  return h?.length ? h[h.length - 1] : undefined
-}
-
-function concordanceBadgeClass(disp: NoacDispensingRecord | undefined): string {
-  if (!disp) return 'concordance--none'
-  if (disp.wasTopRecommendation) return 'concordance--yes'
-  return disp.overrideReason ? 'concordance--adjusted' : 'concordance--no'
-}
-
-function concordanceLabel(disp: NoacDispensingRecord | undefined): string {
-  if (!disp) return '—'
-  if (disp.wasTopRecommendation) return '✓ ตามแนวทาง'
-  return disp.overrideReason ? '✗ ปรับโดยมีเหตุผล' : '✗ ไม่ระบุเหตุผล'
-}
-
 // ── Summary section — hoverable patient lists ─────────────────────────────────
-
-interface SummaryPatientEntry {
-  id:          string
-  name:        string
-  hn:          string
-  status:      string
-  statusLabel: string
-}
-
 const summaryPatientLists = computed(() => {
-  const wList = patients.warfarin
-  const nList = patients.noacs
+  const wList = enrichedWarfarin.value
+  const nList = enrichedNoacs.value
 
   const toWEntry = (p: typeof wList[number]): SummaryPatientEntry => ({
     id:          p.id,
@@ -1271,17 +1183,6 @@ function getSummaryPatients(cardId: string, type: 'outOfRange' | 'referrals'): S
   return []
 }
 
-const drugDisplayLabel: Record<NoacDrug, string> = {
-  apixaban:    'Apixaban',
-  rivaroxaban: 'Rivaroxaban',
-  dabigatran:  'Dabigatran',
-  edoxaban:    'Edoxaban',
-}
-
-const indicationChipLabel: Record<NoacIndication, string> = {
-  NVAF: 'NVAF', DVT: 'DVT', PE: 'PE', CAT: 'CAT',
-}
-
 // ── Patient list counts ────────────────────────────────────────────────────────
 const warfarinTotal = computed(() => patients.warfarin.length)
 const noacsTotal    = computed(() => patients.noacs.length)
@@ -1314,12 +1215,6 @@ const noPaged = computed(() =>
   )
 )
 
-/** Visible page numbers: up to ±2 around current, clamped to [1, total]. */
-function visiblePages(current: number, total: number): number[] {
-  const lo = Math.max(1, current - 2)
-  const hi = Math.min(total, current + 2)
-  return Array.from({ length: hi - lo + 1 }, (_, i) => lo + i)
-}
 
 // ── KPI tab ───────────────────────────────────────────────────────────────────
 // ── KPI data sources ──────────────────────────────────────────────────────────
@@ -1328,198 +1223,194 @@ function visiblePages(current: number, total: number): number[] {
 const kpiOps    = rawKpiOps   as KpiOperationalData
 const allDetail = allDetailRaw as Record<string, PatientDetail>
 
-type KpiDisplayPeriod = KpiPeriod | 'custom'
-
-const KPI_PERIODS: Array<{ value: KpiDisplayPeriod; label: string }> = [
-  { value: 'month',   label: 'เดือน'    },
-  { value: 'quarter', label: 'ไตรมาส'   },
-  { value: 'year',    label: 'ปีนี้'    },
-  { value: 'custom',  label: 'กำหนดเอง' },
+const KPI_MODES: Array<{ value: KpiMode; label: string }> = [
+  { value: 'month',   label: 'เดือน'  },
+  { value: 'quarter', label: 'ไตรมาส' },
+  { value: 'year',    label: 'ปี'     },
 ]
 
-const kpiPeriod     = ref<KpiDisplayPeriod>('month')
-const kpiCustomFrom = ref<string>('2026-01')
-const kpiCustomTo   = ref<string>('2026-05')
+// ── KPI period state ──────────────────────────────────────────────────────────
+const _now          = getAppDate()
+const _curYear      = _now.getFullYear()
+const _curMonth     = _now.getMonth() + 1
+const _curYearMonth = getAppYearMonth()
 
-const THAI_MONTHS = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.',
-                     'ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.']
-function thaiMonth(yearMonth: string): string {
-  const [y, m] = yearMonth.split('-').map(Number)
-  if (!y || !m) return yearMonth
-  return `${THAI_MONTHS[m - 1]} ${y + 543}`
+const kpiMode = ref<KpiMode>('month')
+
+// Month mode: from/to range (default = current month)
+const monthFrom = ref<string>(_curYearMonth)
+const monthTo   = ref<string>(_curYearMonth)
+
+// Quarter mode
+const quarterYear = ref<number>(_curYear)
+const quarterNum  = ref<1|2|3|4>(monthToQuarter(_curMonth))
+
+// Year mode
+const yearNum = ref<number>(_curYear)
+
+// Available years for year/quarter pickers (current + 2 past years)
+const availableYears = Array.from(
+  { length: 3 },
+  (_, i) => _curYear - i,
+).reverse()
+
+// Is a given quarter disabled (hasn't started yet in the selected year)?
+function isQuarterDisabled(q: number): boolean {
+  const qStart = (q - 1) * 3 + 1
+  if (quarterYear.value < _curYear) return false
+  if (quarterYear.value > _curYear) return true
+  return qStart > _curMonth
 }
 
-const customRangeLabel = computed(() => {
-  if (!kpiCustomFrom.value || !kpiCustomTo.value) return 'กำหนดเอง'
-  return `${thaiMonth(kpiCustomFrom.value)} – ${thaiMonth(kpiCustomTo.value)}`
-})
-
-// Operational mock for the selected period (label, prev values, LOS, efficiency)
+// ── Operational mock for the selected mode ────────────────────────────────────
 const currentKpiOps = computed<KpiOperationalPeriod>(() => {
-  const p = kpiPeriod.value
-  if (p === 'custom' || p === 'year') return kpiOps.year
-  if (p === 'quarter')                return kpiOps.quarter
+  if (kpiMode.value === 'year')    return kpiOps.year
+  if (kpiMode.value === 'quarter') return kpiOps.quarter
   return kpiOps.month
 })
 
-// ISO date range for filtering patient records by period
-// Data exists from 2026-01-01 to 2026-05-31 (ปี 2569 ม.ค.–พ.ค.)
+// ── ISO date range derived from mode + sub-selection ─────────────────────────
 const periodDateRange = computed<[string, string]>(() => {
-  const p = kpiPeriod.value
-  if (p === 'month')   return ['2026-05-01', '2026-05-31']
-  if (p === 'quarter') return ['2026-03-01', '2026-05-31']
-  if (p === 'year')    return ['2026-01-01', '2026-05-31']
-  // custom: build ISO range from YYYY-MM pickers
-  const from  = kpiCustomFrom.value ? `${kpiCustomFrom.value}-01` : '2026-01-01'
-  const toYM  = kpiCustomTo.value || '2026-05'
-  const [ty, tm] = toYM.split('-').map(Number)
-  const lastDay  = new Date(ty, tm, 0).getDate()
-  return [from, `${toYM}-${String(lastDay).padStart(2, '0')}`]
-})
-
-// Month range (1–12) for fallback complication filtering (no dateISO)
-const periodRange = computed<[number, number]>(() => {
-  const p = kpiPeriod.value
-  if (p === 'month')   return [5, 5]
-  if (p === 'quarter') return [3, 5]
-  if (p === 'year')    return [1, 5]
-  const from = parseInt(kpiCustomFrom.value.split('-')[1]) || 1
-  const to   = parseInt(kpiCustomTo.value.split('-')[1])   || 12
-  return [from, to]
-})
-
-// Complications filtered by period — uses dateISO when available, falls back to month
-const periodComplications = computed<ComplicationEvent[]>(() => {
-  const [from, to]   = periodDateRange.value
-  const [mFrom, mTo] = periodRange.value
-  return Object.values(allDetail)
-    .flatMap(p => (p.complications as ComplicationEvent[]) ?? [])
-    .filter(c => c.dateISO ? (c.dateISO >= from && c.dateISO <= to) : (c.month >= mFrom && c.month <= mTo))
-})
-
-// Period-aware WF appropriateness: patients who had an INR reading in the period,
-// last INR in period in therapeutic range (2.0–3.0)
-const periodWfAppropriateness = computed(() => {
-  const [from, to] = periodDateRange.value
-  let inRange = 0, total = 0
-  for (const p of patients.warfarin) {
-    const pd = allWarfarin[p.id]
-    if (!pd) continue
-    const periodInrs = (pd.inrHistory ?? []).filter(r => {
-      const d = r.measuredAt.substring(0, 10)
-      return d >= from && d <= to
-    })
-    if (periodInrs.length === 0) continue
-    total++
-    const lastInr = [...periodInrs].sort((a, b) => a.measuredAt.localeCompare(b.measuredAt)).at(-1)!
-    if (lastInr.inrValue >= 2.0 && lastInr.inrValue <= 3.0) inRange++
+  if (kpiMode.value === 'month') {
+    const [fy, fm] = monthFrom.value.split('-').map(Number)
+    const [ty, tm] = (monthTo.value || monthFrom.value).split('-').map(Number)
+    return [monthStart(fy, fm), monthEnd(ty, tm)]
   }
-  return { inRange, total }
+
+  if (kpiMode.value === 'quarter') {
+    const qy  = quarterYear.value
+    const qsm = (quarterNum.value - 1) * 3 + 1
+    const qem = quarterNum.value * 3
+    const endM = qy >= _curYear ? Math.min(qem, _curMonth) : qem
+    return [monthStart(qy, qsm), monthEnd(qy, endM)]
+  }
+
+  // year: Jan 1 → Dec 31 for past years; cap at current month for current year
+  const y    = yearNum.value
+  const endM = y >= _curYear ? _curMonth : 12
+  return [monthStart(y, 1), monthEnd(y, endM)]
 })
 
-// Period-aware TTR: among WF patients active in period, how many have TTR ≥ 65%
-const periodWfTtr = computed(() => {
+// ── Period label shown next to the mode selector ──────────────────────────────
+const kpiPeriodLabel = computed(() => {
+  if (kpiMode.value === 'month') {
+    if (monthFrom.value === monthTo.value) return thaiMonth(monthFrom.value)
+    return `${thaiMonth(monthFrom.value)} – ${thaiMonth(monthTo.value)}`
+  }
+  if (kpiMode.value === 'quarter') {
+    return `ไตรมาส ${quarterNum.value}/${quarterYear.value + 543}`
+  }
+  return `ปี ${yearNum.value + 543}`
+})
+
+// ── Period metrics — single-pass with Map cache ────────────────────────────────
+// All KPI metrics computed in one pass through patient records.
+// Cached by date-range + version; call refreshKpiData() to invalidate.
+
+const periodCache     = new Map<string, PeriodMetrics>()
+const kpiCacheVersion = ref(0)
+
+function refreshKpiData() { kpiCacheVersion.value++ }
+
+const currentPeriodMetrics = computed<PeriodMetrics>(() => {
   const [from, to] = periodDateRange.value
-  let ttrGoal = 0, ttrDen = 0
-  for (const p of patients.warfarin) {
-    const pd = allWarfarin[p.id]
-    if (!pd) continue
-    const active = (pd.inrHistory ?? []).some(r => {
-      const d = r.measuredAt.substring(0, 10)
-      return d >= from && d <= to
-    })
-    if (!active) continue
-    if (pd.ttr != null) {
-      ttrDen++
-      if (pd.ttr.status === 'goal-met') ttrGoal++
+  const cacheKey   = `${from}|${to}|v${kpiCacheVersion.value}`
+  if (periodCache.has(cacheKey)) return periodCache.get(cacheKey)!
+
+  // ── Complications — full scan of allDetail by date range ─────────────────
+  const comps = { bleeding: 0, thrombosis: 0, aeHospitalization: 0, death: 0, medError: 0 }
+  const fromMonth = parseInt(from.substring(5, 7))
+  const toMonth   = parseInt(to.substring(5, 7))
+
+  for (const pd of Object.values(allDetail as Record<string, PatientDetail>)) {
+    for (const c of (pd.complications as ComplicationEvent[]) ?? []) {
+      const inRange = c.dateISO
+        ? (c.dateISO >= from && c.dateISO <= to)
+        : (c.month >= fromMonth && c.month <= toMonth)
+      if (!inRange) continue
+      if (c.type === 'bleeding')            comps.bleeding++
+      else if (c.type === 'thromboembolism') comps.thrombosis++
+      if (c.severity === 'severe')          comps.aeHospitalization++
     }
   }
-  return { ttrGoal, ttrDen }
-})
 
-// Period-aware NOAC metrics — patient-level appropriateness + dispensing-level acceptance
-const periodNoacMetrics = computed(() => {
-  const [from, to] = periodDateRange.value
-  let appropriate = 0, noacTotal = 0, dispAccepted = 0, dispTotal = 0
+  // ── WF patient-level metrics (single pass, full date range) ──────────────
+  let wfActive = 0, wfAppropriate = 0, wfTtrGoalMet = 0, wfTtrTotal = 0
+  for (const p of patients.warfarin) {
+    const pd = allWarfarin[p.id]
+    if (!pd) continue
+    const inrs = (pd.inrHistory ?? []).filter(r => {
+      const d = r.measuredAt.substring(0, 10)
+      return d >= from && d <= to
+    })
+    if (!inrs.length) continue
+    wfActive++
+    const lastInr = [...inrs].sort((a, b) => a.measuredAt.localeCompare(b.measuredAt)).at(-1)!
+    if (lastInr.inrValue >= 2.0 && lastInr.inrValue <= 3.0) wfAppropriate++
+    if (pd.ttr != null) {
+      wfTtrTotal++
+      if (pd.ttr.status === 'goal-met') wfTtrGoalMet++
+    }
+  }
+
+  // ── NOAC patient-level metrics (single pass, full date range) ────────────
+  let noacActive = 0, noacAppropriate = 0, dispTotal = 0, dispAccepted = 0
   for (const p of patients.noacs) {
     const pd = allNoac[p.id]
     if (!pd) continue
-    const periodDisps = (pd.dispensingHistory as NoacDispensingRecord[]).filter(r => {
+    const disps = (pd.dispensingHistory as NoacDispensingRecord[]).filter(r => {
       const d = r.dispensedAt.substring(0, 10)
       return d >= from && d <= to
     })
-    if (periodDisps.length === 0) continue
-    noacTotal++
-    if (periodDisps.some(d => (d as NoacDispensingRecord & { clinicallyAppropriate?: boolean }).clinicallyAppropriate)) appropriate++
-    dispTotal    += periodDisps.length
-    dispAccepted += periodDisps.filter(d => d.wasTopRecommendation).length
+    if (!disps.length) continue
+    noacActive++
+    if (disps.some(d => (d as NoacDispensingRecord & { clinicallyAppropriate?: boolean }).clinicallyAppropriate)) noacAppropriate++
+    dispTotal    += disps.length
+    dispAccepted += disps.filter(d => d.wasTopRecommendation).length
   }
-  return { appropriate, noacTotal, dispAccepted, dispTotal }
+
+  const result: PeriodMetrics = {
+    comps,
+    wf:   { active: wfActive,   appropriate: wfAppropriate,  ttrGoalMet: wfTtrGoalMet, ttrTotal: wfTtrTotal   },
+    noac: { active: noacActive, appropriate: noacAppropriate, dispTotal,                dispAccepted           },
+  }
+  periodCache.set(cacheKey, result)
+  return result
 })
 
-// Period-aware patient counts (patients with activity in the period)
-const periodPatientCounts = computed(() => {
-  const [from, to] = periodDateRange.value
-  let wfN = 0, noN = 0
-  for (const p of patients.warfarin) {
-    const pd = allWarfarin[p.id]
-    if (!pd) continue
-    if ((pd.inrHistory ?? []).some(r => { const d = r.measuredAt.substring(0, 10); return d >= from && d <= to })) wfN++
-  }
-  for (const p of patients.noacs) {
-    const pd = allNoac[p.id]
-    if (!pd) continue
-    if ((pd.dispensingHistory ?? []).some(r => { const d = (r as NoacDispensingRecord).dispensedAt.substring(0, 10); return d >= from && d <= to })) noN++
-  }
-  return { wfN, noN, total: wfN + noN }
-})
-
-// ── Live KPI — real patient data + operational mock ────────────────────────────
-// Derivable (from patient records): patientCount, safety events, wfAppropriateness,
-//   noacAppropriateness, wfTtrGoal, atsAcceptanceRate — all period-aware via date filtering
-// Non-derivable (from kpi-operational.json): avgLOS, atsResolutionRate, atsResponseTime,
-//   system efficiency, all prev comparison values
+// ── Live KPI — currentPeriodMetrics + operational mock ────────────────────────
 const liveKpi = computed<KpiPeriodData>(() => {
   const ops   = currentKpiOps.value
-  const { total } = periodPatientCounts.value
-  const comps  = periodComplications.value
-
-  const bleedE = comps.filter(c => c.type === 'bleeding').length
-  const throE  = comps.filter(c => c.type === 'thromboembolism').length
-  const sevE   = comps.filter(c => c.severity === 'severe').length
-  const pct    = (n: number) => total > 0 ? parseFloat((n / total * 100).toFixed(1)) : 0
-
-  const { inRange: wfInRange, total: wfDen }             = periodWfAppropriateness.value
-  const { ttrGoal: wfTtrGoal, ttrDen: wfTtrDen }         = periodWfTtr.value
-  const { appropriate: noacApp, noacTotal: noacDen,
-          dispAccepted, dispTotal }                        = periodNoacMetrics.value
+  const m     = currentPeriodMetrics.value
+  const total = m.wf.active + m.noac.active
+  const pct   = (n: number) => total > 0 ? parseFloat((n / total * 100).toFixed(1)) : 0
 
   return {
     label:        ops.label,
     patientCount: total,
 
     safety: {
-      bleeding:          { events: bleedE, pct: pct(bleedE), prev: ops.safetyPrev.bleeding,          target: KPI_SAFETY_TARGETS.bleeding          },
-      thrombosis:        { events: throE,  pct: pct(throE),  prev: ops.safetyPrev.thrombosis,        target: KPI_SAFETY_TARGETS.thrombosis        },
-      aeHospitalization: { events: sevE,   pct: pct(sevE),   prev: ops.safetyPrev.aeHospitalization, target: KPI_SAFETY_TARGETS.aeHospitalization },
-      death:             { events: 0,      pct: 0,           prev: ops.safetyPrev.death,             target: KPI_SAFETY_TARGETS.death             },
-      medError:          { events: 0,      pct: 0,           prev: ops.safetyPrev.medError,          target: KPI_SAFETY_TARGETS.medError          },
+      bleeding:          { events: m.comps.bleeding,          pct: pct(m.comps.bleeding),          prev: ops.safetyPrev.bleeding,          target: KPI_SAFETY_TARGETS.bleeding          },
+      thrombosis:        { events: m.comps.thrombosis,        pct: pct(m.comps.thrombosis),        prev: ops.safetyPrev.thrombosis,        target: KPI_SAFETY_TARGETS.thrombosis        },
+      aeHospitalization: { events: m.comps.aeHospitalization, pct: pct(m.comps.aeHospitalization), prev: ops.safetyPrev.aeHospitalization, target: KPI_SAFETY_TARGETS.aeHospitalization },
+      death:             { events: m.comps.death,             pct: pct(m.comps.death),             prev: ops.safetyPrev.death,             target: KPI_SAFETY_TARGETS.death             },
+      medError:          { events: m.comps.medError,          pct: pct(m.comps.medError),          prev: ops.safetyPrev.medError,          target: KPI_SAFETY_TARGETS.medError          },
     },
 
     quality: {
       wfAppropriateness: {
-        value: wfDen > 0 ? parseFloat((wfInRange / wfDen * 100).toFixed(1)) : 0,
-        n: wfInRange, d: wfDen,
+        value: m.wf.active > 0 ? parseFloat((m.wf.appropriate / m.wf.active * 100).toFixed(1)) : 0,
+        n: m.wf.appropriate, d: m.wf.active,
         prev: ops.qualityPrev.wfAppropriateness, target: KPI_QUALITY_TARGETS.wfAppropriateness,
       },
       noacAppropriateness: {
-        value: noacDen > 0 ? parseFloat((noacApp / noacDen * 100).toFixed(1)) : 0,
-        n: noacApp, d: noacDen,
+        value: m.noac.active > 0 ? parseFloat((m.noac.appropriate / m.noac.active * 100).toFixed(1)) : 0,
+        n: m.noac.appropriate, d: m.noac.active,
         prev: ops.qualityPrev.noacAppropriateness, target: KPI_QUALITY_TARGETS.noacAppropriateness,
       },
       wfTtrGoal: {
-        value: wfTtrDen > 0 ? parseFloat((wfTtrGoal / wfTtrDen * 100).toFixed(1)) : 0,
-        n: wfTtrGoal, d: wfTtrDen,
+        value: m.wf.ttrTotal > 0 ? parseFloat((m.wf.ttrGoalMet / m.wf.ttrTotal * 100).toFixed(1)) : 0,
+        n: m.wf.ttrGoalMet, d: m.wf.ttrTotal,
         prev: ops.qualityPrev.wfTtrGoal, target: KPI_QUALITY_TARGETS.wfTtrGoal,
       },
       avgLOS: { ...ops.avgLOS, target: KPI_QUALITY_TARGETS.avgLOS },
@@ -1528,8 +1419,8 @@ const liveKpi = computed<KpiPeriodData>(() => {
     atsResponse: {
       resolutionRate: { ...ops.atsResolution, target: KPI_ATS_TARGETS.resolutionRate },
       acceptanceRate: {
-        value: dispTotal > 0 ? parseFloat((dispAccepted / dispTotal * 100).toFixed(1)) : 0,
-        n: dispAccepted, d: dispTotal,
+        value: m.noac.dispTotal > 0 ? parseFloat((m.noac.dispAccepted / m.noac.dispTotal * 100).toFixed(1)) : 0,
+        n: m.noac.dispAccepted, d: m.noac.dispTotal,
         prev: ops.atsAcceptancePrev, target: KPI_ATS_TARGETS.acceptanceRate,
       },
       responseTimeHr: { ...ops.atsResponseTime, target: KPI_ATS_TARGETS.responseTimeHr },
@@ -1543,31 +1434,8 @@ const liveKpi = computed<KpiPeriodData>(() => {
   }
 })
 
-const kpiPeriodLabel = computed(() =>
-  kpiPeriod.value === 'custom' ? customRangeLabel.value : liveKpi.value.label
-)
 
 // ── Safety rows ───────────────────────────────────────────────────────────────
-type StatusLevel = 'pass' | 'warn' | 'fail'
-
-interface SafetyRow {
-  key:         string
-  name:        string
-  events:      number
-  pct:         number
-  target:      number
-  status:      StatusLevel
-  trendLabel:  string
-  trendDir:    'up' | 'down' | 'flat'
-  statusLabel: string
-}
-
-function safetyStatus(pct: number, target: number): StatusLevel {
-  if (pct >= target)               return 'fail'
-  if (pct >= target * 0.7)         return 'warn'
-  return 'pass'
-}
-
 const safetyRows = computed<SafetyRow[]>(() => {
   const s = liveKpi.value.safety
   const defs: Array<{ key: string; name: string; m: typeof s.bleeding }> = [
@@ -1584,8 +1452,7 @@ const safetyRows = computed<SafetyRow[]>(() => {
     const trendDir   = delta === 0 ? 'flat' : delta > 0 ? 'up' : 'down'
     const trendLabel = delta === 0 ? '—'
       : delta > 0 ? `▲ ${delta.toFixed(1)}%` : `▼ ${Math.abs(delta).toFixed(1)}%`
-    const statusLabel = status === 'fail' ? 'เกินเกณฑ์' : status === 'warn' ? 'ใกล้เกณฑ์' : 'ผ่าน'
-    return { key, name, events: m.events, pct: m.pct, target: m.target, status, trendLabel, trendDir, statusLabel }
+    return { key, name, events: m.events, pct: m.pct, target: m.target, status, trendLabel, trendDir, statusLabel: safetyStatusLabel[status] }
   })
 })
 
@@ -1594,23 +1461,6 @@ const safetyWarnCount = computed(() => safetyRows.value.filter(r => r.status ===
 const safetyFailCount = computed(() => safetyRows.value.filter(r => r.status === 'fail').length)
 
 // ── Quality bar rows ──────────────────────────────────────────────────────────
-interface QualityBarRow {
-  key:         string
-  name:        string
-  value:       number
-  n:           number
-  d:           number
-  target:      number
-  status:      StatusLevel
-  statusLabel: string
-}
-
-function qualityStatus(value: number, target: number): StatusLevel {
-  if (value >= target)              return 'pass'
-  if (value >= target * 0.85)       return 'warn'
-  return 'fail'
-}
-
 const qualityBarRows = computed<QualityBarRow[]>(() => {
   const q = liveKpi.value.quality
   const defs = [
@@ -1619,9 +1469,8 @@ const qualityBarRows = computed<QualityBarRow[]>(() => {
     { key: 'wfTtrGoal',          name: 'Warfarin TTR ≥ 65%',      m: q.wfTtrGoal           },
   ]
   return defs.map(({ key, name, m }) => {
-    const status      = qualityStatus(m.value, m.target)
-    const statusLabel = status === 'fail' ? 'ต่ำกว่าเป้า' : status === 'warn' ? 'ใกล้เป้า' : 'ผ่าน'
-    return { key, name, value: m.value, n: m.n, d: m.d, target: m.target, status, statusLabel }
+    const status = qualityStatus(m.value, m.target)
+    return { key, name, value: m.value, n: m.n, d: m.d, target: m.target, status, statusLabel: qualityStatusLabel[status] }
   })
 })
 
@@ -1630,44 +1479,27 @@ const losStatus = computed<StatusLevel>(() =>
 )
 
 // ── ATS response rows ─────────────────────────────────────────────────────────
-interface AtsRow {
-  key:          string
-  name:         string
-  displayValue: string
-  targetLabel:  string
-  status:       StatusLevel
-  statusLabel:  string
-}
-
 const atsRows = computed<AtsRow[]>(() => {
   const r = liveKpi.value.atsResponse
   const rows: AtsRow[] = [
-    {
-      key:          'resolution',
-      name:         'แก้ปัญหาสำเร็จ',
+    (() => { const s = qualityStatus(r.resolutionRate.value, r.resolutionRate.target); return {
+      key: 'resolution', name: 'แก้ปัญหาสำเร็จ',
       displayValue: `${r.resolutionRate.value.toFixed(1)}%`,
       targetLabel:  `เป้า ≥ ${r.resolutionRate.target}%`,
-      status:       qualityStatus(r.resolutionRate.value, r.resolutionRate.target),
-      statusLabel:  qualityStatus(r.resolutionRate.value, r.resolutionRate.target) === 'fail' ? 'ต่ำกว่าเป้า'
-                  : qualityStatus(r.resolutionRate.value, r.resolutionRate.target) === 'warn' ? 'ใกล้เป้า' : 'ผ่าน',
-    },
-    {
-      key:          'acceptance',
-      name:         'ยอมรับคำแนะนำยา',
+      status: s, statusLabel: qualityStatusLabel[s],
+    }})(),
+    (() => { const s = qualityStatus(r.acceptanceRate.value, r.acceptanceRate.target); return {
+      key: 'acceptance', name: 'ยอมรับคำแนะนำยา',
       displayValue: `${r.acceptanceRate.value.toFixed(1)}%`,
       targetLabel:  `เป้า ≥ ${r.acceptanceRate.target}%`,
-      status:       qualityStatus(r.acceptanceRate.value, r.acceptanceRate.target),
-      statusLabel:  qualityStatus(r.acceptanceRate.value, r.acceptanceRate.target) === 'fail' ? 'ต่ำกว่าเป้า'
-                  : qualityStatus(r.acceptanceRate.value, r.acceptanceRate.target) === 'warn' ? 'ใกล้เป้า' : 'ผ่าน',
-    },
-    {
-      key:          'responseTime',
-      name:         'เวลาตอบสนองการส่งต่อ',
+      status: s, statusLabel: qualityStatusLabel[s],
+    }})(),
+    (() => { const s = safetyStatus(r.responseTimeHr.value, r.responseTimeHr.target); return {
+      key: 'responseTime', name: 'เวลาตอบสนองการส่งต่อ',
       displayValue: `${r.responseTimeHr.value.toFixed(1)} ชม.`,
       targetLabel:  `เป้า ≤ ${r.responseTimeHr.target} ชม.`,
-      status:       safetyStatus(r.responseTimeHr.value, r.responseTimeHr.target),
-      statusLabel:  safetyStatus(r.responseTimeHr.value, r.responseTimeHr.target) === 'pass' ? 'ผ่าน' : 'เกินเกณฑ์',
-    },
+      status: s, statusLabel: safetyStatusLabel[s],
+    }})(),
   ]
   return rows
 })
@@ -2175,19 +2007,6 @@ const tabs = computed(() => [
   color: var(--bma-emergency);
 }
 
-/* Weight badge */
-.weight-badge {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: var(--bma-radius-sm);
-  border: 1.5px solid var(--bma-border-muted);
-  background: var(--bma-surface-light);
-  font-family: var(--bma-font-data);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--bma-text-primary);
-}
-
 /* ── Table footer / Pagination ────────────────────────────── */
 .table-footer {
   display: flex;
@@ -2290,9 +2109,6 @@ const tabs = computed(() => [
   white-space: nowrap;
 }
 
-/* ── INR display ──────────────────────────────────────────── */
-.inr-display { display: flex; flex-direction: column; gap: 3px; }
-
 .inr-val {
   font-family: var(--bma-font-data);
   font-size: 15px;
@@ -2302,18 +2118,6 @@ const tabs = computed(() => [
 }
 .inr-val--alert { color: var(--bma-emergency); }
 
-.inr-target-badge {
-  display: inline-block;
-  font-family: var(--bma-font-data);
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--bma-text-muted);
-  background: var(--bma-surface-light);
-  border: 1px solid var(--bma-border-subtle);
-  border-radius: 3px;
-  padding: 1px 5px;
-  width: fit-content;
-}
 
 /* ── TTR display ──────────────────────────────────────────── */
 .ttr-display {
@@ -2762,20 +2566,6 @@ const tabs = computed(() => [
    KPI Tab — ตัวชี้วัดระบบ
    ══════════════════════════════════════════════════════════════ */
 
-/* ── Section bar (title + period toggle) ────────────────────── */
-.kpi-section-bar {
-  display:         flex;
-  align-items:     center;
-  justify-content: space-between;
-  margin-bottom:   12px;
-}
-.kpi-section-bar--mt { margin-top: 28px; }
-
-.kpi-section-title {
-  display:     flex;
-  align-items: baseline;
-  gap:         8px;
-}
 .kpi-st-text {
   font-family: var(--bma-font-thai);
   font-size:   14px;
@@ -2855,8 +2645,26 @@ const tabs = computed(() => [
 }
 .kpi-header-left {
   display:     flex;
-  align-items: baseline;
+  align-items: center;
   gap:         8px;
+}
+.kpi-refresh-btn {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:           22px;
+  height:          22px;
+  border:          none;
+  border-radius:   50%;
+  background:      transparent;
+  color:           var(--bma-text-muted);
+  cursor:          pointer;
+  transition:      background 0.12s, color 0.12s;
+  flex-shrink:     0;
+}
+.kpi-refresh-btn:hover {
+  background: var(--bma-neutral-100, #F5F5F5);
+  color:      var(--bma-text-secondary);
 }
 
 /* Grid inside the container */
@@ -2930,6 +2738,54 @@ const tabs = computed(() => [
   margin-left:  2px;
 }
 
+/* ── Quarter sub-controls ──────────────────────────────────── */
+.kpi-year-select {
+  height:        30px;
+  padding:       0 8px;
+  border:        1px solid var(--bma-border);
+  border-radius: var(--bma-radius-sm);
+  background:    var(--bma-surface);
+  font-family:   var(--bma-font-data);
+  font-size:     12px;
+  font-weight:   600;
+  color:         var(--bma-text-primary);
+  cursor:        pointer;
+  outline:       none;
+}
+.kpi-year-select:focus { border-color: var(--bma-green-500); }
+
+.kpi-q-seg {
+  display: flex;
+  gap:     4px;
+}
+.kpi-q-btn {
+  height:        28px;
+  padding:       0 12px;
+  border:        1px solid var(--bma-border);
+  border-radius: var(--bma-radius-sm);
+  background:    var(--bma-surface);
+  font-family:   var(--bma-font-data);
+  font-size:     12px;
+  font-weight:   600;
+  color:         var(--bma-text-secondary);
+  cursor:        pointer;
+  transition:    background 120ms, border-color 120ms, color 120ms;
+}
+.kpi-q-btn:hover:not(:disabled) {
+  background:    var(--bma-green-50);
+  border-color:  var(--bma-green-200);
+  color:         var(--bma-green-600);
+}
+.kpi-q-btn--on {
+  background:    var(--bma-green-500);
+  border-color:  var(--bma-green-500);
+  color:         white;
+}
+.kpi-q-btn--disabled {
+  opacity: 0.38;
+  cursor:  not-allowed;
+}
+
 /* Slide transition for the custom row */
 .kpi-custom-slide-enter-active,
 .kpi-custom-slide-leave-active {
@@ -2945,14 +2801,6 @@ const tabs = computed(() => [
   padding-bottom: 0;
 }
 
-/* ── Shared panel (legacy — kept for any standalone uses) ──── */
-.kpi-panel {
-  background:    var(--bma-surface);
-  border-radius: var(--bma-radius-lg);
-  border:        1px solid var(--bma-border-card);
-  box-shadow:    var(--bma-shadow-card);
-  padding:       16px 20px 18px;
-}
 .kpi-panel-head {
   display:         flex;
   align-items:     center;
@@ -2996,19 +2844,6 @@ const tabs = computed(() => [
 .kpi-tally--ok   { background: var(--bma-success-bg);      color: var(--bma-success-text); }
 .kpi-tally--warn { background: var(--bma-urgency-bg);       color: var(--bma-urgency-text); }
 .kpi-tally--ng   { background: var(--bma-emergency-bg);     color: var(--bma-emergency);    }
-
-/* ── Grids ───────────────────────────────────────────────────── */
-.kpi-primary-grid {
-  display:               grid;
-  grid-template-columns: 3fr 2fr;
-  gap:                   14px;
-  margin-bottom:         0;
-}
-.kpi-secondary-grid {
-  display:               grid;
-  grid-template-columns: 1fr 1fr;
-  gap:                   14px;
-}
 
 /* ── Safety metric grid ──────────────────────────────────────── */
 /* Columns: name | events | pct | trend | target | badge */

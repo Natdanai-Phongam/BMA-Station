@@ -7,7 +7,8 @@
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2569-01-15",
-      "followUpMonths": 6
+      "followUpMonths": 6,
+      "status": "appropriate"
     },
     "dispensingHistory": [
       {
@@ -110,7 +111,8 @@
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2567-06-15",
-      "followUpMonths": 6
+      "followUpMonths": 6,
+      "status": "appropriate"
     },
     "dispensingHistory": [
       {
@@ -154,7 +156,7 @@
         "patientId": "n001",
         "dispensedAt": "2026-03-06T09:00:00",
         "labData": {
-          "weightKg": 64.0,
+          "weightKg": 64,
           "scrMgDl": 0.86,
           "crClMlMin": 63,
           "measuredAt": "2026-03-06"
@@ -172,8 +174,8 @@
         "patientId": "n001",
         "dispensedAt": "2026-04-04T09:00:00",
         "labData": {
-          "weightKg": 72.0,
-          "scrMgDl": 2.0,
+          "weightKg": 72,
+          "scrMgDl": 2,
           "crClMlMin": 43,
           "measuredAt": "2026-04-04"
         },
@@ -213,7 +215,8 @@
       "currentDrug": "rivaroxaban",
       "currentDose": "10 mg OD",
       "therapyStartDate": "2567-09-01",
-      "followUpMonths": 3
+      "followUpMonths": 3,
+      "status": "underdose"
     },
     "dispensingHistory": [
       {
@@ -321,7 +324,8 @@
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2567-03-22",
-      "followUpMonths": 6
+      "followUpMonths": 6,
+      "status": "appropriate"
     },
     "dispensingHistory": [
       {
@@ -424,7 +428,8 @@
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2567-11-10",
-      "followUpMonths": 3
+      "followUpMonths": 3,
+      "status": "overdose"
     },
     "dispensingHistory": [
       {
@@ -494,7 +499,8 @@
       "currentDrug": "rivaroxaban",
       "currentDose": "15 mg OD",
       "therapyStartDate": "2567-12-05",
-      "followUpMonths": 1
+      "followUpMonths": 1,
+      "status": "contra"
     },
     "dispensingHistory": [
       {
@@ -502,7 +508,7 @@
         "patientId": "n005",
         "dispensedAt": "2026-01-08T09:00:00",
         "labData": {
-          "weightKg": 64.0,
+          "weightKg": 64,
           "scrMgDl": 1.49,
           "crClMlMin": 30,
           "measuredAt": "2026-01-08"
@@ -545,7 +551,8 @@
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2567-08-20",
-      "followUpMonths": 6
+      "followUpMonths": 6,
+      "status": "interaction"
     },
     "dispensingHistory": [
       {
@@ -651,7 +658,8 @@
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-01-17",
-      "followUpMonths": 3
+      "followUpMonths": 3,
+      "status": "appropriate"
     },
     "dispensingHistory": [
       {
@@ -659,7 +667,7 @@
         "patientId": "n007",
         "dispensedAt": "2026-01-08T09:00:00",
         "labData": {
-          "weightKg": 71.0,
+          "weightKg": 71,
           "scrMgDl": 2.33,
           "crClMlMin": 49,
           "measuredAt": "2026-01-08"
@@ -695,7 +703,7 @@
         "patientId": "n007",
         "dispensedAt": "2026-03-06T09:00:00",
         "labData": {
-          "weightKg": 48.0,
+          "weightKg": 48,
           "scrMgDl": 1.29,
           "crClMlMin": 78,
           "measuredAt": "2026-03-06"
@@ -754,7 +762,8 @@
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-01-09",
-      "followUpMonths": 3
+      "followUpMonths": 3,
+      "status": "appropriate"
     },
     "dispensingHistory": [
       {
@@ -858,7 +867,8 @@
       "currentDrug": "edoxaban",
       "currentDose": "60 mg OD",
       "therapyStartDate": "2026-01-10",
-      "followUpMonths": 1
+      "followUpMonths": 1,
+      "status": "appropriate"
     },
     "dispensingHistory": [
       {
@@ -961,7 +971,8 @@
       "currentDrug": "rivaroxaban",
       "currentDose": "20 mg OD",
       "therapyStartDate": "2026-01-09",
-      "followUpMonths": 1
+      "followUpMonths": 1,
+      "status": "underdose"
     },
     "dispensingHistory": [
       {
@@ -1069,7 +1080,8 @@
       "currentDrug": "rivaroxaban",
       "currentDose": "20 mg OD",
       "therapyStartDate": "2026-01-12",
-      "followUpMonths": 3
+      "followUpMonths": 3,
+      "status": "underdose"
     },
     "dispensingHistory": [
       {
@@ -1120,7 +1132,8 @@
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-01-05",
-      "followUpMonths": 3
+      "followUpMonths": 3,
+      "status": "overdose"
     },
     "dispensingHistory": [
       {
@@ -1190,7 +1203,8 @@
       "currentDrug": "edoxaban",
       "currentDose": "60 mg OD",
       "therapyStartDate": "2026-01-16",
-      "followUpMonths": 1
+      "followUpMonths": 1,
+      "status": "appropriate"
     },
     "dispensingHistory": [
       {
@@ -1294,7 +1308,8 @@
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-01-15",
-      "followUpMonths": 3
+      "followUpMonths": 3,
+      "status": "interaction"
     },
     "dispensingHistory": [
       {

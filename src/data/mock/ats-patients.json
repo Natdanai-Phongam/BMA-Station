@@ -6,7 +6,6 @@
       "name": "นาย บุญรอด ขจรศักดิ์",
       "hn": "693514782",
       "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
-      "status": "over-range",
       "crcl": {
         "value": 22,
         "alert": true
@@ -15,7 +14,7 @@
         "value": 10.5,
         "alert": true
       },
-      "weight": 63.0,
+      "weight": 63,
       "referred": true
     },
     {
@@ -23,7 +22,6 @@
       "name": "นาย ประวิทย์ ชมภูนุช",
       "hn": "695823047",
       "hospital": "โรงพยาบาลกลาง",
-      "status": "over-range",
       "crcl": {
         "value": 44,
         "alert": false
@@ -32,7 +30,7 @@
         "value": 4.2,
         "alert": true
       },
-      "weight": 71.0,
+      "weight": 71,
       "referred": false
     },
     {
@@ -40,7 +38,6 @@
       "name": "นาย ทวีชัย ศรีสมบูรณ์",
       "hn": "694719265",
       "hospital": "โรงพยาบาลบางขุนเทียน",
-      "status": "over-range",
       "crcl": {
         "value": 48,
         "alert": false
@@ -49,7 +46,7 @@
         "value": 3.7,
         "alert": true
       },
-      "weight": 82.0,
+      "weight": 82,
       "referred": false
     },
     {
@@ -57,7 +54,6 @@
       "name": "นางสาว กัญญา รัตนสิงห์",
       "hn": "691036842",
       "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
-      "status": "over-range",
       "crcl": {
         "value": 55,
         "alert": false
@@ -66,7 +62,7 @@
         "value": 3.4,
         "alert": true
       },
-      "weight": 49.0,
+      "weight": 49,
       "referred": false
     },
     {
@@ -74,7 +70,6 @@
       "name": "นาง วิไลวรรณ สุขสวัสดิ์",
       "hn": "693742819",
       "hospital": "โรงพยาบาลตากสิน",
-      "status": "under-range",
       "crcl": {
         "value": 38,
         "alert": false
@@ -83,7 +78,7 @@
         "value": 1.4,
         "alert": true
       },
-      "weight": 55.0,
+      "weight": 55,
       "referred": true
     },
     {
@@ -91,7 +86,6 @@
       "name": "นาง จิราภา เทพสุริยวงศ์",
       "hn": "697519036",
       "hospital": "โรงพยาบาลสิรินธร",
-      "status": "under-range",
       "crcl": {
         "value": 50,
         "alert": false
@@ -100,7 +94,7 @@
         "value": 1.7,
         "alert": true
       },
-      "weight": 52.0,
+      "weight": 52,
       "referred": false
     },
     {
@@ -108,7 +102,6 @@
       "name": "นาง ลัดดา พรหมสวัสดิ์",
       "hn": "694208357",
       "hospital": "โรงพยาบาลกลาง",
-      "status": "under-range",
       "crcl": {
         "value": 75,
         "alert": false
@@ -117,7 +110,7 @@
         "value": 1.9,
         "alert": true
       },
-      "weight": 58.0,
+      "weight": 58,
       "referred": false
     },
     {
@@ -125,7 +118,6 @@
       "name": "นาย มานพ กิตติวงษ์",
       "hn": "695817246",
       "hospital": "โรงพยาบาลตากสิน",
-      "status": "in-range",
       "crcl": {
         "value": 70,
         "alert": false
@@ -134,7 +126,7 @@
         "value": 2.8,
         "alert": false
       },
-      "weight": 74.0,
+      "weight": 74,
       "referred": false
     },
     {
@@ -142,7 +134,6 @@
       "name": "นาย สิทธิชัย นุชประยูร",
       "hn": "692731584",
       "hospital": "โรงพยาบาลตากสิน",
-      "status": "in-range",
       "crcl": {
         "value": 65,
         "alert": false
@@ -151,7 +142,7 @@
         "value": 2.6,
         "alert": false
       },
-      "weight": 76.0,
+      "weight": 76,
       "referred": false
     },
     {
@@ -159,7 +150,6 @@
       "name": "นาย สมชาย วงศ์ประเสริฐ",
       "hn": "698024163",
       "hospital": "โรงพยาบาลกลาง",
-      "status": "in-range",
       "crcl": {
         "value": 62,
         "alert": false
@@ -168,7 +158,7 @@
         "value": 2.4,
         "alert": false
       },
-      "weight": 68.0,
+      "weight": 68,
       "referred": false
     },
     {
@@ -176,7 +166,6 @@
       "name": "นางสาว อภิญญา วิจิตรสุนทร",
       "hn": "693517842",
       "hospital": "โรงพยาบาลราษฎร์บูรณะ",
-      "status": "in-range",
       "crcl": {
         "value": 58,
         "alert": false
@@ -185,7 +174,7 @@
         "value": 2.2,
         "alert": false
       },
-      "weight": 47.0,
+      "weight": 47,
       "referred": false
     },
     {
@@ -193,7 +182,6 @@
       "name": "นาง อรุณี ทองสุข",
       "hn": "695024817",
       "hospital": "โรงพยาบาลสิรินธร",
-      "status": "in-range",
       "crcl": {
         "value": 48,
         "alert": false
@@ -202,7 +190,7 @@
         "value": 2.5,
         "alert": false
       },
-      "weight": 46.0,
+      "weight": 46,
       "referred": false
     },
     {
@@ -210,7 +198,6 @@
       "name": "นาง ปิยะภรณ์ ธีระ",
       "hn": "691719583",
       "hospital": "โรงพยาบาลบางขุนเทียน",
-      "status": "in-range",
       "crcl": {
         "value": 45,
         "alert": false
@@ -227,7 +214,6 @@
       "name": "นาย รัฐกร ทรงเดช",
       "hn": "691714803",
       "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
-      "status": "in-range",
       "crcl": {
         "value": 41,
         "alert": false
@@ -244,7 +230,6 @@
       "name": "นาย สุรชัย สุขีวงษ์",
       "hn": "691694522",
       "hospital": "โรงพยาบาลสิรินธร",
-      "status": "in-range",
       "crcl": {
         "value": 82,
         "alert": false
@@ -253,7 +238,7 @@
         "value": 2.9,
         "alert": false
       },
-      "weight": 57.0,
+      "weight": 57,
       "referred": false
     },
     {
@@ -261,7 +246,6 @@
       "name": "นาย ณัฐพล ศรีไทย",
       "hn": "693539704",
       "hospital": "โรงพยาบาลราษฎร์บูรณะ",
-      "status": "in-range",
       "crcl": {
         "value": 53,
         "alert": false
@@ -278,7 +262,6 @@
       "name": "นาย วิชัย สุขีวงษ์",
       "hn": "691839607",
       "hospital": "โรงพยาบาลกลาง",
-      "status": "in-range",
       "crcl": {
         "value": 76,
         "alert": false
@@ -287,7 +270,7 @@
         "value": 2.5,
         "alert": false
       },
-      "weight": 72.0,
+      "weight": 72,
       "referred": false
     },
     {
@@ -295,7 +278,6 @@
       "name": "นาย ปิยพงษ์ ชัยวัฒน์",
       "hn": "698398441",
       "hospital": "โรงพยาบาลกลาง",
-      "status": "in-range",
       "crcl": {
         "value": 84,
         "alert": false
@@ -312,7 +294,6 @@
       "name": "นาย ประเสริฐ ศรีไทย",
       "hn": "698153566",
       "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
-      "status": "in-range",
       "crcl": {
         "value": 64,
         "alert": false
@@ -329,7 +310,6 @@
       "name": "นาย พงษ์พันธ์ ดีงาม",
       "hn": "693860684",
       "hospital": "โรงพยาบาลราษฎร์บูรณะ",
-      "status": "over-range",
       "crcl": {
         "value": 29,
         "alert": true
@@ -346,7 +326,6 @@
       "name": "นาย สมบัติ วงศ์สว่าง",
       "hn": "697106470",
       "hospital": "โรงพยาบาลสิรินธร",
-      "status": "under-range",
       "crcl": {
         "value": 70,
         "alert": false
@@ -363,7 +342,6 @@
       "name": "นาย จักรพงษ์ วิชัย",
       "hn": "690848731",
       "hospital": "โรงพยาบาลบางขุนเทียน",
-      "status": "over-range",
       "crcl": {
         "value": 82,
         "alert": false
@@ -372,7 +350,7 @@
         "value": 5.5,
         "alert": true
       },
-      "weight": 88.0,
+      "weight": 88,
       "referred": false
     },
     {
@@ -380,7 +358,6 @@
       "name": "นาย ชัยชนะ สุขใจ",
       "hn": "694977931",
       "hospital": "โรงพยาบาลกลาง",
-      "status": "under-range",
       "crcl": {
         "value": 59,
         "alert": false
@@ -397,7 +374,6 @@
       "name": "นางสาว ดวงพร ศรีไทย",
       "hn": "699792396",
       "hospital": "โรงพยาบาลราษฎร์บูรณะ",
-      "status": "over-range",
       "crcl": {
         "value": 30,
         "alert": false
@@ -414,7 +390,6 @@
       "name": "นาง ประนอม บัวทอง",
       "hn": "696199635",
       "hospital": "โรงพยาบาลตากสิน",
-      "status": "over-range",
       "crcl": {
         "value": 50,
         "alert": false
@@ -431,7 +406,6 @@
       "name": "นางสาว วิภาพร ค้าขาย",
       "hn": "698479356",
       "hospital": "โรงพยาบาลสิรินธร",
-      "status": "under-range",
       "crcl": {
         "value": 41,
         "alert": false
@@ -448,7 +422,6 @@
       "name": "นาย ชัยชนะ ดีงาม",
       "hn": "690604451",
       "hospital": "โรงพยาบาลตากสิน",
-      "status": "over-range",
       "crcl": {
         "value": 72,
         "alert": false
@@ -457,7 +430,7 @@
         "value": 5.9,
         "alert": true
       },
-      "weight": 70.0,
+      "weight": 70,
       "referred": false
     },
     {
@@ -465,7 +438,6 @@
       "name": "นาย กิตติพงษ์ บัวทอง",
       "hn": "696917152",
       "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
-      "status": "under-range",
       "crcl": {
         "value": 90,
         "alert": false
@@ -482,7 +454,6 @@
       "name": "นาย อนุชาติ ดวงเดือน",
       "hn": "695507321",
       "hospital": "โรงพยาบาลตากสิน",
-      "status": "over-range",
       "crcl": {
         "value": 70,
         "alert": false
@@ -499,7 +470,6 @@
       "name": "นาย สุพจน์ ดวงเดือน",
       "hn": "699673542",
       "hospital": "โรงพยาบาลกลาง",
-      "status": "under-range",
       "crcl": {
         "value": 60,
         "alert": false
@@ -508,7 +478,7 @@
         "value": 1.6,
         "alert": true
       },
-      "weight": 56.0,
+      "weight": 56,
       "referred": false
     }
   ],
@@ -518,16 +488,11 @@
       "name": "นาย สมชาย มั่นคง",
       "hn": "692847391",
       "hospital": "โรงพยาบาลกลาง",
-      "status": "appropriate",
-      "crcl": {
-        "value": 58,
-        "alert": false
-      },
       "egfr": {
         "value": 55,
         "alert": false
       },
-      "weight": 65.0,
+      "weight": 65,
       "referred": false
     },
     {
@@ -535,16 +500,11 @@
       "name": "นางสาว พัชรินทร์ สุวรรณโกมล",
       "hn": "696183274",
       "hospital": "โรงพยาบาลกลาง",
-      "status": "appropriate",
-      "crcl": {
-        "value": 55,
-        "alert": false
-      },
       "egfr": {
         "value": 62,
         "alert": false
       },
-      "weight": 55.0,
+      "weight": 55,
       "referred": false
     },
     {
@@ -552,16 +512,11 @@
       "name": "นาย ชาญชัย บุญศักดิ์ดี",
       "hn": "697824015",
       "hospital": "โรงพยาบาลตากสิน",
-      "status": "underdose",
-      "crcl": {
-        "value": 28,
-        "alert": true
-      },
       "egfr": {
         "value": 32,
         "alert": true
       },
-      "weight": 68.0,
+      "weight": 68,
       "referred": true
     },
     {
@@ -569,16 +524,11 @@
       "name": "นาง สุกัญญา ทองประเสริฐ",
       "hn": "692048376",
       "hospital": "โรงพยาบาลกลาง",
-      "status": "appropriate",
-      "crcl": {
-        "value": 72,
-        "alert": false
-      },
       "egfr": {
         "value": 78,
         "alert": false
       },
-      "weight": 52.0,
+      "weight": 52,
       "referred": false
     },
     {
@@ -586,16 +536,11 @@
       "name": "นาย พิชัย วงษ์มณี",
       "hn": "694917285",
       "hospital": "โรงพยาบาลหัวเฉียว",
-      "status": "overdose",
-      "crcl": {
-        "value": 45,
-        "alert": false
-      },
       "egfr": {
         "value": 28,
         "alert": true
       },
-      "weight": 78.0,
+      "weight": 78,
       "referred": true
     },
     {
@@ -603,16 +548,11 @@
       "name": "นางสาว รัตนา เพียรพัฒน์",
       "hn": "691673845",
       "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
-      "status": "contra",
-      "crcl": {
-        "value": 18,
-        "alert": true
-      },
       "egfr": {
         "value": 15,
         "alert": true
       },
-      "weight": 48.0,
+      "weight": 48,
       "referred": true
     },
     {
@@ -620,16 +560,11 @@
       "name": "นาย ธนกร วิชัยรัตน์",
       "hn": "695304817",
       "hospital": "โรงพยาบาลกลาง",
-      "status": "interaction",
-      "crcl": {
-        "value": 50,
-        "alert": false
-      },
       "egfr": {
         "value": 55,
         "alert": false
       },
-      "weight": 70.0,
+      "weight": 70,
       "referred": true
     },
     {
@@ -637,11 +572,6 @@
       "name": "นาง สุรีรัตน์ บุญช่วย",
       "hn": "693218542",
       "hospital": "โรงพยาบาลสิรินธร",
-      "status": "appropriate",
-      "crcl": {
-        "value": 55,
-        "alert": false
-      },
       "egfr": {
         "value": 55,
         "alert": false
@@ -654,11 +584,6 @@
       "name": "นาย สุรชัย พันธุ์ดี",
       "hn": "693340845",
       "hospital": "โรงพยาบาลกลาง",
-      "status": "appropriate",
-      "crcl": {
-        "value": 78,
-        "alert": false
-      },
       "egfr": {
         "value": 49,
         "alert": false
@@ -671,11 +596,6 @@
       "name": "นาย วรเดช แสงทอง",
       "hn": "699377210",
       "hospital": "โรงพยาบาลราษฎร์บูรณะ",
-      "status": "appropriate",
-      "crcl": {
-        "value": 43,
-        "alert": false
-      },
       "egfr": {
         "value": 59,
         "alert": false
@@ -688,11 +608,6 @@
       "name": "นาง ปิยะภรณ์ ดวงเดือน",
       "hn": "693589533",
       "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
-      "status": "underdose",
-      "crcl": {
-        "value": 26,
-        "alert": true
-      },
       "egfr": {
         "value": 39,
         "alert": false
@@ -705,11 +620,6 @@
       "name": "นาย จักรพงษ์ สมบูรณ์",
       "hn": "696610562",
       "hospital": "โรงพยาบาลราษฎร์บูรณะ",
-      "status": "underdose",
-      "crcl": {
-        "value": 80,
-        "alert": false
-      },
       "egfr": {
         "value": 69,
         "alert": false
@@ -722,11 +632,6 @@
       "name": "นาย ชานนท์ ธีระ",
       "hn": "691151225",
       "hospital": "โรงพยาบาลบางขุนเทียน",
-      "status": "overdose",
-      "crcl": {
-        "value": 69,
-        "alert": false
-      },
       "egfr": {
         "value": 33,
         "alert": false
@@ -739,11 +644,6 @@
       "name": "นาย พิษณุ ภูมิใจ",
       "hn": "694074336",
       "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
-      "status": "appropriate",
-      "crcl": {
-        "value": 39,
-        "alert": false
-      },
       "egfr": {
         "value": 67,
         "alert": false
@@ -756,11 +656,6 @@
       "name": "นาย วรากร สุขีวงษ์",
       "hn": "694118725",
       "hospital": "โรงพยาบาลเจริญกรุงประชารักษ์",
-      "status": "interaction",
-      "crcl": {
-        "value": 72,
-        "alert": false
-      },
       "egfr": {
         "value": 47,
         "alert": false

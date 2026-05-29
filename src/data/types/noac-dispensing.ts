@@ -13,6 +13,8 @@ export interface NoacLabData {
 }
 
 // ── Stable per-patient NOACs profile ─────────────────────────────────────────
+export type NoacClinicalStatus = 'appropriate' | 'underdose' | 'overdose' | 'contra' | 'interaction'
+
 export interface NoacProfile {
   patientId:        string
   indication:       NoacIndication
@@ -26,6 +28,8 @@ export interface NoacProfile {
   therapyStartDate: string
   /** Calculated next follow-up interval in months (CrCl-driven) */
   followUpMonths:   number
+  /** Clinical status derived from latest dispensing evaluation — single source of truth */
+  status:           NoacClinicalStatus
 }
 
 // ── Per-dispensing record (audit trail + clinical decision log) ────────────────
