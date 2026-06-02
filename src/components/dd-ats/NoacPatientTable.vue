@@ -18,23 +18,23 @@
         />
       </div>
       <div class="filter-date">
-        <PhCalendar :size="15" color="#BFBFBF" class="fi-icon" />
         <input
           v-model="dateFrom"
           type="date"
-          class="filter-input filter-input--date"
+          class="filter-input"
           title="วันที่เริ่มต้น"
         />
+        <PhCalendar :size="15" color="#BFBFBF" class="fi-icon-r" />
       </div>
       <div class="filter-date">
-        <PhCalendar :size="15" color="#BFBFBF" class="fi-icon" />
         <input
           v-model="dateTo"
           type="date"
-          class="filter-input filter-input--date"
+          class="filter-input"
           :min="dateFrom"
           title="วันที่สิ้นสุด"
         />
+        <PhCalendar :size="15" color="#BFBFBF" class="fi-icon-r" />
       </div>
       <button class="btn-search" @click="applyFilter">ค้นหา</button>
       <button v-if="isFiltered" class="btn-clear" @click="clearFilter">ล้าง</button>
