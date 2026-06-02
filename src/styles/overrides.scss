@@ -40,9 +40,14 @@ body {
 // Border-radius (8px regular, 50% icon) → settings.scss via $border-radius-root
 // Only properties that SASS cannot scope to non-icon buttons live here.
 
-.v-btn:not(.v-btn--icon) {
-  height: 40px;   // $button-height can't be scoped — icon buttons would also grow
-}
+// BMA 4pt grid size scale — override Vuetify's default sizes (+4px per tier)
+// Uses --v-btn-height CSS variable that Vuetify already reads for all button types.
+// Icon buttons scale correctly because density offsets are applied on top.
+.v-btn--size-x-small { --v-btn-height: 24px; }   // Vuetify: 20px
+.v-btn--size-small   { --v-btn-height: 32px; }   // Vuetify: 28px
+.v-btn--size-default { --v-btn-height: 40px; }   // Vuetify: 36px
+.v-btn--size-large   { --v-btn-height: 48px; }   // Vuetify: 44px
+.v-btn--size-x-large { --v-btn-height: 56px; }   // Vuetify: 52px
 
 .v-btn {
   font-size: 14px;   // 0.875rem × 15px root = ~13px; override to exact 14px
@@ -63,19 +68,6 @@ body {
 }
 .v-btn--variant-outlined.v-btn--color-error:hover {
   background-color: var(--bma-emergency-bg) !important;
-}
-
-// Size variants — no !important needed; higher specificity (.v-btn.bma-btn-*) wins cascade
-.v-btn.bma-btn-sm {
-  height: 32px;
-  font-size: 13px;
-  border-radius: var(--bma-radius-sm);
-}
-
-.v-btn.bma-btn-lg {
-  height: 48px;
-  font-size: 16px;
-  border-radius: var(--bma-radius-lg);
 }
 
 // ── VCard ─────────────────────────────────────────────────────────────────────
