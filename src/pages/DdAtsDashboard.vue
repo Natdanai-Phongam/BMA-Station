@@ -1248,9 +1248,11 @@ const tabs = computed(() => [
   outline: none;
   transition: border-color var(--bma-transition-fast);
 }
-.filter-search .filter-input { padding: 0 12px 0 34px; }
-.filter-date   .filter-input { padding: 0 34px 0 12px; }
-.filter-input::placeholder   { color: var(--bma-text-disabled); }
+.filter-search .filter-input    { padding: 0 12px 0 34px; }
+.filter-date   .filter-input    { padding: 0 12px 0 34px; }
+.filter-input::placeholder      { color: var(--bma-text-disabled); }
+/* Hide native browser calendar icon — custom PhCalendar icon used instead */
+.filter-input--date::-webkit-calendar-picker-indicator { opacity: 0; width: 0; }
 .filter-input:focus          { border-color: var(--bma-green-500); }
 .btn-search {
   height: 38px; padding: 0 20px;
