@@ -38,9 +38,70 @@ Two fonts, strictly separated by information type:
 
 **INR value display size:** 56px Inter 900 (the largest element on any screen — it is the primary input signal).
 
-### Spacing
+### Spacing — 4-Point Grid System
 
-4px base grid. Cards use `12px` radius (`--bma-radius-lg`). Buttons/inputs use `8px` radius (`--bma-radius-md`). Badges use `9999px` (pill). Use spacing tokens (`--bma-space-*`) — no ad-hoc values.
+This project uses a **4-point grid** (the flexible variant of the 8-point grid). Every spacing, sizing, and padding value must be a multiple of 4: `4, 8, 12, 16, 20, 24, 32, 40, 48, 64px`. No off-grid values.
+
+**Why this matters:** Every screen size divides evenly by 4. At 2× retina density, 4px = 8 physical pixels — clean, no sub-pixel blur. When every element is on the same grid, visual rhythm emerges without effort.
+
+**Token system:**
+
+| Token | Value | Use |
+|---|---|---|
+| `--bma-space-1` | 4px | Micro gaps, icon-to-label |
+| `--bma-space-2` | 8px | Internal badge padding, tight rows |
+| `--bma-space-3` | 12px | Card padding (compact), cell padding |
+| `--bma-space-4` | 16px | Standard card padding, section gaps |
+| `--bma-space-6` | 24px | Between sections |
+| `--bma-space-8` | 32px | Large section gaps |
+| `--bma-space-12` | 48px | Page-level separation |
+
+**Component size tokens (heights):**
+
+| Token | Value | Use |
+|---|---|---|
+| `--bma-h-input` | 40px | Filter inputs, text fields |
+| `--bma-h-btn-sm` | 32px | Pagination buttons, icon buttons |
+| `--bma-h-btn-md` | 40px | Standard action buttons |
+| `--bma-h-btn-lg` | 48px | Primary CTAs |
+| `--bma-h-chip` | 24px | Status chips, count badges |
+
+**Border-radius scale:**
+
+| Token | Value | Use |
+|---|---|---|
+| `--bma-radius-xs` | 4px | Micro elements (severity bars) |
+| `--bma-radius-sm` | 6px | Small badges, icon wraps, action buttons |
+| `--bma-radius-md` | 8px | Inputs, standard buttons |
+| `--bma-radius-lg` | 12px | Cards, panels, tooltips |
+| `--bma-radius-xl` | 16px | Modals, drawers |
+| `--bma-radius-full` | 9999px | Pills, status badges |
+
+**Enforcement rules:**
+- Never hardcode px values in component CSS — always use a token or a 4pt-multiple
+- `border-width` is exempt: 1px and 2px are standard border conventions, not grid values
+- Typography font-size is exempt: 10, 11, 13, 14px are acceptable micro-scale exceptions
+- No `1.5px` borders — use 1px or 2px
+- No odd numbers (3, 5, 7, 9, 11px) for spacing/sizing — if tempted, round to nearest 4pt multiple
+
+**Common pattern sizes (verified on 4pt grid):**
+
+```css
+/* Badges / chips */
+padding: 2px 8px;   /* compact chip */
+padding: 4px 8px;   /* standard badge */
+padding: 4px 12px;  /* wide badge */
+
+/* Table cells */
+padding: 10px 14px; /* data table td — note: 10 not ÷4, but accepted as table exception */
+padding: 12px;      /* v-data-table override */
+
+/* Gaps */
+gap: 4px;   /* icon-to-label, tight row items */
+gap: 8px;   /* standard flex gap */
+gap: 12px;  /* card internal sections */
+gap: 16px;  /* between cards */
+```
 
 ### Elevation
 
@@ -202,6 +263,44 @@ Two pill variants rendered as physical colored shapes in the 7-day schedule:
 | Full oval | `--wf-pill-blue` `#1565C0` | 5 mg tablet |
 | Half oval | `--wf-pill-blue` / `--wf-pill-pink` | 0.5 tablet |
 | Full oval | `--wf-pill-pink` `#C2185B` | 3 mg tablet |
+
+---
+
+## Clinical Status Color Tokens
+
+Beyond the INR system, the patient table and KPI panels use these semantic color tokens. All are defined in `tokens.css` — never hardcode hex equivalents.
+
+### Row tint backgrounds (table rows by status)
+
+| Token | Hex | Use |
+|---|---|---|
+| `--bma-row-underdose-bg` | `#FFFBF5` | under-range / underdose row background |
+| `--bma-row-underdose-hover` | `#FFF3E0` | hover state |
+| `--bma-row-overdose-bg` | `#FFF8F8` | over-range / overdose / contra / interaction row |
+| `--bma-row-overdose-hover` | `#FEECEC` | hover state |
+
+### Soft area backgrounds
+
+| Token | Hex | Use |
+|---|---|---|
+| `--bma-emergency-bg-soft` | `#FFF5F5` | Large-area emergency tint (tooltip overlays, alert boxes) |
+| `--bma-urgency-bg-soft` | `#FFF3E0` | Large-area urgency tint |
+
+*Note:* `--bma-emergency-bg` and `--bma-urgency-bg` are rgba — they're for small inline uses. Use the `-soft` variants for large areas where rgba can look washed out over colored backgrounds.
+
+### Extended clinical status text colors
+
+| Token | Hex | Use |
+|---|---|---|
+| `--bma-underdose-text` | `#E65100` | Under-range / underdose text (deeper than urgency-text) |
+| `--bma-interaction-text` | `#7B52AB` | Drug interaction badge text |
+
+### Status badge backgrounds
+
+| Token | Hex | Use |
+|---|---|---|
+| `--bma-contra-bg` | `#E8EAF6` | Contraindication badge background |
+| `--bma-interaction-bg` | `#F3EEFF` | Drug interaction badge background |
 
 ---
 

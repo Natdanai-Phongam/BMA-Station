@@ -11,7 +11,6 @@
     "insuranceType": "ข้าราชการ",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "high",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -39,7 +38,6 @@
       }
     ],
     "totalComplications": 3,
-    "riskLevel": "high",
     "complicationSummary": [
       {
         "type": "bleeding",
@@ -116,7 +114,6 @@
     "insuranceType": "ประกันสังคม",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "high",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -133,7 +130,6 @@
     "insuranceType": "ประกันสังคม",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "medium",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -150,7 +146,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "medium",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -173,7 +168,6 @@
       }
     ],
     "totalComplications": 0,
-    "riskLevel": "high",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -190,7 +184,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "medium",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -207,7 +200,6 @@
     "insuranceType": "ประกันสังคม",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "medium",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -224,7 +216,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 1,
-    "riskLevel": "low",
     "complicationSummary": [
       {
         "type": "bleeding",
@@ -265,7 +256,6 @@
       }
     ],
     "totalComplications": 1,
-    "riskLevel": "low",
     "complicationSummary": [
       {
         "type": "thromboembolism",
@@ -300,7 +290,6 @@
     "insuranceType": "ข้าราชการ",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "low",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -317,7 +306,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "low",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -334,7 +322,6 @@
     "insuranceType": "ประกันสังคม",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "low",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -351,7 +338,6 @@
     "insuranceType": "ประกันสังคม",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "low",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "noacs"
@@ -368,7 +354,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "high",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "noacs"
@@ -385,7 +370,6 @@
     "insuranceType": "ประกันสังคม",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "medium",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "noacs"
@@ -408,7 +392,6 @@
       }
     ],
     "totalComplications": 0,
-    "riskLevel": "high",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "noacs"
@@ -431,7 +414,6 @@
       }
     ],
     "totalComplications": 0,
-    "riskLevel": "high",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "noacs"
@@ -448,7 +430,6 @@
     "insuranceType": "ข้าราชการ",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "medium",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "noacs",
@@ -474,7 +455,6 @@
     "insuranceType": "ประกันสังคม",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "high",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -491,7 +471,6 @@
     "insuranceType": "ข้าราชการ",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "high",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -508,7 +487,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "low",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -525,7 +503,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "low",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -542,7 +519,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "low",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -559,7 +535,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "medium",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -576,7 +551,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "low",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -593,7 +567,6 @@
     "insuranceType": "ประกันสังคม",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "medium",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -610,7 +583,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "low",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -627,7 +599,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "medium",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -644,7 +615,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "low",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -661,7 +631,6 @@
     "insuranceType": "ประกันสังคม",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "low",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -678,7 +647,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "medium",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -695,7 +663,6 @@
     "insuranceType": "ประกันสังคม",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "low",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -712,7 +679,6 @@
     "insuranceType": "ประกันสังคม",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "high",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -729,7 +695,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "medium",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -746,7 +711,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "high",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -763,7 +727,6 @@
     "insuranceType": "ประกันสังคม",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "medium",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "warfarin"
@@ -780,7 +743,6 @@
     "insuranceType": "ประกันสังคม",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "high",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "noacs"
@@ -797,7 +759,6 @@
     "insuranceType": "ประกันสังคม",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "medium",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "noacs"
@@ -814,7 +775,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "high",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "noacs"
@@ -831,7 +791,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "medium",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "noacs"
@@ -848,7 +807,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "medium",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "noacs"
@@ -865,7 +823,6 @@
     "insuranceType": "ประกันสังคม",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "high",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "noacs"
@@ -882,7 +839,6 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "high",
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "noacs"
@@ -899,7 +855,158 @@
     "insuranceType": "บัตรทอง (UC)",
     "allergies": [],
     "totalComplications": 0,
-    "riskLevel": "medium",
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+  "n015": {
+    "id": "n015",
+    "name": "นาง รัตนาภรณ์ สุขสวัสดิ์",
+    "hn": "692847310",
+    "age": 65,
+    "dob": "1961-03-12",
+    "sex": "หญิง",
+    "bloodGroup": "A+",
+    "phone": "084-291-5073",
+    "insuranceType": "ข้าราชการ",
+    "allergies": [],
+    "totalComplications": 0,
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+  "n016": {
+    "id": "n016",
+    "name": "นาย ธนภัทร วิชาการ",
+    "hn": "694817250",
+    "age": 72,
+    "dob": "1954-07-08",
+    "sex": "ชาย",
+    "bloodGroup": "O+",
+    "phone": "081-473-6028",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+  "n017": {
+    "id": "n017",
+    "name": "นางสาว พิมพ์ชนก เพ็ญจันทร์",
+    "hn": "698271045",
+    "age": 55,
+    "dob": "1971-11-20",
+    "sex": "หญิง",
+    "bloodGroup": "B+",
+    "phone": "092-815-4730",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+  "n018": {
+    "id": "n018",
+    "name": "นาย วสันต์ ทองดี",
+    "hn": "695841237",
+    "age": 69,
+    "dob": "1957-04-25",
+    "sex": "ชาย",
+    "bloodGroup": "AB+",
+    "phone": "086-302-7419",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [
+      {
+        "substance": "Aspirin",
+        "reaction": "Gastritis",
+        "severity": "mild"
+      }
+    ],
+    "totalComplications": 0,
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+  "n019": {
+    "id": "n019",
+    "name": "นาง อุไรวรรณ ชมพูชัย",
+    "hn": "691047382",
+    "age": 78,
+    "dob": "1948-06-14",
+    "sex": "หญิง",
+    "bloodGroup": "O+",
+    "phone": "089-147-5062",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 1,
+    "complicationSummary": [
+      {
+        "type": "bleeding",
+        "count": 1,
+        "lastDate": "08 มี.ค. 69"
+      }
+    ],
+    "complications": [
+      {
+        "id": "c-n019-001",
+        "date": "08 มี.ค. 2569",
+        "month": 3,
+        "dateISO": "2026-03-08",
+        "type": "bleeding",
+        "detail": "เลือดออกบริเวณผิวหนังช้ำง่าย",
+        "severity": "mild",
+        "treatment": "ลดการใช้งานหนัก ติดตามอาการ",
+        "status": "หายแล้ว"
+      }
+    ],
+    "currentTherapy": "noacs"
+  },
+  "n020": {
+    "id": "n020",
+    "name": "นาย สุทัศน์ เจริญสุข",
+    "hn": "697382104",
+    "age": 63,
+    "dob": "1963-09-30",
+    "sex": "ชาย",
+    "bloodGroup": "A+",
+    "phone": "093-561-8024",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+  "n021": {
+    "id": "n021",
+    "name": "นาย ประกอบ พัฒนา",
+    "hn": "693748201",
+    "age": 61,
+    "dob": "1965-02-18",
+    "sex": "ชาย",
+    "bloodGroup": "B+",
+    "phone": "085-074-3916",
+    "insuranceType": "บัตรทอง (UC)",
+    "allergies": [],
+    "totalComplications": 0,
+    "complicationSummary": [],
+    "complications": [],
+    "currentTherapy": "noacs"
+  },
+  "n022": {
+    "id": "n022",
+    "name": "นาง สุภาพ สวัสดี",
+    "hn": "690827415",
+    "age": 52,
+    "dob": "1974-08-05",
+    "sex": "หญิง",
+    "bloodGroup": "O+",
+    "phone": "091-248-7605",
+    "insuranceType": "ประกันสังคม",
+    "allergies": [],
+    "totalComplications": 0,
     "complicationSummary": [],
     "complications": [],
     "currentTherapy": "noacs"

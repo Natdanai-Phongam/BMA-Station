@@ -64,6 +64,25 @@
   --bma-success-ring:    rgba(76, 175, 80, 0.25);
   --bma-success-text:    #2E7D32;  /* darkened for text on light bg */
 
+  /* ── Clinical status row tints (table row backgrounds) ─────────────────── */
+  /* Solid opaque equivalents of --bma-urgency-bg / --bma-emergency-bg */
+  --bma-row-underdose-bg:    #FFFBF5;   /* under-range / underdose row */
+  --bma-row-underdose-hover: #FFF3E0;
+  --bma-row-overdose-bg:     #FFF8F8;   /* over-range / overdose / contra / interaction row */
+  --bma-row-overdose-hover:  #FEECEC;
+
+  /* Soft solid backgrounds for alerts and tooltip overlays */
+  --bma-success-bg-soft:     #F6FFF9;   /* very light green — monitoring card in-range box */
+  --bma-emergency-bg-soft:   #FFF5F5;   /* lighter than emergency-bg for large areas */
+  --bma-urgency-bg-soft:     #FFF3E0;   /* lighter than urgency-bg for large areas */
+  --bma-emergency-border-light: #F5C0C0; /* monitoring card alert box border */
+
+  /* Extended clinical status text + badge colors */
+  --bma-underdose-text:      #E65100;   /* under-range / underdose text — deeper orange */
+  --bma-interaction-text:    #7B52AB;   /* drug interaction text */
+  --bma-contra-bg:           #E8EAF6;   /* contraindication badge bg */
+  --bma-interaction-bg:      #F3EEFF;   /* interaction badge bg */
+
   /* INR value colors (used in data tables and chips) */
   --bma-inr-low-bg:    rgba(183, 44, 44, 0.12);
   --bma-inr-low-text:  #B72C2C;

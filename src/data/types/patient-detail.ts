@@ -1,6 +1,5 @@
 export type ComplicationType    = 'bleeding' | 'thromboembolism'
 export type Severity            = 'mild' | 'moderate' | 'severe'
-export type RiskLevel           = 'low' | 'medium' | 'high'
 export type AllergySeverity     = 'mild' | 'moderate' | 'severe'
 export type InteractionSeverity = 'contraindicated' | 'warning' | 'monitor'
 
@@ -56,7 +55,6 @@ export interface PatientDetail {
   insuranceType:          string
   allergies:              Allergy[]
   totalComplications:     number
-  riskLevel:              RiskLevel
   complicationSummary:    ComplicationSummary[]
   complications:          ComplicationEvent[]
   /** Which anticoagulant module this patient is enrolled in */

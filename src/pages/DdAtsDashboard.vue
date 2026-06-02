@@ -54,86 +54,13 @@
 
         <!-- Monitoring cards -->
         <div class="monitoring-grid">
-          <div
+          <MonitoringCard
             v-for="card in cards"
             :key="card.id"
-            class="monitoring-card"
-          >
-            <!-- Card header: icon + title + subtitle -->
-            <div class="mc-card-header">
-              <div class="mc-icon-wrap" :style="`background:${card.iconBg}`">
-                <component
-                  :is="iconMap[card.iconName]"
-                  :size="18"
-                  :color="card.iconColor"
-                />
-              </div>
-              <div>
-                <div class="mc-title">{{ card.title }}</div>
-                <div class="mc-subtitle">{{ card.subtitle }}</div>
-              </div>
-            </div>
-
-            <!-- Card body: donut + right panel -->
-            <div class="mc-body">
-              <div class="donut-wrap">
-                <Doughnut
-                  :data="chartPropsMap[card.id].data"
-                  :options="donutOptions"
-                  :plugins="chartPropsMap[card.id].plugins"
-                />
-              </div>
-
-              <div class="mc-right">
-                <!-- In-range box (green) -->
-                <div class="mc-in-range-box">
-                  <div class="mc-in-range-left">
-                    <span class="mc-in-count">{{ card.inRangeCount }} ราย</span>
-                    <span class="mc-in-label">
-                      {{ card.inRangeLabel }}
-                      <template v-if="card.inRangeRange">
-                        &nbsp;·&nbsp;( {{ card.inRangeRange }} )
-                      </template>
-                    </span>
-                  </div>
-                  <span class="mc-in-pct">{{ card.inRangePct }}</span>
-                </div>
-
-                <!-- Out-of-range alert box (red) -->
-                <div class="mc-alert-box">
-                  <div class="mc-alert-left">
-                    <PhWarning :size="13" color="#B72C2C" />
-                    ต้องติดตาม {{ card.outOfRangeCount }} ราย
-                  </div>
-                  <span class="mc-alert-pct">{{ card.outOfRangePct }}</span>
-                </div>
-
-                <!-- Stat rows -->
-                <div class="mc-stat-list">
-                  <div
-                    v-for="stat in card.stats"
-                    :key="stat.label"
-                    class="mc-stat-row"
-                  >
-                    <span class="mc-stat-dot" :style="`background:${stat.color}`" />
-                    <div class="mc-stat-labels">
-                      <span class="mc-stat-name">{{ stat.label }}</span>
-                      <span v-if="stat.sublabel" class="mc-stat-sub">( {{ stat.sublabel }} )</span>
-                      <!-- spacer keeps min-width consistent when no sublabel -->
-                    </div>
-                    <div class="mc-progress-track">
-                      <div
-                        class="mc-progress-fill"
-                        :style="`width:${(stat.count / card.outOfRangeCount * 100).toFixed(1)}%;background:${stat.color}`"
-                      />
-                    </div>
-                    <span class="mc-stat-count">{{ stat.count }}</span>
-                    <span class="mc-stat-pct">{{ stat.pctDisplay }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            :card="card"
+            :chart-data="chartPropsMap[card.id].data"
+            :chart-plugins="chartPropsMap[card.id].plugins"
+          />
         </div>
 
         <!-- Summary section -->
@@ -147,448 +74,32 @@
           </div>
 
           <div class="summary-grid">
-            <div
+            <SummaryPanel
               v-for="card in cards"
               :key="card.id"
-              class="summary-panel"
-            >
-            <div class="sc-header">
-              <div class="sc-title-wrap">
-                <div class="sc-icon" :style="`background:${card.iconBg}`">
-                  <component :is="iconMap[card.iconName]" :size="14" :color="card.iconColor" />
-                </div>
-                <div>
-                  <div class="sc-title">{{ card.title }} Monitoring</div>
-                  <div class="sc-subtitle">{{ card.subtitle }}</div>
-                </div>
-              </div>
-              <div class="alert-badge">{{ card.alertCount }} Alerts</div>
-            </div>
-            <div class="sc-divider" />
-
-            <!-- Out-of-range row — hoverable when patients exist -->
-            <template v-if="getSummaryPatients(card.id, 'outOfRange').length > 0">
-              <v-menu
-                open-on-hover
-                :close-on-content-click="false"
-                location="bottom start"
-                content-class="summ-tt-overlay"
-                :open-delay="120"
-                :close-delay="200"
-              >
-                <template #activator="{ props: menuProps }">
-                  <div class="sc-stat-row sc-stat-row--hoverable sc-stat-row--primary" v-bind="menuProps">
-                    <div class="sc-stat-label">
-                      <PhWarning :size="14" color="#8C8C8C" />
-                      {{ card.outOfRangeLabel }}
-                    </div>
-                    <div class="sc-stat-right">
-                      <div class="sc-stat-value sc-stat-value--lg">{{ card.outOfRangeCount }} ราย</div>
-                      <PhInfo class="sc-hint-icon" :size="13" />
-                    </div>
-                  </div>
-                </template>
-                <div class="summ-tt-header">{{ card.outOfRangeLabel }}</div>
-                <div class="tt-scroll-body">
-                  <div
-                    v-for="pt in getSummaryPatients(card.id, 'outOfRange')"
-                    :key="pt.id"
-                    class="summ-tt-row"
-                  >
-                    <div class="summ-tt-info">
-                      <span class="summ-tt-name">{{ pt.name }}</span>
-                      <div class="summ-tt-sub">
-                        <span class="summ-tt-hn">HN {{ pt.hn }}</span>
-                        <span class="summ-tt-badge" :class="`summ-st--${pt.status}`">{{ pt.statusLabel }}</span>
-                      </div>
-                    </div>
-                    <button class="summ-tt-nav" @click="goToPatient(pt.id)" title="ดูรายละเอียด">
-                      <PhArrowSquareOut :size="14" />
-                    </button>
-                  </div>
-                </div>
-              </v-menu>
-            </template>
-            <template v-else>
-              <div class="sc-stat-row sc-stat-row--primary">
-                <div class="sc-stat-label">
-                  <PhWarning :size="14" color="#8C8C8C" />
-                  {{ card.outOfRangeLabel }}
-                </div>
-                <div class="sc-stat-value sc-stat-value--lg">{{ card.outOfRangeCount }} ราย</div>
-              </div>
-            </template>
-
-            <!-- Referrals row — hoverable when patients exist -->
-            <template v-if="getSummaryPatients(card.id, 'referrals').length > 0">
-              <v-menu
-                open-on-hover
-                :close-on-content-click="false"
-                location="bottom start"
-                content-class="summ-tt-overlay"
-                :open-delay="120"
-                :close-delay="200"
-              >
-                <template #activator="{ props: menuProps }">
-                  <div class="sc-stat-row sc-stat-row--hoverable sc-stat-row--secondary" v-bind="menuProps">
-                    <div class="sc-stat-label">
-                      <PhArrowCircleRight :size="14" color="#8C8C8C" />
-                      ส่งต่อแพทย์ปรึกษา
-                    </div>
-                    <div class="sc-stat-right">
-                      <div class="sc-stat-value">{{ card.referralCount }} ราย</div>
-                      <PhInfo class="sc-hint-icon" :size="13" />
-                    </div>
-                  </div>
-                </template>
-                <div class="summ-tt-header">ส่งต่อแพทย์ปรึกษา</div>
-                <div class="tt-scroll-body">
-                  <div
-                    v-for="pt in getSummaryPatients(card.id, 'referrals')"
-                    :key="pt.id"
-                    class="summ-tt-row"
-                  >
-                    <div class="summ-tt-info">
-                      <span class="summ-tt-name">{{ pt.name }}</span>
-                      <div class="summ-tt-sub">
-                        <span class="summ-tt-hn">HN {{ pt.hn }}</span>
-                        <span class="summ-tt-badge" :class="`summ-st--${pt.status}`">{{ pt.statusLabel }}</span>
-                      </div>
-                    </div>
-                    <button class="summ-tt-nav" @click="goToPatient(pt.id)" title="ดูรายละเอียด">
-                      <PhArrowSquareOut :size="14" />
-                    </button>
-                  </div>
-                </div>
-              </v-menu>
-            </template>
-            <template v-else>
-              <div class="sc-stat-row sc-stat-row--secondary">
-                <div class="sc-stat-label">
-                  <PhArrowCircleRight :size="14" color="#8C8C8C" />
-                  ส่งต่อแพทย์ปรึกษา
-                </div>
-                <div class="sc-stat-value">{{ card.referralCount }} ราย</div>
-              </div>
-            </template>
-          </div>
+              :card="card"
+              :out-of-range-patients="getSummaryPatients(card.id, 'outOfRange')"
+              :referral-patients="getSummaryPatients(card.id, 'referrals')"
+              @go-to-patient="goToPatient"
+            />
           </div>
         </div>
       </div>
 
       <!-- ── Warfarin patient list ─────────────────────────── -->
       <div v-show="activeTab === 'warfarin'">
-
-        <!-- Section header: identity + record count (Pattern 14) -->
-        <div class="tab-section-header">
-          <span class="tab-section-title">การจ่าย Warfarin</span>
-          <span class="tab-section-count">ผู้ป่วยทั้งหมด {{ warfarinTotal }} ราย</span>
-        </div>
-
-        <!-- Main filter bar -->
-        <div class="filter-bar">
-          <div class="filter-search">
-            <PhMagnifyingGlass :size="15" color="#BFBFBF" class="fi-icon" />
-            <input class="filter-input" placeholder="ค้นหาชื่อ - นามสกุล" />
-          </div>
-          <div class="filter-date">
-            <input class="filter-input" placeholder="วันที่เริ่มต้น" />
-            <PhCalendar :size="15" color="#BFBFBF" class="fi-icon-r" />
-          </div>
-          <div class="filter-date">
-            <input class="filter-input" placeholder="วันที่สิ้นสุด" />
-            <PhCalendar :size="15" color="#BFBFBF" class="fi-icon-r" />
-          </div>
-          <button class="btn-search">ค้นหา</button>
-        </div>
-
-        <!-- Table card -->
-        <div class="table-card">
-          <div class="table-scroll-wrap">
-            <table class="data-table data-table--warfarin">
-              <thead>
-                <tr>
-                  <th class="col-action">คำสั่ง</th>
-                  <th class="col-name">ชื่อ - นามสกุล</th>
-                  <th class="col-hospital">โรงพยาบาล</th>
-                  <th class="col-status">สถานะ</th>
-                  <th class="col-inr">INR</th>
-                  <th class="col-ttr">TTR (%)</th>
-                  <th class="col-dose">ขนาดยา / สัปดาห์</th>
-                  <th class="col-ixn">Drug Interaction</th>
-                  <th class="col-concordance">แนวทางการจ่ายยา</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="p in wfPaged"
-                  :key="p.id"
-                  class="data-row"
-                  :class="`data-row--${p.status}`"
-                >
-                  <td class="col-action">
-                    <button class="action-btn" @click="goToPatient(p.id)" title="ดูรายละเอียด">
-                      <PhArrowSquareOut :size="16" color="#595959" />
-                    </button>
-                  </td>
-                  <td class="col-name">
-                    <div class="patient-name">{{ p.name }}</div>
-                    <div class="patient-hn-row">
-                      <span class="patient-hn">{{ p.hn }}</span>
-                    </div>
-                  </td>
-                  <td>{{ p.hospital }}</td>
-                  <td class="col-status">
-                    <span class="status-badge" :class="`status-badge--${p.status}`">
-                      {{ warfarinStatusLabel[p.status] }}
-                    </span>
-                  </td>
-                  <td class="col-inr">
-                    <span class="inr-val" :class="p.inr.alert ? 'inr-val--alert' : ''">
-                      {{ p.inr.value }}
-                    </span>
-                  </td>
-                  <td class="col-ttr">
-                    <template v-if="p.wf">
-                      <div class="ttr-display">
-                        <span class="ttr-val" :class="`ttr--${p.wf.ttr.status}`">{{ p.wf.ttr.value }}%</span>
-                        <span class="ttr-status-badge" :class="`ttr-badge--${p.wf.ttr.status}`">{{ ttrStatusLabel[p.wf.ttr.status] }}</span>
-                      </div>
-                    </template>
-                    <span v-else class="col-dash">—</span>
-                  </td>
-                  <td class="col-dose">
-                    <template v-if="p.wf">
-                      <div class="dose-display">
-                        <span class="dose-val">{{ p.wf.profile.currentDoseMgWk }}</span>
-                        <span class="dose-unit">mg/สป.</span>
-                      </div>
-                    </template>
-                    <span v-else class="col-dash">—</span>
-                  </td>
-                  <td class="col-ixn">
-                    <v-tooltip
-                      v-if="majorIxnCount(p.wf) > 0"
-                      location="top"
-                      :max-width="340"
-                      content-class="ixn-tt-overlay"
-                    >
-                      <template #activator="{ props: ttProps }">
-                        <span v-bind="ttProps" class="ixn-badge ixn-badge--hoverable">
-                          <PhWarning :size="11" />
-                          {{ majorIxnCount(p.wf) }}
-                        </span>
-                      </template>
-                      <div class="ixn-tt-header">Drug Interactions · Major</div>
-                      <div class="tt-scroll-body">
-                        <div
-                          v-for="med in getMajorIxns(p.wf)"
-                          :key="med.name"
-                          class="ixn-tt-row"
-                        >
-                          <div class="ixn-tt-name-row">
-                            <span class="ixn-tt-name">{{ med.name }}</span>
-                            <span class="ixn-tt-effect" :class="`ixn-effect--${med.effect}`">
-                              {{ effectLabel[med.effect] }}
-                            </span>
-                          </div>
-                          <div class="ixn-tt-note">{{ med.note }}</div>
-                        </div>
-                      </div>
-                    </v-tooltip>
-                    <span v-else class="col-dash">—</span>
-                  </td>
-                  <td class="col-concordance">
-                    <template v-if="p.wf?.doseAdjustments?.length">
-                      <span
-                        class="concordance-badge"
-                        :class="wfConcordanceBadgeClass(lastDoseAdjustment(p.wf))"
-                      >
-                        {{ wfConcordanceLabel(lastDoseAdjustment(p.wf)) }}
-                      </span>
-                    </template>
-                    <span v-else class="col-dash">—</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Warfarin pagination -->
-          <div class="table-footer">
-            <span class="pg-info">
-              ข้อมูลที่ {{ Math.min((wfPage - 1) * wfPageSize + 1, warfarinTotal) }}
-              ถึง {{ Math.min(wfPage * wfPageSize, warfarinTotal) }}
-              จากทั้งหมด {{ warfarinTotal }} รายการ
-            </span>
-            <div class="pg-controls">
-              <select class="pg-select" v-model.number="wfPageSize">
-                <option :value="10">10</option>
-                <option :value="20">20</option>
-                <option :value="50">50</option>
-              </select>
-              <div class="pagination">
-                <button class="pg-btn" :class="{ 'pg-btn--disabled': wfPage === 1 }" :disabled="wfPage === 1" @click="wfPage = 1">
-                  <PhCaretDoubleLeft :size="13" />
-                </button>
-                <button class="pg-btn" :class="{ 'pg-btn--disabled': wfPage === 1 }" :disabled="wfPage === 1" @click="wfPage--">
-                  <PhCaretLeft :size="13" />
-                </button>
-                <button v-for="p in visiblePages(wfPage, wfPageCount)" :key="p"
-                        class="pg-btn" :class="{ 'pg-btn--active': p === wfPage }"
-                        @click="wfPage = p">{{ p }}</button>
-                <button class="pg-btn" :class="{ 'pg-btn--disabled': wfPage === wfPageCount }" :disabled="wfPage === wfPageCount" @click="wfPage++">
-                  <PhCaretRight :size="13" />
-                </button>
-                <button class="pg-btn" :class="{ 'pg-btn--disabled': wfPage === wfPageCount }" :disabled="wfPage === wfPageCount" @click="wfPage = wfPageCount">
-                  <PhCaretDoubleRight :size="13" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <WfPatientTable
+          :rows="enrichedWarfarin"
+          @go-to-patient="goToPatient"
+        />
       </div>
 
       <!-- ── NOACs patient list ──────────────────────────────── -->
       <div v-show="activeTab === 'noacs'">
-
-        <!-- Section header: identity + record count (Pattern 14) -->
-        <div class="tab-section-header">
-          <span class="tab-section-title">การจ่าย NOACs</span>
-          <span class="tab-section-count">ผู้ป่วยทั้งหมด {{ noacsTotal }} ราย</span>
-        </div>
-
-        <div class="filter-bar">
-          <div class="filter-search">
-            <PhMagnifyingGlass :size="15" color="#BFBFBF" class="fi-icon" />
-            <input class="filter-input" placeholder="ค้นหาชื่อ - นามสกุล" />
-          </div>
-          <div class="filter-date">
-            <input class="filter-input" placeholder="วันที่เริ่มต้น" />
-            <PhCalendar :size="15" color="#BFBFBF" class="fi-icon-r" />
-          </div>
-          <div class="filter-date">
-            <input class="filter-input" placeholder="วันที่สิ้นสุด" />
-            <PhCalendar :size="15" color="#BFBFBF" class="fi-icon-r" />
-          </div>
-          <button class="btn-search">ค้นหา</button>
-        </div>
-
-        <div class="table-card">
-          <div class="table-scroll-wrap">
-            <table class="data-table data-table--noacs">
-              <thead>
-                <tr>
-                  <th class="col-action">คำสั่ง</th>
-                  <th class="col-name">ชื่อ - นามสกุล</th>
-                  <th class="col-hospital">โรงพยาบาล</th>
-                  <th class="col-status">สถานะ</th>
-                  <th class="col-drug">ยาที่ใช้ / ขนาด</th>
-                  <th class="col-crcl">CrCl</th>
-                  <th class="col-weight">น้ำหนัก</th>
-                  <th class="col-concordance">แนวทางการจ่ายยา</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="p in noPaged"
-                  :key="p.id"
-                  class="data-row"
-                  :class="`data-row--${p.status}`"
-                >
-                  <td class="col-action">
-                    <button class="action-btn" @click="goToPatient(p.id)" title="ดูรายละเอียด">
-                      <PhArrowSquareOut :size="16" color="#595959" />
-                    </button>
-                  </td>
-                  <td class="col-name">
-                    <div class="patient-name">{{ p.name }}</div>
-                    <div class="patient-hn-row">
-                      <span class="patient-hn">{{ p.hn }}</span>
-                      <span v-if="p.noac" class="indication-chip">
-                        {{ indicationChipLabel[p.noac.profile.indication] }}
-                      </span>
-                    </div>
-                  </td>
-                  <td>{{ p.hospital }}</td>
-                  <td class="col-status">
-                    <span class="status-badge" :class="`status-badge--${p.status}`">
-                      {{ noacsStatusLabel[p.status] }}
-                    </span>
-                  </td>
-                  <td class="col-drug">
-                    <template v-if="p.noac">
-                      <div class="drug-inline">
-                        <span class="drug-name">{{ drugDisplayLabel[p.noac.profile.currentDrug] }}</span>
-                        <span class="drug-sep">·</span>
-                        <span class="drug-dose">{{ p.noac.profile.currentDose }}</span>
-                      </div>
-                    </template>
-                    <span v-else class="col-dash">—</span>
-                  </td>
-                  <td class="col-crcl">
-                    <span class="lab-badge" :class="p.crcl.alert ? 'lab-badge--alert' : ''">
-                      {{ p.crcl.value }}
-                      <PhWarningCircle v-if="p.crcl.alert" :size="11" />
-                    </span>
-                  </td>
-                  <td class="col-weight">
-                    <div class="weight-display">
-                      <span class="weight-val" :class="p.weight <= 60 ? 'weight-val--low' : ''">
-                        {{ p.weight.toFixed(1) }}
-                      </span>
-                      <span class="weight-unit">กก.</span>
-                    </div>
-                  </td>
-                  <td class="col-concordance">
-                    <template v-if="p.noac?.dispensingHistory?.length">
-                      <span
-                        class="concordance-badge"
-                        :class="concordanceBadgeClass(lastDispensing(p.noac))"
-                      >
-                        {{ concordanceLabel(lastDispensing(p.noac)) }}
-                      </span>
-                    </template>
-                    <span v-else class="col-dash">—</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- NOACs pagination -->
-          <div class="table-footer">
-            <span class="pg-info">
-              ข้อมูลที่ {{ Math.min((noPage - 1) * noPageSize + 1, noacsTotal) }}
-              ถึง {{ Math.min(noPage * noPageSize, noacsTotal) }}
-              จากทั้งหมด {{ noacsTotal }} รายการ
-            </span>
-            <div class="pg-controls">
-              <select class="pg-select" v-model.number="noPageSize">
-                <option :value="10">10</option>
-                <option :value="20">20</option>
-                <option :value="50">50</option>
-              </select>
-              <div class="pagination">
-                <button class="pg-btn" :class="{ 'pg-btn--disabled': noPage === 1 }" :disabled="noPage === 1" @click="noPage = 1">
-                  <PhCaretDoubleLeft :size="13" />
-                </button>
-                <button class="pg-btn" :class="{ 'pg-btn--disabled': noPage === 1 }" :disabled="noPage === 1" @click="noPage--">
-                  <PhCaretLeft :size="13" />
-                </button>
-                <button v-for="p in visiblePages(noPage, noPageCount)" :key="p"
-                        class="pg-btn" :class="{ 'pg-btn--active': p === noPage }"
-                        @click="noPage = p">{{ p }}</button>
-                <button class="pg-btn" :class="{ 'pg-btn--disabled': noPage === noPageCount }" :disabled="noPage === noPageCount" @click="noPage++">
-                  <PhCaretRight :size="13" />
-                </button>
-                <button class="pg-btn" :class="{ 'pg-btn--disabled': noPage === noPageCount }" :disabled="noPage === noPageCount" @click="noPage = noPageCount">
-                  <PhCaretDoubleRight :size="13" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <NoacPatientTable
+          :rows="enrichedNoacs"
+          @go-to-patient="goToPatient"
+        />
       </div>
 
       <!-- ── KPI Tab ──────────────────────────────────────────── -->
@@ -663,92 +174,17 @@
 
           <!-- Primary grid: Safety (3fr) + Quality (2fr) -->
           <div class="kpi-container-grid kpi-container-grid--primary">
-
-            <!-- Safety sub-section -->
-            <div class="kpi-sub-section">
-              <div class="kpi-panel-head">
-                <PhShieldCheck :size="14" :color="safetyFailCount > 0 ? '#B72C2C' : '#8C8C8C'" />
-                <span class="kpi-ph-name">ความปลอดภัยของผู้ป่วย</span>
-                <span class="kpi-ph-sub">Patient Safety</span>
-                <div class="kpi-ph-tally">
-                  <span v-if="safetyPassCount" class="kpi-tally kpi-tally--ok">{{ safetyPassCount }} ผ่าน</span>
-                  <span v-if="safetyWarnCount" class="kpi-tally kpi-tally--warn">{{ safetyWarnCount }} ใกล้</span>
-                  <span v-if="safetyFailCount" class="kpi-tally kpi-tally--ng">{{ safetyFailCount }} เกิน</span>
-                </div>
-              </div>
-
-              <div class="ksafe-grid">
-                <template v-for="(row, ri) in safetyRows" :key="row.key">
-                  <span :class="['ksafe-cell', 'ksafe-name', { 'ksafe-cell--last': ri === safetyRows.length - 1 }]">
-                    {{ row.name }}
-                  </span>
-                  <span :class="['ksafe-cell', 'ksafe-events', { 'ksafe-cell--last': ri === safetyRows.length - 1 }]">
-                    <span class="ksafe-en" :class="{ 'ksafe-en--nz': row.events > 0 }">{{ row.events }}</span>
-                    <span class="ksafe-eu">ราย</span>
-                  </span>
-                  <span :class="['ksafe-cell', 'ksafe-pct', `ksafe-pct--${row.status}`, { 'ksafe-cell--last': ri === safetyRows.length - 1 }]">
-                    {{ row.pct.toFixed(1) }}%
-                  </span>
-                  <span :class="['ksafe-cell', 'ksafe-trend', `ksafe-trend--${row.trendDir}`, { 'ksafe-cell--last': ri === safetyRows.length - 1 }]">
-                    {{ row.trendLabel }}
-                  </span>
-                  <span :class="['ksafe-cell', 'ksafe-target', { 'ksafe-cell--last': ri === safetyRows.length - 1 }]">
-                    {{ row.target > 0 ? `&lt; ${row.target}%` : '= 0%' }}
-                  </span>
-                  <span :class="['ksafe-cell', { 'ksafe-cell--last': ri === safetyRows.length - 1 }]">
-                    <span class="ksafe-badge" :class="`ksafe-badge--${row.status}`">{{ row.statusLabel }}</span>
-                  </span>
-                </template>
-              </div>
-            </div>
-
-            <!-- Quality sub-section -->
-            <div class="kpi-sub-section kpi-sub-section--sep">
-              <div class="kpi-panel-head">
-                <PhChartBar :size="14" color="#8C8C8C" />
-                <span class="kpi-ph-name">คุณภาพการดูแล</span>
-                <span class="kpi-ph-sub">Quality of Care</span>
-              </div>
-
-              <div class="kqual-rows">
-                <div v-for="row in qualityBarRows" :key="row.key" class="kqual-row">
-                  <div class="kqual-row-top">
-                    <span class="kqual-metric-name">{{ row.name }}</span>
-                    <div class="kqual-row-right">
-                      <span class="kqual-frac">{{ row.n }}/{{ row.d }} ราย</span>
-                      <span class="kqual-badge" :class="`kqual-badge--${row.status}`">{{ row.statusLabel }}</span>
-                    </div>
-                  </div>
-                  <div class="kqual-bar-wrap">
-                    <div class="kqual-track">
-                      <div
-                        class="kqual-fill"
-                        :class="`kqual-fill--${row.status}`"
-                        :style="`width: ${Math.min(row.value, 100)}%`"
-                      />
-                      <div class="kqual-target-line" :style="`left: ${Math.min(row.target, 99)}%`" />
-                    </div>
-                    <div class="kqual-bar-labels">
-                      <span class="kqual-bar-val" :class="`kqual-bval--${row.status}`">{{ row.value.toFixed(1) }}%</span>
-                      <span class="kqual-bar-target">เป้า ≥ {{ row.target }}%</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="kqual-los">
-                  <span class="kqual-metric-name">ระยะเวลานอน รพ. (เฉลี่ย)</span>
-                  <div class="kqual-los-body">
-                    <span class="kqual-los-val">{{ liveKpi.quality.avgLOS.value.toFixed(1) }}</span>
-                    <span class="kqual-los-unit">วัน</span>
-                    <span class="kqual-badge" :class="`kqual-badge--${losStatus}`">
-                      {{ losStatus === 'pass' ? 'ผ่าน' : 'เกินเกณฑ์' }}
-                    </span>
-                    <span class="kqual-los-bench">เป้า ≤ {{ liveKpi.quality.avgLOS.target }} วัน</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+            <KpiSafetySection
+              :rows="safetyRows"
+              :pass-count="safetyPassCount"
+              :warn-count="safetyWarnCount"
+              :fail-count="safetyFailCount"
+            />
+            <KpiQualitySection
+              :rows="qualityBarRows"
+              :avg-l-o-s="liveKpi.quality.avgLOS"
+              :los-status="losStatus"
+            />
           </div>
         </div>
 
@@ -760,64 +196,13 @@
               <span class="kpi-st-eng">Secondary KPIs</span>
             </div>
           </div>
-
           <div class="kpi-container-grid kpi-container-grid--half">
-
-            <!-- ATS Response sub-section -->
-            <div class="kpi-sub-section">
-              <div class="kpi-panel-head">
-                <PhPulse :size="14" color="#8C8C8C" />
-                <span class="kpi-ph-name">การตอบสนอง ATS</span>
-                <span class="kpi-ph-sub">ATS Response</span>
-              </div>
-              <div class="kats-grid">
-                <template v-for="row in atsRows" :key="row.key">
-                  <span class="kats-name">{{ row.name }}</span>
-                  <span class="kats-val" :class="`kats-val--${row.status}`">{{ row.displayValue }}</span>
-                  <span class="kats-target">{{ row.targetLabel }}</span>
-                  <span class="kats-badge" :class="`kats-badge--${row.status}`">{{ row.statusLabel }}</span>
-                </template>
-              </div>
-            </div>
-
-            <!-- System Efficiency sub-section -->
-            <div class="kpi-sub-section kpi-sub-section--sep">
-              <div class="kpi-panel-head">
-                <PhUsers :size="14" color="#8C8C8C" />
-                <span class="kpi-ph-name">ประสิทธิภาพระบบ</span>
-                <span class="kpi-ph-sub">System Efficiency</span>
-              </div>
-
-              <div class="keff-staff-label">บุคลากรในโปรแกรม DD-ATS</div>
-              <div class="keff-staff-row">
-                <div
-                  v-for="s in staffItems" :key="s.key"
-                  class="keff-staff-chip"
-                  :class="{ 'keff-staff-chip--total': s.key === 'total' }"
-                >
-                  <span class="keff-staff-n">{{ s.count }}</span>
-                  <span class="keff-staff-role">{{ s.label }}</span>
-                </div>
-              </div>
-
-              <div class="keff-divider" />
-
-              <div class="keff-workload">
-                <div class="keff-wl-row">
-                  <span class="keff-wl-name">ผู้ป่วย active ในโปรแกรม</span>
-                  <span class="keff-wl-val">{{ liveKpi.patientCount }} ราย</span>
-                </div>
-                <div class="keff-wl-row">
-                  <span class="keff-wl-name">ผู้ป่วยต่อวัน (เฉลี่ย)</span>
-                  <span class="keff-wl-val">{{ liveKpi.efficiency.patientsPerDay.toFixed(1) }} ราย/วัน</span>
-                </div>
-                <div class="keff-wl-row">
-                  <span class="keff-wl-name">ผู้ป่วยต่อเภสัชกร</span>
-                  <span class="keff-wl-val">{{ liveKpi.efficiency.workloadRatio.toFixed(1) }} ราย/คน</span>
-                </div>
-              </div>
-            </div>
-
+            <KpiAtsSection :rows="atsRows" />
+            <KpiEfficiencySection
+              :staff-items="staffItems"
+              :efficiency="liveKpi.efficiency"
+              :patient-count="liveKpi.patientCount"
+            />
           </div>
         </div>
 
@@ -830,16 +215,10 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import type { Component } from 'vue'
-import { Doughnut } from 'vue-chartjs'
-import { Chart as ChartJS, ArcElement, DoughnutController, Tooltip } from 'chart.js'
 import {
-  PhBell, PhArrowCircleRight, PhWarning, PhInfo,
-  PhChartBar, PhFirstAid,
-  PhMagnifyingGlass, PhCalendar,
-  PhArrowSquareOut, PhWarningCircle,
-  PhCaretDoubleLeft, PhCaretLeft, PhCaretRight, PhCaretDoubleRight,
-  PhShieldCheck, PhUsers, PhPulse, PhArrowsClockwise,
+  PhBell,
+  PhCalendar,
+  PhArrowsClockwise,
 } from '@phosphor-icons/vue'
 import type { AtsDashboardConfigData, AtsMonitoringCard } from '@/data/types/ats'
 import type { AtsPatientsData, WarfarinStatus, NoacsStatus, SummaryPatientEntry } from '@/data/types/ats-patients'
@@ -850,11 +229,19 @@ import { getAppDate, getAppYearMonth, monthToQuarter, monthStart, monthEnd } fro
 import type { PatientDetail, ComplicationEvent } from '@/data/types/patient-detail'
 import type { KpiOperationalData, KpiOperationalPeriod, PeriodMetrics, StatusLevel, SafetyRow, QualityBarRow, AtsRow } from '@/data/types/kpi-operational'
 import { thaiMonth }                   from '@/utils/date'
-import { parsePct, visiblePages }      from '@/utils/number-helpers'
-import { majorIxnCount, getMajorIxns, lastDoseAdjustment, wfConcordanceBadgeClass, wfConcordanceLabel, warfarinStatusLabel, effectLabel, ttrStatusLabel } from '@/utils/warfarin-helpers'
-import { lastDispensing, concordanceBadgeClass, concordanceLabel, noacsStatusLabel, drugDisplayLabel, indicationChipLabel } from '@/utils/noac-helpers'
+import { parsePct }                    from '@/utils/number-helpers'
+import { warfarinStatusLabel }          from '@/utils/warfarin-helpers'
+import { noacsStatusLabel }             from '@/utils/noac-helpers'
+import WfPatientTable   from '@/components/dd-ats/WfPatientTable.vue'
+import NoacPatientTable from '@/components/dd-ats/NoacPatientTable.vue'
+import MonitoringCard        from '@/components/dd-ats/MonitoringCard.vue'
+import SummaryPanel          from '@/components/dd-ats/SummaryPanel.vue'
+import KpiSafetySection      from '@/components/dd-ats/KpiSafetySection.vue'
+import KpiQualitySection     from '@/components/dd-ats/KpiQualitySection.vue'
+import KpiAtsSection         from '@/components/dd-ats/KpiAtsSection.vue'
+import KpiEfficiencySection  from '@/components/dd-ats/KpiEfficiencySection.vue'
 import { safetyStatus, qualityStatus, safetyStatusLabel, qualityStatusLabel } from '@/utils/kpi-status'
-import { makeCenterPlugin, donutChartData, donutOptions } from '@/composables/useChartPlugins'
+import { makeCenterPlugin, donutChartData } from '@/composables/useChartPlugins'
 import { KPI_SAFETY_TARGETS, KPI_QUALITY_TARGETS, KPI_ATS_TARGETS } from '@/data/config/kpi-targets'
 import rawConfig      from '@/data/mock/ats-dashboard.json'
 import rawPatients    from '@/data/mock/ats-patients.json'
@@ -863,7 +250,6 @@ import allNoacRaw     from '@/data/mock/noac-patients.json'
 import allDetailRaw   from '@/data/mock/patient-detail.json'
 import rawKpiOps      from '@/data/mock/kpi-operational.json'
 
-ChartJS.register(ArcElement, DoughnutController, Tooltip)
 
 const router = useRouter()
 const route  = useRoute()
@@ -910,7 +296,6 @@ const enrichedNoacs = computed(() =>
 )
 
 // Map icon name strings from JSON to Phosphor icon components
-const iconMap: Record<string, Component> = { PhChartBar, PhFirstAid }
 
 // ── Derive monitoring card stats from the actual patient list ─────────────────
 // Produces a fully-typed AtsMonitoringCard from display config + patient counts.
@@ -1183,37 +568,9 @@ function getSummaryPatients(cardId: string, type: 'outOfRange' | 'referrals'): S
   return []
 }
 
-// ── Patient list counts ────────────────────────────────────────────────────────
+// ── Patient list counts (for KPI strip) ─────────────────────────────────────
 const warfarinTotal = computed(() => patients.warfarin.length)
 const noacsTotal    = computed(() => patients.noacs.length)
-
-// ── Pagination state ──────────────────────────────────────────────────────────
-const wfPage     = ref(1)
-const wfPageSize = ref(10)
-const noPage     = ref(1)
-const noPageSize = ref(10)
-
-// Reset to page 1 when page size changes
-watch(wfPageSize, () => { wfPage.value = 1 })
-watch(noPageSize, () => { noPage.value = 1 })
-
-// Total page counts (minimum 1)
-const wfPageCount = computed(() => Math.max(1, Math.ceil(warfarinTotal.value / wfPageSize.value)))
-const noPageCount = computed(() => Math.max(1, Math.ceil(noacsTotal.value   / noPageSize.value)))
-
-// Sliced rows for each table
-const wfPaged = computed(() =>
-  enrichedWarfarin.value.slice(
-    (wfPage.value - 1) * wfPageSize.value,
-     wfPage.value      * wfPageSize.value
-  )
-)
-const noPaged = computed(() =>
-  enrichedNoacs.value.slice(
-    (noPage.value - 1) * noPageSize.value,
-     noPage.value      * noPageSize.value
-  )
-)
 
 
 // ── KPI tab ───────────────────────────────────────────────────────────────────
@@ -1567,7 +924,7 @@ const tabs = computed(() => [
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-  margin-bottom: 28px;
+  margin-bottom: 32px;
   /* Shared label-column width — governs progress bar start/end across all cards */
   --stat-label-col: 138px;
 }
@@ -1763,7 +1120,7 @@ const tabs = computed(() => [
 .section-icon-wrap {
   width: 28px;
   height: 28px;
-  border-radius: 7px;
+  border-radius: var(--bma-radius-sm);
   background: #FFF3E0;
   display: flex;
   align-items: center;
@@ -1827,452 +1184,6 @@ const tabs = computed(() => [
 }
 
 
-/* ── Filter bar (main) ────────────────────────────────────── */
-.filter-bar {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  padding: 12px 16px;
-  background: var(--bma-surface);
-  border: 1px solid var(--bma-border-card);
-  border-radius: 10px;
-  box-shadow: 0 1px 4px rgba(0,0,0,.05);
-  margin-bottom: 16px;
-}
-
-.filter-search {
-  position: relative;
-  flex: 1;
-  display: flex;
-  align-items: center;
-}
-.filter-date {
-  position: relative;
-  width: 170px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-}
-.fi-icon   { position: absolute; left: 10px; pointer-events: none; }
-.fi-icon-r { position: absolute; right: 10px; pointer-events: none; }
-
-.filter-input {
-  width: 100%;
-  height: 38px;
-  border: 1.5px solid var(--bma-border);
-  border-radius: var(--bma-radius-md);
-  font-family: var(--bma-font-thai);
-  font-size: 14px;
-  color: var(--bma-text-primary);
-  background: var(--bma-surface);
-  outline: none;
-  transition: border-color var(--bma-transition-fast);
-}
-.filter-search .filter-input { padding: 0 12px 0 34px; }
-.filter-date   .filter-input { padding: 0 34px 0 12px; }
-.filter-input::placeholder   { color: var(--bma-text-disabled); }
-.filter-input:focus { border-color: var(--bma-green-500); }
-
-.btn-search {
-  height: 38px;
-  padding: 0 20px;
-  background: var(--bma-green-500);
-  color: var(--bma-surface);
-  border: none;
-  border-radius: var(--bma-radius-md);
-  font-family: var(--bma-font-thai);
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-.btn-search:hover { background: var(--bma-green-600); }
-
-/* ── Table card ───────────────────────────────────────────── */
-.table-card {
-  background: var(--bma-surface);
-  border-radius: var(--bma-radius-lg);
-  border: 1px solid var(--bma-border-card);
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
-  overflow: hidden;
-}
-
-/* ── Data table ───────────────────────────────────────────── */
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-
-.data-table thead tr {
-  background: var(--bma-surface-light);
-  border-bottom: 1.5px solid var(--bma-border-subtle);
-}
-
-.data-table th {
-  padding: 10px 14px;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--bma-text-muted);
-  text-align: left;
-  white-space: nowrap;
-}
-
-.data-row {
-  border-bottom: 1px solid var(--bma-surface-subtle);
-  transition: background .12s;
-}
-.data-row:hover { background: var(--bma-surface-light); }
-.data-row:last-child { border-bottom: none; }
-
-/* Row tint by status — background encodes severity without side-stripe */
-.data-row--under-range,
-.data-row--underdose   { background: #FFFBF5; }
-.data-row--under-range:hover,
-.data-row--underdose:hover { background: #FFF3E0; }
-
-.data-row--over-range,
-.data-row--overdose,
-.data-row--contra,
-.data-row--interaction { background: #FFF8F8; }
-.data-row--over-range:hover,
-.data-row--overdose:hover,
-.data-row--contra:hover,
-.data-row--interaction:hover { background: #FEECEC; }
-
-.data-table td { padding: 10px 14px; color: var(--bma-text-primary); vertical-align: middle; }
-
-.col-action   { width: 52px; }
-.col-name     { min-width: 180px; }
-.col-hospital { min-width: 140px; }
-.col-status   { width: 130px; }
-.col-lab      { width: 200px; }
-.col-weight   { width: 120px; }
-
-.action-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 7px;
-  border: 1.5px solid var(--bma-border-card);
-  background: var(--bma-surface);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: border-color var(--bma-transition-fast), background var(--bma-transition-fast);
-}
-.action-btn:hover { border-color: var(--bma-green-500); background: var(--bma-green-50); }
-
-.patient-name { font-size: 13px; font-weight: 600; color: var(--bma-text-primary); }
-.patient-hn   { font-size: 11px; color: var(--bma-text-muted); margin-top: 2px; font-family: var(--bma-font-data); }
-
-/* Status badges */
-.status-badge {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: var(--bma-radius-full);
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-.status-badge--in-range,
-.status-badge--appropriate { background: #E8F5E9; color: #2E7D32; }
-.status-badge--under-range,
-.status-badge--underdose   { background: #FFF3E0; color: #E65100; }
-.status-badge--over-range,
-.status-badge--overdose    { background: #FCE4EC; color: var(--bma-emergency); }
-.status-badge--contra      { background: #E8EAF6; color: var(--bma-elective); }
-.status-badge--interaction { background: #F3EEFF; color: #7B52AB; }
-
-/* Lab value badges */
-.col-lab { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-
-.lab-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  padding: 3px 9px;
-  border-radius: var(--bma-radius-sm);
-  border: 1.5px solid var(--bma-border-muted);
-  background: var(--bma-surface);
-  font-family: var(--bma-font-data);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--bma-text-primary);
-  white-space: nowrap;
-}
-.lab-badge--alert {
-  border-color: #E57373;
-  background: #FFF5F5;
-  color: var(--bma-emergency);
-}
-
-/* ── Table footer / Pagination ────────────────────────────── */
-.table-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  border-top: 1px solid var(--bma-border-subtle);
-}
-
-.pg-info {
-  font-family: var(--bma-font-data);
-  font-size: 12px;
-  color: var(--bma-text-muted);
-}
-
-.pg-controls { display: flex; align-items: center; gap: 10px; }
-
-.pg-select {
-  height: 30px;
-  border: 1.5px solid var(--bma-border);
-  border-radius: var(--bma-radius-sm);
-  padding: 0 24px 0 8px;
-  font-family: var(--bma-font-data);
-  font-size: 12px;
-  background: var(--bma-surface) url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 4l3 3 3-3' stroke='%238c8c8c' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 6px center;
-  appearance: none;
-  cursor: pointer;
-}
-
-.pagination { display: flex; gap: 3px; }
-
-.pg-btn {
-  width: 30px;
-  height: 30px;
-  border-radius: var(--bma-radius-sm);
-  border: 1.5px solid var(--bma-border);
-  background: var(--bma-surface);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-family: var(--bma-font-data);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--bma-text-secondary);
-  transition: all var(--bma-transition-fast);
-}
-.pg-btn:not(.pg-btn--active):not(.pg-btn--disabled):hover { border-color: var(--bma-green-500); color: var(--bma-green-500); background: var(--bma-green-50); }
-.pg-btn--active   { background: var(--bma-green-500); border-color: var(--bma-green-500); color: var(--bma-surface); font-weight: 700; }
-.pg-btn--disabled { color: var(--bma-border); cursor: not-allowed; }
-
-/* ── Table horizontal scroll ──────────────────────────────── */
-.table-scroll-wrap {
-  overflow-x: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--bma-border) transparent;
-}
-.table-scroll-wrap::-webkit-scrollbar        { height: 5px; }
-.table-scroll-wrap::-webkit-scrollbar-track  { background: transparent; }
-.table-scroll-wrap::-webkit-scrollbar-thumb  { background: var(--bma-border); border-radius: 3px; }
-
-.data-table--warfarin { min-width: 960px; }
-.data-table--noacs    { min-width: 880px; }
-
-/* ── Column widths ────────────────────────────────────────── */
-/* TTR: wider — "88% [ผ่านเกณฑ์]" inline chip needs ~148px  */
-/* Dose: narrower — single line "35 mg/สป."                  */
-/* Drug: wider — "Rivaroxaban · 20mg qd" needs ~155px        */
-.col-action      { width: 48px; }
-.col-status      { width: 110px; }
-.col-inr         { width: 68px; }
-.col-ttr         { width: 152px; }
-.col-dose        { width: 90px; }
-.col-crcl        { width: 72px; }
-.col-ixn         { width: 110px; }
-.col-drug        { width: 160px; }
-.col-weight      { width: 88px; }
-.col-concordance { width: 148px; }
-
-/* ── Patient HN row (chips inline) ───────────────────────── */
-.patient-hn-row {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 2px;
-  flex-wrap: wrap;
-}
-
-/* Indication chip (NOACs) */
-.indication-chip {
-  display: inline-block;
-  padding: 1px 6px;
-  border-radius: var(--bma-radius-full);
-  background: var(--bma-green-50);
-  border: 1px solid var(--bma-green-200);
-  color: var(--bma-green-700);
-  font-family: var(--bma-font-data);
-  font-size: 10px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.inr-val {
-  font-family: var(--bma-font-data);
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--bma-text-primary);
-  line-height: 1;
-}
-.inr-val--alert { color: var(--bma-emergency); }
-
-
-/* ── TTR display ──────────────────────────────────────────── */
-.ttr-display {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: nowrap;
-  gap: 5px;
-}
-
-.ttr-val {
-  font-family: var(--bma-font-data);
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1;
-  flex-shrink: 0;
-}
-.ttr--goal-met          { color: var(--bma-success-text); }
-.ttr--below-goal        { color: var(--bma-emergency); }
-.ttr--insufficient-data { color: var(--bma-text-muted); }
-
-.ttr-status-badge {
-  display: inline-block;
-  font-family: var(--bma-font-thai);
-  font-size: 10px;
-  font-weight: 600;
-  padding: 1px 6px;
-  border-radius: var(--bma-radius-full);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.ttr-badge--goal-met          { background: var(--bma-success-bg);     color: var(--bma-success-text); }
-.ttr-badge--below-goal        { background: var(--bma-emergency-bg);   color: var(--bma-emergency); }
-.ttr-badge--insufficient-data { background: var(--bma-surface-subtle); color: var(--bma-text-muted); }
-
-/* ── Dose display ─────────────────────────────────────────── */
-.dose-display { display: flex; align-items: baseline; gap: 2px; flex-wrap: nowrap; }
-
-.dose-val {
-  font-family: var(--bma-font-data);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--bma-text-primary);
-}
-.dose-unit {
-  font-family: var(--bma-font-data);
-  font-size: 11px;
-  color: var(--bma-text-muted);
-}
-
-/* ── Interaction badge ────────────────────────────────────── */
-.ixn-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 2px 9px;
-  border-radius: var(--bma-radius-full);
-  background: var(--bma-urgency-bg);
-  color: var(--bma-urgency-text);
-  font-family: var(--bma-font-data);
-  font-size: 11px;
-  font-weight: 700;
-}
-
-/* ── Drug display (NOACs) ─────────────────────────────────── */
-.drug-inline {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: nowrap;
-  gap: 3px;
-}
-.drug-name {
-  font-family: var(--bma-font-data);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--bma-text-primary);
-  flex-shrink: 0;
-}
-.drug-sep {
-  font-size: 10px;
-  color: var(--bma-text-muted);
-  flex-shrink: 0;
-}
-.drug-dose {
-  font-family: var(--bma-font-data);
-  font-size: 11px;
-  color: var(--bma-text-muted);
-}
-
-/* ── Weight display (NOACs) ───────────────────────────────── */
-.weight-display { display: flex; align-items: baseline; gap: 2px; }
-
-.weight-val {
-  font-family: var(--bma-font-data);
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--bma-text-primary);
-}
-.weight-val--low { color: var(--bma-urgency-text); }
-.weight-unit {
-  font-family: var(--bma-font-data);
-  font-size: 11px;
-  color: var(--bma-text-muted);
-}
-/* Weight criterion chip */
-.weight-flag-chip {
-  display: inline-block;
-  margin-top: 3px;
-  padding: 1px 6px;
-  border-radius: var(--bma-radius-full);
-  background: #FFF3E0;
-  border: 1px solid #FFB74D;
-  color: #E65100;
-  font-family: var(--bma-font-data);
-  font-size: 10px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-
-/* ── Concordance badge ────────────────────────────────────── */
-.concordance-badge {
-  display: inline-block;
-  padding: 3px 9px;
-  border-radius: var(--bma-radius-full);
-  font-family: var(--bma-font-thai);
-  font-size: 11px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-.concordance--yes      { background: var(--bma-success-bg);    color: var(--bma-success-text); }
-.concordance--adjusted { background: var(--bma-urgency-bg);    color: var(--bma-urgency-text); }
-.concordance--no       { background: var(--bma-emergency-bg);  color: var(--bma-emergency); }
-
-/* ── Generic dash placeholder ─────────────────────────────── */
-.col-dash { color: var(--bma-text-disabled); font-size: 14px; }
-
-/* ── Tab section header (Pattern 14) ─────────────────────── */
-.tab-section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-.tab-section-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--bma-text-primary);
-  font-family: var(--bma-font-thai);
-}
-.tab-section-count {
-  font-family: var(--bma-font-data);
-  font-size: 12px;
-  color: var(--bma-text-muted);
-}
 
 /* ── KPI Strip ────────────────────────────────────────────── */
 .kpi-strip {
@@ -2329,19 +1240,6 @@ const tabs = computed(() => [
   line-height: 1;
 }
 
-.kpi-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  border-radius: var(--bma-radius-full);
-  font-family: var(--bma-font-thai);
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1.4;
-  white-space: nowrap;
-}
-.kpi-badge--good  { background: var(--bma-success-bg);   color: var(--bma-success-text); }
-.kpi-badge--alert { background: var(--bma-emergency-bg); color: var(--bma-emergency); }
 
 .kpi-context {
   font-family: var(--bma-font-thai);
@@ -2351,7 +1249,6 @@ const tabs = computed(() => [
 }
 
 /* Hoverable badge hint */
-.ixn-badge--hoverable { cursor: pointer; }
 
 /* ── Summary stat row — hoverable variant ─────────────────── */
 .sc-stat-row--hoverable {
@@ -2373,13 +1270,270 @@ const tabs = computed(() => [
 
 </style>
 
-<!-- Tooltip content styles — NOT scoped: Vuetify teleports tooltip to <body>,
-     so scoped selectors can't reach it. Use specific class names to avoid leaking. -->
+<!-- Unscoped styles — applied globally so child components (WfPatientTable,
+     NoacPatientTable) can inherit table structure, row, filter, and pagination
+     styles. Class names are specific to this module; no collision risk. -->
 <style>
+
+/* ── KPI panel content — accessible to KPI sub-components ──── */
+
+/* Unified KPI status badge (strip: --good/alert; panels: --pass/warn/fail) */
+.kpi-badge {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  padding:         2px 8px;
+  border-radius:   var(--bma-radius-full);
+  font-family:     var(--bma-font-data);
+  font-size:       10px;
+  font-weight:     700;
+  white-space:     nowrap;
+  line-height:     1.4;
+}
+.kpi-badge--good  { background: var(--bma-success-bg);   color: var(--bma-success-text); }
+.kpi-badge--alert { background: var(--bma-emergency-bg); color: var(--bma-emergency); }
+.kpi-badge--pass  { background: var(--bma-success-bg);   color: var(--bma-success-text); }
+.kpi-badge--warn  { background: var(--bma-urgency-bg);   color: var(--bma-urgency-text); }
+.kpi-badge--fail  { background: var(--bma-emergency-bg); color: var(--bma-emergency); }
+
+.kpi-sub-section { padding: 16px 20px; }
+.kpi-sub-section--sep { border-left: 1px solid var(--bma-border-subtle); }
+
+.kpi-panel-head {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 16px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--bma-border-subtle);
+}
+.kpi-ph-name { font-family: var(--bma-font-thai); font-size: 13px; font-weight: 700; color: var(--bma-text-primary); }
+.kpi-ph-sub  { font-family: var(--bma-font-data); font-size: 10px; font-weight: 600; color: var(--bma-text-disabled); letter-spacing: .04em; text-transform: uppercase; flex: 1; }
+.kpi-ph-tally { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.kpi-tally { display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: var(--bma-radius-full); font-family: var(--bma-font-data); font-size: 10px; font-weight: 700; letter-spacing: .02em; }
+.kpi-tally--ok   { background: var(--bma-success-bg);   color: var(--bma-success-text); }
+.kpi-tally--warn { background: var(--bma-urgency-bg);   color: var(--bma-urgency-text); }
+.kpi-tally--ng   { background: var(--bma-emergency-bg); color: var(--bma-emergency); }
+
+/* Safety grid — columns: name | events | pct | trend | target | badge */
+.ksafe-grid { display: grid; grid-template-columns: 1fr 56px 54px 70px 58px 60px; column-gap: 8px; align-items: center; }
+.ksafe-cell { padding: 8px 0; border-bottom: 1px solid var(--bma-border-subtle); }
+.ksafe-cell--last { border-bottom: none; padding-bottom: 0; }
+.ksafe-name { font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600; color: var(--bma-text-secondary); }
+.ksafe-events { display: flex; align-items: baseline; gap: 4px; justify-content: flex-end; }
+.ksafe-en { font-family: var(--bma-font-data); font-size: 15px; font-weight: 700; color: var(--bma-text-primary); }
+.ksafe-en--nz { color: var(--bma-emergency); }
+.ksafe-eu { font-family: var(--bma-font-thai); font-size: 10px; color: var(--bma-text-muted); }
+.ksafe-pct { font-family: var(--bma-font-data); font-size: 12px; font-weight: 700; text-align: right; color: var(--bma-text-muted); }
+.ksafe-pct--fail { color: var(--bma-emergency); }
+.ksafe-pct--warn { color: var(--bma-urgency-text); }
+.ksafe-pct--pass { color: var(--bma-text-muted); }
+.ksafe-trend { font-family: var(--bma-font-data); font-size: 11px; font-weight: 600; text-align: right; white-space: nowrap; color: var(--bma-text-muted); }
+.ksafe-trend--up   { color: var(--bma-emergency); }
+.ksafe-trend--down { color: var(--bma-success-text); }
+.ksafe-trend--flat { color: var(--bma-text-disabled); }
+.ksafe-target { font-family: var(--bma-font-data); font-size: 11px; font-weight: 500; color: var(--bma-text-muted); text-align: right; white-space: nowrap; }
+
+/* Quality rows */
+.kqual-rows { display: flex; flex-direction: column; gap: 0; }
+.kqual-row { padding: 8px 0; border-bottom: 1px solid var(--bma-border-subtle); }
+.kqual-row:first-child { padding-top: 0; }
+.kqual-row-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.kqual-row-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.kqual-metric-name { font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600; color: var(--bma-text-secondary); }
+.kqual-frac { font-family: var(--bma-font-data); font-size: 11px; color: var(--bma-text-muted); }
+.kqual-bar-wrap { display: flex; flex-direction: column; gap: 4px; }
+.kqual-track { position: relative; height: 6px; background: var(--bma-neutral-100); border-radius: 3px; overflow: visible; }
+.kqual-fill { height: 100%; border-radius: 3px; transition: width 400ms cubic-bezier(.22,.68,0,1.2); }
+.kqual-fill--pass { background: var(--bma-green-200); }
+.kqual-fill--warn { background: #FFD8A0; }
+.kqual-fill--fail { background: #F5C2C2; }
+.kqual-target-line { position: absolute; top: -4px; bottom: -4px; width: 2px; transform: translateX(-1px); background: var(--bma-neutral-500); border-radius: 1px; opacity: 0.35; }
+.kqual-bar-labels { display: flex; justify-content: space-between; align-items: center; }
+.kqual-bar-val { font-family: var(--bma-font-data); font-size: 12px; font-weight: 700; }
+.kqual-bval--pass { color: var(--bma-success-text); }
+.kqual-bval--warn { color: var(--bma-urgency-text); }
+.kqual-bval--fail { color: var(--bma-emergency); }
+.kqual-bar-target { font-family: var(--bma-font-data); font-size: 11px; color: var(--bma-text-muted); }
+.kqual-los { padding-top: 8px; display: flex; flex-direction: column; gap: 8px; }
+.kqual-los-body { display: flex; align-items: baseline; gap: 8px; }
+.kqual-los-val { font-family: var(--bma-font-data); font-size: 22px; font-weight: 700; color: var(--bma-text-primary); line-height: 1; }
+.kqual-los-unit { font-family: var(--bma-font-thai); font-size: 12px; color: var(--bma-text-muted); }
+.kqual-los-bench { font-family: var(--bma-font-data); font-size: 11px; color: var(--bma-text-muted); margin-left: 4px; }
+
+/* ATS response grid — columns: name | value | target | badge */
+.kats-grid { display: grid; grid-template-columns: 1fr 68px 84px 68px; column-gap: 8px; align-items: center; }
+.kats-grid > * { padding: 8px 0; border-bottom: 1px solid var(--bma-border-subtle); }
+.kats-grid > *:nth-last-child(-n+4) { border-bottom: none; padding-bottom: 0; }
+.kats-name { font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600; color: var(--bma-text-secondary); }
+.kats-val { font-family: var(--bma-font-data); font-size: 15px; font-weight: 700; text-align: right; }
+.kats-val--pass { color: var(--bma-success-text); }
+.kats-val--warn { color: var(--bma-urgency-text); }
+.kats-val--fail { color: var(--bma-emergency); }
+.kats-target { font-family: var(--bma-font-data); font-size: 11px; color: var(--bma-text-muted); text-align: right; }
+
+/* System efficiency panel */
+.keff-staff-label { font-family: var(--bma-font-thai); font-size: 11px; font-weight: 600; color: var(--bma-text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .04em; }
+.keff-staff-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.keff-staff-chip { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 12px; background: var(--bma-surface-subtle); border: 1px solid var(--bma-border-card); border-radius: var(--bma-radius-md); min-width: 52px; }
+.keff-staff-chip--total { background: var(--bma-green-50); border-color: var(--bma-green-200); }
+.keff-staff-n { font-family: var(--bma-font-data); font-size: 20px; font-weight: 700; color: var(--bma-text-primary); line-height: 1; }
+.keff-staff-chip--total .keff-staff-n { color: var(--bma-green-700); }
+.keff-staff-role { font-family: var(--bma-font-thai); font-size: 10px; font-weight: 600; color: var(--bma-text-muted); white-space: nowrap; }
+.keff-staff-chip--total .keff-staff-role { color: var(--bma-green-700); }
+.keff-divider { margin: 16px 0 12px; height: 1px; background: var(--bma-border-subtle); }
+.keff-workload { display: flex; flex-direction: column; gap: 0; }
+.keff-wl-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--bma-border-subtle); }
+.keff-wl-row:last-child { border-bottom: none; padding-bottom: 0; }
+.keff-wl-name { font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600; color: var(--bma-text-secondary); }
+.keff-wl-val { font-family: var(--bma-font-data); font-size: 13px; font-weight: 700; color: var(--bma-text-primary); }
+
+/* ── Filter bar ───────────────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--bma-surface);
+  border: 1px solid var(--bma-border-card);
+  border-radius: var(--bma-radius-lg);
+  box-shadow: 0 1px 4px rgba(0,0,0,.05);
+  margin-bottom: 16px;
+}
+.filter-search {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.filter-date {
+  position: relative;
+  width: 170px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+.fi-icon   { position: absolute; left: 10px; pointer-events: none; }
+.fi-icon-r { position: absolute; right: 10px; pointer-events: none; }
+.filter-input {
+  width: 100%;
+  height: 38px;
+  border: 1.5px solid var(--bma-border);
+  border-radius: var(--bma-radius-md);
+  font-family: var(--bma-font-thai);
+  font-size: 14px;
+  color: var(--bma-text-primary);
+  background: var(--bma-surface);
+  outline: none;
+  transition: border-color var(--bma-transition-fast);
+}
+.filter-search .filter-input { padding: 0 12px 0 34px; }
+.filter-date   .filter-input { padding: 0 34px 0 12px; }
+.filter-input::placeholder   { color: var(--bma-text-disabled); }
+.filter-input:focus          { border-color: var(--bma-green-500); }
+.btn-search {
+  height: 38px; padding: 0 20px;
+  background: var(--bma-green-500); color: var(--bma-surface);
+  border: none; border-radius: var(--bma-radius-md);
+  font-family: var(--bma-font-thai); font-size: 14px; font-weight: 700;
+  cursor: pointer; flex-shrink: 0;
+}
+.btn-search:hover { background: var(--bma-green-600); }
+
+/* ── Table structure ──────────────────────────────────────── */
+.table-card {
+  background: var(--bma-surface);
+  border-radius: var(--bma-radius-lg);
+  border: 1px solid var(--bma-border-card);
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  overflow: hidden;
+}
+.table-scroll-wrap {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bma-border) transparent;
+}
+.table-scroll-wrap::-webkit-scrollbar        { height: 5px; }
+.table-scroll-wrap::-webkit-scrollbar-track  { background: transparent; }
+.table-scroll-wrap::-webkit-scrollbar-thumb  { background: var(--bma-border); border-radius: 3px; }
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table thead tr { background: var(--bma-surface-light); border-bottom: 1.5px solid var(--bma-border-subtle); }
+.data-table th { padding: 10px 14px; font-size: 12px; font-weight: 700; color: var(--bma-text-muted); text-align: left; white-space: nowrap; }
+.data-table td { padding: 10px 14px; color: var(--bma-text-primary); vertical-align: middle; }
+.data-row { border-bottom: 1px solid var(--bma-surface-subtle); transition: background .12s; }
+.data-row:hover      { background: var(--bma-surface-light); }
+.data-row:last-child { border-bottom: none; }
+
+/* Row tint by status */
+.data-row--under-range, .data-row--underdose { background: var(--bma-row-underdose-bg); }
+.data-row--under-range:hover, .data-row--underdose:hover { background: var(--bma-row-underdose-hover); }
+.data-row--over-range, .data-row--overdose, .data-row--contra, .data-row--interaction { background: var(--bma-row-overdose-bg); }
+.data-row--over-range:hover, .data-row--overdose:hover, .data-row--contra:hover, .data-row--interaction:hover { background: var(--bma-row-overdose-hover); }
+
+/* ── Shared column widths ─────────────────────────────────── */
+.col-action      { width: 48px; }
+.col-name        { min-width: 180px; }
+.col-hospital    { min-width: 140px; }
+.col-status      { width: 110px; }
+.col-concordance { width: 148px; }
+
+/* ── Patient name cell ────────────────────────────────────── */
+.patient-name    { font-size: 13px; font-weight: 600; color: var(--bma-text-primary); }
+.patient-hn      { font-size: 11px; color: var(--bma-text-muted); margin-top: 2px; font-family: var(--bma-font-data); }
+.patient-hn-row  { display: flex; align-items: center; gap: 4px; margin-top: 2px; flex-wrap: wrap; }
+.action-btn {
+  width: 32px; height: 32px; border-radius: var(--bma-radius-sm);
+  border: 1.5px solid var(--bma-border-card); background: var(--bma-surface);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: border-color var(--bma-transition-fast), background var(--bma-transition-fast);
+}
+.action-btn:hover { border-color: var(--bma-green-500); background: var(--bma-green-50); }
+
+/* ── Status badges ────────────────────────────────────────── */
+.status-badge { display: inline-block; padding: 4px 12px; border-radius: var(--bma-radius-full); font-size: 12px; font-weight: 600; white-space: nowrap; }
+.status-badge--in-range, .status-badge--appropriate { background: var(--bma-success-bg);      color: var(--bma-success-text); }
+.status-badge--under-range, .status-badge--underdose { background: var(--bma-urgency-bg-soft);  color: var(--bma-underdose-text); }
+.status-badge--over-range, .status-badge--overdose   { background: var(--bma-emergency-bg);     color: var(--bma-emergency); }
+.status-badge--contra      { background: var(--bma-contra-bg);       color: var(--bma-elective); }
+.status-badge--interaction { background: var(--bma-interaction-bg);  color: var(--bma-interaction-text); }
+
+/* ── Concordance badge ────────────────────────────────────── */
+.concordance-badge { display: inline-block; padding: 4px 8px; border-radius: var(--bma-radius-full); font-family: var(--bma-font-thai); font-size: 11px; font-weight: 600; white-space: nowrap; }
+.concordance--yes      { background: var(--bma-success-bg);   color: var(--bma-success-text); }
+.concordance--adjusted { background: var(--bma-urgency-bg);   color: var(--bma-urgency-text); }
+.concordance--no       { background: var(--bma-emergency-bg); color: var(--bma-emergency); }
+.col-dash { color: var(--bma-text-disabled); font-size: 14px; }
+
+/* ── Tab section header ───────────────────────────────────── */
+.tab-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.tab-section-title  { font-size: 15px; font-weight: 700; color: var(--bma-text-primary); font-family: var(--bma-font-thai); }
+.tab-section-count  { font-family: var(--bma-font-data); font-size: 12px; color: var(--bma-text-muted); }
+
+/* ── Table footer + pagination ────────────────────────────── */
+.table-footer { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid var(--bma-border-subtle); }
+.pg-info     { font-family: var(--bma-font-data); font-size: 12px; color: var(--bma-text-muted); }
+.pg-controls { display: flex; align-items: center; gap: 10px; }
+.pg-select {
+  height: 30px; border: 1.5px solid var(--bma-border); border-radius: var(--bma-radius-sm);
+  padding: 0 24px 0 8px; font-family: var(--bma-font-data); font-size: 12px;
+  background: var(--bma-surface) url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 4l3 3 3-3' stroke='%238c8c8c' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 6px center;
+  appearance: none; cursor: pointer;
+}
+.pagination { display: flex; gap: 4px; }
+.pg-btn {
+  width: 30px; height: 30px; border-radius: var(--bma-radius-sm);
+  border: 1.5px solid var(--bma-border); background: var(--bma-surface);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  font-family: var(--bma-font-data); font-size: 12px; font-weight: 500;
+  color: var(--bma-text-secondary); transition: all var(--bma-transition-fast);
+}
+.pg-btn:not(.pg-btn--active):not(.pg-btn--disabled):hover { border-color: var(--bma-green-500); color: var(--bma-green-500); background: var(--bma-green-50); }
+.pg-btn--active   { background: var(--bma-green-500); border-color: var(--bma-green-500); color: var(--bma-surface); font-weight: 700; }
+.pg-btn--disabled { color: var(--bma-border); cursor: not-allowed; }
+
+/* Tooltip styles — Vuetify teleports to <body>, scoped selectors can't reach it.
+   ─────────────────────────────────────────────────────────────────────────────── */
 .ixn-tt-overlay.v-overlay__content {
   background: var(--bma-surface) !important;
   border: 1px solid var(--bma-border-card) !important;
-  border-radius: 10px !important;
+  border-radius: var(--bma-radius-lg) !important;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16) !important;
   padding: 12px 14px !important;
   color: var(--bma-text-primary) !important;
@@ -2545,7 +1699,7 @@ const tabs = computed(() => [
 .summ-tt-overlay .summ-tt-nav {
   width:       28px;
   height:      28px;
-  border-radius: 7px;
+  border-radius: var(--bma-radius-sm);
   border:      1.5px solid var(--bma-border-card);
   background:  var(--bma-surface);
   display:     flex;
@@ -2674,13 +1828,6 @@ const tabs = computed(() => [
 .kpi-container-grid--primary { grid-template-columns: 3fr 2fr; }
 .kpi-container-grid--half    { grid-template-columns: 1fr 1fr;  }
 
-/* Sub-section: plain content zone, no individual card chrome */
-.kpi-sub-section {
-  padding: 16px 20px 18px;
-}
-.kpi-sub-section--sep {
-  border-left: 1px solid var(--bma-border-subtle);
-}
 
 /* ── Custom date range row ───────────────────────────────────── */
 .kpi-custom-row {
@@ -2801,393 +1948,4 @@ const tabs = computed(() => [
   padding-bottom: 0;
 }
 
-.kpi-panel-head {
-  display:         flex;
-  align-items:     center;
-  gap:             7px;
-  margin-bottom:   14px;
-  padding-bottom:  12px;
-  border-bottom:   1px solid var(--bma-border-subtle);
-}
-.kpi-ph-name {
-  font-family: var(--bma-font-thai);
-  font-size:   13px;
-  font-weight: 700;
-  color:       var(--bma-text-primary);
-}
-.kpi-ph-sub {
-  font-family:    var(--bma-font-data);
-  font-size:      10px;
-  font-weight:    600;
-  color:          var(--bma-text-disabled);
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  flex:           1;  /* push tally to right */
-}
-.kpi-ph-tally {
-  display:    flex;
-  align-items: center;
-  gap:         4px;
-  margin-left: auto;
-}
-.kpi-tally {
-  display:       inline-flex;
-  align-items:   center;
-  height:        18px;
-  padding:       0 7px;
-  border-radius: var(--bma-radius-full);
-  font-family:   var(--bma-font-data);
-  font-size:     10px;
-  font-weight:   700;
-  letter-spacing: .02em;
-}
-.kpi-tally--ok   { background: var(--bma-success-bg);      color: var(--bma-success-text); }
-.kpi-tally--warn { background: var(--bma-urgency-bg);       color: var(--bma-urgency-text); }
-.kpi-tally--ng   { background: var(--bma-emergency-bg);     color: var(--bma-emergency);    }
-
-/* ── Safety metric grid ──────────────────────────────────────── */
-/* Columns: name | events | pct | trend | target | badge */
-.ksafe-grid {
-  display:               grid;
-  grid-template-columns: 1fr 56px 54px 70px 58px 60px;
-  column-gap:            8px;
-  align-items:           center;
-}
-.ksafe-cell {
-  padding:       8px 0 7px;
-  border-bottom: 1px solid var(--bma-border-subtle);
-}
-.ksafe-cell--last { border-bottom: none; padding-bottom: 0; }
-
-.ksafe-name {
-  font-family: var(--bma-font-thai);
-  font-size:   12px;
-  font-weight: 600;
-  color:       var(--bma-text-secondary);
-}
-.ksafe-events {
-  display:     flex;
-  align-items: baseline;
-  gap:         3px;
-  justify-content: flex-end;
-}
-.ksafe-en {
-  font-family: var(--bma-font-data);
-  font-size:   15px;
-  font-weight: 700;
-  color:       var(--bma-text-primary);
-}
-.ksafe-en--nz { color: var(--bma-emergency); }
-.ksafe-eu {
-  font-family: var(--bma-font-thai);
-  font-size:   10px;
-  color:       var(--bma-text-muted);
-}
-.ksafe-pct {
-  font-family: var(--bma-font-data);
-  font-size:   12px;
-  font-weight: 700;
-  text-align:  right;
-  color:       var(--bma-text-muted);
-}
-.ksafe-pct--fail { color: var(--bma-emergency); }
-.ksafe-pct--warn { color: var(--bma-urgency-text); }
-.ksafe-pct--pass { color: var(--bma-text-muted); }
-
-.ksafe-trend {
-  font-family:  var(--bma-font-data);
-  font-size:    11px;
-  font-weight:  600;
-  text-align:   right;
-  white-space:  nowrap;
-  color:        var(--bma-text-muted);
-}
-/* Safety: ▲ is bad (red), ▼ is good (green) */
-.ksafe-trend--up   { color: var(--bma-emergency);   }
-.ksafe-trend--down { color: var(--bma-success-text); }
-.ksafe-trend--flat { color: var(--bma-text-disabled); }
-
-.ksafe-target {
-  font-family:  var(--bma-font-data);
-  font-size:    11px;
-  font-weight:  500;
-  color:        var(--bma-text-muted);
-  text-align:   right;
-  white-space:  nowrap;
-}
-
-/* Safety status badge */
-.ksafe-badge {
-  display:       inline-flex;
-  align-items:   center;
-  justify-content: center;
-  height:        18px;
-  padding:       0 7px;
-  border-radius: var(--bma-radius-full);
-  font-family:   var(--bma-font-data);
-  font-size:     10px;
-  font-weight:   700;
-  white-space:   nowrap;
-}
-.ksafe-badge--pass { background: var(--bma-success-bg);   color: var(--bma-success-text); }
-.ksafe-badge--warn { background: var(--bma-urgency-bg);   color: var(--bma-urgency-text); }
-.ksafe-badge--fail { background: var(--bma-emergency-bg); color: var(--bma-emergency);    }
-
-/* ── Quality rows ────────────────────────────────────────────── */
-.kqual-rows {
-  display:        flex;
-  flex-direction: column;
-  gap:            0;
-}
-.kqual-row {
-  padding:       10px 0 9px;
-  border-bottom: 1px solid var(--bma-border-subtle);
-}
-.kqual-row:first-child { padding-top: 0; }
-.kqual-row-top {
-  display:         flex;
-  align-items:     center;
-  justify-content: space-between;
-  gap:             8px;
-  margin-bottom:   7px;
-}
-.kqual-row-right {
-  display:     flex;
-  align-items: center;
-  gap:         6px;
-  flex-shrink: 0;
-}
-.kqual-metric-name {
-  font-family: var(--bma-font-thai);
-  font-size:   12px;
-  font-weight: 600;
-  color:       var(--bma-text-secondary);
-}
-.kqual-frac {
-  font-family: var(--bma-font-data);
-  font-size:   11px;
-  color:       var(--bma-text-muted);
-}
-
-/* Quality badge */
-.kqual-badge {
-  display:       inline-flex;
-  align-items:   center;
-  height:        18px;
-  padding:       0 7px;
-  border-radius: var(--bma-radius-full);
-  font-family:   var(--bma-font-data);
-  font-size:     10px;
-  font-weight:   700;
-  white-space:   nowrap;
-}
-.kqual-badge--pass { background: var(--bma-success-bg);   color: var(--bma-success-text); }
-.kqual-badge--warn { background: var(--bma-urgency-bg);   color: var(--bma-urgency-text); }
-.kqual-badge--fail { background: var(--bma-emergency-bg); color: var(--bma-emergency);    }
-
-/* Progress bar */
-.kqual-bar-wrap { display: flex; flex-direction: column; gap: 5px; }
-.kqual-track {
-  position:     relative;
-  height:       6px;
-  background:   var(--bma-neutral-100);
-  border-radius: 3px;
-  overflow:     visible;
-}
-.kqual-fill {
-  height:        100%;
-  border-radius: 3px;
-  transition:    width 400ms cubic-bezier(.22,.68,0,1.2);
-}
-.kqual-fill--pass { background: var(--bma-green-200);   }
-.kqual-fill--warn { background: #FFD8A0; }
-.kqual-fill--fail { background: #F5C2C2; }
-
-/* Target marker — vertical line at the target% position */
-.kqual-target-line {
-  position:     absolute;
-  top:          -4px;
-  bottom:       -4px;
-  width:        2px;
-  transform:    translateX(-1px);
-  background:   var(--bma-neutral-500);
-  border-radius: 1px;
-  opacity:      0.35;
-}
-
-.kqual-bar-labels {
-  display:         flex;
-  justify-content: space-between;
-  align-items:     center;
-}
-.kqual-bar-val {
-  font-family: var(--bma-font-data);
-  font-size:   12px;
-  font-weight: 700;
-}
-.kqual-bval--pass { color: var(--bma-success-text); }
-.kqual-bval--warn { color: var(--bma-urgency-text); }
-.kqual-bval--fail { color: var(--bma-emergency);    }
-.kqual-bar-target {
-  font-family: var(--bma-font-data);
-  font-size:   11px;
-  color:       var(--bma-text-muted);
-}
-
-/* LOS stat row (no progress bar) */
-.kqual-los {
-  padding-top: 10px;
-  display:     flex;
-  flex-direction: column;
-  gap:         6px;
-}
-.kqual-los-body {
-  display:     flex;
-  align-items: baseline;
-  gap:         6px;
-}
-.kqual-los-val {
-  font-family: var(--bma-font-data);
-  font-size:   22px;
-  font-weight: 700;
-  color:       var(--bma-text-primary);
-  line-height: 1;
-}
-.kqual-los-unit {
-  font-family: var(--bma-font-thai);
-  font-size:   12px;
-  color:       var(--bma-text-muted);
-}
-.kqual-los-bench {
-  font-family: var(--bma-font-data);
-  font-size:   11px;
-  color:       var(--bma-text-muted);
-  margin-left: 4px;
-}
-
-/* ── ATS response grid ───────────────────────────────────────── */
-/* Columns: name | value | target | badge */
-.kats-grid {
-  display:               grid;
-  grid-template-columns: 1fr 68px 84px 68px;
-  column-gap:            8px;
-  align-items:           center;
-}
-/* ATS rows share same border pattern as safety */
-.kats-grid > * {
-  padding:       9px 0 8px;
-  border-bottom: 1px solid var(--bma-border-subtle);
-}
-.kats-grid > *:nth-last-child(-n+4) { border-bottom: none; padding-bottom: 0; }
-
-.kats-name {
-  font-family: var(--bma-font-thai);
-  font-size:   12px;
-  font-weight: 600;
-  color:       var(--bma-text-secondary);
-}
-.kats-val {
-  font-family: var(--bma-font-data);
-  font-size:   15px;
-  font-weight: 700;
-  text-align:  right;
-}
-.kats-val--pass { color: var(--bma-success-text); }
-.kats-val--warn { color: var(--bma-urgency-text); }
-.kats-val--fail { color: var(--bma-emergency);    }
-.kats-target {
-  font-family: var(--bma-font-data);
-  font-size:   11px;
-  color:       var(--bma-text-muted);
-  text-align:  right;
-}
-.kats-badge {
-  display:       inline-flex;
-  align-items:   center;
-  justify-content: center;
-  height:        18px;
-  padding:       0 7px;
-  border-radius: var(--bma-radius-full);
-  font-family:   var(--bma-font-data);
-  font-size:     10px;
-  font-weight:   700;
-}
-.kats-badge--pass { background: var(--bma-success-bg);   color: var(--bma-success-text); }
-.kats-badge--warn { background: var(--bma-urgency-bg);   color: var(--bma-urgency-text); }
-.kats-badge--fail { background: var(--bma-emergency-bg); color: var(--bma-emergency);    }
-
-/* ── System Efficiency panel ─────────────────────────────────── */
-.keff-staff-label {
-  font-family:   var(--bma-font-thai);
-  font-size:     11px;
-  font-weight:   600;
-  color:         var(--bma-text-muted);
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-}
-.keff-staff-row {
-  display:    flex;
-  gap:        8px;
-  flex-wrap:  wrap;
-}
-.keff-staff-chip {
-  display:        flex;
-  flex-direction: column;
-  align-items:    center;
-  gap:            2px;
-  padding:        7px 12px;
-  background:     var(--bma-surface-subtle);
-  border:         1px solid var(--bma-border-card);
-  border-radius:  var(--bma-radius-md);
-  min-width:      52px;
-}
-.keff-staff-chip--total {
-  background:  var(--bma-green-50);
-  border-color: var(--bma-green-200);
-}
-.keff-staff-n {
-  font-family: var(--bma-font-data);
-  font-size:   20px;
-  font-weight: 700;
-  color:       var(--bma-text-primary);
-  line-height: 1;
-}
-.keff-staff-chip--total .keff-staff-n { color: var(--bma-green-700); }
-.keff-staff-role {
-  font-family: var(--bma-font-thai);
-  font-size:   10px;
-  font-weight: 600;
-  color:       var(--bma-text-muted);
-  white-space: nowrap;
-}
-.keff-staff-chip--total .keff-staff-role { color: var(--bma-green-700); }
-
-.keff-divider {
-  margin: 14px 0 10px;
-  height: 1px;
-  background: var(--bma-border-subtle);
-}
-
-.keff-workload { display: flex; flex-direction: column; gap: 0; }
-.keff-wl-row {
-  display:         flex;
-  justify-content: space-between;
-  align-items:     center;
-  padding:         7px 0 6px;
-  border-bottom:   1px solid var(--bma-border-subtle);
-}
-.keff-wl-row:last-child { border-bottom: none; padding-bottom: 0; }
-.keff-wl-name {
-  font-family: var(--bma-font-thai);
-  font-size:   12px;
-  font-weight: 600;
-  color:       var(--bma-text-secondary);
-}
-.keff-wl-val {
-  font-family: var(--bma-font-data);
-  font-size:   13px;
-  font-weight: 700;
-  color:       var(--bma-text-primary);
-}
 </style>

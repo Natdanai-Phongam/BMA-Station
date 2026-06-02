@@ -34,12 +34,12 @@
   display: inline-block;
   background: var(--bma-emergency);
   color: #fff;
-  padding: 1px 7px;
+  padding: 2px 8px;
   border-radius: var(--bma-radius-xs);
   font-family: var(--bma-font-data);
   font-size: 12px;
   font-weight: 700;
-  margin-left: 3px;
+  margin-left: 4px;
 }
 
 // Detail box — dashed inner panel used in consultation cards
@@ -47,7 +47,7 @@
   background: #FAFAFA;
   border: 1px dashed var(--bma-border);
   border-radius: var(--bma-radius-sm);
-  padding: 9px 11px;
+  padding: 8px 12px;
   font-size: 12px;
   color: var(--bma-text-secondary);
   line-height: 1.8;
@@ -61,8 +61,8 @@
 .bma-waiting-bar {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 7px 12px;
+  gap: 8px;
+  padding: 8px 12px;
   border-radius: var(--bma-radius-sm);
   background: var(--bma-urgency-bg);
   font-size: 13px;
@@ -84,8 +84,8 @@
 .bma-count-tag {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  padding: 3px 9px;
+  gap: 4px;
+  padding: 4px 8px;
   border-radius: var(--bma-radius-full);
   background: var(--bma-surface-subtle);
   border: 1px solid var(--bma-border-subtle);
@@ -97,7 +97,7 @@
 // INR value chip — colored data chip for INR range display
 .bma-inr-chip {
   display: inline-block;
-  padding: 3px 9px;
+  padding: 4px 8px;
   border-radius: var(--bma-radius-xs);
   font-family: var(--bma-font-data);
   font-size: 13px;
@@ -112,11 +112,11 @@
 .bma-delta {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
   font-family: var(--bma-font-data);
   font-size: 12px;
   font-weight: 600;
-  padding: 2px 7px;
+  padding: 4px 8px;
   border-radius: var(--bma-radius-full);
 }
 .bma-delta--up      { background: var(--bma-success-bg);   color: var(--bma-success-text);  }
@@ -128,7 +128,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 3px 10px;
+  padding: 4px 12px;
   border-radius: var(--bma-radius-full);
   background: var(--bma-green-500);
   color: #fff;
@@ -143,7 +143,7 @@
   justify-content: center;
   min-width: 20px;
   height: 20px;
-  padding: 0 6px;
+  padding: 0 4px;
   border-radius: var(--bma-radius-full);
   background: var(--bma-emergency);
   color: #fff;
@@ -190,8 +190,8 @@
   align-items: center;
   justify-content: center;
   min-width: 20px;
-  height: 18px;
-  padding: 0 5px;
+  height: 20px;
+  padding: 0 8px;
   border-radius: var(--bma-radius-full);
   background: var(--bma-surface-subtle);
   border: 1px solid var(--bma-border-muted);

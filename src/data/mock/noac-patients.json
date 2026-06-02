@@ -435,6 +435,42 @@
       {
         "id": "disp-n004-1",
         "patientId": "n004",
+        "dispensedAt": "2026-01-20T09:00:00",
+        "labData": {
+          "weightKg": 54.5,
+          "scrMgDl": 1.8,
+          "crClMlMin": 40,
+          "measuredAt": "2026-01-20"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "5 mg BID",
+        "systemRank": 3,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": true,
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "nextFollowUpDate": "2026-04-20"
+      },
+      {
+        "id": "disp-n004-2",
+        "patientId": "n004",
+        "dispensedAt": "2026-02-18T09:00:00",
+        "labData": {
+          "weightKg": 54.2,
+          "scrMgDl": 1.85,
+          "crClMlMin": 42,
+          "measuredAt": "2026-02-18"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "5 mg BID",
+        "systemRank": 3,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": true,
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "nextFollowUpDate": "2026-05-18"
+      },
+      {
+        "id": "disp-n004-1",
+        "patientId": "n004",
         "dispensedAt": "2026-01-08T09:00:00",
         "labData": {
           "weightKg": 70.9,
@@ -503,6 +539,60 @@
       "status": "contra"
     },
     "dispensingHistory": [
+      {
+        "id": "disp-n005-1",
+        "patientId": "n005",
+        "dispensedAt": "2026-01-22T09:00:00",
+        "labData": {
+          "weightKg": 52,
+          "scrMgDl": 1.6,
+          "crClMlMin": 65,
+          "measuredAt": "2026-01-22"
+        },
+        "drugDispensed": "rivaroxaban",
+        "dose": "20 mg OD",
+        "systemRank": 3,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": false,
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "nextFollowUpDate": "2026-04-22"
+      },
+      {
+        "id": "disp-n005-2",
+        "patientId": "n005",
+        "dispensedAt": "2026-02-25T09:00:00",
+        "labData": {
+          "weightKg": 51.8,
+          "scrMgDl": 1.62,
+          "crClMlMin": 64,
+          "measuredAt": "2026-02-25"
+        },
+        "drugDispensed": "rivaroxaban",
+        "dose": "20 mg OD",
+        "systemRank": 3,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": false,
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "nextFollowUpDate": "2026-05-25"
+      },
+      {
+        "id": "disp-n005-3",
+        "patientId": "n005",
+        "dispensedAt": "2026-03-28T09:00:00",
+        "labData": {
+          "weightKg": 51.6,
+          "scrMgDl": 1.65,
+          "crClMlMin": 63,
+          "measuredAt": "2026-03-28"
+        },
+        "drugDispensed": "rivaroxaban",
+        "dose": "20 mg OD",
+        "systemRank": 3,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": false,
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "nextFollowUpDate": "2026-06-28"
+      },
       {
         "id": "disp-n005-1",
         "patientId": "n005",
@@ -1085,6 +1175,60 @@
     },
     "dispensingHistory": [
       {
+        "id": "disp-n011-1",
+        "patientId": "n011",
+        "dispensedAt": "2026-01-18T09:00:00",
+        "labData": {
+          "weightKg": 50.2,
+          "scrMgDl": 1.7,
+          "crClMlMin": 34,
+          "measuredAt": "2026-01-18"
+        },
+        "drugDispensed": "rivaroxaban",
+        "dose": "20 mg OD",
+        "systemRank": 3,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": false,
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "nextFollowUpDate": "2026-04-18"
+      },
+      {
+        "id": "disp-n011-2",
+        "patientId": "n011",
+        "dispensedAt": "2026-02-20T09:00:00",
+        "labData": {
+          "weightKg": 50,
+          "scrMgDl": 1.72,
+          "crClMlMin": 35,
+          "measuredAt": "2026-02-20"
+        },
+        "drugDispensed": "rivaroxaban",
+        "dose": "20 mg OD",
+        "systemRank": 3,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": false,
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "nextFollowUpDate": "2026-05-20"
+      },
+      {
+        "id": "disp-n011-3",
+        "patientId": "n011",
+        "dispensedAt": "2026-03-22T09:00:00",
+        "labData": {
+          "weightKg": 49.8,
+          "scrMgDl": 1.75,
+          "crClMlMin": 36,
+          "measuredAt": "2026-03-22"
+        },
+        "drugDispensed": "rivaroxaban",
+        "dose": "20 mg OD",
+        "systemRank": 3,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": false,
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "nextFollowUpDate": "2026-06-22"
+      },
+      {
         "id": "disp-n011-2",
         "patientId": "n011",
         "dispensedAt": "2026-02-07T09:00:00",
@@ -1136,6 +1280,42 @@
       "status": "overdose"
     },
     "dispensingHistory": [
+      {
+        "id": "disp-n012-1",
+        "patientId": "n012",
+        "dispensedAt": "2026-01-15T09:00:00",
+        "labData": {
+          "weightKg": 72.5,
+          "scrMgDl": 1.2,
+          "crClMlMin": 52,
+          "measuredAt": "2026-01-15"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "5 mg BID",
+        "systemRank": 2,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": true,
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "nextFollowUpDate": "2026-04-15"
+      },
+      {
+        "id": "disp-n012-2",
+        "patientId": "n012",
+        "dispensedAt": "2026-02-17T09:00:00",
+        "labData": {
+          "weightKg": 72.2,
+          "scrMgDl": 1.22,
+          "crClMlMin": 53,
+          "measuredAt": "2026-02-17"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "5 mg BID",
+        "systemRank": 2,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": true,
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "nextFollowUpDate": "2026-05-17"
+      },
       {
         "id": "disp-n012-1",
         "patientId": "n012",
@@ -1303,13 +1483,13 @@
   "n014": {
     "profile": {
       "patientId": "n014",
-      "indication": "af",
+      "indication": "NVAF",
       "hasBleedScore": 2,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-01-15",
       "followUpMonths": 3,
-      "status": "interaction"
+      "status": "appropriate"
     },
     "dispensingHistory": [
       {
@@ -1370,40 +1550,585 @@
       {
         "id": "disp-n014-4",
         "patientId": "n014",
-        "dispensedAt": "2026-04-04T09:00:00",
+        "dispensedAt": "2026-04-10T09:00:00",
         "labData": {
-          "weightKg": 56.8,
-          "scrMgDl": 1.28,
-          "crClMlMin": 76,
-          "measuredAt": "2026-04-04"
+          "weightKg": 49,
+          "scrMgDl": 2.35,
+          "crClMlMin": 62,
+          "measuredAt": "2026-04-10"
         },
         "drugDispensed": "apixaban",
         "dose": "5 mg BID",
-        "systemRank": 3,
+        "systemRank": 1,
         "wasTopRecommendation": true,
         "clinicallyAppropriate": true,
-        "pharmacistNote": null,
-        "nextFollowUpDate": "2026-05-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "pharmacistNote": "ยา P-gp inhibitor ถูกหยุดโดยแพทย์ — กลับสู่แนวทาง",
+        "nextFollowUpDate": "2026-07-10"
       },
       {
         "id": "disp-n014-5",
         "patientId": "n014",
         "dispensedAt": "2026-05-12T09:00:00",
         "labData": {
-          "weightKg": 48.3,
-          "scrMgDl": 2.41,
-          "crClMlMin": 60,
+          "weightKg": 48.5,
+          "scrMgDl": 2.3,
+          "crClMlMin": 63,
           "measuredAt": "2026-05-12"
         },
         "drugDispensed": "apixaban",
         "dose": "5 mg BID",
+        "systemRank": 1,
+        "wasTopRecommendation": true,
+        "clinicallyAppropriate": true,
+        "pharmacistNote": null,
+        "nextFollowUpDate": "2026-08-12"
+      }
+    ]
+  },
+  "n015": {
+    "profile": {
+      "patientId": "n015",
+      "indication": "NVAF",
+      "hasBleedScore": 2,
+      "currentDrug": "apixaban",
+      "currentDose": "5 mg BID",
+      "therapyStartDate": "2026-01-08",
+      "followUpMonths": 6,
+      "status": "appropriate"
+    },
+    "dispensingHistory": [
+      {
+        "id": "disp-n015-1",
+        "patientId": "n015",
+        "dispensedAt": "2026-01-08T09:00:00",
+        "labData": {
+          "weightKg": 64.2,
+          "scrMgDl": 1.1,
+          "crClMlMin": 69,
+          "measuredAt": "2026-01-08"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "5 mg BID",
+        "systemRank": 1,
+        "wasTopRecommendation": true,
+        "clinicallyAppropriate": true,
+        "nextFollowUpDate": "2026-07-08"
+      },
+      {
+        "id": "disp-n015-2",
+        "patientId": "n015",
+        "dispensedAt": "2026-02-12T09:00:00",
+        "labData": {
+          "weightKg": 64.5,
+          "scrMgDl": 1.08,
+          "crClMlMin": 71,
+          "measuredAt": "2026-02-12"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "5 mg BID",
+        "systemRank": 1,
+        "wasTopRecommendation": true,
+        "clinicallyAppropriate": true,
+        "nextFollowUpDate": "2026-07-12"
+      },
+      {
+        "id": "disp-n015-3",
+        "patientId": "n015",
+        "dispensedAt": "2026-03-14T09:00:00",
+        "labData": {
+          "weightKg": 64.3,
+          "scrMgDl": 1.1,
+          "crClMlMin": 70,
+          "measuredAt": "2026-03-14"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "5 mg BID",
+        "systemRank": 1,
+        "wasTopRecommendation": true,
+        "clinicallyAppropriate": true,
+        "nextFollowUpDate": "2026-08-14"
+      },
+      {
+        "id": "disp-n015-4",
+        "patientId": "n015",
+        "dispensedAt": "2026-04-16T09:00:00",
+        "labData": {
+          "weightKg": 64,
+          "scrMgDl": 1.09,
+          "crClMlMin": 72,
+          "measuredAt": "2026-04-16"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "5 mg BID",
+        "systemRank": 1,
+        "wasTopRecommendation": true,
+        "clinicallyAppropriate": true,
+        "nextFollowUpDate": "2026-08-16"
+      },
+      {
+        "id": "disp-n015-5",
+        "patientId": "n015",
+        "dispensedAt": "2026-05-14T09:00:00",
+        "labData": {
+          "weightKg": 64.1,
+          "scrMgDl": 1.08,
+          "crClMlMin": 73,
+          "measuredAt": "2026-05-14"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "5 mg BID",
+        "systemRank": 1,
+        "wasTopRecommendation": true,
+        "clinicallyAppropriate": true,
+        "nextFollowUpDate": "2026-09-14"
+      }
+    ]
+  },
+  "n016": {
+    "profile": {
+      "patientId": "n016",
+      "indication": "NVAF",
+      "hasBleedScore": 3,
+      "currentDrug": "rivaroxaban",
+      "currentDose": "20 mg OD",
+      "therapyStartDate": "2026-02-05",
+      "followUpMonths": 6,
+      "status": "appropriate"
+    },
+    "dispensingHistory": [
+      {
+        "id": "disp-n016-1",
+        "patientId": "n016",
+        "dispensedAt": "2026-02-05T09:00:00",
+        "labData": {
+          "weightKg": 71.8,
+          "scrMgDl": 1.3,
+          "crClMlMin": 55,
+          "measuredAt": "2026-02-05"
+        },
+        "drugDispensed": "rivaroxaban",
+        "dose": "15 mg OD",
+        "systemRank": 1,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": true,
+        "overrideReason": "แพทย์ปรับลดขนาดยาตาม CrCl ที่ขอบล่าง",
+        "nextFollowUpDate": "2026-05-05"
+      },
+      {
+        "id": "disp-n016-2",
+        "patientId": "n016",
+        "dispensedAt": "2026-03-10T09:00:00",
+        "labData": {
+          "weightKg": 72,
+          "scrMgDl": 1.25,
+          "crClMlMin": 58,
+          "measuredAt": "2026-03-10"
+        },
+        "drugDispensed": "rivaroxaban",
+        "dose": "20 mg OD",
+        "systemRank": 1,
+        "wasTopRecommendation": true,
+        "clinicallyAppropriate": true,
+        "pharmacistNote": "CrCl ดีขึ้น ปรับขนาดยากลับเป็น 20 mg",
+        "nextFollowUpDate": "2026-06-10"
+      },
+      {
+        "id": "disp-n016-3",
+        "patientId": "n016",
+        "dispensedAt": "2026-04-14T09:00:00",
+        "labData": {
+          "weightKg": 72.3,
+          "scrMgDl": 1.22,
+          "crClMlMin": 60,
+          "measuredAt": "2026-04-14"
+        },
+        "drugDispensed": "rivaroxaban",
+        "dose": "20 mg OD",
+        "systemRank": 1,
+        "wasTopRecommendation": true,
+        "clinicallyAppropriate": true,
+        "nextFollowUpDate": "2026-07-14"
+      },
+      {
+        "id": "disp-n016-4",
+        "patientId": "n016",
+        "dispensedAt": "2026-05-19T09:00:00",
+        "labData": {
+          "weightKg": 72.1,
+          "scrMgDl": 1.21,
+          "crClMlMin": 61,
+          "measuredAt": "2026-05-19"
+        },
+        "drugDispensed": "rivaroxaban",
+        "dose": "20 mg OD",
+        "systemRank": 1,
+        "wasTopRecommendation": true,
+        "clinicallyAppropriate": true,
+        "nextFollowUpDate": "2026-07-19"
+      }
+    ]
+  },
+  "n017": {
+    "profile": {
+      "patientId": "n017",
+      "indication": "PE",
+      "hasBleedScore": 1,
+      "currentDrug": "apixaban",
+      "currentDose": "5 mg BID",
+      "therapyStartDate": "2026-03-03",
+      "followUpMonths": 6,
+      "status": "appropriate"
+    },
+    "dispensingHistory": [
+      {
+        "id": "disp-n017-1",
+        "patientId": "n017",
+        "dispensedAt": "2026-03-03T09:00:00",
+        "labData": {
+          "weightKg": 56.4,
+          "scrMgDl": 0.9,
+          "crClMlMin": 80,
+          "measuredAt": "2026-03-03"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "5 mg BID",
+        "systemRank": 1,
+        "wasTopRecommendation": true,
+        "clinicallyAppropriate": true,
+        "nextFollowUpDate": "2026-07-03"
+      },
+      {
+        "id": "disp-n017-2",
+        "patientId": "n017",
+        "dispensedAt": "2026-04-07T09:00:00",
+        "labData": {
+          "weightKg": 56.8,
+          "scrMgDl": 0.88,
+          "crClMlMin": 82,
+          "measuredAt": "2026-04-07"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "5 mg BID",
+        "systemRank": 1,
+        "wasTopRecommendation": true,
+        "clinicallyAppropriate": true,
+        "nextFollowUpDate": "2026-08-07"
+      },
+      {
+        "id": "disp-n017-3",
+        "patientId": "n017",
+        "dispensedAt": "2026-05-08T09:00:00",
+        "labData": {
+          "weightKg": 57,
+          "scrMgDl": 0.87,
+          "crClMlMin": 83,
+          "measuredAt": "2026-05-08"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "5 mg BID",
+        "systemRank": 1,
+        "wasTopRecommendation": true,
+        "clinicallyAppropriate": true,
+        "nextFollowUpDate": "2026-09-08"
+      }
+    ]
+  },
+  "n018": {
+    "profile": {
+      "patientId": "n018",
+      "indication": "NVAF",
+      "hasBleedScore": 2,
+      "currentDrug": "edoxaban",
+      "currentDose": "60 mg OD",
+      "therapyStartDate": "2026-04-02",
+      "followUpMonths": 6,
+      "status": "appropriate"
+    },
+    "dispensingHistory": [
+      {
+        "id": "disp-n018-1",
+        "patientId": "n018",
+        "dispensedAt": "2026-04-02T09:00:00",
+        "labData": {
+          "weightKg": 68.5,
+          "scrMgDl": 1.15,
+          "crClMlMin": 74,
+          "measuredAt": "2026-04-02"
+        },
+        "drugDispensed": "edoxaban",
+        "dose": "60 mg OD",
+        "systemRank": 1,
+        "wasTopRecommendation": true,
+        "clinicallyAppropriate": true,
+        "nextFollowUpDate": "2026-08-02"
+      },
+      {
+        "id": "disp-n018-2",
+        "patientId": "n018",
+        "dispensedAt": "2026-05-06T09:00:00",
+        "labData": {
+          "weightKg": 68.8,
+          "scrMgDl": 1.14,
+          "crClMlMin": 75,
+          "measuredAt": "2026-05-06"
+        },
+        "drugDispensed": "edoxaban",
+        "dose": "60 mg OD",
+        "systemRank": 1,
+        "wasTopRecommendation": true,
+        "clinicallyAppropriate": true,
+        "nextFollowUpDate": "2026-09-06"
+      }
+    ]
+  },
+  "n019": {
+    "profile": {
+      "patientId": "n019",
+      "indication": "NVAF",
+      "hasBleedScore": 4,
+      "currentDrug": "apixaban",
+      "currentDose": "2.5 mg BID",
+      "therapyStartDate": "2026-01-20",
+      "followUpMonths": 3,
+      "status": "underdose"
+    },
+    "dispensingHistory": [
+      {
+        "id": "disp-n019-1",
+        "patientId": "n019",
+        "dispensedAt": "2026-01-20T09:00:00",
+        "labData": {
+          "weightKg": 47.8,
+          "scrMgDl": 1.42,
+          "crClMlMin": 38,
+          "measuredAt": "2026-01-20"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "2.5 mg BID",
         "systemRank": 3,
         "wasTopRecommendation": false,
         "clinicallyAppropriate": false,
-        "pharmacistNote": null,
-        "nextFollowUpDate": "2026-06-12",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กังวลภาวะเลือดออกในผู้สูงอายุ ปรับลดขนาดยา",
+        "nextFollowUpDate": "2026-04-20"
+      },
+      {
+        "id": "disp-n019-2",
+        "patientId": "n019",
+        "dispensedAt": "2026-02-24T09:00:00",
+        "labData": {
+          "weightKg": 47.5,
+          "scrMgDl": 1.45,
+          "crClMlMin": 37,
+          "measuredAt": "2026-02-24"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "2.5 mg BID",
+        "systemRank": 3,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": false,
+        "overrideReason": "แพทย์กังวลภาวะเลือดออกในผู้สูงอายุ ปรับลดขนาดยา",
+        "nextFollowUpDate": "2026-05-24"
+      },
+      {
+        "id": "disp-n019-3",
+        "patientId": "n019",
+        "dispensedAt": "2026-03-27T09:00:00",
+        "labData": {
+          "weightKg": 47.3,
+          "scrMgDl": 1.47,
+          "crClMlMin": 36,
+          "measuredAt": "2026-03-27"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "2.5 mg BID",
+        "systemRank": 3,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": false,
+        "overrideReason": "แพทย์กังวลภาวะเลือดออกในผู้สูงอายุ ปรับลดขนาดยา",
+        "nextFollowUpDate": "2026-06-27"
+      },
+      {
+        "id": "disp-n019-4",
+        "patientId": "n019",
+        "dispensedAt": "2026-04-30T09:00:00",
+        "labData": {
+          "weightKg": 47.1,
+          "scrMgDl": 1.48,
+          "crClMlMin": 36,
+          "measuredAt": "2026-04-30"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "2.5 mg BID",
+        "systemRank": 3,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": false,
+        "overrideReason": "แพทย์กังวลภาวะเลือดออกในผู้สูงอายุ ปรับลดขนาดยา",
+        "nextFollowUpDate": "2026-07-30"
+      },
+      {
+        "id": "disp-n019-5",
+        "patientId": "n019",
+        "dispensedAt": "2026-05-28T09:00:00",
+        "labData": {
+          "weightKg": 47,
+          "scrMgDl": 1.49,
+          "crClMlMin": 35,
+          "measuredAt": "2026-05-28"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "2.5 mg BID",
+        "systemRank": 3,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": false,
+        "overrideReason": "แพทย์กังวลภาวะเลือดออกในผู้สูงอายุ ปรับลดขนาดยา",
+        "nextFollowUpDate": "2026-08-28"
+      }
+    ]
+  },
+  "n020": {
+    "profile": {
+      "patientId": "n020",
+      "indication": "DVT",
+      "hasBleedScore": 2,
+      "currentDrug": "rivaroxaban",
+      "currentDose": "15 mg OD",
+      "therapyStartDate": "2026-03-15",
+      "followUpMonths": 3,
+      "status": "underdose"
+    },
+    "dispensingHistory": [
+      {
+        "id": "disp-n020-1",
+        "patientId": "n020",
+        "dispensedAt": "2026-03-15T09:00:00",
+        "labData": {
+          "weightKg": 78.3,
+          "scrMgDl": 1,
+          "crClMlMin": 76,
+          "measuredAt": "2026-03-15"
+        },
+        "drugDispensed": "rivaroxaban",
+        "dose": "15 mg OD",
+        "systemRank": 3,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": false,
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "nextFollowUpDate": "2026-06-15"
+      },
+      {
+        "id": "disp-n020-2",
+        "patientId": "n020",
+        "dispensedAt": "2026-04-21T09:00:00",
+        "labData": {
+          "weightKg": 78,
+          "scrMgDl": 1.02,
+          "crClMlMin": 75,
+          "measuredAt": "2026-04-21"
+        },
+        "drugDispensed": "rivaroxaban",
+        "dose": "15 mg OD",
+        "systemRank": 3,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": false,
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "nextFollowUpDate": "2026-07-21"
+      },
+      {
+        "id": "disp-n020-3",
+        "patientId": "n020",
+        "dispensedAt": "2026-05-23T09:00:00",
+        "labData": {
+          "weightKg": 77.8,
+          "scrMgDl": 1.01,
+          "crClMlMin": 76,
+          "measuredAt": "2026-05-23"
+        },
+        "drugDispensed": "rivaroxaban",
+        "dose": "15 mg OD",
+        "systemRank": 3,
+        "wasTopRecommendation": false,
+        "clinicallyAppropriate": false,
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "nextFollowUpDate": "2026-08-23"
+      }
+    ]
+  },
+  "n021": {
+    "profile": {
+      "patientId": "n021",
+      "indication": "NVAF",
+      "hasBleedScore": 1,
+      "currentDrug": "apixaban",
+      "currentDose": "5 mg BID",
+      "therapyStartDate": "2026-05-05",
+      "followUpMonths": 6,
+      "status": "appropriate"
+    },
+    "dispensingHistory": [
+      {
+        "id": "disp-n021-1",
+        "patientId": "n021",
+        "dispensedAt": "2026-05-05T09:00:00",
+        "labData": {
+          "weightKg": 65.7,
+          "scrMgDl": 1,
+          "crClMlMin": 78,
+          "measuredAt": "2026-05-05"
+        },
+        "drugDispensed": "apixaban",
+        "dose": "5 mg BID",
+        "systemRank": 1,
+        "wasTopRecommendation": true,
+        "clinicallyAppropriate": true,
+        "nextFollowUpDate": "2026-09-05"
+      }
+    ]
+  },
+  "n022": {
+    "profile": {
+      "patientId": "n022",
+      "indication": "CAT",
+      "hasBleedScore": 3,
+      "currentDrug": "rivaroxaban",
+      "currentDose": "20 mg OD",
+      "therapyStartDate": "2026-04-11",
+      "followUpMonths": 3,
+      "status": "appropriate"
+    },
+    "dispensingHistory": [
+      {
+        "id": "disp-n022-1",
+        "patientId": "n022",
+        "dispensedAt": "2026-04-11T09:00:00",
+        "labData": {
+          "weightKg": 61.2,
+          "scrMgDl": 1.05,
+          "crClMlMin": 70,
+          "measuredAt": "2026-04-11"
+        },
+        "drugDispensed": "rivaroxaban",
+        "dose": "20 mg OD",
+        "systemRank": 1,
+        "wasTopRecommendation": true,
+        "clinicallyAppropriate": true,
+        "nextFollowUpDate": "2026-07-11"
+      },
+      {
+        "id": "disp-n022-2",
+        "patientId": "n022",
+        "dispensedAt": "2026-05-15T09:00:00",
+        "labData": {
+          "weightKg": 61.5,
+          "scrMgDl": 1.04,
+          "crClMlMin": 71,
+          "measuredAt": "2026-05-15"
+        },
+        "drugDispensed": "rivaroxaban",
+        "dose": "20 mg OD",
+        "systemRank": 1,
+        "wasTopRecommendation": true,
+        "clinicallyAppropriate": true,
+        "nextFollowUpDate": "2026-08-15"
       }
     ]
   }
