@@ -74,9 +74,30 @@
               <PhCalendar :size="13" color="#8C8C8C" />
               <span class="kpi-custom-label">ช่วงเดือน</span>
               <div class="kpi-custom-inputs">
-                <input type="month" v-model="monthFrom" class="kpi-month-input" :max="_curYearMonth" />
+                <!-- Month from — Vuetify month picker -->
+                <v-menu v-model="monthFromMenu" :close-on-content-click="false" location="bottom start">
+                  <template #activator="{ props: mp }">
+                    <button class="kpi-month-btn" v-bind="mp">{{ monthFrom ? thaiMonth(dateToYM(monthFrom)) : 'เลือกเดือน' }}</button>
+                  </template>
+                  <KpiMonthPicker
+                    v-model="monthFrom"
+                    :min="dataMinDate"
+                    :max="monthTo ?? monthToMax"
+                    @update:model-value="monthFromMenu = false"
+                  />
+                </v-menu>
                 <span class="kpi-custom-sep">ถึง</span>
-                <input type="month" v-model="monthTo" class="kpi-month-input" :min="monthFrom" :max="_curYearMonth" />
+                <v-menu v-model="monthToMenu" :close-on-content-click="false" location="bottom start">
+                  <template #activator="{ props: mp }">
+                    <button class="kpi-month-btn" v-bind="mp">{{ monthTo ? thaiMonth(dateToYM(monthTo)) : 'เลือกเดือน' }}</button>
+                  </template>
+                  <KpiMonthPicker
+                    v-model="monthTo"
+                    :min="monthFrom ?? dataMinDate"
+                    :max="monthToMax"
+                    @update:model-value="monthToMenu = false"
+                  />
+                </v-menu>
               </div>
             </div>
             <div v-else-if="kpiMode === 'quarter'" class="kpi-custom-row kpi-custom-row--strip">
@@ -225,6 +246,7 @@ import { warfarinStatusLabel }          from '@/utils/warfarin-helpers'
 import { noacsStatusLabel }             from '@/utils/noac-helpers'
 import WfPatientTable   from '@/components/dd-ats/WfPatientTable.vue'
 import NoacPatientTable from '@/components/dd-ats/NoacPatientTable.vue'
+import KpiMonthPicker   from '@/components/dd-ats/KpiMonthPicker.vue'
 import MonitoringCard        from '@/components/dd-ats/MonitoringCard.vue'
 import SummaryPanel          from '@/components/dd-ats/SummaryPanel.vue'
 import KpiSafetySection      from '@/components/dd-ats/KpiSafetySection.vue'
@@ -583,11 +605,37 @@ const _curYear      = _now.getFullYear()
 const _curMonth     = _now.getMonth() + 1
 const _curYearMonth = getAppYearMonth()
 
+// Earliest date with actual data — scan all sources, take the minimum
+const dataMinDate = (() => {
+  const isos: string[] = []
+  for (const pd of Object.values(allWarfarin))
+    for (const r of pd.inrHistory ?? []) isos.push(r.measuredAt.substring(0, 10))
+  for (const pd of Object.values(allNoac))
+    for (const r of (pd.dispensingHistory as { dispensedAt: string }[]) ?? []) isos.push(r.dispensedAt.substring(0, 10))
+  for (const pd of Object.values(allDetail as Record<string, PatientDetail>))
+    for (const c of (pd.complications as ComplicationEvent[]) ?? []) if (c.dateISO) isos.push(c.dateISO)
+  isos.sort()
+  const earliest = isos[0] ?? _curYearMonth + '-01'
+  const [y, m] = earliest.split('-').map(Number)
+  return new Date(y, m - 1, 1)
+})()
+
 const kpiMode = ref<KpiMode>('month')
 
-// Month mode: from/to range (default = current month)
-const monthFrom = ref<string>(_curYearMonth)
-const monthTo   = ref<string>(_curYearMonth)
+// Month mode: from/to range (default = current month) — same Date|null pattern as WfPatientTable
+const monthFrom = ref<Date | null>(new Date(_curYear, _curMonth - 1, 1))
+const monthTo   = ref<Date | null>(new Date(_curYear, _curMonth - 1, 1))
+
+// Menu state for Vuetify month pickers
+const monthFromMenu = ref(false)
+const monthToMenu   = ref(false)
+
+/** Convert Date → 'YYYY-MM' string */
+function dateToYM(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+}
+/** Max allowed Date for the To-picker (current month) */
+const monthToMax = computed(() => new Date(_curYear, _curMonth - 1, 1))
 
 // Quarter mode
 const quarterYear = ref<number>(_curYear)
@@ -620,9 +668,9 @@ const currentKpiOps = computed<KpiOperationalPeriod>(() => {
 // ── ISO date range derived from mode + sub-selection ─────────────────────────
 const periodDateRange = computed<[string, string]>(() => {
   if (kpiMode.value === 'month') {
-    const [fy, fm] = monthFrom.value.split('-').map(Number)
-    const [ty, tm] = (monthTo.value || monthFrom.value).split('-').map(Number)
-    return [monthStart(fy, fm), monthEnd(ty, tm)]
+    const from = monthFrom.value ?? new Date(_curYear, _curMonth - 1, 1)
+    const to   = monthTo.value   ?? from
+    return [monthStart(from.getFullYear(), from.getMonth() + 1), monthEnd(to.getFullYear(), to.getMonth() + 1)]
   }
 
   if (kpiMode.value === 'quarter') {
@@ -642,8 +690,10 @@ const periodDateRange = computed<[string, string]>(() => {
 // ── Period label shown next to the mode selector ──────────────────────────────
 const kpiPeriodLabel = computed(() => {
   if (kpiMode.value === 'month') {
-    if (monthFrom.value === monthTo.value) return thaiMonth(monthFrom.value)
-    return `${thaiMonth(monthFrom.value)} – ${thaiMonth(monthTo.value)}`
+    const fromYM = monthFrom.value ? dateToYM(monthFrom.value) : _curYearMonth
+    const toYM   = monthTo.value   ? dateToYM(monthTo.value)   : fromYM
+    if (fromYM === toYM) return thaiMonth(fromYM)
+    return `${thaiMonth(fromYM)} – ${thaiMonth(toYM)}`
   }
   if (kpiMode.value === 'quarter') {
     return `ไตรมาส ${quarterNum.value}/${quarterYear.value + 543}`
@@ -676,20 +726,57 @@ const currentPeriodMetrics = computed<PeriodMetrics>(() => {
         ? (c.dateISO >= from && c.dateISO <= to)
         : (c.month >= fromMonth && c.month <= toMonth)
       if (!inRange) continue
-      if (c.type === 'bleeding')            comps.bleeding++
-      else if (c.type === 'thromboembolism') comps.thrombosis++
-      if (c.severity === 'severe')          comps.aeHospitalization++
+      if      (c.type === 'bleeding')            comps.bleeding++
+      else if (c.type === 'thromboembolism')    comps.thrombosis++
+      else if (c.type === 'death')              comps.death++
+      if (c.severity === 'severe')              comps.aeHospitalization++
     }
   }
 
-  // ── WF patient-level metrics (single pass, full date range) ──────────────
+  // ── Build active patient ID sets for the query period ──────────────────
+  // Standard patients: those in the static ats-patients lists
+  // Switching patients: those with activeFrom/activeTo in therapy records
+  //   → included only when their active period overlaps [from, to]
+  //   → excluded from the opposite therapy list for the same period
+  type WithActivePeriod = { activeFrom?: string; activeTo?: string | null }
+
+  function isTherapyActive(pd: WithActivePeriod, queryFrom: string, queryTo: string): boolean {
+    const af = pd.activeFrom ?? null
+    const at = pd.activeTo   ?? null
+    if (!af && at == null) return true                    // no period defined = always active
+    const start = af  ?? '2000-01-01'
+    const end   = at  ?? '9999-12-31'
+    return start <= queryTo && end >= queryFrom
+  }
+
+  // WF: static list + switching patients active in WF during this period
+  const wfPids = new Set<string>(patients.warfarin.map(p => p.id))
+  for (const [pid, pd] of Object.entries(allWarfarin as Record<string, WarfarinPageData & WithActivePeriod>)) {
+    if (wfPids.has(pid)) continue                         // already in static list
+    if (!pd.activeFrom) continue                          // not a switching patient
+    if (isTherapyActive(pd, from, to)) wfPids.add(pid)
+  }
+
+  // NOAC: static list + switching patients active in NOAC during this period
+  const noacPids = new Set<string>(patients.noacs.map(p => p.id))
+  for (const [pid, pd] of Object.entries(allNoac as Record<string, NoacPatientData & WithActivePeriod>)) {
+    if (noacPids.has(pid)) continue
+    if (!(pd as WithActivePeriod).activeFrom) continue
+    if (isTherapyActive(pd as WithActivePeriod, from, to)) noacPids.add(pid)
+  }
+
+  // ── WF patient-level metrics ──────────────────────────────────────────────
   let wfActive = 0, wfAppropriate = 0, wfTtrGoalMet = 0, wfTtrTotal = 0
-  for (const p of patients.warfarin) {
-    const pd = allWarfarin[p.id]
+  let wfAdjTotal = 0, wfAdjAccepted = 0
+  for (const pid of wfPids) {
+    const pd = allWarfarin[pid]
     if (!pd) continue
+    // For switching patients: only count INR records within their WF active period
+    const wfFrom = (pd as WithActivePeriod).activeFrom ?? from
+    const wfTo   = (pd as WithActivePeriod).activeTo   ?? to
     const inrs = (pd.inrHistory ?? []).filter(r => {
       const d = r.measuredAt.substring(0, 10)
-      return d >= from && d <= to
+      return d >= from && d <= to && d >= wfFrom && d <= wfTo
     })
     if (!inrs.length) continue
     wfActive++
@@ -699,16 +786,26 @@ const currentPeriodMetrics = computed<PeriodMetrics>(() => {
       wfTtrTotal++
       if (pd.ttr.status === 'goal-met') wfTtrGoalMet++
     }
+    // Dose adjustment concordance — count adjustments in period
+    for (const adj of pd.doseAdjustments ?? []) {
+      const d = adj.adjustedAt.substring(0, 10)
+      if (d < from || d > to || d < wfFrom || d > wfTo) continue
+      wfAdjTotal++
+      if (adj.systemSuggested) wfAdjAccepted++
+    }
   }
 
-  // ── NOAC patient-level metrics (single pass, full date range) ────────────
+  // ── NOAC patient-level metrics ────────────────────────────────────────────
   let noacActive = 0, noacAppropriate = 0, dispTotal = 0, dispAccepted = 0
-  for (const p of patients.noacs) {
-    const pd = allNoac[p.id]
+  for (const pid of noacPids) {
+    const pd = allNoac[pid]
     if (!pd) continue
+    // For switching patients: only count dispensing records within their NOAC active period
+    const nFrom = (pd as WithActivePeriod).activeFrom ?? from
+    const nTo   = (pd as WithActivePeriod).activeTo   ?? to
     const disps = (pd.dispensingHistory as NoacDispensingRecord[]).filter(r => {
       const d = r.dispensedAt.substring(0, 10)
-      return d >= from && d <= to
+      return d >= from && d <= to && d >= nFrom && d <= nTo
     })
     if (!disps.length) continue
     noacActive++
@@ -717,10 +814,14 @@ const currentPeriodMetrics = computed<PeriodMetrics>(() => {
     dispAccepted += disps.filter(d => d.wasTopRecommendation).length
   }
 
+  // medError = patients whose treatment is out-of-range in the period
+  // WF: last INR out of 2.0–3.0 | NOAC: not clinically appropriate
+  comps.medError = (wfActive - wfAppropriate) + (noacActive - noacAppropriate)
+
   const result: PeriodMetrics = {
     comps,
-    wf:   { active: wfActive,   appropriate: wfAppropriate,  ttrGoalMet: wfTtrGoalMet, ttrTotal: wfTtrTotal   },
-    noac: { active: noacActive, appropriate: noacAppropriate, dispTotal,                dispAccepted           },
+    wf:   { active: wfActive, appropriate: wfAppropriate, ttrGoalMet: wfTtrGoalMet, ttrTotal: wfTtrTotal, adjTotal: wfAdjTotal, adjAccepted: wfAdjAccepted },
+    noac: { active: noacActive, appropriate: noacAppropriate, dispTotal, dispAccepted },
   }
   periodCache.set(cacheKey, result)
   return result
@@ -766,11 +867,17 @@ const liveKpi = computed<KpiPeriodData>(() => {
 
     atsResponse: {
       resolutionRate: { ...ops.atsResolution, target: KPI_ATS_TARGETS.resolutionRate },
-      acceptanceRate: {
-        value: m.noac.dispTotal > 0 ? parseFloat((m.noac.dispAccepted / m.noac.dispTotal * 100).toFixed(1)) : 0,
-        n: m.noac.dispAccepted, d: m.noac.dispTotal,
-        prev: ops.atsAcceptancePrev, target: KPI_ATS_TARGETS.acceptanceRate,
-      },
+      acceptanceRate: (() => {
+        // Combined WF dose adjustment + NOAC dispensing concordance
+        const combinedTotal    = m.wf.adjTotal    + m.noac.dispTotal
+        const combinedAccepted = m.wf.adjAccepted + m.noac.dispAccepted
+        return {
+          value: combinedTotal > 0 ? parseFloat((combinedAccepted / combinedTotal * 100).toFixed(1)) : 0,
+          n: combinedAccepted,
+          d: combinedTotal,
+          prev: ops.atsAcceptancePrev, target: KPI_ATS_TARGETS.acceptanceRate,
+        }
+      })(),
       responseTimeHr: { ...ops.atsResponseTime, target: KPI_ATS_TARGETS.responseTimeHr },
     },
 
@@ -1696,9 +1803,10 @@ const tabs = computed(() => [
   align-items: center;
   gap:         8px;
 }
-.kpi-month-input {
-  height:        30px;
-  padding:       0 9px;
+/* kpi-month-input kept as fallback; kpi-month-btn is the Vuetify activator */
+.kpi-month-btn {
+  height:        32px;
+  padding:       0 12px;
   border:        1px solid var(--bma-border);
   border-radius: var(--bma-radius-sm);
   background:    var(--bma-surface);
@@ -1706,13 +1814,11 @@ const tabs = computed(() => [
   font-size:     12px;
   font-weight:   600;
   color:         var(--bma-text-primary);
-  outline:       none;
   cursor:        pointer;
-  transition:    border-color 150ms ease;
-  /* Remove the native spin-button chrome on Chrome */
-  -webkit-appearance: none;
+  transition:    border-color 150ms ease, background 150ms ease;
+  white-space:   nowrap;
 }
-.kpi-month-input:focus { border-color: var(--bma-green-500); }
+.kpi-month-btn:hover { border-color: var(--bma-green-500); background: var(--bma-green-50); }
 .kpi-custom-sep {
   font-family: var(--bma-font-thai);
   font-size:   12px;

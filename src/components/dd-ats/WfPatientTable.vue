@@ -17,25 +17,51 @@
           @keydown.enter="applyFilter"
         />
       </div>
-      <div class="filter-date">
-        <input
+      <!-- Date from picker -->
+      <v-menu v-model="dateFromMenu" :close-on-content-click="false" location="bottom start">
+        <template #activator="{ props: mp }">
+          <div class="filter-date" v-bind="mp">
+            <input
+              :value="dateFrom ? formatDisplayDate(dateFrom) : ''"
+              class="filter-input filter-input--picker"
+              placeholder="วันที่เริ่มต้น"
+              readonly
+            />
+            <button v-if="dateFrom" class="fi-clear-btn" @click.stop="dateFrom = null; applyFilter()">
+              <PhX :size="13" color="#8C8C8C" />
+            </button>
+            <PhCalendar v-else :size="15" color="#BFBFBF" class="fi-icon-r" />
+          </div>
+        </template>
+        <v-date-picker
           v-model="dateFrom"
-          type="date"
-          class="filter-input"
-          title="วันที่เริ่มต้น"
+          :max="dateTo ?? undefined"
+          @update:model-value="dateFromMenu = false; applyFilter()"
         />
-        <PhCalendar :size="15" color="#BFBFBF" class="fi-icon-r" />
-      </div>
-      <div class="filter-date">
-        <input
+      </v-menu>
+
+      <!-- Date to picker -->
+      <v-menu v-model="dateToMenu" :close-on-content-click="false" location="bottom start">
+        <template #activator="{ props: mp }">
+          <div class="filter-date" v-bind="mp">
+            <input
+              :value="dateTo ? formatDisplayDate(dateTo) : ''"
+              class="filter-input filter-input--picker"
+              placeholder="วันที่สิ้นสุด"
+              readonly
+            />
+            <button v-if="dateTo" class="fi-clear-btn" @click.stop="dateTo = null; applyFilter()">
+              <PhX :size="13" color="#8C8C8C" />
+            </button>
+            <PhCalendar v-else :size="15" color="#BFBFBF" class="fi-icon-r" />
+          </div>
+        </template>
+        <v-date-picker
           v-model="dateTo"
-          type="date"
-          class="filter-input"
-          :min="dateFrom"
-          title="วันที่สิ้นสุด"
+          :min="dateFrom ?? undefined"
+          @update:model-value="dateToMenu = false; applyFilter()"
         />
-        <PhCalendar :size="15" color="#BFBFBF" class="fi-icon-r" />
-      </div>
+      </v-menu>
       <button class="btn-search" @click="applyFilter">ค้นหา</button>
       <button v-if="isFiltered" class="btn-clear" @click="clearFilter">ล้าง</button>
     </div>
@@ -194,7 +220,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import {
-  PhMagnifyingGlass, PhCalendar, PhArrowSquareOut, PhWarning,
+  PhMagnifyingGlass, PhCalendar, PhX, PhArrowSquareOut, PhWarning,
   PhCaretDoubleLeft, PhCaretLeft, PhCaretRight, PhCaretDoubleRight,
 } from '@phosphor-icons/vue'
 import type { EnrichedWfPatient } from '@/data/types/ats-patients'
@@ -206,28 +232,47 @@ const emit  = defineEmits<{ 'go-to-patient': [id: string] }>()
 
 // ── Filter state ──────────────────────────────────────────────────────────────
 const searchQuery  = ref('')
-const dateFrom     = ref('')
-const dateTo       = ref('')
-const activeSearch = ref('')
-const activeDateFrom = ref('')
-const activeDateTo   = ref('')
+const dateFrom     = ref<Date | null>(null)   // v-date-picker model (Date object)
+const dateTo       = ref<Date | null>(null)
+const dateFromMenu = ref(false)
+const dateToMenu   = ref(false)
+const activeSearch   = ref('')
+const activeDateFrom = ref<string | null>(null)  // ISO string for filter comparison
+const activeDateTo   = ref<string | null>(null)
+
+/** Convert Date → ISO YYYY-MM-DD for string comparison in filter */
+function toISO(d: Date | null): string | null {
+  if (!d) return null
+  const y   = d.getFullYear()
+  const mon = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}-${mon}-${day}`
+}
+
+/** Display as DD/MM/YY (Buddhist era) per DESIGN.md */
+function formatDisplayDate(d: Date): string {
+  const day = String(d.getDate()).padStart(2, '0')
+  const mon = String(d.getMonth() + 1).padStart(2, '0')
+  const yr  = String(d.getFullYear() + 543).slice(-2)
+  return `${day}/${mon}/${yr}`
+}
 
 function applyFilter() {
   activeSearch.value   = searchQuery.value.trim().toLowerCase()
-  activeDateFrom.value = dateFrom.value
-  activeDateTo.value   = dateTo.value
+  activeDateFrom.value = toISO(dateFrom.value)
+  activeDateTo.value   = toISO(dateTo.value)
   page.value = 1
 }
 
 function clearFilter() {
-  searchQuery.value  = ''
-  dateFrom.value     = ''
-  dateTo.value       = ''
+  searchQuery.value = ''
+  dateFrom.value    = null
+  dateTo.value      = null
   applyFilter()
 }
 
 const isFiltered = computed(() =>
-  activeSearch.value !== '' || activeDateFrom.value !== '' || activeDateTo.value !== ''
+  activeSearch.value !== '' || dateFrom.value != null || dateTo.value != null
 )
 
 const filteredRows = computed(() => {
@@ -265,6 +310,26 @@ const pagedRows = computed(() =>
 
 <style scoped>
 .data-table--warfarin { min-width: 960px; }
+
+/* Readonly picker activator — same visual as filter-input */
+.filter-input--picker { cursor: pointer; }
+
+/* Clear button inside filter-date */
+.fi-clear-btn {
+  position:   absolute;
+  right:      10px;
+  top:        50%;
+  transform:  translateY(-50%);
+  background: none;
+  border:     none;
+  padding:    0;
+  cursor:     pointer;
+  display:    flex;
+  align-items: center;
+  color:      var(--bma-text-muted);
+  transition: color var(--bma-transition-fast);
+}
+.fi-clear-btn:hover { color: var(--bma-text-secondary); }
 
 .col-inr  { width: 68px; }
 .col-ttr  { width: 152px; }

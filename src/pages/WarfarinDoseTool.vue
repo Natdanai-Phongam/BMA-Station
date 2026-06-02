@@ -242,61 +242,96 @@
         </div>
       </div>
 
-      <!-- ── Section E: Adjustment log ──────────────────────── -->
+      <!-- ── Section E: Unified INR Visit Log ──────────────────── -->
       <div class="log-card">
         <div class="log-header">
           <div class="log-title-wrap">
             <PhClockCounterClockwise :size="15" color="#595959" />
-            <span class="log-title">ประวัติการปรับขนาดยา</span>
-            <span class="log-subtitle">DOSE ADJUSTMENT LOG</span>
+            <span class="log-title">ประวัติการวัด INR และการจ่ายยา</span>
+            <span class="log-subtitle">INR VISIT LOG</span>
           </div>
           <span class="log-updated">LAST UPDATE: {{ latestAdjDate }}</span>
         </div>
         <table class="log-table">
           <thead>
             <tr>
-              <th>วันที่/เวลา</th>
-              <th>INR ล่าสุด</th>
-              <th>ขนาดยาใหม่</th>
+              <th>วันที่</th>
+              <th>INR</th>
+              <th>ขนาดยา</th>
               <th>การเปลี่ยนแปลง</th>
+              <th>แนวทางการจ่ายยา</th>
               <th>หมายเหตุ</th>
               <th>จัดการ</th>
             </tr>
           </thead>
           <tbody>
-            <template v-for="adj in visibleAdjustments" :key="adj.id">
-              <tr class="log-row" :class="editingAdjId === adj.id ? 'log-row--editing' : ''">
-                <td class="td-date">
-                  <div>{{ formatDateTime(adj.adjustedAt).date }}</div>
-                  <div class="td-time">{{ formatDateTime(adj.adjustedAt).time }}</div>
-                </td>
+            <template v-for="row in visibleLog" :key="row.inr.id">
+              <tr
+                class="log-row"
+                :class="[
+                  row.adjustment && editingAdjId === row.adjustment.id ? 'log-row--editing' : '',
+                  !row.adjustment ? 'log-row--no-action' : '',
+                ]"
+              >
+                <!-- Date -->
+                <td class="td-date">{{ formatDateTime(row.inr.measuredAt).date }}</td>
+
+                <!-- INR value -->
                 <td>
-                  <span class="inr-chip" :class="inrChipClass(adj.inrAtAdjustment)">
-                    {{ adj.inrAtAdjustment.toFixed(1) }}
+                  <span class="inr-chip" :class="inrChipClass(row.inr.inrValue)">
+                    {{ row.inr.inrValue.toFixed(1) }}
                   </span>
                 </td>
-                <td class="td-dose" :class="adj.newDoseMgWk !== adj.oldDoseMgWk ? 'text-green' : ''">
-                  {{ adj.newDoseMgWk.toFixed(1) }} mg/wk
+
+                <!-- New dose / maintain -->
+                <td class="td-dose" :class="row.adjustment && row.adjustment.newDoseMgWk !== row.adjustment.oldDoseMgWk ? 'text-green' : ''">
+                  {{ row.adjustment ? row.adjustment.newDoseMgWk.toFixed(1) + ' mg/wk' : '—' }}
                 </td>
+
+                <!-- % change -->
                 <td>
-                  <span class="pct-badge" :class="pctBadgeClass(adj.percentChange)">
-                    {{ adj.percentChange >= 0 ? '+' : '' }}{{ adj.percentChange.toFixed(1) }}%
+                  <span
+                    v-if="row.adjustment && row.adjustment.percentChange !== 0"
+                    class="pct-badge"
+                    :class="pctBadgeClass(row.adjustment.percentChange)"
+                  >
+                    {{ row.adjustment.percentChange >= 0 ? '+' : '' }}{{ row.adjustment.percentChange.toFixed(1) }}%
                   </span>
+                  <span v-else-if="row.adjustment" class="log-maintain-text">คงเดิม</span>
+                  <span v-else class="col-dash">—</span>
                 </td>
-                <td class="td-remarks">{{ adj.remarks || '—' }}</td>
+
+                <!-- Concordance badge -->
+                <td>
+                  <span
+                    v-if="row.adjustment"
+                    class="concordance-badge"
+                    :class="wfConcordanceBadgeClass(row.adjustment)"
+                  >{{ wfConcordanceLabel(row.adjustment) }}</span>
+                  <span v-else class="log-no-action-text">ไม่มีบันทึก</span>
+                </td>
+
+                <!-- Remarks -->
+                <td class="td-remarks">{{ row.adjustment?.remarks || '—' }}</td>
+
+                <!-- Edit -->
                 <td>
                   <button
+                    v-if="row.adjustment"
                     class="edit-btn"
-                    :class="editingAdjId === adj.id ? 'edit-btn--active' : ''"
-                    @click="editingAdjId === adj.id ? cancelEdit() : startEdit(adj)"
+                    :class="editingAdjId === row.adjustment.id ? 'edit-btn--active' : ''"
+                    @click="editingAdjId === row.adjustment.id ? cancelEdit() : startEdit(row.adjustment)"
                   >
-                    <PhX v-if="editingAdjId === adj.id" :size="14" color="#B72C2C" />
+                    <PhX v-if="editingAdjId === row.adjustment.id" :size="14" color="#B72C2C" />
                     <PhPencilSimple v-else :size="14" color="#595959" />
                   </button>
+                  <span v-else class="col-dash">—</span>
                 </td>
               </tr>
-              <tr v-if="editingAdjId === adj.id" class="log-edit-row">
-                <td colspan="6">
+
+              <!-- Inline edit row -->
+              <tr v-if="row.adjustment && editingAdjId === row.adjustment.id" class="log-edit-row">
+                <td colspan="7">
                   <div class="log-edit-fields">
                     <div class="log-edit-group">
                       <label class="log-edit-label">หมายเหตุ</label>
@@ -306,7 +341,7 @@
                       <label class="log-edit-label">Override Reason</label>
                       <input v-model="editFields.overrideReason" class="log-edit-input" placeholder="ระบุเหตุผล (ถ้ามี)..." />
                     </div>
-                    <button class="btn-log-save" @click="saveEdit(adj)">บันทึก</button>
+                    <button class="btn-log-save" @click="saveEdit(row.adjustment)">บันทึก</button>
                     <button class="btn-log-cancel" @click="cancelEdit">ยกเลิก</button>
                   </div>
                 </td>
@@ -314,13 +349,13 @@
             </template>
           </tbody>
         </table>
-        <div v-if="sortedAdjustments.length > LOG_PREVIEW_COUNT" class="log-show-more">
+        <div v-if="unifiedLog.length > LOG_PREVIEW_COUNT" class="log-show-more">
           <button class="btn-show-more" @click="showAllLog = !showAllLog">
             <PhCaretDown
               :size="13"
               :style="showAllLog ? 'transform:rotate(180deg);transition:transform .2s' : 'transition:transform .2s'"
             />
-            {{ showAllLog ? 'ย่อประวัติ' : 'ดูประวัติทั้งหมด (SHOW ALL HISTORY)' }}
+            {{ showAllLog ? 'ย่อประวัติ' : `ดูประวัติทั้งหมด (${unifiedLog.length} visits)` }}
           </button>
         </div>
       </div>
@@ -360,6 +395,7 @@ import type { WarfarinPageData, WeeklySchedule, DoseAdjustment, InrRecord } from
 import { PILL_CONFIG, DAY_KEYS, DAY_LABELS, DEFAULT_TARGET_RANGE } from '@/data/types/warfarin'
 import { buildWeeklySchedule, computeDosingSuggestion } from '@/utils/warfarinDosing'
 import { type InrStatus, getInrStatus, inrStatusLabel } from '@/utils/inrStatus'
+import { wfConcordanceBadgeClass, wfConcordanceLabel } from '@/utils/warfarin-helpers'
 
 import allPatientsRaw  from '@/data/mock/warfarin-patients.json'
 import atsPatientsRaw  from '@/data/mock/ats-patients.json'
@@ -494,25 +530,37 @@ const ttrBadgeLabel = computed(() => ({
   'insufficient-data':  'ข้อมูลไม่เพียงพอ',
 }[data.ttr.status]))
 
-// ── Adjustment log ────────────────────────────────────────────
-const LOG_PREVIEW_COUNT = 3
+// ── Unified INR visit log (INR history + adjustment action per visit) ──────
+const LOG_PREVIEW_COUNT = 5
 const showAllLog = ref(false)
 
-const sortedAdjustments = computed(() =>
-  [...data.doseAdjustments].sort(
-    (a, b) => new Date(b.adjustedAt).getTime() - new Date(a.adjustedAt).getTime()
-  )
+type VisitRow = {
+  inr:        InrRecord
+  adjustment: DoseAdjustment | null
+}
+
+// Join inrHistory + doseAdjustments by visit date (same-day = same clinical visit)
+const unifiedLog = computed<VisitRow[]>(() => {
+  const adjByDate = new Map<string, DoseAdjustment>()
+  for (const adj of data.doseAdjustments)
+    adjByDate.set(adj.adjustedAt.slice(0, 10), adj)
+
+  return [...data.inrHistory]
+    .sort((a, b) => b.measuredAt.localeCompare(a.measuredAt))
+    .map(inr => ({
+      inr,
+      adjustment: adjByDate.get(inr.measuredAt.slice(0, 10)) ?? null,
+    }))
+})
+
+const visibleLog = computed(() =>
+  showAllLog.value ? unifiedLog.value : unifiedLog.value.slice(0, LOG_PREVIEW_COUNT)
 )
-const visibleAdjustments = computed(() =>
-  showAllLog.value
-    ? sortedAdjustments.value
-    : sortedAdjustments.value.slice(0, LOG_PREVIEW_COUNT)
-)
-const latestAdjDate = computed(() =>
-  sortedAdjustments.value.length
-    ? formatDateTime(sortedAdjustments.value[0].adjustedAt).date.toUpperCase()
-    : '—'
-)
+
+const latestAdjDate = computed(() => {
+  const first = unifiedLog.value.find(r => r.adjustment)
+  return first ? formatDateTime(first.inr.measuredAt).date.toUpperCase() : '—'
+})
 
 // ── Inline log editing ────────────────────────────────────────
 const editingAdjId = ref<string | null>(null)
@@ -1091,8 +1139,11 @@ function pctBadgeClass(pct: number) {
 .chart-card--wide .chart-wrap { height: 220px; }
 
 
-/* ── P0-C: Log inline edit ───────────────────────────────────── */
-.log-row--editing { background: var(--bma-surface-light); }
+/* ── P0-C: Log row states ────────────────────────────────────── */
+.log-row--editing  { background: var(--bma-surface-light); }
+.log-row--no-action { opacity: 0.55; }
+.log-maintain-text  { font-family: var(--bma-font-thai); font-size: 12px; color: var(--bma-text-muted); }
+.log-no-action-text { font-family: var(--bma-font-thai); font-size: 11px; color: var(--bma-text-disabled); font-style: italic; }
 .log-edit-row > td {
   padding: 10px 18px 14px; background: var(--bma-surface-light);
   border-bottom: 1px solid var(--bma-border-subtle);

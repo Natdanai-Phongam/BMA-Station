@@ -10,15 +10,27 @@
 //   pill → 9999px ← Badges, status chips
 
 @use 'vuetify/settings' with (
-  // Typography — Sarabun covers Thai + Latin; Inter is applied selectively via CSS
+  // ── Typography ──────────────────────────────────────────────────────────────
+  // $body-font-family propagates to ALL Vuetify components automatically.
+  // No need to re-declare font-family anywhere in defaults or overrides.
   $body-font-family:    ('Sarabun', sans-serif),
   $heading-font-family: ('Sarabun', sans-serif),
   $font-size-root:      15px,
   $line-height-root:    1.55,
 
-  // Border radius — 4px root gives a clean, medical-professional feel
-  // The named sizes (sm/md/lg/xl) multiply this value internally:
-  //   sm=0.5×, md=1×, lg=2×, xl=3×  →  2/4/8/12px
-  // We need md=8 and lg=12, so we use root=8px and adjust with CSS overrides.
+  // ── Button typography — override Material Design defaults ───────────────────
+  // These compile into VBtn's CSS directly. No style prop or CSS override needed.
+  $typography: (
+    'button': (
+      'text-transform': none,   // Material default: uppercase
+      'letter-spacing': 0,      // Material default: 0.089em
+      'weight':         700,    // Material default: 500 — BMA design choice
+    )
+  ),
+
+  // ── Border radius ───────────────────────────────────────────────────────────
+  // $border-radius-root drives $button-border-radius and $button-icon-border-radius.
+  // VBtn gets 8px, icon VBtn gets 50% — both automatic, no CSS override needed.
+  // Note: lg = 2× = 16px (not 12px) — VCard override stays in overrides.scss.
   $border-radius-root: 8px,
 );

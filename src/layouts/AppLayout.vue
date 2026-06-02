@@ -2,7 +2,7 @@
   <v-app theme="bmaLight">
 
     <!-- ── Top Bar ──────────────────────────────────────────── -->
-    <v-app-bar flat color="white" height="64" style="border-bottom:1px solid #F0F0F0;z-index:200">
+    <v-app-bar flat color="white">
       <div class="topbar-logo" style="max-width: 256px; justify-content: center;">
         <img src="/src/assets/BMA_Logo.svg" style="max-width: 100%;"/>
       </div>
@@ -21,7 +21,7 @@
     </v-app-bar>
 
     <!-- ── Sidebar ──────────────────────────────────────────── -->
-    <v-navigation-drawer permanent width="256" color="white" style="border-right:1px solid #F0F0F0">
+    <v-navigation-drawer permanent width="256" color="white">
       <div class="nav-scroll">
         <template v-for="item in navItems" :key="item.key">
 

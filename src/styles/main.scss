@@ -33,7 +33,7 @@
 .bma-detail-highlight {
   display: inline-block;
   background: var(--bma-emergency);
-  color: #fff;
+  color: var(--bma-neutral-0);
   padding: 2px 8px;
   border-radius: var(--bma-radius-xs);
   font-family: var(--bma-font-data);
@@ -44,7 +44,7 @@
 
 // Detail box — dashed inner panel used in consultation cards
 .bma-detail-box {
-  background: #FAFAFA;
+  background: var(--bma-surface-light);
   border: 1px dashed var(--bma-border);
   border-radius: var(--bma-radius-sm);
   padding: 8px 12px;
@@ -131,7 +131,7 @@
   padding: 4px 12px;
   border-radius: var(--bma-radius-full);
   background: var(--bma-green-500);
-  color: #fff;
+  color: var(--bma-neutral-0);
   font-size: 11px;
   font-weight: 600;
 }
@@ -146,7 +146,7 @@
   padding: 0 4px;
   border-radius: var(--bma-radius-full);
   background: var(--bma-emergency);
-  color: #fff;
+  color: var(--bma-neutral-0);
   font-family: var(--bma-font-data);
   font-size: 11px;
   font-weight: 700;

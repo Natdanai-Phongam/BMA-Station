@@ -54,7 +54,7 @@ const props = withDefaults(
 )
 
 const valueColor = computed(() => {
-  if (props.variant === 'danger') return '#B72C2C'
+  if (props.variant === 'danger') return 'var(--bma-emergency)'
   return undefined
 })
 </script>

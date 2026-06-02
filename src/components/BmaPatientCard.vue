@@ -162,11 +162,11 @@ const priorityVariant = computed<BmaBadgeVariant>(() =>
 
 .bma-detail-highlight {
   display: inline-block;
-  background: #B72C2C;
-  color: #fff;
+  background: var(--bma-emergency);
+  color: var(--bma-neutral-0);
   padding: 1px 7px;
-  border-radius: 4px;
-  font-family: 'Inter', sans-serif;
+  border-radius: var(--bma-radius-xs);
+  font-family: var(--bma-font-data);
   font-size: 12px;
   font-weight: 700;
   margin-left: 3px;
@@ -207,8 +207,8 @@ const priorityVariant = computed<BmaBadgeVariant>(() =>
 
 /* ── Left-border accent by priority ──────────────────────── */
 /* Subtle top border on card header area to reinforce severity */
-.bma-patient-card--emergency { border-top: 3px solid #B72C2C !important; }
-.bma-patient-card--urgency   { border-top: 3px solid #FB8C00 !important; }
-.bma-patient-card--elective  { border-top: 3px solid #2B478B !important; }
-.bma-patient-card--success   { border-top: 3px solid #4CAF50 !important; }
+.bma-patient-card--emergency { border-top: 3px solid var(--bma-emergency) !important; }
+.bma-patient-card--urgency   { border-top: 3px solid var(--bma-urgency)   !important; }
+.bma-patient-card--elective  { border-top: 3px solid var(--bma-elective)  !important; }
+.bma-patient-card--success   { border-top: 3px solid var(--bma-success)   !important; }
 </style>

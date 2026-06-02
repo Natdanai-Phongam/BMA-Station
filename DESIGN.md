@@ -618,6 +618,48 @@ Layer 4: Raw history — searchable, filterable table
 
 ---
 
+## Framework Customization Protocol (Vuetify 3)
+
+### Principle: Respect the Framework's Design System
+
+When a component library (Vuetify 3) is already chosen, **exhaust the framework's own customization mechanisms before writing any external CSS**. Jumping to CSS overrides as a first move creates specificity wars, breaks component internals, and makes framework upgrades risky.
+
+### Customization Hierarchy — Use in This Order
+
+| Layer | Where | Use When |
+|---|---|---|
+| **1. Theme** | `vuetify.ts → createVuetify({ theme })` | Defining semantic color roles: primary, error, on-primary, surface, etc. |
+| **2. Global Defaults** | `vuetify.ts → createVuetify({ defaults })` | Setting default props for every component globally (color, variant, density, rounded, elevation, style) |
+| **3. SASS Variables** | `settings.scss` | Compile-time overrides of Vuetify's own internal scales (heights, spacing, border-radius system) |
+| **4. CSS Overrides** | `overrides.scss` | Structural CSS Vuetify doesn't expose through layers 1–3. Must be targeted and justified. |
+| **5. Scoped CSS** | `<style scoped>` in each component | Component-specific presentation only. Never used to override Vuetify internals. |
+
+**Before writing any CSS override, ask:** Can layers 1–3 achieve this? If yes — do it there. CSS override is a last resort.
+
+### CSS Override Rules (Layer 4)
+
+- **No `!important` on broad selectors.** `.v-btn { border-radius: ... !important }` applies to icon buttons, date picker buttons, nav buttons — breaking all of them silently. `!important` is only justified to counter Vuetify's own `!important` rules.
+- **No redundant overrides.** If `vuetify.ts` defaults already set a property via a prop, do not re-set it in `overrides.scss`. Duplication creates hidden conflicts.
+- **Target the narrowest selector possible.** Prefer `.v-btn--variant-outlined.v-btn--color-error` over `.v-btn`.
+- **Document why CSS is needed here** when a rule is written — if the justification is missing, the rule is probably in the wrong layer.
+
+### What Lives Where in BMA Doctor
+
+| What | Correct Layer | Notes |
+|---|---|---|
+| Brand colors, on-colors, surface roles | Theme | Already in `vuetify.ts` |
+| `rounded`, `elevation`, `variant`, `density` defaults | Defaults | Already in `vuetify.ts` |
+| `font-family`, `font-weight`, `text-transform`, `letter-spacing` on VBtn | Defaults → `style` prop | Already in `vuetify.ts` — **not in overrides.scss** |
+| `border-radius` on VBtn | Defaults → `rounded: 'md'` | **Not in overrides.scss** — `!important` breaks icon buttons |
+| `color`, `hideHeader`, `hide-header` on VDatePicker | Defaults | Move from template props to `vuetify.ts` |
+| `border-bottom` on VAppBar | CSS Override (layer 4) | Vuetify has no defaults prop for this |
+| `border-right` on VNavigationDrawer | CSS Override (layer 4) | Same reason |
+| `box-shadow`, `border` on VCard | CSS Override (layer 4) | Theme variables don't cover custom BMA values |
+| VDatePicker selected day text color | CSS Override (layer 4) | Vuetify's own CSS (`surface-variant`) conflicts — last resort justified |
+| Scrollbar styling | CSS Override (layer 4) | No Vuetify mechanism |
+
+---
+
 ## Pattern Application Priority
 
 When building a new page in BMA Doctor, apply these patterns in this order:

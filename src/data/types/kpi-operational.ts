@@ -110,6 +110,8 @@ export interface PeriodMetrics {
     appropriate: number
     ttrGoalMet:  number
     ttrTotal:    number
+    adjTotal:    number   // dose adjustments in period
+    adjAccepted: number   // adjustments where systemSuggested = true
   }
   noac: {
     active:       number

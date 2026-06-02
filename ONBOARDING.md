@@ -199,7 +199,7 @@ Critique snapshots are saved to `.impeccable/critique/`.
 
 ```bash
 npm install
-npm run dev       # http://localhost:5175/BMA-Station/
+npm run dev       # http://localhost:5175/BMA-Station-ATS/
 npm run build
 npx vue-tsc --noEmit   # type check
 ```

@@ -95,21 +95,24 @@ export default createVuetify({
 
   defaults: {
     // ── Buttons ──────────────────────────────────────────────────────────────
-    VBtn: {
-      color:     'primary',
-      variant:   'flat',
-      rounded:   'md',   // → 8px via settings.scss $rounded-md
-      height:    40,
-      elevation: 0,
-      style:     'text-transform: none; letter-spacing: 0; font-family: Sarabun, sans-serif; font-weight: 700;',
-    },
+    // No VBtn defaults needed — SASS handles typography and border-radius.
+    // variant, color, elevation are declared explicitly on each <v-btn> in templates
+    // to prevent leaking into internal VBtn instances of composite components.
 
     // ── Cards ─────────────────────────────────────────────────────────────────
     // Shadow and exact radius are controlled in overrides.scss — defaults provide
     // the semantic shape cue (rounded-lg) and suppress Material elevation.
+    // VCard: rounded not set — border-radius 12px is handled in overrides.scss
+    // (SASS gives 8px from root; 12px requires explicit CSS override)
     VCard: {
-      rounded:   'lg',   // → 12px via settings.scss $rounded-lg
       elevation: 0,
+    },
+
+    // ── Date / Time pickers ───────────────────────────────────────────────────
+    VDatePicker: {
+      color:      'primary',
+      hideHeader: true,
+      elevation:  0,
     },
 
     // ── Form controls ─────────────────────────────────────────────────────────
@@ -155,14 +158,14 @@ export default createVuetify({
     },
 
     // ── Navigation ────────────────────────────────────────────────────────────
+    // VNavigationDrawer: elevation not set — $navigation-drawer-elevation: 0 in SASS by default
     VNavigationDrawer: {
-      elevation: 0,
-      border:    'thin',
+      border: 'thin',
     },
     VAppBar: {
       elevation: 0,
       border:    'b-thin',
-      height:    56,
+      height:    64,
     },
 
     // ── Lists (nav items use v-list-item) ─────────────────────────────────────
