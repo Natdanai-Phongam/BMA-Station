@@ -1654,7 +1654,7 @@ const tabs = computed(() => [
 .kpi-container-grid {
   display: grid;
 }
-.kpi-container-grid--primary { grid-template-columns: 3fr 2fr; }
+.kpi-container-grid--primary { grid-template-columns: 1fr 1fr; }
 .kpi-container-grid--half    { grid-template-columns: 1fr 1fr;  }
 
 
