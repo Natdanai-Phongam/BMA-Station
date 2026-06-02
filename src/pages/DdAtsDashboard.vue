@@ -49,6 +49,63 @@
         </div>
       </div>
 
+      <!-- ── KPI period strip — bare, visible only on KPI tab ───── -->
+      <Transition name="kpi-period-strip-slide">
+        <div v-if="activeTab === 'kpi'" class="kpi-period-strip">
+          <div class="kpi-period-strip-row">
+            <div class="kpi-period-panel-left">
+              <button class="kpi-refresh-btn" @click="refreshKpiData" title="รีเฟรชข้อมูล">
+                <PhArrowsClockwise :size="13" />
+              </button>
+              <span class="kpi-period-scope">ช่วงเวลา</span>
+              <span class="kpi-period-current">{{ kpiPeriodLabel }}</span>
+            </div>
+            <div class="kpi-period-seg">
+              <button
+                v-for="m in KPI_MODES" :key="m.value"
+                class="kpi-seg-btn"
+                :class="{ 'kpi-seg-btn--on': kpiMode === m.value }"
+                @click="kpiMode = m.value"
+              >{{ m.label }}</button>
+            </div>
+          </div>
+          <Transition name="kpi-custom-slide">
+            <div v-if="kpiMode === 'month'" class="kpi-custom-row kpi-custom-row--strip">
+              <PhCalendar :size="13" color="#8C8C8C" />
+              <span class="kpi-custom-label">ช่วงเดือน</span>
+              <div class="kpi-custom-inputs">
+                <input type="month" v-model="monthFrom" class="kpi-month-input" :max="_curYearMonth" />
+                <span class="kpi-custom-sep">ถึง</span>
+                <input type="month" v-model="monthTo" class="kpi-month-input" :min="monthFrom" :max="_curYearMonth" />
+              </div>
+            </div>
+            <div v-else-if="kpiMode === 'quarter'" class="kpi-custom-row kpi-custom-row--strip">
+              <PhCalendar :size="13" color="#8C8C8C" />
+              <span class="kpi-custom-label">ปี</span>
+              <select class="kpi-year-select" v-model.number="quarterYear">
+                <option v-for="y in availableYears" :key="y" :value="y">{{ y + 543 }}</option>
+              </select>
+              <div class="kpi-q-seg">
+                <button
+                  v-for="q in ([1,2,3,4] as const)" :key="q"
+                  class="kpi-q-btn"
+                  :class="{ 'kpi-q-btn--on': quarterNum === q, 'kpi-q-btn--disabled': isQuarterDisabled(q) }"
+                  :disabled="isQuarterDisabled(q)"
+                  @click="quarterNum = q"
+                >Q{{ q }}</button>
+              </div>
+            </div>
+            <div v-else-if="kpiMode === 'year'" class="kpi-custom-row kpi-custom-row--strip">
+              <PhCalendar :size="13" color="#8C8C8C" />
+              <span class="kpi-custom-label">ปี</span>
+              <select class="kpi-year-select" v-model.number="yearNum">
+                <option v-for="y in availableYears" :key="y" :value="y">{{ y + 543 }}</option>
+              </select>
+            </div>
+          </Transition>
+        </div>
+      </Transition>
+
       <!-- Dashboard Tab -->
       <div v-show="activeTab === 'dashboard'">
 
@@ -104,63 +161,6 @@
 
       <!-- ── KPI Tab ──────────────────────────────────────────── -->
       <div v-if="activeTab === 'kpi'">
-
-        <!-- ── Global period control panel ──────────────────────── -->
-        <div class="kpi-period-panel">
-          <div class="kpi-period-panel-header">
-            <div class="kpi-period-panel-left">
-              <button class="kpi-refresh-btn" @click="refreshKpiData" title="รีเฟรชข้อมูล">
-                <PhArrowsClockwise :size="13" />
-              </button>
-              <span class="kpi-period-scope">ช่วงเวลา</span>
-              <span class="kpi-period-current">{{ kpiPeriodLabel }}</span>
-            </div>
-            <div class="kpi-period-seg">
-              <button
-                v-for="m in KPI_MODES" :key="m.value"
-                class="kpi-seg-btn"
-                :class="{ 'kpi-seg-btn--on': kpiMode === m.value }"
-                @click="kpiMode = m.value"
-              >{{ m.label }}</button>
-            </div>
-          </div>
-
-          <!-- Sub-controls animate below the header row -->
-          <Transition name="kpi-custom-slide">
-            <div v-if="kpiMode === 'month'" class="kpi-custom-row">
-              <PhCalendar :size="13" color="#8C8C8C" />
-              <span class="kpi-custom-label">ช่วงเดือน</span>
-              <div class="kpi-custom-inputs">
-                <input type="month" v-model="monthFrom" class="kpi-month-input" :max="_curYearMonth" />
-                <span class="kpi-custom-sep">ถึง</span>
-                <input type="month" v-model="monthTo" class="kpi-month-input" :min="monthFrom" :max="_curYearMonth" />
-              </div>
-            </div>
-            <div v-else-if="kpiMode === 'quarter'" class="kpi-custom-row">
-              <PhCalendar :size="13" color="#8C8C8C" />
-              <span class="kpi-custom-label">ปี</span>
-              <select class="kpi-year-select" v-model.number="quarterYear">
-                <option v-for="y in availableYears" :key="y" :value="y">{{ y + 543 }}</option>
-              </select>
-              <div class="kpi-q-seg">
-                <button
-                  v-for="q in ([1,2,3,4] as const)" :key="q"
-                  class="kpi-q-btn"
-                  :class="{ 'kpi-q-btn--on': quarterNum === q, 'kpi-q-btn--disabled': isQuarterDisabled(q) }"
-                  :disabled="isQuarterDisabled(q)"
-                  @click="quarterNum = q"
-                >Q{{ q }}</button>
-              </div>
-            </div>
-            <div v-else-if="kpiMode === 'year'" class="kpi-custom-row">
-              <PhCalendar :size="13" color="#8C8C8C" />
-              <span class="kpi-custom-label">ปี</span>
-              <select class="kpi-year-select" v-model.number="yearNum">
-                <option v-for="y in availableYears" :key="y" :value="y">{{ y + 543 }}</option>
-              </select>
-            </div>
-          </Transition>
-        </div>
 
         <!-- ── Primary KPIs container ──────────────────────────── -->
         <div class="kpi-container">
@@ -1587,21 +1587,20 @@ const tabs = computed(() => [
   box-shadow:  var(--bma-shadow-xs);
 }
 
-/* ── Global period control panel ────────────────────────────────── */
-.kpi-period-panel {
+/* ── KPI period strip — bare, sits between KPI strip and containers ── */
+.kpi-period-strip {
+  border-top:    1px solid var(--bma-border-subtle);
+  border-bottom: 1px solid var(--bma-border-subtle);
   background:    var(--bma-surface-light);
-  border-radius: var(--bma-radius-lg);
-  border:        1px solid var(--bma-border-card);
-  box-shadow:    var(--bma-shadow-card);
-  overflow:      hidden;
-  margin-bottom: 16px;
+  margin:        0 -24px 16px;   /* bleed to main-wrap edges */
+  padding:       0 24px;
 }
-.kpi-period-panel-header {
+.kpi-period-strip-row {
   display:         flex;
   align-items:     center;
   justify-content: space-between;
   gap:             12px;
-  padding:         12px 20px;
+  padding:         8px 0;
 }
 .kpi-period-panel-left {
   display:     flex;
@@ -1612,6 +1611,24 @@ const tabs = computed(() => [
   font-family: var(--bma-font-thai);
   font-size:   12px;
   color:       var(--bma-text-muted);
+}
+/* sub-controls inside the strip inherit strip bg, use border-top */
+.kpi-custom-row--strip {
+  margin:  0 -24px;
+  padding: 8px 24px;
+}
+
+/* slide transition for the period strip itself */
+.kpi-period-strip-slide-enter-active,
+.kpi-period-strip-slide-leave-active {
+  transition: opacity 150ms ease, max-height 200ms ease;
+  overflow: hidden;
+  max-height: 120px;
+}
+.kpi-period-strip-slide-enter-from,
+.kpi-period-strip-slide-leave-to {
+  opacity: 0;
+  max-height: 0;
 }
 
 /* ── Container (wraps 2 sub-sections — like summary-container) ── */
