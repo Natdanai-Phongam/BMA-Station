@@ -192,6 +192,20 @@
           <div class="kpi-container-header">
             <div class="kpi-header-left">
               <span class="kpi-st-text">ตัวชี้วัดรอง</span>
+              <button class="kpi-refresh-btn" @click="refreshKpiData" title="รีเฟรชข้อมูล">
+                <PhArrowsClockwise :size="13" />
+              </button>
+            </div>
+            <div class="kpi-period-group">
+              <span class="kpi-period-current">{{ kpiPeriodLabel }}</span>
+              <div class="kpi-period-seg">
+                <button
+                  v-for="m in KPI_MODES" :key="m.value"
+                  class="kpi-seg-btn"
+                  :class="{ 'kpi-seg-btn--on': kpiMode === m.value }"
+                  @click="kpiMode = m.value"
+                >{{ m.label }}</button>
+              </div>
             </div>
           </div>
           <div class="kpi-container-grid kpi-container-grid--half">
@@ -927,173 +941,6 @@ const tabs = computed(() => [
   --stat-label-col: 138px;
 }
 
-.monitoring-card {
-  background: var(--bma-surface);
-  border-radius: var(--bma-radius-lg);
-  border: 1px solid var(--bma-border-card);
-  box-shadow: var(--bma-shadow-card);
-  padding: 16px 20px 20px;
-}
-
-/* Card header row */
-.mc-card-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 18px;
-}
-
-.mc-icon-wrap {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--bma-radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.mc-title    { font-size: 14px; font-weight: 700; color: var(--bma-text-primary); font-family: var(--bma-font-data); letter-spacing: .02em; }
-.mc-subtitle { font-size: 11px; color: var(--bma-text-muted); margin-top: 1px; }
-
-/* Body: donut + right panel */
-.mc-body  { display: flex; align-items: flex-start; gap: 18px; }
-.mc-right { flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-
-.donut-wrap {
-  position: relative;
-  /* 148px plot area + 8px layout.padding on each side = 164px canvas */
-  width: 164px;
-  height: 164px;
-  flex-shrink: 0;
-}
-
-/* In-range green box */
-.mc-in-range-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  border: 1.5px solid var(--bma-success);
-  border-radius: var(--bma-radius-md);
-  padding: 8px 12px;
-  background: #F6FFF9;
-}
-
-.mc-in-range-left { display: flex; flex-direction: column; gap: 1px; }
-
-.mc-in-count {
-  font-family: var(--bma-font-data);
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--bma-text-primary);
-  line-height: 1;
-}
-
-.mc-in-label {
-  font-size: 11px;
-  color: var(--bma-success);
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.mc-in-pct {
-  font-family: var(--bma-font-data);
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--bma-text-primary);
-  flex-shrink: 0;
-}
-
-/* Alert red box */
-.mc-alert-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  border: 1.5px solid #F5C0C0;
-  border-radius: var(--bma-radius-md);
-  padding: 7px 12px;
-  background: #FFF5F5;
-}
-
-.mc-alert-left {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--bma-emergency);
-}
-
-.mc-alert-pct {
-  font-family: var(--bma-font-data);
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--bma-emergency);
-  flex-shrink: 0;
-}
-
-/* ── Stat rows — CSS Grid pattern ────────────────────────────
-   Columns: [dot] [label — sized by widest row] [bar — equal 1fr] [count] [pct]
-   display:contents on .mc-stat-row lifts children into parent grid,
-   so the label column is shared across ALL rows in the same card.
-   No hardcoded width needed — grid measures the widest label automatically. */
-.mc-stat-list {
-  display: grid;
-  grid-template-columns: 12px var(--stat-label-col) 1fr 24px 52px;
-  row-gap: 8px;
-  column-gap: 8px;
-  align-items: center;
-  margin-top: 4px;
-}
-
-/* Row element removed from visual tree — children go directly into grid */
-.mc-stat-row { display: contents; }
-
-/* Rounded rectangle indicator */
-.mc-stat-dot {
-  width: 12px;
-  height: 8px;
-  border-radius: 3px;
-}
-
-/* Label + sublabel inline — width auto-determined by grid column */
-.mc-stat-labels {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-}
-
-.mc-stat-name { font-size: 12px; color: var(--bma-text-primary); font-weight: 500; white-space: nowrap; }
-.mc-stat-sub  { font-size: 10px; color: var(--bma-text-muted); white-space: nowrap; }
-
-.mc-progress-track {
-  height: 8px;
-  background: #EBEBEB;
-  border-radius: var(--bma-radius-full);
-  overflow: hidden;
-}
-
-.mc-progress-fill {
-  height: 100%;
-  border-radius: var(--bma-radius-full);
-  transition: width .4s ease;
-}
-
-.mc-stat-count {
-  font-family: var(--bma-font-data);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--bma-text-primary);
-  text-align: right;
-}
-
-.mc-stat-pct {
-  font-family: var(--bma-font-data);
-  font-size: 11px;
-  color: var(--bma-text-muted);
-}
 
 /* ── Summary section ──────────────────────────────────────── */
 .summary-container {
@@ -1111,7 +958,7 @@ const tabs = computed(() => [
   font-size:     15px;
   font-weight:   700;
   color:         var(--bma-text-primary);
-  padding:       16px 20px 14px;
+  padding:       16px 20px;
   border-bottom: 1px solid var(--bma-border-subtle);
 }
 
@@ -1151,7 +998,7 @@ const tabs = computed(() => [
 }
 
 .sc-header     { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-.sc-title-wrap { display: flex; align-items: flex-start; gap: 10px; }
+.sc-title-wrap { display: flex; align-items: flex-start; gap: 8px; }
 .sc-icon       { width: 32px; height: 32px; border-radius: var(--bma-radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .sc-title      { font-size: 14px; font-weight: 700; color: var(--bma-text-primary); }
 .sc-subtitle   { font-size: 11px; color: var(--bma-text-muted); margin-top: 2px; }
@@ -1160,7 +1007,7 @@ const tabs = computed(() => [
 .sc-stat-row   { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; font-size: 13px; }
 .sc-stat-row--primary   { padding-bottom: 9px; }
 .sc-stat-row--secondary { padding-top: 9px; border-top: 1px solid var(--bma-border-subtle); }
-.sc-stat-label { display: flex; align-items: center; gap: 5px; color: var(--bma-text-secondary); font-size: 13px; }
+.sc-stat-label { display: flex; align-items: center; gap: 4px; color: var(--bma-text-secondary); font-size: 13px; }
 .sc-stat-value { font-family: var(--bma-font-data); font-weight: 700; color: var(--bma-text-primary); font-size: 14px; }
 .sc-stat-value--lg { font-size: 16px; }
 
@@ -1168,7 +1015,7 @@ const tabs = computed(() => [
 .sc-stat-right {
   display:     flex;
   align-items: center;
-  gap:         5px;
+  gap:         4px;
 }
 
 /* ⓘ hint icon — muted at rest, sharpens on row hover */
@@ -1199,7 +1046,7 @@ const tabs = computed(() => [
   padding: 16px 20px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
   border-right: 1px solid var(--bma-border-subtle);
 }
 .kpi-cell:last-child { border-right: none; }
@@ -1217,9 +1064,9 @@ const tabs = computed(() => [
 .kpi-value-row {
   display: flex;
   align-items: baseline;
-  gap: 7px;
+  gap: 8px;
   flex-wrap: wrap;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 .kpi-value {
@@ -1253,7 +1100,7 @@ const tabs = computed(() => [
   cursor: pointer;
   border-radius: var(--bma-radius-sm);
   transition: background var(--bma-transition-fast);
-  padding: 6px 8px;
+  padding: 8px;
   margin: 0 -8px;
 }
 .sc-stat-row--hoverable:hover {
@@ -1386,7 +1233,7 @@ const tabs = computed(() => [
 /* ── Filter bar ───────────────────────────────────────────── */
 .filter-bar {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
   padding: 12px 16px;
   background: var(--bma-surface);
@@ -1453,8 +1300,8 @@ const tabs = computed(() => [
 .table-scroll-wrap::-webkit-scrollbar-thumb  { background: var(--bma-border); border-radius: 3px; }
 .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 .data-table thead tr { background: var(--bma-surface-light); border-bottom: 1.5px solid var(--bma-border-subtle); }
-.data-table th { padding: 10px 14px; font-size: 12px; font-weight: 700; color: var(--bma-text-muted); text-align: left; white-space: nowrap; }
-.data-table td { padding: 10px 14px; color: var(--bma-text-primary); vertical-align: middle; }
+.data-table th { padding: 8px 16px; font-size: 12px; font-weight: 700; color: var(--bma-text-muted); text-align: left; white-space: nowrap; }
+.data-table td { padding: 10px 16px; color: var(--bma-text-primary); vertical-align: middle; }
 .data-row { border-bottom: 1px solid var(--bma-surface-subtle); transition: background .12s; }
 .data-row:hover      { background: var(--bma-surface-light); }
 .data-row:last-child { border-bottom: none; }
@@ -1507,7 +1354,7 @@ const tabs = computed(() => [
 /* ── Table footer + pagination ────────────────────────────── */
 .table-footer { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid var(--bma-border-subtle); }
 .pg-info     { font-family: var(--bma-font-data); font-size: 12px; color: var(--bma-text-muted); }
-.pg-controls { display: flex; align-items: center; gap: 10px; }
+.pg-controls { display: flex; align-items: center; gap: 8px; }
 .pg-select {
   height: 30px; border: 1.5px solid var(--bma-border); border-radius: var(--bma-radius-sm);
   padding: 0 24px 0 8px; font-family: var(--bma-font-data); font-size: 12px;
@@ -1533,7 +1380,7 @@ const tabs = computed(() => [
   border: 1px solid var(--bma-border-card) !important;
   border-radius: var(--bma-radius-lg) !important;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16) !important;
-  padding: 12px 14px !important;
+  padding: 12px 16px !important;
   color: var(--bma-text-primary) !important;
 }
 
@@ -1563,7 +1410,7 @@ const tabs = computed(() => [
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
 }
 
 .ixn-tt-overlay .ixn-tt-name {
@@ -1675,7 +1522,7 @@ const tabs = computed(() => [
 
 .summ-tt-overlay .summ-tt-badge {
   display:       inline-block;
-  padding:       1px 7px;
+  padding:       2px 8px;
   border-radius: var(--bma-radius-full);
   font-family:   var(--bma-font-data);
   font-size:     10px;
@@ -1780,7 +1627,7 @@ const tabs = computed(() => [
   align-items:     center;
   justify-content: space-between;
   gap:             12px;
-  padding:         14px 20px 12px;
+  padding:         12px 20px;
   border-bottom:   1px solid var(--bma-border-subtle);
 }
 .kpi-header-left {
