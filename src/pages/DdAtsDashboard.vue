@@ -395,27 +395,27 @@ const activeKpi = computed<KpiMetric[]>(() => {
     const pct = total > 0 ? Math.round(inRange / total * 100) : 0
     return [
       {
-        eyebrow: 'TOTAL PATIENTS · ALL PROGRAMS',
+        eyebrow: 'ผู้ป่วยทั้งหมด · ทุกโปรแกรม',
         value: total,
         unit: 'ราย',
         context: `Warfarin ${wCard.totalPatients} · NOACs ${nCard.totalPatients} ราย`,
       },
       {
-        eyebrow: 'IN THERAPEUTIC RANGE',
+        eyebrow: 'อยู่ในช่วงเป้าหมาย',
         value: pct,
         unit: '%',
         badge: { label: pct >= 65 ? 'ผ่านเกณฑ์' : 'ต่ำกว่าเกณฑ์', good: pct >= 65 },
         context: `${inRange} ราย จากทั้งหมด ${total} ราย`,
       },
       {
-        eyebrow: 'REQUIRES FOLLOW-UP',
+        eyebrow: 'ต้องติดตามผล',
         value: outRange,
         unit: 'ราย',
         badge: alerts > 0 ? { label: `${alerts} แจ้งเตือน`, good: false } : undefined,
         context: 'ต้องติดตามและปรับแผนการรักษา',
       },
       {
-        eyebrow: 'REFERRALS · THIS PERIOD',
+        eyebrow: 'ส่งต่อแพทย์ · ช่วงนี้',
         value: referrals,
         unit: 'ราย',
         context: 'ส่งต่อแพทย์ปรึกษาทั้งสองโปรแกรม',
@@ -428,27 +428,27 @@ const activeKpi = computed<KpiMetric[]>(() => {
     const pct  = parsePct(card.inRangePct)
     return [
       {
-        eyebrow: 'PATIENTS · WARFARIN',
+        eyebrow: 'ผู้ป่วย · Warfarin',
         value: card.totalPatients,
         unit: 'ราย',
         context: 'ผู้ป่วยในโปรแกรม Warfarin ทั้งหมด',
       },
       {
-        eyebrow: 'IN RANGE · INR 2.0–3.0',
+        eyebrow: 'อยู่ในช่วง TTR · INR 2.0–3.0',
         value: pct,
         unit: '%',
         badge: { label: pct >= 65 ? 'ผ่านเกณฑ์' : 'ต่ำกว่าเกณฑ์', good: pct >= 65 },
         context: `${card.inRangeCount} ราย อยู่ใน TTR เป้าหมาย`,
       },
       {
-        eyebrow: 'REQUIRES FOLLOW-UP',
+        eyebrow: 'ต้องติดตามผล',
         value: card.outOfRangeCount,
         unit: 'ราย',
-        badge: card.alertCount > 0 ? { label: `${card.alertCount} Alert`, good: false } : undefined,
+        badge: card.alertCount > 0 ? { label: `${card.alertCount} แจ้งเตือน`, good: false } : undefined,
         context: `คิดเป็น ${card.outOfRangePct} ของผู้ป่วยทั้งหมด`,
       },
       {
-        eyebrow: 'REFERRALS · WARFARIN',
+        eyebrow: 'ส่งต่อแพทย์ · Warfarin',
         value: card.referralCount,
         unit: 'ราย',
         context: 'ส่งต่อแพทย์ปรึกษา',
@@ -461,27 +461,27 @@ const activeKpi = computed<KpiMetric[]>(() => {
   const pct  = parsePct(card.inRangePct)
   if (activeTab.value === 'noacs') return [
     {
-      eyebrow: 'PATIENTS · NOACs',
+      eyebrow: 'ผู้ป่วย · NOACs',
       value: card.totalPatients,
       unit: 'ราย',
       context: 'ผู้ป่วยในโปรแกรม NOACs ทั้งหมด',
     },
     {
-      eyebrow: 'APPROPRIATE DOSE',
+      eyebrow: 'ได้รับขนาดยาที่เหมาะสม',
       value: pct,
       unit: '%',
       badge: { label: pct >= 80 ? 'ผ่านเกณฑ์' : 'ต่ำกว่าเกณฑ์', good: pct >= 80 },
       context: `${card.inRangeCount} ราย ขนาดยาเหมาะสม`,
     },
     {
-      eyebrow: 'LAB FLAGS · CrCl / WEIGHT',
+      eyebrow: 'พบผลตรวจผิดปกติ · CrCl / น้ำหนัก',
       value: card.alertCount,
       unit: 'ราย',
       badge: card.alertCount > 0 ? { label: 'ต้องตรวจสอบ', good: false } : undefined,
       context: 'ค่า CrCl หรือน้ำหนักผิดปกติ',
     },
     {
-      eyebrow: 'REFERRALS · NOACs',
+      eyebrow: 'ส่งต่อแพทย์ · NOACs',
       value: card.referralCount,
       unit: 'ราย',
       context: 'ส่งต่อแพทย์ปรึกษา',
@@ -497,7 +497,7 @@ const activeKpi = computed<KpiMetric[]>(() => {
   const acc  = d.atsResponse.acceptanceRate
   return [
     {
-      eyebrow:  'ADVERSE EVENTS · ' + kpiPeriodLabel.value.toUpperCase(),
+      eyebrow:  'ภาวะแทรกซ้อน · ' + kpiPeriodLabel.value,
       value:    totalAE,
       unit:     'เหตุการณ์',
       badge:    totalAE > 0
@@ -506,21 +506,21 @@ const activeKpi = computed<KpiMetric[]>(() => {
       context: `เลือดออก ${s.bleeding.events} · ลิ่มเลือด ${s.thrombosis.events} · นอน รพ. ${s.aeHospitalization.events}`,
     },
     {
-      eyebrow:  'WARFARIN TTR ≥ 65%',
+      eyebrow:  'Warfarin TTR ≥ 65%',
       value:    ttr.value,
       unit:     '%',
       badge:    { label: ttr.value >= ttr.target ? 'ผ่านเกณฑ์' : 'ต่ำกว่าเป้า', good: ttr.value >= ttr.target },
       context:  `${ttr.n} จาก ${ttr.d} ราย · เป้า ≥ ${ttr.target}%`,
     },
     {
-      eyebrow:  'ATS ACCEPTANCE RATE',
+      eyebrow:  'ปฏิบัติตามคำแนะนำ ATS',
       value:    acc.value,
       unit:     '%',
       badge:    { label: acc.value >= acc.target ? 'ผ่านเกณฑ์' : 'ต่ำกว่าเป้า', good: acc.value >= acc.target },
       context:  acc.n != null ? `${acc.n} จาก ${acc.d} ครั้ง · เป้า ≥ ${acc.target}%` : `เป้า ≥ ${acc.target}%`,
     },
     {
-      eyebrow:  'PATIENTS MONITORED',
+      eyebrow:  'ผู้ป่วยในโปรแกรม',
       value:    d.patientCount,
       unit:     'ราย',
       context:  `Warfarin ${warfarinTotal.value} · NOACs ${noacsTotal.value} ราย`,
