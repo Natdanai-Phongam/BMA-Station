@@ -3,7 +3,6 @@
     <div class="kpi-panel-head">
       <PhShieldCheck :size="14" :color="failCount > 0 ? '#B72C2C' : '#8C8C8C'" />
       <span class="kpi-ph-name">ความปลอดภัยของผู้ป่วย</span>
-      <span class="kpi-ph-sub">Patient Safety</span>
       <div class="kpi-ph-tally">
         <span v-if="passCount" class="kpi-tally kpi-tally--ok">{{ passCount }} ผ่าน</span>
         <span v-if="warnCount" class="kpi-tally kpi-tally--warn">{{ warnCount }} ใกล้</span>

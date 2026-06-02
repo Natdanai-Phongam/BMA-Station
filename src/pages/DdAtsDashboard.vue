@@ -111,7 +111,6 @@
           <div class="kpi-container-header">
             <div class="kpi-header-left">
               <span class="kpi-st-text">ตัวชี้วัดหลัก</span>
-              <span class="kpi-st-eng">Primary KPIs</span>
               <button class="kpi-refresh-btn" @click="refreshKpiData" title="รีเฟรชข้อมูล">
                 <PhArrowsClockwise :size="13" />
               </button>
@@ -190,10 +189,9 @@
 
         <!-- ── Secondary KPIs container ─────────────────────────── -->
         <div class="kpi-container">
-          <div class="kpi-container-header kpi-container-header--sm">
+          <div class="kpi-container-header">
             <div class="kpi-header-left">
               <span class="kpi-st-text">ตัวชี้วัดรอง</span>
-              <span class="kpi-st-eng">Secondary KPIs</span>
             </div>
           </div>
           <div class="kpi-container-grid kpi-container-grid--half">
@@ -1726,14 +1724,6 @@ const tabs = computed(() => [
   font-weight: 700;
   color:       var(--bma-text-primary);
 }
-.kpi-st-eng {
-  font-family:    var(--bma-font-data);
-  font-size:      10px;
-  font-weight:    600;
-  color:          var(--bma-text-disabled);
-  letter-spacing: .05em;
-  text-transform: uppercase;
-}
 
 .kpi-period-group {
   display:     flex;
@@ -1792,10 +1782,6 @@ const tabs = computed(() => [
   gap:             12px;
   padding:         14px 20px 12px;
   border-bottom:   1px solid var(--bma-border-subtle);
-}
-.kpi-container-header--sm {
-  padding-top:    11px;
-  padding-bottom: 10px;
 }
 .kpi-header-left {
   display:     flex;

@@ -3,7 +3,6 @@
     <div class="kpi-panel-head">
       <PhUsers :size="14" color="#8C8C8C" />
       <span class="kpi-ph-name">ประสิทธิภาพระบบ</span>
-      <span class="kpi-ph-sub">System Efficiency</span>
     </div>
 
     <div class="keff-staff-label">บุคลากรในโปรแกรม DD-ATS</div>

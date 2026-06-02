@@ -3,7 +3,6 @@
     <div class="kpi-panel-head">
       <PhPulse :size="14" color="#8C8C8C" />
       <span class="kpi-ph-name">การตอบสนอง ATS</span>
-      <span class="kpi-ph-sub">ATS Response</span>
     </div>
     <div class="kats-grid">
       <template v-for="row in rows" :key="row.key">

@@ -3,7 +3,6 @@
     <div class="kpi-panel-head">
       <PhChartBar :size="14" color="#8C8C8C" />
       <span class="kpi-ph-name">คุณภาพการดูแล</span>
-      <span class="kpi-ph-sub">Quality of Care</span>
     </div>
 
     <div class="kqual-rows">
