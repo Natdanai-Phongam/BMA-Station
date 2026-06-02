@@ -105,33 +105,28 @@
       <!-- ── KPI Tab ──────────────────────────────────────────── -->
       <div v-if="activeTab === 'kpi'">
 
-        <!-- ── Primary KPIs container ──────────────────────────── -->
-        <div class="kpi-container">
-          <!-- Container header: title + mode selector -->
-          <div class="kpi-container-header">
-            <div class="kpi-header-left">
-              <span class="kpi-st-text">ตัวชี้วัดหลัก</span>
+        <!-- ── Global period control panel ──────────────────────── -->
+        <div class="kpi-period-panel">
+          <div class="kpi-period-panel-header">
+            <div class="kpi-period-panel-left">
               <button class="kpi-refresh-btn" @click="refreshKpiData" title="รีเฟรชข้อมูล">
                 <PhArrowsClockwise :size="13" />
               </button>
-            </div>
-            <div class="kpi-period-group">
+              <span class="kpi-period-scope">ช่วงเวลา</span>
               <span class="kpi-period-current">{{ kpiPeriodLabel }}</span>
-              <div class="kpi-period-seg">
-                <button
-                  v-for="m in KPI_MODES" :key="m.value"
-                  class="kpi-seg-btn"
-                  :class="{ 'kpi-seg-btn--on': kpiMode === m.value }"
-                  @click="kpiMode = m.value"
-                >{{ m.label }}</button>
-              </div>
+            </div>
+            <div class="kpi-period-seg">
+              <button
+                v-for="m in KPI_MODES" :key="m.value"
+                class="kpi-seg-btn"
+                :class="{ 'kpi-seg-btn--on': kpiMode === m.value }"
+                @click="kpiMode = m.value"
+              >{{ m.label }}</button>
             </div>
           </div>
 
-          <!-- Sub-controls row: animates in based on mode -->
+          <!-- Sub-controls animate below the header row -->
           <Transition name="kpi-custom-slide">
-
-            <!-- Month mode: from → to range -->
             <div v-if="kpiMode === 'month'" class="kpi-custom-row">
               <PhCalendar :size="13" color="#8C8C8C" />
               <span class="kpi-custom-label">ช่วงเดือน</span>
@@ -141,8 +136,6 @@
                 <input type="month" v-model="monthTo" class="kpi-month-input" :min="monthFrom" :max="_curYearMonth" />
               </div>
             </div>
-
-            <!-- Quarter mode: year picker + Q1–Q4 -->
             <div v-else-if="kpiMode === 'quarter'" class="kpi-custom-row">
               <PhCalendar :size="13" color="#8C8C8C" />
               <span class="kpi-custom-label">ปี</span>
@@ -159,8 +152,6 @@
                 >Q{{ q }}</button>
               </div>
             </div>
-
-            <!-- Year mode: year picker -->
             <div v-else-if="kpiMode === 'year'" class="kpi-custom-row">
               <PhCalendar :size="13" color="#8C8C8C" />
               <span class="kpi-custom-label">ปี</span>
@@ -168,10 +159,14 @@
                 <option v-for="y in availableYears" :key="y" :value="y">{{ y + 543 }}</option>
               </select>
             </div>
-
           </Transition>
+        </div>
 
-          <!-- Primary grid: Safety (3fr) + Quality (2fr) -->
+        <!-- ── Primary KPIs container ──────────────────────────── -->
+        <div class="kpi-container">
+          <div class="kpi-container-header">
+            <span class="kpi-st-text">ตัวชี้วัดหลัก</span>
+          </div>
           <div class="kpi-container-grid kpi-container-grid--primary">
             <KpiSafetySection
               :rows="safetyRows"
@@ -190,23 +185,7 @@
         <!-- ── Secondary KPIs container ─────────────────────────── -->
         <div class="kpi-container">
           <div class="kpi-container-header">
-            <div class="kpi-header-left">
-              <span class="kpi-st-text">ตัวชี้วัดรอง</span>
-              <button class="kpi-refresh-btn" @click="refreshKpiData" title="รีเฟรชข้อมูล">
-                <PhArrowsClockwise :size="13" />
-              </button>
-            </div>
-            <div class="kpi-period-group">
-              <span class="kpi-period-current">{{ kpiPeriodLabel }}</span>
-              <div class="kpi-period-seg">
-                <button
-                  v-for="m in KPI_MODES" :key="m.value"
-                  class="kpi-seg-btn"
-                  :class="{ 'kpi-seg-btn--on': kpiMode === m.value }"
-                  @click="kpiMode = m.value"
-                >{{ m.label }}</button>
-              </div>
-            </div>
+            <span class="kpi-st-text">ตัวชี้วัดรอง</span>
           </div>
           <div class="kpi-container-grid kpi-container-grid--half">
             <KpiAtsSection :rows="atsRows" />
@@ -1572,11 +1551,6 @@ const tabs = computed(() => [
   color:       var(--bma-text-primary);
 }
 
-.kpi-period-group {
-  display:     flex;
-  align-items: center;
-  gap:         10px;
-}
 .kpi-period-current {
   font-family: var(--bma-font-data);
   font-size:   11px;
@@ -1613,6 +1587,33 @@ const tabs = computed(() => [
   box-shadow:  var(--bma-shadow-xs);
 }
 
+/* ── Global period control panel ────────────────────────────────── */
+.kpi-period-panel {
+  background:    var(--bma-surface-light);
+  border-radius: var(--bma-radius-lg);
+  border:        1px solid var(--bma-border-card);
+  box-shadow:    var(--bma-shadow-card);
+  overflow:      hidden;
+  margin-bottom: 16px;
+}
+.kpi-period-panel-header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             12px;
+  padding:         12px 20px;
+}
+.kpi-period-panel-left {
+  display:     flex;
+  align-items: center;
+  gap:         8px;
+}
+.kpi-period-scope {
+  font-family: var(--bma-font-thai);
+  font-size:   12px;
+  color:       var(--bma-text-muted);
+}
+
 /* ── Container (wraps 2 sub-sections — like summary-container) ── */
 .kpi-container {
   background:    var(--bma-surface);
@@ -1629,11 +1630,6 @@ const tabs = computed(() => [
   gap:             12px;
   padding:         12px 20px;
   border-bottom:   1px solid var(--bma-border-subtle);
-}
-.kpi-header-left {
-  display:     flex;
-  align-items: center;
-  gap:         8px;
 }
 .kpi-refresh-btn {
   display:         flex;
@@ -1664,12 +1660,12 @@ const tabs = computed(() => [
 
 /* ── Custom date range row ───────────────────────────────────── */
 .kpi-custom-row {
-  display:       flex;
-  align-items:   center;
-  gap:           10px;
-  padding:       10px 20px;
-  background:    var(--bma-surface-light);
-  border-bottom: 1px solid var(--bma-border-subtle);
+  display:    flex;
+  align-items: center;
+  gap:         12px;
+  padding:     10px 20px;
+  background:  var(--bma-surface-light);
+  border-top:  1px solid var(--bma-border-subtle);
 }
 .kpi-custom-label {
   font-family:  var(--bma-font-thai);
