@@ -1459,16 +1459,8 @@ const tabs = computed(() => [
 .pg-btn--active   { background: var(--bma-green-500); border-color: var(--bma-green-500); color: var(--bma-surface); font-weight: 700; }
 .pg-btn--disabled { color: var(--bma-border); cursor: not-allowed; }
 
-/* Tooltip styles — Vuetify teleports to <body>, scoped selectors can't reach it.
-   ─────────────────────────────────────────────────────────────────────────────── */
-.ixn-tt-overlay.v-overlay__content {
-  background: var(--bma-surface) !important;
-  border: 1px solid var(--bma-border-card) !important;
-  border-radius: var(--bma-radius-lg) !important;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16) !important;
-  padding: 12px 16px !important;
-  color: var(--bma-text-primary) !important;
-}
+/* Tooltip styles — .v-overlay__content rules moved to overrides.scss (Layer 4)
+   Vuetify teleports overlay to <body> — global scope required, centralised there. */
 
 .ixn-tt-overlay .ixn-tt-header {
   font-family: var(--bma-font-data);
@@ -1542,17 +1534,7 @@ const tabs = computed(() => [
   border-radius: 2px;
 }
 
-/* ── Summary hover overlay ────────────────────────────────── */
-.summ-tt-overlay.v-overlay__content {
-  background:    var(--bma-surface) !important;
-  border:        1px solid var(--bma-border-card) !important;
-  border-radius: 10px !important;
-  box-shadow:    0 8px 28px rgba(0, 0, 0, 0.16) !important;
-  padding:       12px 14px !important;
-  color:         var(--bma-text-primary) !important;
-  min-width:     280px !important;
-  max-width:     340px !important;
-}
+/* ── Summary hover overlay — .v-overlay__content moved to overrides.scss ──── */
 
 .summ-tt-overlay .summ-tt-header {
   font-family:    var(--bma-font-data);

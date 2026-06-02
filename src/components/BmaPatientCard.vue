@@ -206,9 +206,9 @@ const priorityVariant = computed<BmaBadgeVariant>(() =>
 }
 
 /* ── Left-border accent by priority ──────────────────────── */
-/* Subtle top border on card header area to reinforce severity */
-.bma-patient-card--emergency { border-top: 3px solid var(--bma-emergency) !important; }
-.bma-patient-card--urgency   { border-top: 3px solid var(--bma-urgency)   !important; }
-.bma-patient-card--elective  { border-top: 3px solid var(--bma-elective)  !important; }
-.bma-patient-card--success   { border-top: 3px solid var(--bma-success)   !important; }
+/* Scoped CSS isolates these — no !important needed */
+.bma-patient-card--emergency { border-top: 3px solid var(--bma-emergency); }
+.bma-patient-card--urgency   { border-top: 3px solid var(--bma-urgency);   }
+.bma-patient-card--elective  { border-top: 3px solid var(--bma-elective);  }
+.bma-patient-card--success   { border-top: 3px solid var(--bma-success);   }
 </style>
