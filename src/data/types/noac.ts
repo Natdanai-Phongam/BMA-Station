@@ -36,12 +36,11 @@ export interface NoacEngineInput {
   weightKg:       number
   scrMgDl:        number
   crClMlMin:      number
-  hasBleedScore:  number
   concurrentMeds: ConcurrentMedication[]
 }
 
 export interface NoacRecommendationResult {
   drugs:              DrugResult[]
-  /** Precautions that apply to ALL NOACs (HAS-BLED, NSAIDs, antiplatelets) */
+  /** Precautions that apply to ALL NOACs (NSAIDs, antiplatelets) */
   generalPrecautions: string[]
 }

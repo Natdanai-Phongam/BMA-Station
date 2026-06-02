@@ -379,13 +379,6 @@ export function computeNoacRecommendations(input: NoacEngineInput): NoacRecommen
 
   const generalPrecautions: string[] = []
 
-  // HAS-BLED ≥ 3 → high bleeding risk
-  if (input.hasBleedScore >= 3) {
-    generalPrecautions.push(
-      `HAS-BLED ${input.hasBleedScore} — ความเสี่ยงการเลือดออกสูง (score ≥3) ควรพิจารณาลดปัจจัยเสี่ยงที่แก้ไขได้ก่อนเริ่มยา`,
-    )
-  }
-
   // NSAIDs affect all NOACs
   const nsaids = matchMeds(input.concurrentMeds, NSAIDS)
   if (nsaids.length) {

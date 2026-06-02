@@ -18,8 +18,6 @@ export type NoacClinicalStatus = 'appropriate' | 'underdose' | 'overdose' | 'con
 export interface NoacProfile {
   patientId:        string
   indication:       NoacIndication
-  /** HAS-BLED bleeding risk score (0–9); updated at each dispensing visit */
-  hasBleedScore:    number
   /** Drug currently being dispensed under this profile */
   currentDrug:      NoacDrug
   /** Human-readable dose string, e.g. "5 mg BID" */

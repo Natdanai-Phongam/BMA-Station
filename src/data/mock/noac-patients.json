@@ -3,7 +3,6 @@
     "profile": {
       "patientId": "w002",
       "indication": "NVAF",
-      "hasBleedScore": 3,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2569-01-15",
@@ -109,7 +108,6 @@
     "profile": {
       "patientId": "n001",
       "indication": "NVAF",
-      "hasBleedScore": 1,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2567-06-15",
@@ -213,7 +211,6 @@
     "profile": {
       "patientId": "n002",
       "indication": "NVAF",
-      "hasBleedScore": 2,
       "currentDrug": "rivaroxaban",
       "currentDose": "10 mg OD",
       "therapyStartDate": "2567-09-01",
@@ -322,7 +319,6 @@
     "profile": {
       "patientId": "n003",
       "indication": "NVAF",
-      "hasBleedScore": 0,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2567-03-22",
@@ -426,7 +422,6 @@
     "profile": {
       "patientId": "n004",
       "indication": "NVAF",
-      "hasBleedScore": 1,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2567-11-10",
@@ -533,7 +528,6 @@
     "profile": {
       "patientId": "n005",
       "indication": "NVAF",
-      "hasBleedScore": 3,
       "currentDrug": "rivaroxaban",
       "currentDose": "15 mg OD",
       "therapyStartDate": "2567-12-05",
@@ -639,7 +633,6 @@
     "profile": {
       "patientId": "n006",
       "indication": "NVAF",
-      "hasBleedScore": 1,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2567-08-20",
@@ -748,7 +741,6 @@
     "profile": {
       "patientId": "n007",
       "indication": "af",
-      "hasBleedScore": 5,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-01-17",
@@ -852,7 +844,6 @@
     "profile": {
       "patientId": "n008",
       "indication": "af",
-      "hasBleedScore": 4,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-01-09",
@@ -957,7 +948,6 @@
     "profile": {
       "patientId": "n009",
       "indication": "vte",
-      "hasBleedScore": 2,
       "currentDrug": "edoxaban",
       "currentDose": "60 mg OD",
       "therapyStartDate": "2026-01-10",
@@ -1061,7 +1051,6 @@
     "profile": {
       "patientId": "n010",
       "indication": "af",
-      "hasBleedScore": 4,
       "currentDrug": "rivaroxaban",
       "currentDose": "20 mg OD",
       "therapyStartDate": "2026-01-09",
@@ -1170,7 +1159,6 @@
     "profile": {
       "patientId": "n011",
       "indication": "af",
-      "hasBleedScore": 4,
       "currentDrug": "rivaroxaban",
       "currentDose": "20 mg OD",
       "therapyStartDate": "2026-01-12",
@@ -1276,7 +1264,6 @@
     "profile": {
       "patientId": "n012",
       "indication": "af",
-      "hasBleedScore": 5,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-01-05",
@@ -1383,7 +1370,6 @@
     "profile": {
       "patientId": "n013",
       "indication": "vte",
-      "hasBleedScore": 3,
       "currentDrug": "edoxaban",
       "currentDose": "60 mg OD",
       "therapyStartDate": "2026-01-16",
@@ -1488,7 +1474,6 @@
     "profile": {
       "patientId": "n014",
       "indication": "NVAF",
-      "hasBleedScore": 2,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-01-15",
@@ -1593,7 +1578,6 @@
     "profile": {
       "patientId": "n015",
       "indication": "NVAF",
-      "hasBleedScore": 2,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-01-08",
@@ -1692,7 +1676,6 @@
     "profile": {
       "patientId": "n016",
       "indication": "NVAF",
-      "hasBleedScore": 3,
       "currentDrug": "rivaroxaban",
       "currentDose": "20 mg OD",
       "therapyStartDate": "2026-02-05",
@@ -1776,7 +1759,6 @@
     "profile": {
       "patientId": "n017",
       "indication": "PE",
-      "hasBleedScore": 1,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-03-03",
@@ -1841,7 +1823,6 @@
     "profile": {
       "patientId": "n018",
       "indication": "NVAF",
-      "hasBleedScore": 2,
       "currentDrug": "edoxaban",
       "currentDose": "60 mg OD",
       "therapyStartDate": "2026-04-02",
@@ -1889,7 +1870,6 @@
     "profile": {
       "patientId": "n019",
       "indication": "NVAF",
-      "hasBleedScore": 4,
       "currentDrug": "apixaban",
       "currentDose": "2.5 mg BID",
       "therapyStartDate": "2026-01-20",
@@ -1993,7 +1973,6 @@
     "profile": {
       "patientId": "n020",
       "indication": "DVT",
-      "hasBleedScore": 2,
       "currentDrug": "rivaroxaban",
       "currentDose": "15 mg OD",
       "therapyStartDate": "2026-03-15",
@@ -2061,7 +2040,6 @@
     "profile": {
       "patientId": "n021",
       "indication": "NVAF",
-      "hasBleedScore": 1,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-05-05",
@@ -2092,7 +2070,6 @@
     "profile": {
       "patientId": "n022",
       "indication": "CAT",
-      "hasBleedScore": 3,
       "currentDrug": "rivaroxaban",
       "currentDose": "20 mg OD",
       "therapyStartDate": "2026-04-11",
@@ -2139,7 +2116,6 @@
   "n023": {
     "profile": {
       "indication": "NVAF",
-      "hasBleedScore": 1,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2568-07-01",
@@ -2170,7 +2146,6 @@
   "n024": {
     "profile": {
       "indication": "DVT",
-      "hasBleedScore": 2,
       "currentDrug": "rivaroxaban",
       "currentDose": "20 mg OD",
       "therapyStartDate": "2568-10-01",
@@ -2201,7 +2176,6 @@
   "n025": {
     "profile": {
       "indication": "NVAF",
-      "hasBleedScore": 3,
       "currentDrug": "apixaban",
       "currentDose": "2.5 mg BID",
       "therapyStartDate": "2568-04-01",
@@ -2232,7 +2206,6 @@
   "n026": {
     "profile": {
       "indication": "NVAF",
-      "hasBleedScore": 2,
       "currentDrug": "rivaroxaban",
       "currentDose": "20 mg OD",
       "therapyStartDate": "2568-08-01",
@@ -2263,7 +2236,6 @@
   "n027": {
     "profile": {
       "indication": "DVT",
-      "hasBleedScore": 3,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2568-11-01",
@@ -2294,7 +2266,6 @@
   "n028": {
     "profile": {
       "indication": "NVAF",
-      "hasBleedScore": 4,
       "currentDrug": "dabigatran",
       "currentDose": "150 mg BID",
       "therapyStartDate": "2568-05-01",
@@ -2325,7 +2296,6 @@
   "n029": {
     "profile": {
       "indication": "PE",
-      "hasBleedScore": 1,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2569-02-01",
@@ -2356,7 +2326,6 @@
   "n030": {
     "profile": {
       "indication": "NVAF",
-      "hasBleedScore": 1,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2568-09-01",
@@ -2387,7 +2356,6 @@
   "n031": {
     "profile": {
       "indication": "DVT",
-      "hasBleedScore": 1,
       "currentDrug": "rivaroxaban",
       "currentDose": "20 mg OD",
       "therapyStartDate": "2568-09-01",
@@ -2418,7 +2386,6 @@
   "n032": {
     "profile": {
       "indication": "PE",
-      "hasBleedScore": 1,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2568-09-01",
@@ -2452,7 +2419,6 @@
     "profile": {
       "patientId": "w034",
       "indication": "NVAF",
-      "hasBleedScore": 2,
       "currentDrug": "apixaban",
       "currentDose": "5 mg BID",
       "therapyStartDate": "2569-05-15",

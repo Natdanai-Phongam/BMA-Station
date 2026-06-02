@@ -40,13 +40,6 @@
                 <span class="na-param-unit">mg/dL</span>
               </div>
             </div>
-            <div class="na-param">
-              <span class="na-param-label">HAS-BLED</span>
-              <div class="na-param-val-row">
-                <span class="na-param-num" :class="hasbledClass">{{ noacData?.profile.hasBleedScore }}</span>
-                <span class="na-param-unit" :class="hasbledClass">/ 9</span>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -85,7 +78,6 @@
       <div
         v-if="result.generalPrecautions.length"
         class="na-precautions"
-        :class="{ 'na-precautions--critical': (noacData?.profile.hasBleedScore ?? 0) >= 5 }"
       >
         <PhWarning :size="16" class="na-precautions-icon" />
         <div class="na-precautions-body">
@@ -276,14 +268,6 @@ const indicationLabel = computed(() =>
   indicationLabels[noacData.value?.profile.indication ?? 'NVAF'],
 )
 
-// ── HAS-BLED ───────────────────────────────────────────────────────────────
-const hasbledClass = computed(() => {
-  const s = noacData.value?.profile.hasBleedScore ?? 0
-  if (s >= 5) return 'hasbled--critical'
-  if (s >= 3) return 'hasbled--high'
-  return ''
-})
-
 // ── CrCl display ───────────────────────────────────────────────────────────
 const {
   label:     crClLabel,
@@ -309,7 +293,6 @@ const result = computed(() => {
     weightKg:       lab.weightKg,
     scrMgDl:        lab.scrMgDl,
     crClMlMin:      lab.crClMlMin,
-    hasBleedScore:  noac.profile.hasBleedScore,
     concurrentMeds: patient.concurrentMedications ?? [],
   })
 })
@@ -450,9 +433,6 @@ const interactionLabel: Record<string, string> = {
   color: var(--bma-text-muted);
 }
 
-/* HAS-BLED coloring */
-.hasbled--high     { color: var(--bma-urgency-text); }
-.hasbled--critical { color: var(--bma-emergency); }
 
 /* Kidney card */
 .na-crcl-hero {
