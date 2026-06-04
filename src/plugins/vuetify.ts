@@ -222,10 +222,14 @@ export default createVuetify({
     VBadge: {
       color: 'error',
     },
+    // VPagination: density compact fits table footers; activeColor drives the current-page
+    // button to BMA green; color drives v-btn icon hover tint on non-active pages.
+    // rounded 'sm' aligns with BMA's action-button radius token.
     VPagination: {
-      rounded:      'md',
+      rounded:      'sm',
+      color:        'primary',
       activeColor:  'primary',
-      density:      'comfortable',
+      density:      'compact',
       totalVisible: 5,
     },
   },

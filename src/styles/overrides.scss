@@ -10,6 +10,14 @@
 
 // ── Global resets ─────────────────────────────────────────────────────────────
 
+// Vuetify sets --v-theme-overlay-multiplier on .v-theme--light, not :root.
+// Some contexts (table cells, teleported content) don't inherit it, causing
+// calc(hover-opacity * multiplier) to fail and opacity to fall back to 1 (solid).
+// This :root fallback guarantees the variable is always defined.
+:root {
+  --v-theme-overlay-multiplier: 3;   // hover 0.12 / focus 0.36 — matches date picker
+}
+
 * {
   box-sizing: border-box;
 }
@@ -132,6 +140,19 @@ body {
 }
 
 
+// ── VMain content wrapper ─────────────────────────────────────────────────────
+// v-main is not a flex container so v-main__wrap defaults to height: auto.
+// Percentage heights on child route components (content-wrap: height: 100%)
+// resolve against auto = content-based, breaking full-height flex layouts.
+// Setting height: 100% here lets the chain propagate from v-main's bounded
+// flex height down to consult-wrap and the scrollable chat panel.
+// overflow-y: auto preserves page-level scrolling on non-fixed-height pages.
+
+.v-main > .v-main__wrap {
+  height: 100%;
+  overflow-y: auto;
+}
+
 // ── VNavigationDrawer ─────────────────────────────────────────────────────────
 // border-right color: same reasoning as VAppBar — BMA token vs --v-border-color
 // box-shadow not overridden: $navigation-drawer-elevation: 0 in SASS already removes it
@@ -162,6 +183,35 @@ body {
   color:         var(--bma-text-primary) !important;
   min-width:     280px !important;
   max-width:     340px !important;
+}
+
+// ── Responsive layout token overrides ────────────────────────────────────────
+// All breakpoint adjustments live here — components read vars, never hardcode.
+// Phase 0 (current): desktop + tablet foundations only.
+// Phase 1 (future):  mobile values will be added to the 767px block.
+
+@media (max-width: 1099px) {
+  :root {
+    --bma-cols-status-row:   1fr 1fr;
+    --bma-drawer-width:      55%;
+    --bma-drawer-min-width:  400px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --bma-cols-consult:      1fr;            /* chat stacks above info panel */
+    --bma-cols-status-row:   1fr;
+    --bma-cols-kpi-strip:    1fr 1fr;
+    --bma-cols-monitoring:   1fr;
+    --bma-cols-summary:      1fr;
+    --bma-cols-kpi-primary:  1fr;
+    --bma-cols-kpi-half:     1fr;
+    --bma-drawer-width:      100%;
+    --bma-drawer-min-width:  unset;
+    /* day-grid and ksafe/kats intentionally unchanged —
+       mobile needs richer redesign (accordion / card), not just column collapse */
+  }
 }
 
 // ── Scrollbar (subtle, medical-grade clean) ───────────────────────────────────

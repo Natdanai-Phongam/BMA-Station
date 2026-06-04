@@ -11,18 +11,6 @@
     </Transition>
 
     <!-- ── White header ───────────────────────────────────────── -->
-    <div v-if="!props.embedded" class="page">
-      <div class="page-header">
-        <button class="back-btn" @click="router.back()">
-          <PhArrowLeft :size="18" color="#595959" />
-        </button>
-        <div class="page-title-wrap">
-          <h1 class="page-title">WARFARIN SMART DOSE TITRATION ASSISTANT</h1>
-          <span class="page-subtitle">DD-ATS in BMA Research Project</span>
-        </div>
-      </div>
-    </div>
-
     <!-- ── Main ───────────────────────────────────────────────── -->
     <div class="main-wrap" :class="{ 'main-wrap--embedded': props.embedded }">
 
@@ -74,7 +62,7 @@
                   <template v-else>
                     <div class="inr-note" :class="`inr-note--${latestInrStatus}`">
                       <PhWarning v-if="latestInrStatus !== 'therapeutic'" :size="11" :color="suggestionIconColor" />
-                      <PhCheckCircle v-else :size="11" color="#2E7D32" />
+                      <PhCheckCircle v-else :size="11" color="var(--bma-success-text)" />
                       <span>{{ latestSuggestionNote }}</span>
                     </div>
                   </template>
@@ -162,7 +150,7 @@
       <div class="cur-schedule-card">
         <div class="cur-schedule-header">
           <div class="cur-schedule-title-wrap">
-            <PhCalendar :size="15" color="#595959" />
+            <PhCalendar :size="15" color="var(--bma-text-tertiary)" />
             <span class="cur-schedule-title">ตารางการกินยาปัจจุบัน</span>
           </div>
           <div class="cur-schedule-actions">
@@ -216,7 +204,7 @@
             </div>
           </div>
           <div class="schedule-warning">
-            <PhWarning :size="13" color="#B45309" />
+            <PhWarning :size="13" color="var(--inr-low-text)" />
             <span>ห้ามแบ่งเม็ดยาให้น้อยกว่า <strong>"ครึ่งเม็ด" (0.5 เม็ด)</strong> โดยเด็ดขาด</span>
           </div>
         </div>
@@ -232,7 +220,7 @@
               Target ({{ (data.profile.targetRange ?? DEFAULT_TARGET_RANGE).min }}–{{ (data.profile.targetRange ?? DEFAULT_TARGET_RANGE).max }})
             </span>
             <span class="legend-item">
-              <span class="legend-dot" style="background:#E57373" />
+              <span class="legend-dot" style="background: var(--bma-complication-bleeding-color)" />
               Out of Range
             </span>
           </div>
@@ -246,7 +234,7 @@
       <div class="log-card">
         <div class="log-header">
           <div class="log-title-wrap">
-            <PhClockCounterClockwise :size="15" color="#595959" />
+            <PhClockCounterClockwise :size="15" color="var(--bma-text-tertiary)" />
             <span class="log-title">ประวัติการวัด INR และการจ่ายยา</span>
             <span class="log-subtitle">INR VISIT LOG</span>
           </div>
@@ -322,8 +310,8 @@
                     :class="editingAdjId === row.adjustment.id ? 'edit-btn--active' : ''"
                     @click="editingAdjId === row.adjustment.id ? cancelEdit() : startEdit(row.adjustment)"
                   >
-                    <PhX v-if="editingAdjId === row.adjustment.id" :size="14" color="#B72C2C" />
-                    <PhPencilSimple v-else :size="14" color="#595959" />
+                    <PhX v-if="editingAdjId === row.adjustment.id" :size="14" color="var(--bma-emergency)" />
+                    <PhPencilSimple v-else :size="14" color="var(--bma-text-tertiary)" />
                   </button>
                   <span v-else class="col-dash">—</span>
                 </td>
@@ -347,6 +335,9 @@
                 </td>
               </tr>
             </template>
+            <tr v-if="unifiedLog.length === 0">
+              <td colspan="7" class="td-empty">ยังไม่มีประวัติการวัด INR และการปรับยา</td>
+            </tr>
           </tbody>
         </table>
         <div v-if="unifiedLog.length > LOG_PREVIEW_COUNT" class="log-show-more">
@@ -378,9 +369,8 @@
 
 <script setup lang="ts">
 import { ref, computed, reactive } from 'vue'
-import { useRouter } from 'vue-router'
 import {
-  PhArrowLeft, PhCalculator, PhWarning, PhCheckCircle,
+  PhCalculator, PhWarning, PhCheckCircle,
   PhCalendar, PhClockCounterClockwise, PhPrinter,
   PhPencilSimple, PhCaretDown, PhX,
 } from '@phosphor-icons/vue'
@@ -418,7 +408,6 @@ const majorInteractionEffect = computed(() => {
 
 const props = defineProps<{ patientId: string; embedded?: boolean }>()
 
-const router = useRouter()
 const allPatients  = allPatientsRaw  as Record<string, WarfarinPageData>
 const atsPatients  = atsPatientsRaw  as AtsPatientsData
 const data = reactive({ ...(allPatients[props.patientId] ?? allPatients['w009']) } as WarfarinPageData)
@@ -478,8 +467,12 @@ const latestSuggestionNote = computed(() => ({
 }[latestInrStatus.value]))
 
 const suggestionIconColor = computed(() => ({
-  low: '#B45309', therapeutic: '#2E7D32', supra: '#E65100',
-  'very-high': '#B72C2C', critical: '#B72C2C', emergency: '#B71C1C',
+  low:          'var(--inr-low-text)',
+  therapeutic:  'var(--bma-success-text)',
+  supra:        'var(--inr-supra-text)',
+  'very-high':  'var(--bma-emergency)',
+  critical:     'var(--bma-emergency)',
+  emergency:    'var(--inr-emergency-text)',
 }[latestInrStatus.value]))
 
 // ── Pill / schedule helpers ───────────────────────────────────
@@ -617,12 +610,14 @@ const inrChartData = computed(() => {
         label:             'INR',
         data:              records.map(r => r.inrValue),
         fill:              false as const,
-        borderColor:       '#00897B',
+        borderColor:       cssVar('--bma-green-500', '#00744B'),
         backgroundColor:   'transparent',
         pointBackgroundColor: records.map(r =>
-          r.inrValue >= tMin && r.inrValue <= tMax ? '#4CAF50' : '#E57373'
+          r.inrValue >= tMin && r.inrValue <= tMax
+            ? cssVar('--bma-success', '#4CAF50')
+            : cssVar('--bma-complication-bleeding-color', '#E57373')
         ),
-        pointBorderColor:  '#fff',
+        pointBorderColor:  cssVar('--bma-surface', '#FFFFFF'),
         pointBorderWidth:  1.5,
         pointRadius:       5,
         pointHoverRadius:  7,
@@ -655,7 +650,7 @@ const inrChartOptions = computed(() => {
       },
       y: {
         min: 0, max: yMax,
-        grid:   { color: '#F0F0F0' },
+        grid:   { color: cssVar('--bma-border-subtle', '#F0F0F0') },
         border: { display: false },
         ticks:  { stepSize: 1, font: { size: 10 } },
       },
@@ -664,8 +659,15 @@ const inrChartOptions = computed(() => {
 })
 
 // ── Helpers ───────────────────────────────────────────────────
+
+// Canvas API cannot resolve CSS custom properties — read at runtime.
+function cssVar(name: string, fallback = ''): string {
+  if (typeof document === 'undefined') return fallback
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback
+}
+
 function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: '2-digit' })
+  return new Date(iso).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' })
 }
 function formatDateTime(iso: string) {
   const d = new Date(iso)
@@ -701,20 +703,6 @@ function pctBadgeClass(pct: number) {
 .toast-enter-active, .toast-leave-active { transition: all var(--bma-transition-default); }
 .toast-enter-from, .toast-leave-to { opacity: 0; transform: translateY(-8px); }
 
-/* ── Page header ─────────────────────────────────────────────── */
-.page { background: var(--bma-surface); padding: 18px 24px; border-bottom: 1px solid var(--bma-border-card); }
-.page-header { display: flex; align-items: center; gap: 14px; }
-.back-btn {
-  width: 36px; height: 36px; border-radius: var(--bma-radius-md);
-  border: 1.5px solid var(--bma-border); background: var(--bma-surface);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; flex-shrink: 0; transition: background var(--bma-transition-fast);
-}
-.back-btn:hover { background: var(--bma-surface-subtle); }
-.page-title-wrap { display: flex; flex-direction: column; gap: 1px; }
-.page-title    { font-family: var(--bma-font-data); font-size: 15px; font-weight: 800; color: var(--bma-text-primary); margin: 0; letter-spacing: .04em; }
-.page-subtitle { font-size: 11px; color: var(--bma-text-muted); }
-
 /* ── Main wrap ───────────────────────────────────────────────── */
 .main-wrap { padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
 .main-wrap--embedded { padding: 0; }
@@ -722,7 +710,7 @@ function pctBadgeClass(pct: number) {
 /* ── Status row: INR (60%) + TTR (40%) ──────────────────────── */
 .status-row {
   display: grid;
-  grid-template-columns: 3fr 2fr;
+  grid-template-columns: var(--bma-cols-status-row);
   gap: 16px;
   align-items: stretch;
 }
@@ -743,14 +731,14 @@ function pctBadgeClass(pct: number) {
 }
 .inr-hero-header-left { display: flex; align-items: center; gap: 10px; }
 .inr-hero-eyebrow {
-  font-family: var(--bma-font-data); font-size: 10px; font-weight: 800;
+  font-family: var(--bma-font-data); font-size: 10px; font-weight: 700;
   color: var(--bma-text-muted); letter-spacing: .1em; text-transform: uppercase;
 }
 .inr-hero-saved-badge {
   display: inline-flex; align-items: center; gap: 5px;
   font-family: var(--bma-font-data); font-size: 11px; font-weight: 700;
-  color: var(--bma-success-text); background: #E8F5E9;
-  border: 1px solid #A5D6A7; border-radius: var(--bma-radius-full); padding: 2px 9px;
+  color: var(--bma-success-text); background: var(--bma-success-bg-solid);
+  border: 1px solid var(--bma-success-ring); border-radius: var(--bma-radius-full); padding: 2px 9px;
 }
 
 /* Body row: INR left + dose info right */
@@ -768,7 +756,7 @@ function pctBadgeClass(pct: number) {
   border-left: 1px solid var(--bma-border-subtle);
 }
 .inr-dose-info-label {
-  font-family: var(--bma-font-data); font-size: 10px; font-weight: 800;
+  font-family: var(--bma-font-data); font-size: 10px; font-weight: 700;
   color: var(--bma-text-muted); text-transform: uppercase; letter-spacing: .08em;
 }
 .inr-dose-info-num {
@@ -880,7 +868,7 @@ function pctBadgeClass(pct: number) {
 
 .sched-total-dose { display: flex; flex-direction: column; gap: 1px; flex-shrink: 0; }
 .sched-total-label {
-  font-family: var(--bma-font-data); font-size: 10px; font-weight: 800;
+  font-family: var(--bma-font-data); font-size: 10px; font-weight: 700;
   color: var(--bma-text-muted); text-transform: uppercase; letter-spacing: .08em;
 }
 .sched-total-val {
@@ -890,7 +878,7 @@ function pctBadgeClass(pct: number) {
 
 .sched-pill-ref { display: flex; flex-direction: column; gap: 5px; flex-shrink: 0; }
 .sched-ref-label {
-  font-family: var(--bma-font-data); font-size: 10px; font-weight: 800;
+  font-family: var(--bma-font-data); font-size: 10px; font-weight: 700;
   color: var(--bma-text-muted); text-transform: uppercase; letter-spacing: .08em;
 }
 .sched-ref-items { display: flex; gap: 12px; align-items: center; }
@@ -1005,7 +993,7 @@ function pctBadgeClass(pct: number) {
   display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
   flex-wrap: wrap; gap: 6px;
 }
-.chart-title  { font-family: var(--bma-font-data); font-size: 11px; font-weight: 800; color: var(--bma-text-primary); letter-spacing: .05em; }
+.chart-title  { font-family: var(--bma-font-data); font-size: 11px; font-weight: 700; color: var(--bma-text-primary); letter-spacing: .05em; }
 .chart-legend { display: flex; gap: 12px; flex-wrap: wrap; }
 .legend-item  { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--bma-text-tertiary); }
 .legend-dot   { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
@@ -1013,7 +1001,7 @@ function pctBadgeClass(pct: number) {
 .chart-wrap   { height: 175px; }
 
 
-.day-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-bottom: 14px; }
+.day-grid { display: grid; grid-template-columns: var(--bma-cols-day-grid); gap: 8px; margin-bottom: 14px; }
 .day-col {
   display: flex; flex-direction: column; align-items: center; gap: 3px;
   padding: 10px 6px; border-radius: var(--bma-radius-lg);
@@ -1048,8 +1036,8 @@ function pctBadgeClass(pct: number) {
 
 .schedule-warning {
   display: flex; align-items: center; gap: 6px;
-  background: #FFFBF2; border: 1px solid #FCD34D; border-radius: var(--bma-radius-md);
-  padding: 7px 12px; font-size: 12px; color: #B45309;
+  background: var(--inr-low-bg); border: 1px solid var(--inr-low-ring); border-radius: var(--bma-radius-md);
+  padding: 7px 12px; font-size: 12px; color: var(--inr-low-text);
 }
 
 /* ── Log card ────────────────────────────────────────────────── */
@@ -1079,18 +1067,19 @@ function pctBadgeClass(pct: number) {
 .log-row:last-child { border-bottom: none; }
 .log-table td { padding: 10px 14px; color: var(--bma-text-primary); vertical-align: middle; }
 .td-date  { font-family: var(--bma-font-data); font-size: 12px; white-space: nowrap; }
+.td-empty { text-align: center; padding: 28px 16px; font-family: var(--bma-font-thai); font-size: 13px; color: var(--bma-text-disabled); font-style: italic; }
 .td-time  { color: var(--bma-text-muted); font-size: 11px; margin-top: 2px; }
 .td-dose  { font-family: var(--bma-font-data); font-weight: 600; }
 .td-remarks { font-size: 12px; color: var(--bma-text-tertiary); max-width: 180px; }
 
 .inr-chip { display: inline-block; padding: 2px 8px; border-radius: var(--bma-radius-sm); font-family: var(--bma-font-data); font-size: 12px; font-weight: 700; }
-.inr-chip--low  { background: #FEECEC; color: var(--bma-emergency); }
-.inr-chip--high { background: #FFF3E0; color: #E65100; }
-.inr-chip--ok   { background: #E8F5E9; color: var(--bma-success-text); }
+.inr-chip--low  { background: var(--inr-very-high-bg); color: var(--bma-emergency); }
+.inr-chip--high { background: var(--inr-supra-bg); color: var(--inr-supra-text); }
+.inr-chip--ok   { background: var(--bma-success-bg); color: var(--bma-success-text); }
 
 .pct-badge { display: inline-block; padding: 3px 8px; border-radius: var(--bma-radius-sm); font-family: var(--bma-font-data); font-size: 12px; font-weight: 700; }
-.pct-badge--up      { background: #E8F5E9; color: var(--bma-success-text); }
-.pct-badge--down    { background: #FEECEC; color: var(--bma-emergency); }
+.pct-badge--up      { background: var(--bma-success-bg); color: var(--bma-success-text); }
+.pct-badge--down    { background: var(--inr-very-high-bg); color: var(--bma-emergency); }
 .pct-badge--neutral { background: var(--bma-surface-subtle); color: var(--bma-text-muted); }
 
 .edit-btn {
@@ -1171,7 +1160,7 @@ function pctBadgeClass(pct: number) {
   cursor: pointer; white-space: nowrap; transition: background var(--bma-transition-fast);
 }
 .btn-log-cancel:hover { background: var(--bma-surface-subtle); }
-.edit-btn--active { border-color: #FFCDD2 !important; background: #FEECEC !important; }
+.edit-btn--active { border-color: var(--bma-emergency-ring) !important; background: var(--bma-emergency-bg-soft) !important; }
 
 /* ── Hold state directives ───────────────────────────────────── */
 .inr-hold-steps {
@@ -1207,20 +1196,14 @@ function pctBadgeClass(pct: number) {
 .inr-interact-flag { cursor: default; }
 
 /* ── Responsive ──────────────────────────────────────────────── */
-@media (max-width: 1099px) {
-  .status-row { grid-template-columns: 1fr 1fr; }
-}
-
+/* Grid columns now driven by --bma-cols-* tokens — see overrides.scss */
 @media (max-width: 767px) {
   .main-wrap   { padding: 16px; gap: 12px; }
-  .status-row  { grid-template-columns: 1fr; }
   .cur-schedule-actions { flex-wrap: wrap; gap: 8px; }
   .day-grid    { gap: 4px; }
   .day-col     { padding: 8px 4px; }
   .day-label   { font-size: 11px; }
   .day-tablets { font-size: 15px; }
-  .page        { padding: 14px 16px; }
-  .page-title  { font-size: 13px; }
   .log-table th, .log-table td { padding: 8px 10px; }
   .inr-hero-body-row { flex-direction: column; }
   .inr-dose-info { border-left: none; border-top: 1px solid var(--bma-border-subtle); }
@@ -1231,8 +1214,8 @@ function pctBadgeClass(pct: number) {
 <style>
 .inr-interact-tooltip.v-overlay__content {
   background: #fff !important;
-  color: #343330 !important;
-  border: 1px solid #E0E0E0 !important;
+  color: var(--bma-text-primary) !important;
+  border: 1px solid var(--bma-border-muted) !important;
   border-radius: 10px !important;
   box-shadow: 0 4px 20px rgba(0,0,0,0.13) !important;
   padding: 0 !important;
@@ -1243,15 +1226,15 @@ function pctBadgeClass(pct: number) {
 .interact-tip-inner { font-size: 0; /* collapse whitespace */ }
 .interact-tip-header {
   font-family: 'Inter', sans-serif;
-  font-size: 10px; font-weight: 800;
-  color: #00744B;
+  font-size: 10px; font-weight: 700;
+  color: var(--bma-green-500);
   text-transform: uppercase; letter-spacing: .08em;
   padding: 10px 14px 8px;
-  border-bottom: 1px solid #F0F0F0;
+  border-bottom: 1px solid var(--bma-border-subtle);
 }
 .interact-tip-row {
   padding: 8px 14px;
-  border-top: 1px solid #F5F5F5;
+  border-top: 1px solid var(--bma-surface-subtle);
 }
 .interact-tip-row:first-of-type { border-top: none; }
 .interact-tip-drug {
@@ -1259,25 +1242,25 @@ function pctBadgeClass(pct: number) {
 }
 .interact-tip-dir {
   font-family: 'Inter', sans-serif;
-  font-size: 10px; font-weight: 800;
+  font-size: 10px; font-weight: 700;
   padding: 2px 6px; border-radius: 4px;
   flex-shrink: 0; white-space: nowrap;
 }
 .interact-tip-dir--increase {
-  background: #FFFBF2; color: #B45309; border: 1px solid #FDE68A;
+  background: var(--inr-low-bg); color: var(--inr-low-text); border: 1px solid var(--inr-low-ring);
 }
 .interact-tip-dir--decrease {
-  background: #E3F2FD; color: #1565C0; border: 1px solid #90CAF9;
+  background: var(--bma-complication-thrombosis-bg); color: var(--bma-complication-thrombosis-color); border: 1px solid var(--bma-complication-thrombosis-bg);
 }
 .interact-tip-name {
   font-family: 'Inter', sans-serif;
   font-size: 12px; font-weight: 700;
-  color: #343330;
+  color: var(--bma-text-primary);
 }
 .interact-tip-note {
   font-family: 'Sarabun', sans-serif;
   font-size: 12px; line-height: 1.45;
-  color: #737373;
+  color: var(--bma-text-muted);
   margin: 4px 0 0;
 }
 </style>

@@ -33,7 +33,7 @@
         <!-- Alert box (red) -->
         <div class="mc-alert-box">
           <div class="mc-alert-left">
-            <PhWarning :size="13" color="#B72C2C" />
+            <PhWarning :size="13" color="var(--bma-emergency)" />
             ต้องติดตาม {{ card.outOfRangeCount }} ราย
           </div>
           <span class="mc-alert-pct">{{ card.outOfRangePct }}</span>

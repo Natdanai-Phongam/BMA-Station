@@ -140,4 +140,64 @@
   --bma-transition-fast:    150ms ease;
   --bma-transition-default: 200ms ease;
   --bma-transition-slow:    300ms ease;
+
+  /* ── Layout — grid columns ───────────────────────────────────────────────
+     Desktop defaults. Overridden per breakpoint in overrides.scss.
+     Components reference these vars; breakpoint logic lives in one place.   */
+
+  /* WarfarinDoseTool */
+  --bma-cols-status-row:  3fr 2fr;           /* INR hero + TTR card */
+  --bma-cols-day-grid:    repeat(7, 1fr);    /* 7-day tablet schedule */
+
+  /* DdAtsDashboard */
+  --bma-cols-kpi-strip:   repeat(4, 1fr);   /* KPI strip metrics */
+  --bma-cols-monitoring:  1fr 1fr;           /* Monitoring cards */
+  --bma-cols-summary:     1fr 1fr;           /* Summary panels */
+  --bma-cols-kpi-primary: 1fr 1fr;           /* KPI primary container */
+  --bma-cols-kpi-half:    1fr 1fr;           /* KPI secondary container */
+
+  /* KPI panel internal grids */
+  --bma-cols-ksafe: 1fr 56px 54px 70px 58px 60px;  /* Safety metric grid */
+  --bma-cols-kats:  1fr 68px 84px 68px;             /* ATS response grid */
+
+  /* AtsConsult room — chat (left) + info panel (right) */
+  --bma-cols-consult:     3fr 2fr;           /* 60% chat / 40% info */
+
+  /* WfDoseDrawer */
+  --bma-drawer-width:     42%;
+  --bma-drawer-min-width: 440px;
+
+  /* ── Solid semantic backgrounds (opaque equivalents for surfaces) ───────────
+     --bma-success-bg is rgba — unusable where opacity blending is wrong.
+     These solid equivalents are for use on white surfaces only.              */
+  --bma-success-bg-solid:   #E8F5E9;   /* success-bg rgba on white */
+  --bma-urgency-bg-solid:   #FFD8A0;   /* lighter urgency tint for chart fills */
+  --bma-emergency-bg-solid: #F5C2C2;   /* lighter emergency tint for chart fills */
+  --bma-green-toast:        #1B5E20;   /* deep brand green for toast backgrounds */
+
+  /* ── Complication type colors ───────────────────────────────────────────────
+     Used in the complications tab: chart bars, icon wraps, and badges.
+     Softer than emergency/elective — these are retrospective record colors,
+     not acute-severity signals.                                               */
+  --bma-complication-bleeding-color:   #E57373;
+  --bma-complication-bleeding-bg:      #FEECEC;
+  --bma-complication-thrombosis-color: #1565C0;
+  --bma-complication-thrombosis-bg:    #E3F2FD;
+
+  /* ── Clinical role identity ─────────────────────────────────────────────────
+     Used in 3-party consultation (doctor / pharmacist / nurse) bubbles, chips,
+     and any future role-differentiated UI. Doctor role uses --bma-green-* above.
+     Pharmacist derives from --bma-elective (clinical blue). Nurse uses a distinct
+     professional sage that reads as calm and separate from the BMA primary green. */
+  --bma-role-pharma-fill: #E9EDF6;
+  --bma-role-pharma-ink:  var(--bma-elective);   /* #2B478B */
+  --bma-role-nurse-fill:  #EBF0EA;
+  --bma-role-nurse-ink:   #3A5239;
+
+  /* Shared table column widths (WfPatientTable / NoacPatientTable) */
+  --bma-col-action-w:      48px;
+  --bma-col-name-min:     180px;
+  --bma-col-hospital-min: 140px;
+  --bma-col-status-w:     110px;
+  --bma-col-concordance-w:148px;
 }

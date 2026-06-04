@@ -1,6 +1,6 @@
 <template>
   <div class="content-wrap">
-    <div class="page" style="background-color: #FFFFFF; padding: 24px 24px 0px 24px;">
+    <div class="page" style="background-color: var(--bma-surface); padding: 24px 24px 0px 24px;">
     <!-- Page header -->
       <div class="page-header">
         <h1 class="page-title">รายการส่งปรึกษา</h1>
@@ -31,12 +31,12 @@
       <!-- Filter bar -->
     <div class="filter-bar">
       <div class="filter-search">
-        <PhMagnifyingGlass :size="15" color="#BFBFBF" class="filter-icon" />
+        <PhMagnifyingGlass :size="15" color="var(--bma-text-disabled)" class="filter-icon" />
         <input class="filter-input" placeholder="ค้นหาชื่อ - นามสกุล" />
       </div>
       <div class="filter-date">
         <input class="filter-input" placeholder="วันที่ค้นหา" />
-        <PhCalendar :size="15" color="#BFBFBF" class="filter-icon-right" />
+        <PhCalendar :size="15" color="var(--bma-text-disabled)" class="filter-icon-right" />
       </div>
       <div class="filter-select-wrap">
         <select class="filter-select">
@@ -45,7 +45,7 @@
           <option>URGENCY</option>
           <option>ELECTIVE</option>
         </select>
-        <PhCaretDown :size="14" color="#8C8C8C" class="select-arrow" />
+        <PhCaretDown :size="14" color="var(--bma-text-muted)" class="select-arrow" />
       </div>
       <button class="btn-search">ค้นหา</button>
     </div>
@@ -112,7 +112,7 @@
 
         <div v-if="card.counts?.length" class="count-row">
           <span v-for="(c, i) in card.counts" :key="i" class="bma-count-tag">
-            <component :is="countIcons[i]?.icon" :size="12" :color="countIcons[i]?.color ?? '#595959'" />
+            <component :is="countIcons[i]?.icon" :size="12" :color="countIcons[i]?.color ?? 'var(--bma-text-tertiary)'" />
             {{ c }}
           </span>
         </div>
@@ -181,11 +181,11 @@ const tabs: { value: TabValue; label: string; count: number }[] = [
 ]
 
 const countIcons = [
-  { icon: PhPaperclip,   color: '#595959' },
-  { icon: PhChatCircle,  color: '#595959' },
-  { icon: PhImage,       color: '#595959' },
-  { icon: PhVideoCamera, color: '#595959' },
-  { icon: PhMapPin,      color: '#595959' },
+  { icon: PhPaperclip,   color: 'var(--bma-text-tertiary)' },
+  { icon: PhChatCircle,  color: 'var(--bma-text-tertiary)' },
+  { icon: PhImage,       color: 'var(--bma-text-tertiary)' },
+  { icon: PhVideoCamera, color: 'var(--bma-text-tertiary)' },
+  { icon: PhMapPin,      color: 'var(--bma-text-tertiary)' },
 ]
 
 interface DetailItem {

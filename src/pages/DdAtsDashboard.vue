@@ -71,7 +71,7 @@
           </div>
           <Transition name="kpi-custom-slide">
             <div v-if="kpiMode === 'month'" class="kpi-custom-row kpi-custom-row--strip">
-              <PhCalendar :size="13" color="#8C8C8C" />
+              <PhCalendar :size="13" color="var(--bma-text-muted)" />
               <span class="kpi-custom-label">ช่วงเดือน</span>
               <div class="kpi-custom-inputs">
                 <!-- Month from — Vuetify month picker -->
@@ -101,7 +101,7 @@
               </div>
             </div>
             <div v-else-if="kpiMode === 'quarter'" class="kpi-custom-row kpi-custom-row--strip">
-              <PhCalendar :size="13" color="#8C8C8C" />
+              <PhCalendar :size="13" color="var(--bma-text-muted)" />
               <span class="kpi-custom-label">ปี</span>
               <select class="kpi-year-select" v-model.number="quarterYear">
                 <option v-for="y in availableYears" :key="y" :value="y">{{ y + 543 }}</option>
@@ -117,7 +117,7 @@
               </div>
             </div>
             <div v-else-if="kpiMode === 'year'" class="kpi-custom-row kpi-custom-row--strip">
-              <PhCalendar :size="13" color="#8C8C8C" />
+              <PhCalendar :size="13" color="var(--bma-text-muted)" />
               <span class="kpi-custom-label">ปี</span>
               <select class="kpi-year-select" v-model.number="yearNum">
                 <option v-for="y in availableYears" :key="y" :value="y">{{ y + 543 }}</option>
@@ -145,7 +145,7 @@
         <div class="summary-container">
           <div class="section-header">
             <div class="section-icon-wrap">
-              <PhBell :size="15" color="#FB8C00" />
+              <PhBell :size="15" color="var(--bma-urgency)" />
             </div>
             สรุปการแจ้งเตือนและปรับขนาดยา
             <span class="section-badge">Consultation &amp; Adjustment Summary</span>
@@ -1020,7 +1020,7 @@ const tabs = computed(() => [
 /* ── Monitoring grid ──────────────────────────────────────── */
 .monitoring-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: var(--bma-cols-monitoring);
   gap: 16px;
   margin-bottom: 32px;
   /* Shared label-column width — governs progress bar start/end across all cards */
@@ -1052,7 +1052,7 @@ const tabs = computed(() => [
   width: 28px;
   height: 28px;
   border-radius: var(--bma-radius-sm);
-  background: #FFF3E0;
+  background: var(--bma-urgency-bg-soft);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1073,7 +1073,7 @@ const tabs = computed(() => [
 
 .summary-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: var(--bma-cols-summary);
 }
 
 .summary-panel {
@@ -1119,7 +1119,7 @@ const tabs = computed(() => [
 /* ── KPI Strip ────────────────────────────────────────────── */
 .kpi-strip {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: var(--bma-cols-kpi-strip);
   background: var(--bma-surface);
   border: 1px solid var(--bma-border-card);
   border-radius: var(--bma-radius-lg);
@@ -1244,7 +1244,7 @@ const tabs = computed(() => [
 .kpi-tally--ng   { background: var(--bma-emergency-bg); color: var(--bma-emergency); }
 
 /* Safety grid — columns: name | events | pct | trend | target | badge */
-.ksafe-grid { display: grid; grid-template-columns: 1fr 56px 54px 70px 58px 60px; column-gap: 8px; align-items: center; }
+.ksafe-grid { display: grid; grid-template-columns: var(--bma-cols-ksafe); column-gap: 8px; align-items: center; }
 .ksafe-cell { padding: 8px 0; border-bottom: 1px solid var(--bma-border-subtle); }
 .ksafe-cell--last { border-bottom: none; padding-bottom: 0; }
 .ksafe-name { font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600; color: var(--bma-text-secondary); }
@@ -1274,8 +1274,8 @@ const tabs = computed(() => [
 .kqual-track { position: relative; height: 6px; background: var(--bma-neutral-100); border-radius: 3px; overflow: visible; }
 .kqual-fill { height: 100%; border-radius: 3px; transition: width 400ms cubic-bezier(.22,.68,0,1.2); }
 .kqual-fill--pass { background: var(--bma-green-200); }
-.kqual-fill--warn { background: #FFD8A0; }
-.kqual-fill--fail { background: #F5C2C2; }
+.kqual-fill--warn { background: var(--bma-urgency-bg-solid); }
+.kqual-fill--fail { background: var(--bma-emergency-bg-solid); }
 .kqual-target-line { position: absolute; top: -4px; bottom: -4px; width: 2px; transform: translateX(-1px); background: var(--bma-neutral-500); border-radius: 1px; opacity: 0.35; }
 .kqual-bar-labels { display: flex; justify-content: space-between; align-items: center; }
 .kqual-bar-val { font-family: var(--bma-font-data); font-size: 12px; font-weight: 700; }
@@ -1290,7 +1290,7 @@ const tabs = computed(() => [
 .kqual-los-bench { font-family: var(--bma-font-data); font-size: 11px; color: var(--bma-text-muted); margin-left: 4px; }
 
 /* ATS response grid — columns: name | value | target | badge */
-.kats-grid { display: grid; grid-template-columns: 1fr 68px 84px 68px; column-gap: 8px; align-items: center; }
+.kats-grid { display: grid; grid-template-columns: var(--bma-cols-kats); column-gap: 8px; align-items: center; }
 .kats-grid > * { padding: 8px 0; border-bottom: 1px solid var(--bma-border-subtle); }
 .kats-grid > *:nth-last-child(-n+4) { border-bottom: none; padding-bottom: 0; }
 .kats-name { font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600; color: var(--bma-text-secondary); }
@@ -1399,23 +1399,17 @@ const tabs = computed(() => [
 .data-row--over-range:hover, .data-row--overdose:hover, .data-row--contra:hover, .data-row--interaction:hover { background: var(--bma-row-overdose-hover); }
 
 /* ── Shared column widths ─────────────────────────────────── */
-.col-action      { width: 48px; }
-.col-name        { min-width: 180px; }
-.col-hospital    { min-width: 140px; }
-.col-status      { width: 110px; }
-.col-concordance { width: 148px; }
+.col-action      { width: var(--bma-col-action-w); }
+.col-name        { min-width: var(--bma-col-name-min); }
+.col-hospital    { min-width: var(--bma-col-hospital-min); }
+.col-status      { width: var(--bma-col-status-w); }
+.col-concordance { width: var(--bma-col-concordance-w); }
 
 /* ── Patient name cell ────────────────────────────────────── */
 .patient-name    { font-size: 13px; font-weight: 600; color: var(--bma-text-primary); }
 .patient-hn      { font-size: 11px; color: var(--bma-text-muted); margin-top: 2px; font-family: var(--bma-font-data); }
 .patient-hn-row  { display: flex; align-items: center; gap: 4px; margin-top: 2px; flex-wrap: wrap; }
-.action-btn {
-  width: 32px; height: 32px; border-radius: var(--bma-radius-sm);
-  border: 1.5px solid var(--bma-border-card); background: var(--bma-surface);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: border-color var(--bma-transition-fast), background var(--bma-transition-fast);
-}
-.action-btn:hover { border-color: var(--bma-green-500); background: var(--bma-green-50); }
+/* action-btn removed — table row action buttons now use v-btn icon size="small" */
 
 /* ── Status badges ────────────────────────────────────────── */
 .status-badge { display: inline-block; padding: 4px 12px; border-radius: var(--bma-radius-full); font-size: 12px; font-weight: 600; white-space: nowrap; }
@@ -1437,27 +1431,7 @@ const tabs = computed(() => [
 .tab-section-title  { font-size: 15px; font-weight: 700; color: var(--bma-text-primary); font-family: var(--bma-font-thai); }
 .tab-section-count  { font-family: var(--bma-font-data); font-size: 12px; color: var(--bma-text-muted); }
 
-/* ── Table footer + pagination ────────────────────────────── */
-.table-footer { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid var(--bma-border-subtle); }
-.pg-info     { font-family: var(--bma-font-data); font-size: 12px; color: var(--bma-text-muted); }
-.pg-controls { display: flex; align-items: center; gap: 8px; }
-.pg-select {
-  height: 30px; border: 1.5px solid var(--bma-border); border-radius: var(--bma-radius-sm);
-  padding: 0 24px 0 8px; font-family: var(--bma-font-data); font-size: 12px;
-  background: var(--bma-surface) url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 4l3 3 3-3' stroke='%238c8c8c' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 6px center;
-  appearance: none; cursor: pointer;
-}
-.pagination { display: flex; gap: 4px; }
-.pg-btn {
-  width: 30px; height: 30px; border-radius: var(--bma-radius-sm);
-  border: 1.5px solid var(--bma-border); background: var(--bma-surface);
-  display: flex; align-items: center; justify-content: center; cursor: pointer;
-  font-family: var(--bma-font-data); font-size: 12px; font-weight: 500;
-  color: var(--bma-text-secondary); transition: all var(--bma-transition-fast);
-}
-.pg-btn:not(.pg-btn--active):not(.pg-btn--disabled):hover { border-color: var(--bma-green-500); color: var(--bma-green-500); background: var(--bma-green-50); }
-.pg-btn--active   { background: var(--bma-green-500); border-color: var(--bma-green-500); color: var(--bma-surface); font-weight: 700; }
-.pg-btn--disabled { color: var(--bma-border); cursor: not-allowed; }
+/* Table footer + pagination — moved to BmaTablePagination.vue (scoped) */
 
 /* Tooltip styles — .v-overlay__content rules moved to overrides.scss (Layer 4)
    Vuetify teleports overlay to <body> — global scope required, centralised there. */
@@ -1508,9 +1482,9 @@ const tabs = computed(() => [
   white-space: nowrap;
   flex-shrink: 0;
 }
-.ixn-tt-overlay .ixn-effect--increase { background: #FEECEC; color: #B72C2C; }
-.ixn-tt-overlay .ixn-effect--decrease { background: #FFF3E0; color: #E65100; }
-.ixn-tt-overlay .ixn-effect--none     { background: #F5F5F5; color: #8C8C8C; }
+.ixn-tt-overlay .ixn-effect--increase { background: var(--inr-very-high-bg); color: var(--bma-emergency); }
+.ixn-tt-overlay .ixn-effect--decrease { background: var(--bma-urgency-bg-soft); color: var(--inr-supra-text); }
+.ixn-tt-overlay .ixn-effect--none     { background: var(--bma-surface-subtle); color: var(--bma-text-muted); }
 
 .ixn-tt-overlay .ixn-tt-note {
   font-family: var(--bma-font-thai);
@@ -1525,12 +1499,12 @@ const tabs = computed(() => [
   max-height:      200px;
   overflow-y:      auto;
   scrollbar-width: thin;
-  scrollbar-color: var(--bma-border-default, #D9D9D9) transparent;
+  scrollbar-color: var(--bma-border) transparent;
 }
 .tt-scroll-body::-webkit-scrollbar       { width: 4px; }
 .tt-scroll-body::-webkit-scrollbar-track { background: transparent; }
 .tt-scroll-body::-webkit-scrollbar-thumb {
-  background:    var(--bma-border-default, #D9D9D9);
+  background:    var(--bma-border);
   border-radius: 2px;
 }
 
@@ -1599,15 +1573,15 @@ const tabs = computed(() => [
 }
 
 /* Status colors — Warfarin */
-.summ-tt-overlay .summ-st--in-range    { background: #E8F5E9; color: #2E7D32; }
-.summ-tt-overlay .summ-st--under-range { background: #FFF3E0; color: #E65100; }
-.summ-tt-overlay .summ-st--over-range  { background: #FCE4EC; color: #B72C2C; }
+.summ-tt-overlay .summ-st--in-range    { background: var(--bma-success-bg); color: var(--bma-success-text); }
+.summ-tt-overlay .summ-st--under-range { background: var(--bma-urgency-bg-soft); color: var(--inr-supra-text); }
+.summ-tt-overlay .summ-st--over-range  { background: var(--bma-emergency-bg-soft); color: var(--bma-emergency); }
 /* Status colors — NOACs */
-.summ-tt-overlay .summ-st--appropriate { background: #E8F5E9; color: #2E7D32; }
-.summ-tt-overlay .summ-st--underdose   { background: #FFF3E0; color: #E65100; }
-.summ-tt-overlay .summ-st--overdose    { background: #FCE4EC; color: #B72C2C; }
-.summ-tt-overlay .summ-st--contra      { background: #E8EAF6; color: #3949AB; }
-.summ-tt-overlay .summ-st--interaction { background: #F3EEFF; color: #7B52AB; }
+.summ-tt-overlay .summ-st--appropriate { background: var(--bma-success-bg); color: var(--bma-success-text); }
+.summ-tt-overlay .summ-st--underdose   { background: var(--bma-urgency-bg-soft); color: var(--inr-supra-text); }
+.summ-tt-overlay .summ-st--overdose    { background: var(--bma-emergency-bg-soft); color: var(--bma-emergency); }
+.summ-tt-overlay .summ-st--contra      { background: var(--bma-contra-bg); color: var(--bma-elective); }
+.summ-tt-overlay .summ-st--interaction { background: var(--bma-interaction-bg); color: var(--bma-interaction-text); }
 
 .summ-tt-overlay .summ-tt-nav {
   width:       28px;
@@ -1760,8 +1734,8 @@ const tabs = computed(() => [
 .kpi-container-grid {
   display: grid;
 }
-.kpi-container-grid--primary { grid-template-columns: 1fr 1fr; }
-.kpi-container-grid--half    { grid-template-columns: 1fr 1fr;  }
+.kpi-container-grid--primary { grid-template-columns: var(--bma-cols-kpi-primary); }
+.kpi-container-grid--half    { grid-template-columns: var(--bma-cols-kpi-half);    }
 
 
 /* ── Custom date range row ───────────────────────────────────── */

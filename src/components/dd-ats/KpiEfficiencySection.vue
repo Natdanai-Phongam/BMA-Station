@@ -1,7 +1,7 @@
 <template>
   <div class="kpi-sub-section kpi-sub-section--sep">
     <div class="kpi-panel-head">
-      <PhUsers :size="14" color="#8C8C8C" />
+      <PhUsers :size="14" color="var(--bma-text-muted)" />
       <span class="kpi-ph-name">ประสิทธิภาพระบบ</span>
     </div>
 

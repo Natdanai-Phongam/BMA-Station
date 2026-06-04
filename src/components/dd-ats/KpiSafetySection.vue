@@ -1,7 +1,7 @@
 <template>
   <div class="kpi-sub-section">
     <div class="kpi-panel-head">
-      <PhShieldCheck :size="14" :color="failCount > 0 ? '#B72C2C' : '#8C8C8C'" />
+      <PhShieldCheck :size="14" :color="failCount > 0 ? 'var(--bma-emergency)' : 'var(--bma-text-muted)'" />
       <span class="kpi-ph-name">ความปลอดภัยของผู้ป่วย</span>
       <div class="kpi-ph-tally">
         <span v-if="passCount" class="kpi-tally kpi-tally--ok">{{ passCount }} ผ่าน</span>

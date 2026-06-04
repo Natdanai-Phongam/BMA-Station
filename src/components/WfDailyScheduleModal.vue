@@ -317,7 +317,7 @@ function doConfirm() {
 }
 .dsm-header-left { display: flex; align-items: center; gap: 10px; }
 .dsm-title {
-  font-family: var(--bma-font-thai); font-size: 14px; font-weight: 800;
+  font-family: var(--bma-font-thai); font-size: 14px; font-weight: 700;
   color: var(--bma-text-primary);
 }
 .dsm-target-chip {
@@ -326,7 +326,7 @@ function doConfirm() {
   background: var(--bma-surface-subtle); border: 1px solid var(--bma-border-card);
 }
 .dsm-target-num {
-  font-family: var(--bma-font-data); font-size: 13px; font-weight: 800;
+  font-family: var(--bma-font-data); font-size: 13px; font-weight: 700;
   color: var(--bma-text-primary);
 }
 .dsm-target-unit {
@@ -437,7 +437,7 @@ function doConfirm() {
   display: flex; flex-direction: column; gap: 10px;
 }
 .dsm-edit-day-lbl {
-  font-family: var(--bma-font-thai); font-size: 12px; font-weight: 800;
+  font-family: var(--bma-font-thai); font-size: 12px; font-weight: 700;
   color: var(--bma-text-primary);
 }
 .dsm-edit-row { display: flex; align-items: center; gap: 12px; }
@@ -466,9 +466,9 @@ function doConfirm() {
 .dsm-pill-btn:not(.dsm-pill-btn--active):not(:disabled):hover {
   border-color: var(--bma-text-muted); background: var(--bma-surface-subtle);
 }
-.dsm-pill-btn--orange.dsm-pill-btn--active { border-color: var(--wf-pill-orange); background: #FFF3E0; color: #E65100; }
-.dsm-pill-btn--blue.dsm-pill-btn--active   { border-color: var(--wf-pill-blue);   background: #E3F2FD; color: #1565C0; }
-.dsm-pill-btn--pink.dsm-pill-btn--active   { border-color: var(--wf-pill-pink);   background: #FCE4EC; color: #AD1457; }
+.dsm-pill-btn--orange.dsm-pill-btn--active { border-color: var(--wf-pill-orange); background: var(--bma-urgency-bg-soft); color: var(--bma-underdose-text); }
+.dsm-pill-btn--blue.dsm-pill-btn--active   { border-color: var(--wf-pill-blue);   background: var(--bma-complication-thrombosis-bg); color: var(--bma-complication-thrombosis-color); }
+.dsm-pill-btn--pink.dsm-pill-btn--active   { border-color: var(--wf-pill-pink);   background: var(--wf-pill-pink-bg); color: var(--wf-pill-pink-text); }
 
 /* ── Stepper ──────────────────────────────────────────────── */
 .dsm-stepper { display: flex; align-items: center; gap: 8px; }
@@ -547,7 +547,7 @@ function doConfirm() {
 
 .dsm-btn-confirm {
   height: 38px; padding: 0 20px; border-radius: 8px;
-  border: none; background: #1A1A1A;
+  border: none; background: var(--bma-neutral-900);
   font-family: var(--bma-font-thai); font-size: 13px; font-weight: 700;
   color: #fff; cursor: pointer; transition: background .15s;
 }

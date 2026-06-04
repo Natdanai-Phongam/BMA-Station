@@ -21,7 +21,7 @@
       <div class="dwr-header">
         <div class="dwr-header-top">
           <button class="dwr-close-btn" @click="emit('close')">
-            <PhX :size="16" color="#595959" />
+            <PhX :size="16" color="var(--bma-text-tertiary)" />
           </button>
           <div class="dwr-title-wrap">
             <span class="dwr-title">{{ drawerTitle }}</span>
@@ -58,7 +58,7 @@
         <!-- Concurrent Meds strip -->
         <div v-if="props.data.profile.concurrentMeds?.length" class="dwr-meds-strip">
           <div class="dwr-meds-header">
-            <PhPill :size="12" color="#595959" />
+            <PhPill :size="12" color="var(--bma-text-tertiary)" />
             <span class="dwr-meds-title">ยาที่ใช้ร่วม</span>
           </div>
           <div class="dwr-meds-list">
@@ -168,7 +168,7 @@
 
             <div v-else-if="suggestion.trigger === 'critical'" key="critical" class="dwr-hold-box dwr-hold--critical">
               <div class="dwr-hold-hd">
-                <PhWarning :size="14" color="#B72C2C" />
+                <PhWarning :size="14" color="var(--bma-emergency)" />
                 <span class="dwr-hold-title">CRITICAL HOLD — INR {{ confirmedInr.toFixed(1) }}</span>
               </div>
               <div class="dwr-hold-body">
@@ -184,7 +184,7 @@
 
             <div v-else-if="suggestion.trigger === 'very-high'" key="very-high" class="dwr-hold-box dwr-hold--very-high">
               <div class="dwr-hold-hd">
-                <PhWarning :size="14" color="#E65100" />
+                <PhWarning :size="14" color="var(--inr-supra-text)" />
                 <span class="dwr-hold-title">HOLD 1 DOSE — INR {{ confirmedInr.toFixed(1) }}</span>
               </div>
               <div class="dwr-hold-body">
@@ -323,7 +323,7 @@
         <!-- Pill selector — between dose selection and schedule preview -->
         <div class="dwr-pill-selector" :class="activePillsLocal.length === 0 ? 'dwr-pill-selector--empty' : ''">
           <div class="dwr-pill-selector-hd">
-            <PhPill :size="13" color="#595959" />
+            <PhPill :size="13" color="var(--bma-text-tertiary)" />
             <span class="dwr-pill-selector-title">ขนาดเม็ดยาที่ใช้ในสัปดาห์นี้</span>
             <span v-if="activePillsLocal.length === 0" class="dwr-pill-selector-required">
               กรุณาเลือก
@@ -359,7 +359,7 @@
 
               <!-- Hold note strip — คงขนาดยาเดิม -->
               <div v-if="selectedOption.holdNote" class="dwr-hold-note dwr-hold-note--chosen">
-                <PhInfo :size="13" color="#595959" />
+                <PhInfo :size="13" color="var(--bma-text-tertiary)" />
                 <span>{{ selectedOption.label }} · {{ selectedOption.holdNote }}</span>
               </div>
 
@@ -425,7 +425,7 @@
 
             </div>
             <div v-else-if="suggestion.direction === 'hold'" key="hold" class="dwr-hold-note">
-              <PhInfo :size="12" color="#595959" />
+              <PhInfo :size="12" color="var(--bma-text-tertiary)" />
               <span>
                 {{ suggestion.trigger === 'therapeutic' ? 'คงขนาดยาเดิม' : 'HOLD — ไม่มีการเปลี่ยนแปลงขนาดยา' }}
                 · {{ props.data.profile.currentDoseMgWk.toFixed(1) }} mg/wk
@@ -442,7 +442,7 @@
               <Transition name="dwr-fade">
                 <div v-if="isCustomSelection && suggestion.options.length > 0" class="dwr-override-wrap">
                   <label class="dwr-lbl dwr-lbl--warn">
-                    <PhWarning :size="11" color="#B45309" />
+                    <PhWarning :size="11" color="var(--inr-low-text)" />
                     เหตุผลที่เลือกขนาดยานอกเหนือคำแนะนำ
                   </label>
                   <input
@@ -464,7 +464,7 @@
             <div class="dwr-save-col">
               <Transition name="dwr-fade">
                 <div v-if="saveError" class="dwr-save-error">
-                  <PhWarning :size="11" color="#B72C2C" />{{ saveError }}
+                  <PhWarning :size="11" color="var(--bma-emergency)" />{{ saveError }}
                 </div>
               </Transition>
               <button class="dwr-btn-save" :disabled="saveDisabled" @click="saveAdjustment">
@@ -908,7 +908,7 @@ function formatDate(iso: string) {
 /* ── Panel ───────────────────────────────────────────────────── */
 .dwr-panel {
   position: fixed; top: 0; right: 0; height: 100vh;
-  width: 42%; min-width: 440px; z-index: 1101;
+  width: var(--bma-drawer-width); min-width: var(--bma-drawer-min-width); z-index: 1101;
   background: var(--bma-surface);
   box-shadow: -6px 0 32px rgba(0, 0, 0, .14);
   display: flex; flex-direction: column; overflow: hidden;
@@ -926,7 +926,7 @@ function formatDate(iso: string) {
   padding: 9px 16px; border-radius: 10px;
   font-size: 13px; font-weight: 600; box-shadow: 0 4px 16px rgba(0,0,0,.14);
 }
-.dwr-toast--success { background: #1B5E20; color: var(--bma-surface); }
+.dwr-toast--success { background: var(--bma-green-toast); color: var(--bma-surface); }
 .dwr-toast--error   { background: var(--inr-emergency-fill); color: var(--bma-surface); }
 .dwr-toast-anim-enter-active, .dwr-toast-anim-leave-active { transition: all .22s ease; }
 .dwr-toast-anim-enter-from, .dwr-toast-anim-leave-to { opacity: 0; transform: translateX(-50%) translateY(-6px); }
@@ -949,7 +949,7 @@ function formatDate(iso: string) {
 }
 .dwr-close-btn:hover { background: var(--bma-surface-subtle); }
 .dwr-title-wrap { display: flex; align-items: center; gap: 6px; }
-.dwr-title { font-family: var(--bma-font-thai); font-size: 14px; font-weight: 800; color: var(--bma-text-primary); }
+.dwr-title { font-family: var(--bma-font-thai); font-size: 14px; font-weight: 700; color: var(--bma-text-primary); }
 
 /* Context info strip */
 .dwr-ctx {
@@ -969,11 +969,11 @@ function formatDate(iso: string) {
   color: var(--bma-text-disabled); text-transform: uppercase; letter-spacing: .07em;
 }
 .dwr-ctx-hn {
-  font-family: var(--bma-font-data); font-size: 13px; font-weight: 800;
+  font-family: var(--bma-font-data); font-size: 13px; font-weight: 700;
   color: var(--bma-text-primary);
 }
 .dwr-ctx-inr {
-  font-family: var(--bma-font-data); font-size: 11px; font-weight: 800;
+  font-family: var(--bma-font-data); font-size: 11px; font-weight: 700;
   padding: 2px 8px; border-radius: 99px; align-self: flex-start;
 }
 .dwr-ctx-inr--low          { background: var(--inr-very-high-bg);   color: var(--bma-emergency); }
@@ -1010,7 +1010,7 @@ function formatDate(iso: string) {
 .dwr-step-num {
   width: 20px; height: 20px; border-radius: 50%;
   background: var(--bma-green-500); color: var(--bma-surface);
-  font-family: var(--bma-font-data); font-size: 11px; font-weight: 800;
+  font-family: var(--bma-font-data); font-size: 11px; font-weight: 700;
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
 .dwr-step-title {
@@ -1030,7 +1030,7 @@ function formatDate(iso: string) {
 .dwr-inr-input-row { display: flex; align-items: center; gap: 8px; }
 .dwr-inr-input {
   width: 120px; height: 50px; border-radius: 8px; border: 2px solid var(--bma-border);
-  text-align: center; font-family: var(--bma-font-data); font-size: 22px; font-weight: 800;
+  text-align: center; font-family: var(--bma-font-data); font-size: 22px; font-weight: 700;
   color: var(--bma-text-primary); background: var(--bma-surface); outline: none; transition: border-color .15s;
   -moz-appearance: textfield; flex-shrink: 0;
 }
@@ -1039,8 +1039,8 @@ function formatDate(iso: string) {
 .dwr-inr-input:focus                        { border-color: var(--bma-green-500); }
 .dwr-inr-input--low:not(:focus)             { border-color: var(--inr-very-high-ring); color: var(--bma-emergency); }
 .dwr-inr-input--supra:not(:focus)           { border-color: var(--inr-supra-ring);     color: var(--inr-supra-text); }
-.dwr-inr-input--very-high:not(:focus)       { border-color: #EF9A9A;                   color: var(--bma-emergency); }
-.dwr-inr-input--critical:not(:focus)        { border-color: #EF5350;                   color: var(--inr-critical-text); }
+.dwr-inr-input--very-high:not(:focus)       { border-color: var(--inr-very-high-ring);                   color: var(--bma-emergency); }
+.dwr-inr-input--critical:not(:focus)        { border-color: var(--inr-critical-ring);                   color: var(--inr-critical-text); }
 .dwr-inr-input--emergency:not(:focus)       { border-color: var(--inr-emergency-ring); color: var(--inr-emergency-text); }
 .dwr-inr-input--therapeutic:not(:focus)     { border-color: var(--inr-therapeutic-ring); color: var(--bma-success-text); }
 
@@ -1062,7 +1062,7 @@ function formatDate(iso: string) {
   border: none;
   background: var(--bma-border-card);
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--bma-font-data); font-size: 22px; font-weight: 800;
+  font-family: var(--bma-font-data); font-size: 22px; font-weight: 700;
   color: var(--bma-text-primary); user-select: none;
 }
 .dwr-inr-locked--low          { color: var(--inr-low-text); }
@@ -1098,7 +1098,7 @@ function formatDate(iso: string) {
   font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600;
   color: var(--bma-text-muted); cursor: pointer; transition: all .15s;
 }
-.dwr-btn-cancel-inr:hover { border-color: var(--bma-emergency); color: var(--bma-emergency); background: #FEECEC; }
+.dwr-btn-cancel-inr:hover { border-color: var(--bma-emergency); color: var(--bma-emergency); background: var(--inr-very-high-bg); }
 
 /* ── Manual override note (shown when edit value ≠ system value) */
 .dwr-inr-override-note {
@@ -1152,7 +1152,7 @@ function formatDate(iso: string) {
 
 .dwr-hold-box { border-radius: 10px; overflow: hidden; border: 1.5px solid; }
 .dwr-hold-hd  { display: flex; align-items: center; gap: 8px; padding: 9px 12px; flex-wrap: wrap; }
-.dwr-hold-title { font-family: var(--bma-font-data); font-size: 12px; font-weight: 800; letter-spacing: .03em; }
+.dwr-hold-title { font-family: var(--bma-font-data); font-size: 12px; font-weight: 700; letter-spacing: .03em; }
 .dwr-hold-body  { padding: 9px 12px 12px; }
 
 .dwr-hold--emergency { border-color: var(--inr-emergency-ring); animation: pulse-emergency 2s ease-in-out infinite; }
@@ -1192,15 +1192,15 @@ function formatDate(iso: string) {
   background: var(--bma-surface-subtle); border: 1px solid var(--bma-border-card);
 }
 .dwr-current-ref-label {
-  font-size: 10px; font-weight: 700; color: #BFBFBF;
+  font-size: 10px; font-weight: 700; color: var(--bma-text-disabled);
   text-transform: uppercase; letter-spacing: .06em; flex-shrink: 0;
 }
 .dwr-current-ref-val {
-  font-family: var(--bma-font-data); font-size: 15px; font-weight: 800; color: #343330;
+  font-family: var(--bma-font-data); font-size: 15px; font-weight: 700; color: var(--bma-text-primary);
 }
-.dwr-current-ref-unit { font-size: 11px; font-weight: 500; color: #8C8C8C; }
+.dwr-current-ref-unit { font-size: 11px; font-weight: 500; color: var(--bma-text-muted); }
 .dwr-current-ref-pill {
-  font-size: 11px; color: #8C8C8C; margin-left: auto;
+  font-size: 11px; color: var(--bma-text-muted); margin-left: auto;
 }
 
 
@@ -1303,7 +1303,7 @@ function formatDate(iso: string) {
 
 .dwr-custom-error {
   display: inline-flex; align-items: center; gap: 4px;
-  font-size: 10px; font-weight: 600; color: #B45309;
+  font-size: 10px; font-weight: 600; color: var(--inr-low-text);
   align-self: flex-start; margin-top: 2px;
 }
 
@@ -1349,13 +1349,13 @@ function formatDate(iso: string) {
 }
 .dwr-old-dose    { font-family: var(--bma-font-data); font-size: 12px; color: var(--bma-text-disabled); text-decoration: line-through; }
 .dwr-arrow       { font-size: 13px; color: var(--bma-text-muted); }
-.dwr-new-dose    { font-family: var(--bma-font-data); font-size: 15px; font-weight: 800; color: var(--bma-green-500); }
+.dwr-new-dose    { font-family: var(--bma-font-data); font-size: 15px; font-weight: 700; color: var(--bma-green-500); }
 .dwr-pct-badge   {
   font-family: var(--bma-font-data); font-size: 12px; font-weight: 700;
   padding: 2px 8px; border-radius: 99px;
 }
 .dwr-pct-up   { background: var(--bma-green-50); color: var(--bma-success-text); }
-.dwr-pct-down { background: #FEECEC; color: var(--bma-emergency); }
+.dwr-pct-down { background: var(--inr-very-high-bg); color: var(--bma-emergency); }
 .dwr-admin-method { font-size: 11px; color: var(--bma-text-muted); }
 
 .dwr-week-row {
@@ -1373,7 +1373,7 @@ function formatDate(iso: string) {
   display: flex; gap: 1px; align-items: center; justify-content: center;
   flex-wrap: wrap; min-height: 9px;
 }
-.dwr-day-tab { font-family: var(--bma-font-data); font-size: 11px; font-weight: 800; color: var(--bma-text-primary); }
+.dwr-day-tab { font-family: var(--bma-font-data); font-size: 11px; font-weight: 700; color: var(--bma-text-primary); }
 .dwr-day--hi .dwr-day-tab { color: var(--bma-green-500); }
 
 .dwr-pill {
@@ -1420,7 +1420,7 @@ function formatDate(iso: string) {
 }
 .dwr-confirm-fields { display: flex; flex-direction: column; gap: 8px; }
 .dwr-lbl { font-size: 11px; color: var(--bma-text-muted); font-weight: 600; display: flex; align-items: center; gap: 4px; }
-.dwr-lbl--warn { color: #B45309 !important; }
+.dwr-lbl--warn { color: var(--inr-low-text) !important; }
 
 .dwr-input {
   height: 34px; border: 1.5px solid var(--bma-border); border-radius: 8px;
@@ -1428,8 +1428,8 @@ function formatDate(iso: string) {
   color: var(--bma-text-primary); background: var(--bma-surface); outline: none; transition: border-color .15s; width: 100%;
 }
 .dwr-input:focus       { border-color: var(--bma-green-500); }
-.dwr-input--warn       { border-color: #FCD34D !important; }
-.dwr-input--warn:focus { border-color: #B45309 !important; }
+.dwr-input--warn       { border-color: var(--inr-low-ring) !important; }
+.dwr-input--warn:focus { border-color: var(--inr-low-text) !important; }
 
 .dwr-override-wrap, .dwr-remarks-wrap { display: flex; flex-direction: column; gap: 4px; }
 
@@ -1441,7 +1441,7 @@ function formatDate(iso: string) {
 
 .dwr-btn-save {
   height: 44px; padding: 0 20px; border: none; border-radius: 9px;
-  background: #1A1A1A; color: var(--bma-surface); width: 100%;
+  background: var(--bma-neutral-900); color: var(--bma-surface); width: 100%;
   font-family: var(--bma-font-thai); font-size: 14px; font-weight: 700;
   cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px;
   transition: background .15s;
@@ -1482,7 +1482,7 @@ function formatDate(iso: string) {
 .dwr-med-name { font-weight: 600; color: var(--bma-text-primary); }
 
 .dwr-med-effect {
-  font-family: var(--bma-font-data); font-size: 11px; font-weight: 800;
+  font-family: var(--bma-font-data); font-size: 11px; font-weight: 700;
   padding: 0 4px; border-radius: 4px;
 }
 .dwr-med-effect--increase { background: var(--inr-very-high-bg);         color: var(--bma-emergency); }
@@ -1526,13 +1526,13 @@ function formatDate(iso: string) {
 }
 /* Active states per pill color */
 .dwr-pill-chip--orange.dwr-pill-chip--active {
-  border-color: var(--wf-pill-orange); background: #FFF3E0; color: #E65100;
+  border-color: var(--wf-pill-orange); background: var(--inr-supra-bg); color: var(--inr-supra-text);
 }
 .dwr-pill-chip--blue.dwr-pill-chip--active {
-  border-color: var(--wf-pill-blue); background: #E3F2FD; color: #1565C0;
+  border-color: var(--wf-pill-blue); background: var(--bma-complication-thrombosis-bg); color: var(--bma-complication-thrombosis-color);
 }
 .dwr-pill-chip--pink.dwr-pill-chip--active {
-  border-color: var(--wf-pill-pink); background: #FCE4EC; color: #AD1457;
+  border-color: var(--wf-pill-pink); background: var(--wf-pill-pink-bg); color: var(--wf-pill-pink-text);
 }
 
 .dwr-pill-chip-dot {

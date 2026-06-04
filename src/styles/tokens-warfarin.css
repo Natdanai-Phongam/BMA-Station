@@ -69,6 +69,10 @@
   --wf-pill-orange: #E07840;  /* 2 mg — orange tablet */
   --wf-pill-blue:   #4A8FD4;  /* 3 mg — blue tablet   */
   --wf-pill-pink:   #D94E8A;  /* 5 mg — pink tablet   */
+  /* Active-state tints for pill selector buttons (bg + text) */
+  --wf-pill-orange-bg: #FFF3E0;  --wf-pill-orange-text: #E65100;
+  --wf-pill-blue-bg:   #E3F2FD;  --wf-pill-blue-text:   #1565C0;
+  --wf-pill-pink-bg:   #FCE4EC;  --wf-pill-pink-text:   #AD1457;
 
 
   /* ╔══ DRUG INTERACTION FLAG ════════════════════════════════════════════════╗

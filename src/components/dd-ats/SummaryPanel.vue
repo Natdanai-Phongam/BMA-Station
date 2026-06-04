@@ -28,7 +28,7 @@
         <template #activator="{ props: menuProps }">
           <div class="sc-stat-row sc-stat-row--hoverable sc-stat-row--primary" v-bind="menuProps">
             <div class="sc-stat-label">
-              <PhWarning :size="14" color="#8C8C8C" />
+              <PhWarning :size="14" color="var(--bma-text-muted)" />
               {{ card.outOfRangeLabel }}
             </div>
             <div class="sc-stat-right">
@@ -57,7 +57,7 @@
     <template v-else>
       <div class="sc-stat-row sc-stat-row--primary">
         <div class="sc-stat-label">
-          <PhWarning :size="14" color="#8C8C8C" />
+          <PhWarning :size="14" color="var(--bma-text-muted)" />
           {{ card.outOfRangeLabel }}
         </div>
         <div class="sc-stat-value sc-stat-value--lg">{{ card.outOfRangeCount }} ราย</div>
@@ -77,7 +77,7 @@
         <template #activator="{ props: menuProps }">
           <div class="sc-stat-row sc-stat-row--hoverable sc-stat-row--secondary" v-bind="menuProps">
             <div class="sc-stat-label">
-              <PhArrowCircleRight :size="14" color="#8C8C8C" />
+              <PhArrowCircleRight :size="14" color="var(--bma-text-muted)" />
               ส่งต่อแพทย์ปรึกษา
             </div>
             <div class="sc-stat-right">
@@ -106,7 +106,7 @@
     <template v-else>
       <div class="sc-stat-row sc-stat-row--secondary">
         <div class="sc-stat-label">
-          <PhArrowCircleRight :size="14" color="#8C8C8C" />
+          <PhArrowCircleRight :size="14" color="var(--bma-text-muted)" />
           ส่งต่อแพทย์ปรึกษา
         </div>
         <div class="sc-stat-value">{{ card.referralCount }} ราย</div>

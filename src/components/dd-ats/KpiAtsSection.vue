@@ -1,7 +1,7 @@
 <template>
   <div class="kpi-sub-section">
     <div class="kpi-panel-head">
-      <PhPulse :size="14" color="#8C8C8C" />
+      <PhPulse :size="14" color="var(--bma-text-muted)" />
       <span class="kpi-ph-name">การตอบสนอง ATS</span>
     </div>
     <div class="kats-grid">

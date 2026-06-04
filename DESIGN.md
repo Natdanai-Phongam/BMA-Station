@@ -84,6 +84,22 @@ This project uses a **4-point grid** (the flexible variant of the 8-point grid).
 - No `1.5px` borders — use 1px or 2px
 - No odd numbers (3, 5, 7, 9, 11px) for spacing/sizing — if tempted, round to nearest 4pt multiple
 
+**Font size justification rule (WCAG-driven)**
+
+Any font size outside the standard scale (12, 14, 16, 18, 20, 24, 32px) or below 12px MUST be accompanied by a code comment stating:
+1. **Why** the exception is needed (clinical data density, label role, etc.)
+2. **Contrast verification**: the color + size combination must meet WCAG AA (4.5:1 for < 18px normal / < 14px bold; 3:1 for large text)
+3. **Background awareness**: if the element can appear on a tinted background (e.g. INR state modules), contrast must be verified on the darkest expected background
+
+Example of a justified exception:
+```css
+/* 11px: section eyebrow — always paired with 14px+ value below it.
+   Using --bma-text-secondary (#454545): contrast = 9.73:1 on white, 8.61:1 on green-50. ✓ WCAG AA */
+.my-label { font-size: 11px; color: var(--bma-text-secondary); }
+```
+
+Do NOT use `--bma-text-muted` (#8C8C8C) for text smaller than 18px — it fails WCAG AA on white (3.37:1) and is worse on all tinted backgrounds.
+
 **Common pattern sizes (verified on 4pt grid):**
 
 ```css
@@ -657,6 +673,36 @@ When a component library (Vuetify 3) is already chosen, **exhaust the framework'
 | `box-shadow`, `border` on VCard | CSS Override (layer 4) | Theme variables don't cover custom BMA values |
 | VDatePicker selected day text color | CSS Override (layer 4) | Vuetify's own CSS (`surface-variant`) conflicts — last resort justified |
 | Scrollbar styling | CSS Override (layer 4) | No Vuetify mechanism |
+
+---
+
+## Collaboration Protocol
+
+**ถามก่อนเสมอเมื่อไม่แน่ใจ — ห้ามตัดสินใจเองในเรื่อง Design**
+
+Design decisions ใน BMA Doctor มีผลต่อ clinical workflow จริงๆ การเดาผิดมีต้นทุนสูงกว่าการถามช้าไปหนึ่งขั้น
+
+### เมื่อไหร่ต้องถามก่อน implement
+
+1. **Design direction ที่ไม่มีใน DESIGN.md หรือ tokens** — ถ้าคิดจะใช้สี pattern layout หรือ component ที่ไม่มีบรรทัดฐานในระบบ ให้เสนอ options แล้วรอ confirmation
+
+2. **Trade-off ระหว่าง principles** — เช่น "ลด visual noise" vs "เพิ่ม affordance" ไม่มีคำตอบเดียว ถามว่าในบริบทนี้ priority คืออะไร
+
+3. **Ambiguous UX requirements** — ถ้า user story บอกว่า "แสดงข้อมูล" แต่ไม่บอกว่าแสดงอย่างไร แสดงเมื่อไหร่ หรือแสดงให้ใคร ให้ถามก่อนสร้าง
+
+4. **Non-standard font sizes** — ทุก font size นอก scale มาตรฐาน (12, 14, 16, 18, 20, 24, 32px) ต้องมีเหตุผลและ contrast verification ก่อน implement (ดูหัวข้อ "Font size justification rule")
+
+5. **Layout ที่ไม่มี responsive plan** — ถ้าจะใช้ fixed width / height ที่ไม่มีใน token ให้ระบุว่าตัดสินใจได้เองหรือรอ approval
+
+### รูปแบบการถาม
+
+เมื่อไม่แน่ใจ ให้นำเสนอแบบนี้:
+- อธิบาย **context** ว่าเจอปัญหาอะไร
+- เสนอ **options 2-3 แนวทาง** พร้อม trade-off ของแต่ละอัน
+- ระบุ **recommendation** ถ้ามี พร้อมเหตุผล
+- รอ confirmation ก่อน implement
+
+ห้ามเขียนโค้ด "ลองก่อนแล้วค่อยถาม" ในเรื่อง design — เพราะ revert หรือ redesign หลัง implement มีต้นทุนสูงกว่าการถามก่อนมาก
 
 ---
 

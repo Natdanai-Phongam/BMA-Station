@@ -9,7 +9,7 @@
     <!-- Filter bar -->
     <div class="filter-bar">
       <div class="filter-search">
-        <PhMagnifyingGlass :size="15" color="#BFBFBF" class="fi-icon" />
+        <PhMagnifyingGlass :size="15" color="var(--bma-text-disabled)" class="fi-icon" />
         <input
           v-model="searchQuery"
           class="filter-input"
@@ -27,9 +27,9 @@
               readonly
             />
             <button v-if="dateFrom" class="fi-clear-btn" @click.stop="dateFrom = null; applyFilter()">
-              <PhX :size="13" color="#8C8C8C" />
+              <PhX :size="13" color="var(--bma-text-muted)" />
             </button>
-            <PhCalendar v-else :size="15" color="#BFBFBF" class="fi-icon-r" />
+            <PhCalendar v-else :size="15" color="var(--bma-text-disabled)" class="fi-icon-r" />
           </div>
         </template>
         <v-date-picker
@@ -49,9 +49,9 @@
               readonly
             />
             <button v-if="dateTo" class="fi-clear-btn" @click.stop="dateTo = null; applyFilter()">
-              <PhX :size="13" color="#8C8C8C" />
+              <PhX :size="13" color="var(--bma-text-muted)" />
             </button>
-            <PhCalendar v-else :size="15" color="#BFBFBF" class="fi-icon-r" />
+            <PhCalendar v-else :size="15" color="var(--bma-text-disabled)" class="fi-icon-r" />
           </div>
         </template>
         <v-date-picker
@@ -88,9 +88,9 @@
               :class="`data-row--${p.status}`"
             >
               <td class="col-action">
-                <button class="action-btn" @click="emit('go-to-patient', p.id)" title="ดูรายละเอียด">
-                  <PhArrowSquareOut :size="16" color="#595959" />
-                </button>
+                <v-btn icon size="small" variant="text" color="primary" @click="emit('go-to-patient', p.id)" title="ดูรายละเอียด">
+                  <PhArrowSquareOut :size="15" />
+                </v-btn>
               </td>
               <td class="col-name">
                 <div class="patient-name">{{ p.name }}</div>
@@ -148,40 +148,12 @@
       </div>
 
       <!-- Pagination footer -->
-      <div class="table-footer">
-        <span class="pg-info">
-          ข้อมูลที่ {{ Math.min((page - 1) * pageSize + 1, filteredTotal) }}
-          ถึง {{ Math.min(page * pageSize, filteredTotal) }}
-          จากทั้งหมด {{ filteredTotal }} รายการ
-          <span v-if="isFiltered" class="pg-filtered">(กรองจาก {{ total }} รายการ)</span>
-        </span>
-        <div class="pg-controls">
-          <select class="pg-select" v-model.number="pageSize">
-            <option :value="10">10</option>
-            <option :value="20">20</option>
-            <option :value="50">50</option>
-          </select>
-          <div class="pagination">
-            <button class="pg-btn" :class="{ 'pg-btn--disabled': page === 1 }" :disabled="page === 1" @click="page = 1">
-              <PhCaretDoubleLeft :size="13" />
-            </button>
-            <button class="pg-btn" :class="{ 'pg-btn--disabled': page === 1 }" :disabled="page === 1" @click="page--">
-              <PhCaretLeft :size="13" />
-            </button>
-            <button
-              v-for="n in visiblePages(page, pageCount)" :key="n"
-              class="pg-btn" :class="{ 'pg-btn--active': n === page }"
-              @click="page = n"
-            >{{ n }}</button>
-            <button class="pg-btn" :class="{ 'pg-btn--disabled': page === pageCount }" :disabled="page === pageCount" @click="page++">
-              <PhCaretRight :size="13" />
-            </button>
-            <button class="pg-btn" :class="{ 'pg-btn--disabled': page === pageCount }" :disabled="page === pageCount" @click="page = pageCount">
-              <PhCaretDoubleRight :size="13" />
-            </button>
-          </div>
-        </div>
-      </div>
+      <BmaTablePagination
+        :page="page" :pageCount="pageCount" :pageSize="pageSize"
+        :filteredTotal="filteredTotal" :total="total" :isFiltered="isFiltered"
+        @update:page="page = $event"
+        @update:pageSize="pageSize = $event"
+      />
     </div>
   </div>
 </template>
@@ -190,11 +162,10 @@
 import { ref, computed, watch } from 'vue'
 import {
   PhMagnifyingGlass, PhCalendar, PhX, PhArrowSquareOut, PhWarningCircle,
-  PhCaretDoubleLeft, PhCaretLeft, PhCaretRight, PhCaretDoubleRight,
 } from '@phosphor-icons/vue'
 import type { EnrichedNoacPatient } from '@/data/types/ats-patients'
 import { lastDispensing, concordanceBadgeClass, concordanceLabel, noacsStatusLabel, drugDisplayLabel, indicationChipLabel } from '@/utils/noac-helpers'
-import { visiblePages } from '@/utils/number-helpers'
+import BmaTablePagination from '@/components/BmaTablePagination.vue'
 
 const props = defineProps<{ rows: EnrichedNoacPatient[] }>()
 const emit  = defineEmits<{ 'go-to-patient': [id: string] }>()
@@ -293,7 +264,7 @@ const pagedRows = computed(() =>
 .indication-chip { display: inline-block; padding: 2px 8px; border-radius: var(--bma-radius-full); background: var(--bma-green-50); border: 1px solid var(--bma-green-200); color: var(--bma-green-700); font-family: var(--bma-font-data); font-size: 10px; font-weight: 700; white-space: nowrap; }
 
 .lab-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: var(--bma-radius-sm); border: 1px solid var(--bma-border-muted); background: var(--bma-surface-light); font-family: var(--bma-font-data); font-size: 12px; font-weight: 600; color: var(--bma-text-primary); }
-.lab-badge--alert { border-color: var(--bma-emergency); background: #FFF5F5; color: var(--bma-emergency); }
+.lab-badge--alert { border-color: var(--bma-emergency); background: var(--bma-emergency-bg-soft); color: var(--bma-emergency); }
 
 .drug-inline { display: flex; align-items: baseline; flex-wrap: nowrap; gap: 4px; }
 .drug-name   { font-family: var(--bma-font-data); font-size: 13px; font-weight: 700; color: var(--bma-text-primary); flex-shrink: 0; }
