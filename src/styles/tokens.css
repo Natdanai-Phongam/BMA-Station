@@ -83,6 +83,11 @@
   --bma-contra-bg:           #E8EAF6;   /* contraindication badge bg */
   --bma-interaction-bg:      #F3EEFF;   /* interaction badge bg */
 
+  /* Dose-down amber — warm caution for round-down dose chips; softer than urgency orange */
+  --bma-amber-text:    #7A4D12;   /* dark amber text, WCAG AA 6.4:1 on white */
+  --bma-amber-surface: #FFF5E6;   /* very light amber chip background */
+  --bma-amber-border:  #C48A15;   /* medium amber border */
+
   /* INR value colors (used in data tables and chips) */
   --bma-inr-low-bg:    rgba(183, 44, 44, 0.12);
   --bma-inr-low-text:  #B72C2C;
@@ -105,6 +110,9 @@
   --bma-text-3xl:  32px;
 
   /* KPI display sizes */
+  --bma-text-kpi-card: 28px;  /* compact in-card stat / dose number (DESIGN Pattern 4 "28–32px").
+                                 Semantic tier — sits between the standalone display ladder below;
+                                 used by .bma-kpi-card__value, .stat-count, .inr-dose-info-num, .sched-total-val */
   --bma-text-kpi-sm:  24px;
   --bma-text-kpi-md:  32px;
   --bma-text-kpi-lg:  48px;

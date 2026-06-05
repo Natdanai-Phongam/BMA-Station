@@ -1,4 +1,4 @@
-import type { NoacDrug, NoacIndication } from './noac'
+import type { NoacDrug, NoacIndication, NoacOverrideCode, ChildPughClass } from './noac'
 
 // ── Lab snapshot captured at each dispensing visit ───────────────────────────
 export interface NoacLabData {
@@ -12,48 +12,82 @@ export interface NoacLabData {
   measuredAt: string
 }
 
-// ── Stable per-patient NOACs profile ─────────────────────────────────────────
-export type NoacClinicalStatus = 'appropriate' | 'underdose' | 'overdose' | 'contra' | 'interaction'
+// ── Clinical status — derived from dispensed drug vs engine output ────────────
+export type NoacClinicalStatus =
+  | 'appropriate'   // drug & dose match engine top recommendation
+  | 'underdose'     // dose lower than guideline recommendation
+  | 'overdose'      // dose higher than guideline recommendation
+  | 'contra'        // drug contraindicated for current patient state
+  | 'interaction'   // significant drug-drug interaction detected
 
+// ── Stable per-patient NOACs profile ─────────────────────────────────────────
 export interface NoacProfile {
   patientId:        string
   indication:       NoacIndication
-  /** Drug currently being dispensed under this profile */
   currentDrug:      NoacDrug
   /** Human-readable dose string, e.g. "5 mg BID" */
   currentDose:      string
   /** ISO date when NOACs therapy began */
   therapyStartDate: string
-  /** Calculated next follow-up interval in months (CrCl-driven) */
+  /** Follow-up interval in months (CrCl-driven, typically 1–6) */
   followUpMonths:   number
-  /** Clinical status derived from latest dispensing evaluation — single source of truth */
+  /** Clinical status — snapshot at last dispensing, re-evaluated on new lab */
   status:           NoacClinicalStatus
+  /** Set to true when a lab update since last dispensing warrants re-evaluation */
+  needsReview?:     boolean
+
+  // ── Patient risk factors — drive absolute contraindications in engine ─────
+  // All default to false when absent (not contraindicated unless confirmed)
+  dialysis?:        boolean       // ESRD on dialysis
+  mechanicalValve?: boolean       // Mechanical heart valve prosthesis
+  pregnancy?:       boolean       // Active pregnancy
+  activeBleeding?:  boolean       // Active major bleeding episode
+  childPughClass?:  ChildPughClass // Hepatic function (A/B/C)
+
+  // ── Scores stored for future use (not yet engine logic) ──────────────────
+  cha2ds2vasc?:     number        // Stroke risk for AF (for display/analytics)
 }
 
-// ── Per-dispensing record (audit trail + clinical decision log) ────────────────
+// ── Per-dispensing record — full audit trail with decision context ─────────────
 export interface NoacDispensingRecord {
-  id:                   string
-  patientId:            string
-  /** ISO datetime of dispensing visit */
-  dispensedAt:          string
-  /** Lab values used for engine computation at this visit */
-  labData:              NoacLabData
-  /** Drug actually dispensed (may differ from top recommendation if overridden) */
-  drugDispensed:        NoacDrug
-  /** Human-readable dose, e.g. "5 mg BID" */
-  dose:                 string
-  /** Engine rank assigned to the dispensed drug (1 = top, 4 = last) */
-  systemRank:           number
-  /** True when dispensed drug matched the engine's #1 recommendation */
-  wasTopRecommendation: boolean
-  /** True when the dispensed drug and dose are clinically appropriate given patient labs/comorbidities */
-  clinicallyAppropriate?: boolean
-  /** Reason for overriding top recommendation (if wasTopRecommendation is false) */
-  overrideReason?:      string
-  /** Free-text pharmacist note for this visit (null = no note recorded) */
-  pharmacistNote?:      string | null
-  /** ISO date of next scheduled follow-up */
-  nextFollowUpDate:     string
+  // Identity
+  id:                    string
+  patientId:             string
+
+  // Visit context
+  dispensedAt:           string       // ISO datetime
+  dispensedBy?:          string       // pharmacist ID (API-ready, optional for mock)
+
+  // Lab snapshot at this visit
+  labData:               NoacLabData
+
+  // What was dispensed (omitted when withheld)
+  drugDispensed?:        NoacDrug
+  dose:                  string       // human-readable, e.g. "5 mg BID"; "—" when withheld
+  daysSupply?:           30 | 60 | 90 | 180  // dispensing cycle length
+
+  // Withhold — dispensed=false means NOAC therapy was withheld this visit (absolute CI).
+  // Recorded for audit trail even though no drug left the pharmacy.
+  dispensed?:            boolean      // default true; false = withheld
+  withholdReason?:       string       // joined absolute-CI reasons when withheld
+
+  // Engine decision context
+  systemRank:            number              // 1 = top recommendation, 4 = last
+  wasTopRecommendation:  boolean
+  clinicalStatus?:       NoacClinicalStatus  // status at time of this visit (added in schema v1)
+  /** @deprecated use overrideCode + overrideNote. Kept for backward compat with existing mock data */
+  overrideReason?:       string
+
+  // Override (if wasTopRecommendation = false)
+  overrideCode?:         NoacOverrideCode   // structured reason
+  overrideNote?:         string             // free-text addendum
+
+  // Notes & follow-up
+  pharmacistNote?:       string | null
+  nextFollowUpDate:      string
+
+  // API versioning (future migration support)
+  schemaVersion?:        number       // default 1
 }
 
 // ── Top-level keyed structure (mirrors warfarin-patients.json pattern) ────────

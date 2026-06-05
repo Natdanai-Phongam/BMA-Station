@@ -1426,6 +1426,18 @@ const tabs = computed(() => [
 .concordance--no       { background: var(--bma-emergency-bg); color: var(--bma-emergency); }
 .col-dash { color: var(--bma-text-disabled); font-size: 14px; }
 
+/* ── Frequency chip (BID/OD) — global; schedule is a distinct data type from dose ──
+   Neutral so it never collides with the green therapeutic semantic. Used by the
+   NOACs advisory panel + dispensing drawer. */
+.freq-chip {
+  display: inline-flex; align-items: center;
+  font-family: var(--bma-font-data); font-size: 11px; font-weight: 700;
+  color: var(--bma-text-secondary); background: var(--bma-surface-subtle);
+  border: 1px solid var(--bma-border);
+  padding: 1px 7px; border-radius: var(--bma-radius-full); letter-spacing: .02em;
+}
+.freq-chip--sm { font-size: 10px; padding: 0 6px; }
+
 /* ── Tab section header ───────────────────────────────────── */
 .tab-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 .tab-section-title  { font-size: 15px; font-weight: 700; color: var(--bma-text-primary); font-family: var(--bma-font-thai); }

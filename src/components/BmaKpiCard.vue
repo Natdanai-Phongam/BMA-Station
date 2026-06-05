@@ -82,7 +82,7 @@ const valueColor = computed(() => {
 /* ── Value (big number) ────────────────────────────────────── */
 .bma-kpi-card__value {
   font-family: var(--bma-font-data);
-  font-size: 28px;
+  font-size: var(--bma-text-kpi-card);
   font-weight: 700;
   color: var(--bma-text-primary);
   line-height: 1;

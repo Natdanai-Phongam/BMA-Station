@@ -91,9 +91,10 @@ Prefix --wf-    Warfarin-specific UI (pills, drug interaction flag)
 --inr-critical-{text|bg|ring|body}
 --inr-emergency-{text|fill|deep|ring|body|hover}
 
-/* Warfarin pills */
---wf-pill-blue: #1565C0       /* 5 mg tablet */
---wf-pill-pink: #C2185B       /* 3 mg tablet */
+/* Warfarin pills — source of truth: src/data/types/warfarin.ts */
+--wf-pill-orange: #E07840     /* 2 mg tablet (ส้ม)   */
+--wf-pill-blue:   #4A8FD4     /* 3 mg tablet (น้ำเงิน) */
+--wf-pill-pink:   #D94E8A     /* 5 mg tablet (ชมพู)  */
 
 /* Drug interaction flag */
 --wf-interact-increase-{text|bg|ring}   /* amber — ↑ INR risk */

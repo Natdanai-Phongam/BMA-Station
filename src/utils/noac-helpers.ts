@@ -10,13 +10,14 @@ export function lastDispensing(noacData: NoacPatientData | null): NoacDispensing
 export function concordanceBadgeClass(disp: NoacDispensingRecord | undefined): string {
   if (!disp) return 'concordance--none'
   if (disp.wasTopRecommendation) return 'concordance--yes'
-  return disp.overrideReason ? 'concordance--adjusted' : 'concordance--no'
+  // Support both new overrideCode and legacy overrideReason field
+  return (disp.overrideCode ?? disp.overrideReason) ? 'concordance--adjusted' : 'concordance--no'
 }
 
 export function concordanceLabel(disp: NoacDispensingRecord | undefined): string {
   if (!disp) return '—'
-  if (disp.wasTopRecommendation) return '✓ ตามแนวทาง'
-  return disp.overrideReason ? '✗ ปรับโดยมีเหตุผล' : '✗ ไม่ระบุเหตุผล'
+  if (disp.wasTopRecommendation) return 'ตามแนวทาง'
+  return (disp.overrideCode ?? disp.overrideReason) ? 'ปรับโดยมีเหตุผล' : 'ไม่ระบุเหตุผล'
 }
 
 export const noacsStatusLabel: Record<NoacsStatus, string> = {

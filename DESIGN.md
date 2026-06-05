@@ -158,16 +158,18 @@ Every page uses this structure:
 
 ```
 ┌──────────────────────────────────────────────────────┐
-│  .page  — white, 18px padding                        │  ← header zone
+│  .page  — white, 16–24px padding (top·sides)         │  ← header zone
 │  page title  ·  back button  ·  breadcrumb           │
 └──────────────────────────────────────────────────────┘
 ┌──────────────────────────────────────────────────────┐
-│  .main-wrap  — #F5F5F5 background, 24px padding      │  ← content zone
+│  .main-wrap  — #F5F5F5 background, 20–24px padding   │  ← content zone
 │  cards, tables, charts                               │
 └──────────────────────────────────────────────────────┘
 ```
 
 Cards sit on the gray surface. White card on gray background — not nested white-on-white.
+
+> **Padding is per-page, all on the 4pt grid** — `.page` uses `16px 24px 0` (AtsPatientDetail) or `24px 24px 0` (DdAtsDashboard); `.main-wrap` uses `20–24px`. There is no fixed `18px` value (it would violate the 4pt grid).
 
 ---
 
@@ -266,19 +268,23 @@ When a patient has INR-modulating concurrent medications, a small chip appears i
 ↓ INR  →  blue chip   (--wf-interact-decrease-*)
 ```
 
-Blue mirrors the 5mg tablet color (`--wf-pill-blue: #1565C0`). Amber mirrors the low-INR warning color (`--inr-low-text`).
+Amber (↑) mirrors the low-INR warning palette (`--inr-low-*`). Blue (↓) uses a distinct saturated clinical blue (`--wf-interact-decrease-text: #1565C0`).
+
+> **Note:** This decrease-blue (#1565C0) no longer matches the recolored 3 mg pill blue (`--wf-pill-blue: #4A8FD4`). The stale `/* = --wf-pill-blue */` comment in `tokens-warfarin.css` predates the pill recolor — the two blues are now intentionally independent.
 
 ---
 
 ## Warfarin Pill Visual System
 
-Two pill variants rendered as physical colored shapes in the 7-day schedule:
+Three strength colors rendered as physical colored shapes in the 7-day schedule.
+**Source of truth:** `src/data/types/warfarin.ts → WARFARIN_STRENGTHS`. Tablet colors are **circular** (full = dot, half = D-shape), not oval.
 
-| Shape | Color | Meaning |
-|---|---|---|
-| Full oval | `--wf-pill-blue` `#1565C0` | 5 mg tablet |
-| Half oval | `--wf-pill-blue` / `--wf-pill-pink` | 0.5 tablet |
-| Full oval | `--wf-pill-pink` `#C2185B` | 3 mg tablet |
+| Shape | Token | Hex | Meaning |
+|---|---|---|---|
+| Full circle | `--wf-pill-orange` | `#E07840` | 2 mg tablet (ส้ม) |
+| Full circle | `--wf-pill-blue` | `#4A8FD4` | 3 mg tablet (น้ำเงิน) |
+| Full circle | `--wf-pill-pink` | `#D94E8A` | 5 mg tablet (ชมพู) |
+| Half (D-shape) | matching strength color | — | 0.5 tablet |
 
 ---
 
@@ -418,7 +424,7 @@ Layer 4: Raw history — searchable, filterable table
 ```
 
 **Typography rules:**
-- Primary number: Inter 28–32px 700
+- Primary number: Inter 28–32px 700 — use `--bma-text-kpi-card` (28px) or `--bma-text-kpi-md` (32px), never hardcode
 - Unit: Inter 13px 400, color muted, positioned inline after the number
 - Trend badge: filled pill, Inter 12px — `↗ +2` red fill, `↘ -18%` green fill
 - Context line: Sarabun 12px muted — explains the metric scope in Thai
@@ -444,7 +450,7 @@ Layer 4: Raw history — searchable, filterable table
 
 **Anatomy:**
 1. **Header row:** category name + dot color + last-event date (right-aligned, Inter 11px muted)
-2. **Count row:** primary count (Inter 28px 700) + sparkline chart (60px wide, 32px tall, inline)
+2. **Count row:** primary count (Inter 28px 700 → `--bma-text-kpi-card`) + sparkline chart (60px wide, 32px tall, inline)
 3. **Severity bar:** full-width proportional bar split by severity colors
 4. **Legend row:** dot + label + count per severity level
 
@@ -484,7 +490,7 @@ Layer 4: Raw history — searchable, filterable table
 
 **Colors:**
 - Severe: `--bma-emergency` red
-- Moderate: `--bma-warning` orange  
+- Moderate: `--bma-urgency` orange  
 - Mild: `--bma-success` green
 
 **Rules:**
@@ -565,10 +571,10 @@ Layer 4: Raw history — searchable, filterable table
 ```
 
 **Rules:**
-- Background: light amber tint (`--bma-warning` at 10% opacity)
-- Border: `--bma-warning` at 30% opacity
-- Dot: solid `--bma-warning` orange (8px)
-- Text: Sarabun 13px, color `--bma-warning-dark`
+- Background: light amber tint (`--bma-urgency-bg`, urgency at 10% opacity)
+- Border: `--bma-urgency-ring` (urgency at 25% opacity)
+- Dot: solid `--bma-urgency` orange (8px)
+- Text: Sarabun 13px, color `--bma-urgency-text` (`#E07A00`)
 - Chips wrap inline; they do not truncate
 
 **Why it works:** Allergies are a safety-critical data type. The amber color signals caution without screaming emergency. The dot is a second signal encoding (not color-only). The chip format lets multiple allergies coexist without a list.
@@ -604,7 +610,7 @@ Layer 4: Raw history — searchable, filterable table
 | Severity | Background | Text |
 |---|---|---|
 | SEVERE | `--bma-emergency` (#B72C2C) | white |
-| MODERATE | `--bma-warning` (#FB8C00) | white |
+| MODERATE | `--bma-urgency` (#FB8C00) | white |
 | MILD | `--bma-success` (#4CAF50) | white |
 
 **Rules:**

@@ -152,7 +152,7 @@
 
             <div v-if="suggestion.trigger === 'emergency'" key="emergency" class="dwr-hold-box dwr-hold--emergency">
               <div class="dwr-hold-hd">
-                <PhWarning :size="14" color="#fff" />
+                <PhWarning :size="14" color="var(--bma-surface)" />
                 <span class="dwr-hold-title">EMERGENCY — INR {{ confirmedInr.toFixed(1) }}</span>
               </div>
               <div class="dwr-hold-body">
@@ -265,7 +265,6 @@
                     </div>
                   </template>
                   <template v-else>
-                    <div class="dwr-opt-custom-title">กำหนดเอง</div>
                     <div class="dwr-opt-custom-input-row">
                       <div class="dwr-input-with-unit">
                         <input
@@ -467,10 +466,17 @@
                   <PhWarning :size="11" color="var(--bma-emergency)" />{{ saveError }}
                 </div>
               </Transition>
-              <button class="dwr-btn-save" :disabled="saveDisabled" @click="saveAdjustment">
-                <PhFloppyDisk :size="14" />
+              <v-btn
+                color="confirm"
+                variant="flat"
+                block
+                :disabled="saveDisabled"
+                class="dwr-btn-save"
+                @click="saveAdjustment"
+              >
+                <PhFloppyDisk :size="16" />
                 {{ saveLabel }}
-              </button>
+              </v-btn>
             </div>
           </div>
         </div>
@@ -920,16 +926,16 @@ function formatDate(iso: string) {
 
 /* ── Toast ───────────────────────────────────────────────────── */
 .dwr-toast {
-  position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+  position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
   z-index: 10; white-space: nowrap;
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 9px 16px; border-radius: 10px;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 16px; border-radius: var(--bma-radius-lg);
   font-size: 13px; font-weight: 600; box-shadow: 0 4px 16px rgba(0,0,0,.14);
 }
 .dwr-toast--success { background: var(--bma-green-toast); color: var(--bma-surface); }
 .dwr-toast--error   { background: var(--inr-emergency-fill); color: var(--bma-surface); }
 .dwr-toast-anim-enter-active, .dwr-toast-anim-leave-active { transition: all .22s ease; }
-.dwr-toast-anim-enter-from, .dwr-toast-anim-leave-to { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+.dwr-toast-anim-enter-from, .dwr-toast-anim-leave-to { opacity: 0; transform: translateX(-50%) translateY(-8px); }
 
 /* ── Header ──────────────────────────────────────────────────── */
 .dwr-header {
@@ -938,17 +944,17 @@ function formatDate(iso: string) {
   flex-shrink: 0; background: var(--bma-surface);
 }
 .dwr-header-top {
-  display: flex; align-items: center; gap: 10px;
-  padding: 12px 18px;
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px;
 }
 .dwr-close-btn {
-  width: 30px; height: 30px; border-radius: 7px;
+  width: 32px; height: 32px; border-radius: var(--bma-radius-md);
   border: 1.5px solid var(--bma-border); background: var(--bma-surface);
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; flex-shrink: 0; transition: background .15s;
 }
 .dwr-close-btn:hover { background: var(--bma-surface-subtle); }
-.dwr-title-wrap { display: flex; align-items: center; gap: 6px; }
+.dwr-title-wrap { display: flex; align-items: center; gap: 8px; }
 .dwr-title { font-family: var(--bma-font-thai); font-size: 14px; font-weight: 700; color: var(--bma-text-primary); }
 
 /* Context info strip */
@@ -958,15 +964,15 @@ function formatDate(iso: string) {
   background: var(--bma-surface-light);
 }
 .dwr-ctx-group {
-  display: flex; flex-direction: column; gap: 3px;
-  padding: 8px 14px; flex: 1;
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 8px 12px; flex: 1;
 }
 .dwr-ctx-div {
   width: 1px; background: var(--bma-border-subtle); flex-shrink: 0;
 }
 .dwr-ctx-label {
   font-family: var(--bma-font-data); font-size: 10px; font-weight: 700;
-  color: var(--bma-text-disabled); text-transform: uppercase; letter-spacing: .07em;
+  color: var(--bma-text-tertiary); text-transform: uppercase; letter-spacing: .07em;
 }
 .dwr-ctx-hn {
   font-family: var(--bma-font-data); font-size: 13px; font-weight: 700;
@@ -988,7 +994,7 @@ function formatDate(iso: string) {
 }
 .dwr-ctx-unit {
   font-family: var(--bma-font-data); font-size: 10px; font-weight: 500;
-  color: var(--bma-text-muted);
+  color: var(--bma-text-secondary);
 }
 .dwr-ctx-ttr {
   font-family: var(--bma-font-data); font-size: 13px; font-weight: 700;
@@ -997,14 +1003,14 @@ function formatDate(iso: string) {
 
 /* ── Body ────────────────────────────────────────────────────── */
 .dwr-body {
-  flex: 1; overflow-y: auto; padding: 16px 18px;
-  display: flex; flex-direction: column; gap: 14px;
+  flex: 1; overflow-y: auto; padding: 16px;
+  display: flex; flex-direction: column; gap: 12px;
   background: var(--bma-surface);
 }
 
 /* ── Step ────────────────────────────────────────────────────── */
-.dwr-step { display: flex; flex-direction: column; gap: 10px; }
-.dwr-step + .dwr-step { padding-top: 14px; border-top: 1px solid var(--bma-border-subtle); }
+.dwr-step { display: flex; flex-direction: column; gap: 8px; }
+.dwr-step + .dwr-step { padding-top: 16px; border-top: 1px solid var(--bma-border-subtle); }
 
 .dwr-step-hd { display: flex; align-items: center; gap: 8px; }
 .dwr-step-num {
@@ -1014,23 +1020,23 @@ function formatDate(iso: string) {
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
 .dwr-step-title {
-  font-size: 11px; font-weight: 700; color: var(--bma-text-muted);
+  font-size: 11px; font-weight: 700; color: var(--bma-text-secondary);
   text-transform: uppercase; letter-spacing: .05em;
 }
 
 /* ── Zone ① INR ──────────────────────────────────────────────── */
-.dwr-inr-section { display: flex; flex-direction: column; gap: 6px; }
+.dwr-inr-section { display: flex; flex-direction: column; gap: 8px; }
 
 .dwr-inr-date {
-  font-family: var(--bma-font-data); font-size: 10px; font-weight: 600; color: var(--bma-text-muted);
-  background: var(--bma-surface-subtle); border: 1px solid var(--bma-border-card); border-radius: 4px; padding: 2px 7px;
+  font-family: var(--bma-font-data); font-size: 10px; font-weight: 600; color: var(--bma-text-secondary);
+  background: var(--bma-surface-subtle); border: 1px solid var(--bma-border-card); border-radius: 4px; padding: 2px 8px;
   margin-left: auto; flex-shrink: 0;
 }
 
 .dwr-inr-input-row { display: flex; align-items: center; gap: 8px; }
 .dwr-inr-input {
   width: 120px; height: 50px; border-radius: 8px; border: 2px solid var(--bma-border);
-  text-align: center; font-family: var(--bma-font-data); font-size: 22px; font-weight: 700;
+  text-align: center; font-family: var(--bma-font-data); font-size: 20px; font-weight: 700;
   color: var(--bma-text-primary); background: var(--bma-surface); outline: none; transition: border-color .15s;
   -moz-appearance: textfield; flex-shrink: 0;
 }
@@ -1045,7 +1051,7 @@ function formatDate(iso: string) {
 .dwr-inr-input--therapeutic:not(:focus)     { border-color: var(--inr-therapeutic-ring); color: var(--bma-success-text); }
 
 .dwr-inr-badge {
-  padding: 3px 9px; border-radius: 99px;
+  padding: 4px 8px; border-radius: 99px;
   font-family: var(--bma-font-data); font-size: 11px; font-weight: 700;
   align-self: flex-start;
 }
@@ -1062,7 +1068,7 @@ function formatDate(iso: string) {
   border: none;
   background: var(--bma-border-card);
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--bma-font-data); font-size: 22px; font-weight: 700;
+  font-family: var(--bma-font-data); font-size: 20px; font-weight: 700;
   color: var(--bma-text-primary); user-select: none;
 }
 .dwr-inr-locked--low          { color: var(--inr-low-text); }
@@ -1074,29 +1080,29 @@ function formatDate(iso: string) {
 
 /* ── Edit / cancel buttons ──────────────────────────────────── */
 .dwr-btn-edit-inr {
-  height: 28px; padding: 0 10px; border-radius: 6px;
+  height: 28px; padding: 0 12px; border-radius: 6px;
   border: 1.5px solid var(--bma-border); background: var(--bma-surface);
   display: inline-flex; align-items: center; gap: 4px;
   font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600;
-  color: var(--bma-text-muted); cursor: pointer; transition: all .15s;
+  color: var(--bma-text-secondary); cursor: pointer; transition: all .15s;
 }
 .dwr-btn-edit-inr:hover { border-color: var(--bma-green-500); color: var(--bma-green-500); }
 
 .dwr-btn-confirm-inr {
-  height: 28px; padding: 0 10px; border-radius: 6px;
+  height: 28px; padding: 0 12px; border-radius: 6px;
   border: 1.5px solid var(--bma-green-500); background: var(--bma-green-500);
   display: inline-flex; align-items: center; gap: 4px;
   font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600;
-  color: #fff; cursor: pointer; transition: background .15s;
+  color: var(--bma-surface); cursor: pointer; transition: background .15s;
 }
 .dwr-btn-confirm-inr:hover { background: var(--bma-green-600); border-color: var(--bma-green-600); }
 
 .dwr-btn-cancel-inr {
-  height: 28px; padding: 0 10px; border-radius: 6px;
+  height: 28px; padding: 0 12px; border-radius: 6px;
   border: 1.5px solid var(--bma-border); background: var(--bma-surface);
   display: inline-flex; align-items: center; gap: 4px;
   font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600;
-  color: var(--bma-text-muted); cursor: pointer; transition: all .15s;
+  color: var(--bma-text-secondary); cursor: pointer; transition: all .15s;
 }
 .dwr-btn-cancel-inr:hover { border-color: var(--bma-emergency); color: var(--bma-emergency); background: var(--inr-very-high-bg); }
 
@@ -1112,8 +1118,8 @@ function formatDate(iso: string) {
 /* One base class, semantic modifiers via design tokens.
    All banners: same padding, font, alignment, border-radius.     */
 .dwr-banner {
-  display: flex; align-items: center; gap: 7px;
-  padding: 8px 11px; border-radius: 8px;
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; border-radius: 8px;
   font-size: 12px; font-weight: 600; line-height: 1.5;
   border: 1px solid transparent;
 }
@@ -1150,10 +1156,10 @@ function formatDate(iso: string) {
   color: var(--bma-success-text);
 }
 
-.dwr-hold-box { border-radius: 10px; overflow: hidden; border: 1.5px solid; }
-.dwr-hold-hd  { display: flex; align-items: center; gap: 8px; padding: 9px 12px; flex-wrap: wrap; }
+.dwr-hold-box { border-radius: var(--bma-radius-lg); overflow: hidden; border: 1.5px solid; }
+.dwr-hold-hd  { display: flex; align-items: center; gap: 8px; padding: 8px 12px; flex-wrap: wrap; }
 .dwr-hold-title { font-family: var(--bma-font-data); font-size: 12px; font-weight: 700; letter-spacing: .03em; }
-.dwr-hold-body  { padding: 9px 12px 12px; }
+.dwr-hold-body  { padding: 8px 12px 12px; }
 
 .dwr-hold--emergency { border-color: var(--inr-emergency-ring); animation: pulse-emergency 2s ease-in-out infinite; }
 .dwr-hold--emergency .dwr-hold-hd    { background: var(--inr-emergency-fill); }
@@ -1172,45 +1178,45 @@ function formatDate(iso: string) {
 .dwr-hold--very-high .dwr-hold-body  { background: var(--inr-supra-body); }
 
 @keyframes pulse-emergency {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(183, 28, 28, 0); }
-  50%       { box-shadow: 0 0 0 5px rgba(183, 28, 28, .18); }
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50%       { box-shadow: 0 0 0 5px var(--bma-emergency-ring); }
 }
 
-.dwr-vk-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 7px; }
+.dwr-vk-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; }
 .dwr-vk-lbl { font-family: var(--bma-font-data); font-size: 12px; font-weight: 700; color: var(--bma-text-tertiary); white-space: nowrap; }
 .dwr-vk-val { font-size: 12px; color: var(--bma-text-primary); font-weight: 600; line-height: 1.5; }
 
-.dwr-next-steps    { margin: 0; padding-left: 14px; display: flex; flex-direction: column; gap: 3px; }
+.dwr-next-steps    { margin: 0; padding-left: 16px; display: flex; flex-direction: column; gap: 4px; }
 .dwr-next-steps li { font-size: 12px; color: var(--bma-text-tertiary); line-height: 1.5; }
 
-.dwr-adjust { display: flex; flex-direction: column; gap: 10px; }
+.dwr-adjust { display: flex; flex-direction: column; gap: 8px; }
 
 /* ── Current dose reference (Step 2 context) ─────────────────── */
 .dwr-current-ref {
   display: flex; align-items: baseline; gap: 8px;
-  padding: 7px 11px; border-radius: 8px;
+  padding: 8px 12px; border-radius: 8px;
   background: var(--bma-surface-subtle); border: 1px solid var(--bma-border-card);
 }
 .dwr-current-ref-label {
-  font-size: 10px; font-weight: 700; color: var(--bma-text-disabled);
+  font-size: 10px; font-weight: 700; color: var(--bma-text-secondary);
   text-transform: uppercase; letter-spacing: .06em; flex-shrink: 0;
 }
 .dwr-current-ref-val {
-  font-family: var(--bma-font-data); font-size: 15px; font-weight: 700; color: var(--bma-text-primary);
+  font-family: var(--bma-font-data); font-size: 16px; font-weight: 700; color: var(--bma-text-primary);
 }
-.dwr-current-ref-unit { font-size: 11px; font-weight: 500; color: var(--bma-text-muted); }
+.dwr-current-ref-unit { font-size: 11px; font-weight: 500; color: var(--bma-text-secondary); }
 .dwr-current-ref-pill {
-  font-size: 11px; color: var(--bma-text-muted); margin-left: auto;
+  font-size: 11px; color: var(--bma-text-secondary); margin-left: auto;
 }
 
 
 .dwr-opt-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 .dwr-opt-card {
   position: relative;
-  padding: 11px 13px; border-radius: 10px;
+  padding: 12px; border-radius: var(--bma-radius-lg);
   border: 1.5px solid var(--bma-border-card); background: var(--bma-surface);
   cursor: pointer; transition: border-color .15s, background .15s, border-width .15s;
-  display: flex; flex-direction: column; gap: 3px;
+  display: flex; flex-direction: column; gap: 4px;
 }
 .dwr-opt-card:hover                { border-color: var(--bma-green-500); background: var(--bma-green-50); }
 .dwr-opt-card:focus-visible        { outline: 2px solid var(--bma-green-500); outline-offset: 2px; }
@@ -1219,8 +1225,8 @@ function formatDate(iso: string) {
 /* ── Checkmark badge ─────────────────────────────────────────── */
 .dwr-opt-check {
   position: absolute; top: 8px; right: 8px; z-index: 1;
-  width: 18px; height: 18px; border-radius: 50%;
-  background: var(--bma-green-500); color: #fff;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--bma-green-500); color: var(--bma-surface);
   display: flex; align-items: center; justify-content: center;
   opacity: 0; transform: scale(0.5);
   transition: opacity .15s ease-out, transform .2s cubic-bezier(0.34, 1.4, 0.64, 1);
@@ -1230,59 +1236,55 @@ function formatDate(iso: string) {
 /* Hold card uses neutral checkmark */
 .dwr-opt-card--hold .dwr-opt-check { background: var(--bma-text-tertiary); }
 /* Dose is the prescription — primary headline */
-.dwr-opt-dose      { font-family: var(--bma-font-data); font-size: 20px; font-weight: 900; line-height: 1; color: var(--bma-text-primary); }
-.dwr-opt-dose-unit { font-family: var(--bma-font-data); font-size: 11px; font-weight: 400; color: var(--bma-text-muted); }
+.dwr-opt-dose      { font-family: var(--bma-font-data); font-size: 20px; font-weight: 700; line-height: 1; color: var(--bma-text-primary); }
+.dwr-opt-dose-unit { font-family: var(--bma-font-data); font-size: 11px; font-weight: 400; color: var(--bma-text-secondary); }
 /* Percentage change — directional badge (secondary) */
 .dwr-opt-pct {
   font-family: var(--bma-font-data); font-size: 11px; font-weight: 700; line-height: 1;
-  display: inline-flex; align-items: center; padding: 2px 6px; border-radius: 4px; width: fit-content;
+  display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 4px; width: fit-content;
 }
-.dwr-pct--up   { color: var(--bma-success-text); background: oklch(96% 0.04 145); }
+.dwr-pct--up   { color: var(--bma-success-text); background: var(--bma-success-bg-solid); }
 /* Amber — decrease is a clinical adjustment, not an emergency */
-.dwr-pct--down { color: oklch(46% 0.13 45); background: oklch(96% 0.04 50); }
-.dwr-opt-tabs  { font-size: 11px; color: var(--bma-text-muted); }
+.dwr-pct--down { color: var(--bma-amber-text); background: var(--bma-amber-surface); }
+.dwr-opt-tabs  { font-size: 11px; color: var(--bma-text-secondary); }
 
 /* Hold option card (คงขนาดยาเดิม) */
 .dwr-opt-card--hold { border-style: dashed; }
 .dwr-opt-card--hold:hover     { border-color: var(--bma-text-tertiary); background: var(--bma-surface-light); }
 .dwr-opt-card--hold.dwr-opt-card--selected { border: 2px solid var(--bma-text-tertiary); background: var(--bma-surface-subtle); }
 .dwr-opt-hold-label { font-family: var(--bma-font-data); font-size: 13px; font-weight: 700; color: var(--bma-text-primary); }
-.dwr-opt-hold-sub   { font-size: 11px; color: var(--bma-text-muted); }
+.dwr-opt-hold-sub   { font-size: 11px; color: var(--bma-text-secondary); }
 
 /* Custom card */
 .dwr-opt-card--custom {
   grid-column: 1 / -1; border-style: dashed;
-  align-items: center; justify-content: center; min-height: 46px;
+  align-items: center; justify-content: center; min-height: 44px;
 }
 .dwr-opt-card--custom:hover                          { border-color: var(--bma-text-tertiary); background: var(--bma-surface-light); }
 .dwr-opt-card--custom.dwr-opt-card--selected         { border-style: solid; }
 .dwr-opt-card--custom-open  {
   cursor: default;
   align-items: flex-start;
-  padding: 13px 14px 13px;
+  padding: 12px;
   gap: 8px;  /* override the 3px base gap — open state needs breathing room */
   border-color: var(--bma-green-500);  /* always green when open — matches focused input */
 }
 .dwr-opt-card--custom-open:hover { background: var(--bma-surface); }
 .dwr-opt-custom-placeholder {
-  display: flex; align-items: center; gap: 6px;
+  display: flex; align-items: center; gap: 8px;
   font-size: 12px; font-weight: 600; color: var(--bma-text-secondary); letter-spacing: .02em;
   transition: color .15s;
 }
 .dwr-opt-card--custom:hover .dwr-opt-custom-placeholder { color: var(--bma-text-primary); }
-.dwr-opt-custom-title {
-  font-family: var(--bma-font-data); font-size: 13px; font-weight: 700;
-  color: var(--bma-text-primary); line-height: 1;
-}
-.dwr-opt-custom-input-row { display: flex; align-items: center; gap: 7px; width: 100%; }
+.dwr-opt-custom-input-row { display: flex; align-items: center; gap: 8px; width: 100%; }
 .dwr-input-with-unit { position: relative; flex: 1; }
 .dwr-custom-unit-inside {
-  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-  font-size: 11px; color: var(--bma-text-disabled); pointer-events: none; user-select: none;
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  font-size: 11px; color: var(--bma-text-secondary); pointer-events: none; user-select: none;
 }
 .dwr-custom-input {
-  width: 100%; height: 32px; border: 1.5px solid var(--bma-border); border-radius: 7px;
-  padding: 0 44px 0 10px; text-align: left;
+  width: 100%; height: 32px; border: 1.5px solid var(--bma-border); border-radius: var(--bma-radius-md);
+  padding: 0 44px 0 12px; text-align: left;
   font-family: var(--bma-font-data); font-size: 13px; font-weight: 700; color: var(--bma-text-primary);
   outline: none; transition: border-color .15s, background .15s;
   -moz-appearance: textfield;
@@ -1293,13 +1295,13 @@ function formatDate(iso: string) {
 .dwr-custom-input:focus::placeholder { color: var(--bma-border); }
 .dwr-custom-input--selected       { border-color: var(--bma-green-500); background: var(--bma-green-50); color: var(--bma-green-500); }
 .dwr-btn-custom {
-  height: 32px; padding: 0 12px; min-width: 80px; border: none; border-radius: 7px;
+  height: 32px; padding: 0 12px; min-width: 80px; border: none; border-radius: var(--bma-radius-md);
   background: var(--bma-text-primary); color: var(--bma-surface);
   font-family: var(--bma-font-thai); font-size: 13px; font-weight: 700;
   cursor: pointer; transition: background .15s; flex-shrink: 0;
 }
-.dwr-btn-custom:hover:not(:disabled) { background: #555; }
-.dwr-btn-custom:disabled { background: var(--bma-border); color: var(--bma-text-muted); cursor: not-allowed; }
+.dwr-btn-custom:hover:not(:disabled) { background: var(--bma-neutral-500); }
+.dwr-btn-custom:disabled { background: var(--bma-border); color: var(--bma-text-disabled); cursor: not-allowed; }
 
 .dwr-custom-error {
   display: inline-flex; align-items: center; gap: 4px;
@@ -1309,18 +1311,18 @@ function formatDate(iso: string) {
 
 /* ── Round-down / Round-up suggestions ───────────────────────── */
 .dwr-custom-suggestions {
-  display: flex; align-items: center; gap: 7px;
-  padding-top: 9px;
+  display: flex; align-items: center; gap: 8px;
+  padding-top: 8px;
   border-top: 1px solid var(--bma-border-card);
   flex-wrap: wrap; width: 100%;
 }
 .dwr-custom-sugg-lbl {
-  font-size: 10px; font-weight: 700; color: var(--bma-text-muted);
+  font-size: 10px; font-weight: 700; color: var(--bma-text-secondary);
   letter-spacing: .03em; white-space: nowrap; flex-shrink: 0;
 }
-.dwr-custom-sugg-chips { display: flex; gap: 5px; }
+.dwr-custom-sugg-chips { display: flex; gap: 4px; }
 .dwr-custom-sugg-chip {
-  height: 24px; padding: 0 9px; border-radius: 6px;
+  height: 24px; padding: 0 8px; border-radius: 6px;
   border: 1.5px solid var(--bma-border-card); background: var(--bma-surface);
   font-family: var(--bma-font-data); font-size: 11px; font-weight: 700;
   color: var(--bma-text-secondary);
@@ -1328,9 +1330,9 @@ function formatDate(iso: string) {
 }
 /* Round down — amber, consistent with dwr-pct--down */
 .dwr-custom-sugg-chip--down:hover {
-  border-color: oklch(62% 0.13 45);
-  background: oklch(96% 0.04 50);
-  color: oklch(46% 0.13 45);
+  border-color: var(--bma-amber-border);
+  background: var(--bma-amber-surface);
+  color: var(--bma-amber-text);
 }
 /* Round up — hints toward green (higher dose = more aggressive increase) */
 .dwr-custom-sugg-chip--up:hover {
@@ -1342,36 +1344,36 @@ function formatDate(iso: string) {
 /* ── Zone ③ Confirm ──────────────────────────────────────────── */
 .dwr-confirm-summary {
   border: 1px solid var(--bma-border-card); border-radius: 8px;
-  padding: 10px 12px; display: flex; flex-direction: column; gap: 8px;
+  padding: 12px; display: flex; flex-direction: column; gap: 8px;
 }
 .dwr-confirm-dose-row {
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
 }
-.dwr-old-dose    { font-family: var(--bma-font-data); font-size: 12px; color: var(--bma-text-disabled); text-decoration: line-through; }
-.dwr-arrow       { font-size: 13px; color: var(--bma-text-muted); }
-.dwr-new-dose    { font-family: var(--bma-font-data); font-size: 15px; font-weight: 700; color: var(--bma-green-500); }
+.dwr-old-dose    { font-family: var(--bma-font-data); font-size: 12px; color: var(--bma-text-tertiary); text-decoration: line-through; }
+.dwr-arrow       { font-size: 13px; color: var(--bma-text-secondary); }
+.dwr-new-dose    { font-family: var(--bma-font-data); font-size: 16px; font-weight: 700; color: var(--bma-green-500); }
 .dwr-pct-badge   {
   font-family: var(--bma-font-data); font-size: 12px; font-weight: 700;
   padding: 2px 8px; border-radius: 99px;
 }
 .dwr-pct-up   { background: var(--bma-green-50); color: var(--bma-success-text); }
 .dwr-pct-down { background: var(--inr-very-high-bg); color: var(--bma-emergency); }
-.dwr-admin-method { font-size: 11px; color: var(--bma-text-muted); }
+.dwr-admin-method { font-size: 11px; color: var(--bma-text-secondary); }
 
 .dwr-week-row {
-  display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px;
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;
 }
 .dwr-day {
-  display: flex; flex-direction: column; align-items: center; gap: 2px;
-  padding: 5px 2px; border-radius: 6px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 4px; border-radius: 6px;
   border: 1px solid var(--bma-border-subtle); background: var(--bma-surface-light);
 }
 .dwr-day--hi { border-color: var(--bma-green-200); background: var(--bma-green-50); }
-.dwr-day-lbl { font-size: 10px; font-weight: 700; color: var(--bma-text-muted); }
+.dwr-day-lbl { font-size: 10px; font-weight: 700; color: var(--bma-text-secondary); }
 .dwr-day--hi .dwr-day-lbl { color: var(--bma-green-500); }
 .dwr-day-pills {
   display: flex; gap: 1px; align-items: center; justify-content: center;
-  flex-wrap: wrap; min-height: 9px;
+  flex-wrap: wrap; min-height: 8px;
 }
 .dwr-day-tab { font-family: var(--bma-font-data); font-size: 11px; font-weight: 700; color: var(--bma-text-primary); }
 .dwr-day--hi .dwr-day-tab { color: var(--bma-green-500); }
@@ -1388,8 +1390,8 @@ function formatDate(iso: string) {
 .dwr-pill--pink   { background: var(--wf-pill-pink); }
 
 .dwr-hold-note {
-  display: flex; align-items: center; gap: 6px;
-  padding: 9px 12px; border-radius: 8px;
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; border-radius: 8px;
   background: var(--bma-surface); border: 1px solid var(--bma-border-card);
   font-size: 12px; color: var(--bma-text-tertiary);
 }
@@ -1398,14 +1400,14 @@ function formatDate(iso: string) {
 }
 /* Step 3 — contextual hint cards */
 .dwr-step3-hint {
-  display: flex; align-items: center; gap: 7px;
-  padding: 10px 12px; border-radius: 8px;
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px; border-radius: 8px;
   border: 1px dashed var(--bma-border-card);
   background: var(--bma-surface-light);
   font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600;
-  color: var(--bma-text-muted);
+  color: var(--bma-text-secondary);
 }
-.dwr-step3-hint svg { flex-shrink: 0; color: var(--bma-text-disabled); }
+.dwr-step3-hint svg { flex-shrink: 0; color: var(--bma-text-tertiary); }
 /* Pill-needed variant: amber tint matches pill-selector--empty signal */
 .dwr-step3-hint--pill {
   border-color: var(--bma-urgency-ring);
@@ -1419,12 +1421,12 @@ function formatDate(iso: string) {
   display: flex; flex-direction: column; gap: 12px;
 }
 .dwr-confirm-fields { display: flex; flex-direction: column; gap: 8px; }
-.dwr-lbl { font-size: 11px; color: var(--bma-text-muted); font-weight: 600; display: flex; align-items: center; gap: 4px; }
+.dwr-lbl { font-size: 11px; color: var(--bma-text-secondary); font-weight: 600; display: flex; align-items: center; gap: 4px; }
 .dwr-lbl--warn { color: var(--inr-low-text) !important; }
 
 .dwr-input {
-  height: 34px; border: 1.5px solid var(--bma-border); border-radius: 8px;
-  padding: 0 10px; font-family: var(--bma-font-thai); font-size: 13px;
+  height: 36px; border: 1.5px solid var(--bma-border); border-radius: 8px;
+  padding: 0 12px; font-family: var(--bma-font-thai); font-size: 13px;
   color: var(--bma-text-primary); background: var(--bma-surface); outline: none; transition: border-color .15s; width: 100%;
 }
 .dwr-input:focus       { border-color: var(--bma-green-500); }
@@ -1433,23 +1435,19 @@ function formatDate(iso: string) {
 
 .dwr-override-wrap, .dwr-remarks-wrap { display: flex; flex-direction: column; gap: 4px; }
 
-.dwr-save-col  { display: flex; flex-direction: column; align-items: stretch; gap: 6px; }
+.dwr-save-col  { display: flex; flex-direction: column; align-items: stretch; gap: 8px; }
 .dwr-save-error {
   display: flex; align-items: center; gap: 4px;
   font-size: 11px; color: var(--bma-emergency); font-weight: 600; white-space: nowrap;
 }
 
+/* dwr-btn-save — migrated to v-btn color="confirm". Only override font (Vuetify defaults system font) */
 .dwr-btn-save {
-  height: 44px; padding: 0 20px; border: none; border-radius: 9px;
-  background: var(--bma-neutral-900); color: var(--bma-surface); width: 100%;
-  font-family: var(--bma-font-thai); font-size: 14px; font-weight: 700;
-  cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px;
-  transition: background .15s;
+  font-family: var(--bma-font-thai) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
 }
-.dwr-btn-save:hover:not(:disabled) { background: #333; }
-.dwr-btn-save:disabled {
-  background: var(--bma-border-card); color: var(--bma-text-disabled); cursor: not-allowed;
-}
+.dwr-btn-save :deep(.v-btn__content) { gap: 8px; }
 
 /* ── Transitions ─────────────────────────────────────────────── */
 .dwr-fade-enter-active, .dwr-fade-leave-active { transition: opacity .18s ease; }
@@ -1460,18 +1458,18 @@ function formatDate(iso: string) {
 
 /* ── Concurrent Meds strip ───────────────────────────────────── */
 .dwr-meds-strip {
-  padding: 10px 12px; border-radius: 9px;
+  padding: 12px; border-radius: var(--bma-radius-md);
   background: var(--bma-surface-light); border: 1px solid var(--bma-border-subtle);
   display: flex; flex-direction: column; gap: 8px;
 }
-.dwr-meds-header { display: flex; align-items: center; gap: 6px; }
-.dwr-meds-title  { font-size: 11px; font-weight: 700; color: var(--bma-text-muted); text-transform: uppercase; letter-spacing: .04em; }
+.dwr-meds-header { display: flex; align-items: center; gap: 8px; }
+.dwr-meds-title  { font-size: 11px; font-weight: 700; color: var(--bma-text-secondary); text-transform: uppercase; letter-spacing: .04em; }
 
-.dwr-meds-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.dwr-meds-list { display: flex; flex-wrap: wrap; gap: 8px; }
 
 .dwr-med-tag {
-  display: inline-flex; align-items: center; gap: 5px;
-  padding: 3px 9px; border-radius: 99px;
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 8px; border-radius: 99px;
   border: 1px solid var(--bma-border-card); background: var(--bma-surface);
   font-size: 11px;
 }
@@ -1490,7 +1488,7 @@ function formatDate(iso: string) {
 
 /* ── Pill selector ────────────────────────────────────────────── */
 .dwr-pill-selector {
-  padding: 10px 12px; border-radius: 9px;
+  padding: 12px; border-radius: var(--bma-radius-md);
   background: var(--bma-surface-light); border: 1px solid var(--bma-border-subtle);
   display: flex; flex-direction: column; gap: 8px;
   transition: border-color .15s;
@@ -1500,10 +1498,10 @@ function formatDate(iso: string) {
   background: var(--bma-urgency-bg);
 }
 .dwr-pill-selector-hd {
-  display: flex; align-items: center; gap: 6px;
+  display: flex; align-items: center; gap: 8px;
 }
 .dwr-pill-selector-title {
-  font-size: 11px; font-weight: 700; color: var(--bma-text-muted);
+  font-size: 11px; font-weight: 700; color: var(--bma-text-secondary);
   text-transform: uppercase; letter-spacing: .04em;
 }
 .dwr-pill-selector-required {
@@ -1511,18 +1509,18 @@ function formatDate(iso: string) {
   font-size: 10px; font-weight: 700; color: var(--bma-urgency-text);
   letter-spacing: .03em;
 }
-.dwr-pill-chips { display: flex; gap: 7px; flex-wrap: wrap; }
+.dwr-pill-chips { display: flex; gap: 8px; flex-wrap: wrap; }
 
 .dwr-pill-chip {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 12px; border-radius: 8px;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 12px; border-radius: 8px;
   border: 1.5px solid var(--bma-border-card); background: var(--bma-surface);
   font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600;
   color: var(--bma-text-secondary);
   cursor: pointer; transition: all .15s; user-select: none;
 }
 .dwr-pill-chip:not(.dwr-pill-chip--active):hover {
-  border-color: var(--bma-text-muted); background: var(--bma-surface-subtle);
+  border-color: var(--bma-text-secondary); background: var(--bma-surface-subtle);
 }
 /* Active states per pill color */
 .dwr-pill-chip--orange.dwr-pill-chip--active {
@@ -1536,7 +1534,7 @@ function formatDate(iso: string) {
 }
 
 .dwr-pill-chip-dot {
-  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+  width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
 }
 .dwr-chip-dot--orange { background: var(--wf-pill-orange); }
 .dwr-chip-dot--blue   { background: var(--wf-pill-blue); }
@@ -1548,7 +1546,7 @@ function formatDate(iso: string) {
 /* ── Per-day customization bar (Step 3) ──────────────────────── */
 .dwr-daily-bar {
   display: flex; align-items: center; justify-content: flex-end; gap: 8px;
-  padding-top: 5px;
+  padding-top: 4px;
 }
 .dwr-manual-badge {
   display: inline-flex; align-items: center; gap: 4px;
@@ -1558,11 +1556,11 @@ function formatDate(iso: string) {
   color: var(--bma-success-text);
 }
 .dwr-btn-daily {
-  height: 26px; padding: 0 10px; border-radius: 6px;
+  height: 28px; padding: 0 12px; border-radius: 6px;
   border: 1.5px solid var(--bma-border); background: var(--bma-surface);
   display: inline-flex; align-items: center; gap: 4px;
   font-family: var(--bma-font-thai); font-size: 11px; font-weight: 600;
-  color: var(--bma-text-muted); cursor: pointer; transition: all .15s;
+  color: var(--bma-text-secondary); cursor: pointer; transition: all .15s;
 }
 .dwr-btn-daily:hover {
   border-color: var(--bma-green-500); color: var(--bma-green-500);

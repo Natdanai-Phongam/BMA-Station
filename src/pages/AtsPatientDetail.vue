@@ -1060,7 +1060,7 @@ const chartOptions = {
 }
 .stat-count {
   font-family: var(--bma-font-data);
-  font-size: 28px; font-weight: 700; color: var(--bma-text-primary); line-height: 1.1;
+  font-size: var(--bma-text-kpi-card); font-weight: 700; color: var(--bma-text-primary); line-height: 1.1;
 }
 .stat-unit { font-size: 18px; font-family: var(--bma-font-thai); }
 .stat-last { font-size: 12px; color: var(--bma-text-muted); margin-top: 4px; }

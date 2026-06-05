@@ -7,7 +7,14 @@
       "currentDose": "5 mg BID",
       "therapyStartDate": "2569-01-15",
       "followUpMonths": 6,
-      "status": "appropriate"
+      "status": "appropriate",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -24,9 +31,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-02-15"
+        "nextFollowUpDate": "2026-02-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-w002-2",
@@ -42,9 +51,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-03-15"
+        "nextFollowUpDate": "2026-03-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-w002-3",
@@ -60,9 +71,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-04-15"
+        "nextFollowUpDate": "2026-04-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-w002-4",
@@ -78,9 +91,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-05-15"
+        "nextFollowUpDate": "2026-05-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-w002-5",
@@ -96,9 +111,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-06-12"
+        "nextFollowUpDate": "2026-06-12",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ],
     "activeFrom": "2026-02-01",
@@ -112,7 +129,14 @@
       "currentDose": "5 mg BID",
       "therapyStartDate": "2567-06-15",
       "followUpMonths": 6,
-      "status": "appropriate"
+      "status": "appropriate",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -129,9 +153,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-02-15"
+        "nextFollowUpDate": "2026-02-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n001-2",
@@ -147,9 +173,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-03-15"
+        "nextFollowUpDate": "2026-03-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n001-3",
@@ -165,9 +193,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-04-15"
+        "nextFollowUpDate": "2026-04-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n001-4",
@@ -183,9 +213,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-05-15"
+        "nextFollowUpDate": "2026-05-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n001-5",
@@ -201,9 +233,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-06-12"
+        "nextFollowUpDate": "2026-06-12",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -215,7 +249,14 @@
       "currentDose": "10 mg OD",
       "therapyStartDate": "2567-09-01",
       "followUpMonths": 3,
-      "status": "underdose"
+      "status": "underdose",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -232,10 +273,12 @@
         "dose": "20 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-02-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n002-2",
@@ -251,10 +294,12 @@
         "dose": "20 mg OD",
         "systemRank": 2,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-03-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n002-3",
@@ -270,10 +315,12 @@
         "dose": "20 mg OD",
         "systemRank": 2,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-04-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n002-4",
@@ -289,10 +336,12 @@
         "dose": "20 mg OD",
         "systemRank": 2,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-05-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n002-5",
@@ -308,10 +357,12 @@
         "dose": "20 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-06-12",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -323,7 +374,14 @@
       "currentDose": "5 mg BID",
       "therapyStartDate": "2567-03-22",
       "followUpMonths": 6,
-      "status": "appropriate"
+      "status": "appropriate",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -340,9 +398,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-02-15"
+        "nextFollowUpDate": "2026-02-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n003-2",
@@ -358,9 +418,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-03-15"
+        "nextFollowUpDate": "2026-03-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n003-3",
@@ -376,9 +438,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-04-15"
+        "nextFollowUpDate": "2026-04-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n003-4",
@@ -394,9 +458,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-05-15"
+        "nextFollowUpDate": "2026-05-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n003-5",
@@ -412,9 +478,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-06-12"
+        "nextFollowUpDate": "2026-06-12",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -426,7 +494,14 @@
       "currentDose": "5 mg BID",
       "therapyStartDate": "2567-11-10",
       "followUpMonths": 3,
-      "status": "overdose"
+      "status": "overdose",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -443,9 +518,11 @@
         "dose": "5 mg BID",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": true,
         "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
-        "nextFollowUpDate": "2026-04-20"
+        "nextFollowUpDate": "2026-04-20",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n004-2",
@@ -461,9 +538,11 @@
         "dose": "5 mg BID",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": true,
         "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
-        "nextFollowUpDate": "2026-05-18"
+        "nextFollowUpDate": "2026-05-18",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n004-1",
@@ -479,10 +558,12 @@
         "dose": "5 mg BID",
         "systemRank": 2,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-02-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "overdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n004-3",
@@ -498,10 +579,12 @@
         "dose": "5 mg BID",
         "systemRank": 2,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-04-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "overdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n004-5",
@@ -517,10 +600,12 @@
         "dose": "5 mg BID",
         "systemRank": 3,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-06-12",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -532,7 +617,14 @@
       "currentDose": "15 mg OD",
       "therapyStartDate": "2567-12-05",
       "followUpMonths": 1,
-      "status": "contra"
+      "status": "contra",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -549,9 +641,11 @@
         "dose": "20 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
-        "nextFollowUpDate": "2026-04-22"
+        "nextFollowUpDate": "2026-04-22",
+        "clinicalStatus": "contra",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n005-2",
@@ -567,9 +661,11 @@
         "dose": "20 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
-        "nextFollowUpDate": "2026-05-25"
+        "nextFollowUpDate": "2026-05-25",
+        "clinicalStatus": "contra",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n005-3",
@@ -585,9 +681,11 @@
         "dose": "20 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
-        "nextFollowUpDate": "2026-06-28"
+        "nextFollowUpDate": "2026-06-28",
+        "clinicalStatus": "contra",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n005-1",
@@ -603,10 +701,12 @@
         "dose": "20 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-02-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "contra",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n005-2",
@@ -622,10 +722,12 @@
         "dose": "20 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-03-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "contra",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -637,7 +739,14 @@
       "currentDose": "5 mg BID",
       "therapyStartDate": "2567-08-20",
       "followUpMonths": 6,
-      "status": "interaction"
+      "status": "interaction",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -654,9 +763,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-02-15"
+        "nextFollowUpDate": "2026-02-15",
+        "clinicalStatus": "interaction",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n006-2",
@@ -672,10 +783,12 @@
         "dose": "5 mg BID",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-03-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "interaction",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n006-3",
@@ -691,9 +804,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-04-15"
+        "nextFollowUpDate": "2026-04-15",
+        "clinicalStatus": "interaction",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n006-4",
@@ -709,10 +824,12 @@
         "dose": "5 mg BID",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-05-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n006-5",
@@ -728,10 +845,12 @@
         "dose": "5 mg BID",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-06-12",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "interaction",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ],
     "activeFrom": "2025-07-01",
@@ -745,7 +864,13 @@
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-01-17",
       "followUpMonths": 3,
-      "status": "appropriate"
+      "status": "appropriate",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -762,9 +887,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-02-15"
+        "nextFollowUpDate": "2026-02-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n007-2",
@@ -780,9 +907,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-03-15"
+        "nextFollowUpDate": "2026-03-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n007-3",
@@ -798,9 +927,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-04-15"
+        "nextFollowUpDate": "2026-04-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n007-4",
@@ -816,9 +947,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-05-15"
+        "nextFollowUpDate": "2026-05-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n007-5",
@@ -834,9 +967,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-06-12"
+        "nextFollowUpDate": "2026-06-12",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -848,7 +983,13 @@
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-01-09",
       "followUpMonths": 3,
-      "status": "appropriate"
+      "status": "appropriate",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -865,10 +1006,12 @@
         "dose": "5 mg BID",
         "systemRank": 2,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-02-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n008-2",
@@ -884,9 +1027,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-03-15"
+        "nextFollowUpDate": "2026-03-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n008-3",
@@ -902,9 +1047,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-04-15"
+        "nextFollowUpDate": "2026-04-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n008-4",
@@ -920,9 +1067,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-05-15"
+        "nextFollowUpDate": "2026-05-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n008-5",
@@ -938,9 +1087,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-06-12"
+        "nextFollowUpDate": "2026-06-12",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -952,7 +1103,13 @@
       "currentDose": "60 mg OD",
       "therapyStartDate": "2026-01-10",
       "followUpMonths": 1,
-      "status": "appropriate"
+      "status": "appropriate",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -969,9 +1126,11 @@
         "dose": "60 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-02-15"
+        "nextFollowUpDate": "2026-02-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n009-2",
@@ -987,9 +1146,11 @@
         "dose": "60 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-03-15"
+        "nextFollowUpDate": "2026-03-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n009-3",
@@ -1005,9 +1166,11 @@
         "dose": "60 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-04-15"
+        "nextFollowUpDate": "2026-04-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n009-4",
@@ -1023,9 +1186,11 @@
         "dose": "60 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-05-15"
+        "nextFollowUpDate": "2026-05-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n009-5",
@@ -1041,9 +1206,11 @@
         "dose": "60 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-06-12"
+        "nextFollowUpDate": "2026-06-12",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -1055,7 +1222,13 @@
       "currentDose": "20 mg OD",
       "therapyStartDate": "2026-01-09",
       "followUpMonths": 1,
-      "status": "underdose"
+      "status": "underdose",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -1072,10 +1245,12 @@
         "dose": "20 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-02-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n010-2",
@@ -1091,10 +1266,12 @@
         "dose": "20 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-03-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n010-3",
@@ -1110,10 +1287,12 @@
         "dose": "20 mg OD",
         "systemRank": 2,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-04-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n010-4",
@@ -1129,10 +1308,12 @@
         "dose": "20 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-05-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n010-5",
@@ -1148,10 +1329,12 @@
         "dose": "20 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-06-12",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -1163,7 +1346,13 @@
       "currentDose": "20 mg OD",
       "therapyStartDate": "2026-01-12",
       "followUpMonths": 3,
-      "status": "underdose"
+      "status": "underdose",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -1180,9 +1369,11 @@
         "dose": "20 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
-        "nextFollowUpDate": "2026-04-18"
+        "nextFollowUpDate": "2026-04-18",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n011-2",
@@ -1198,9 +1389,11 @@
         "dose": "20 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
-        "nextFollowUpDate": "2026-05-20"
+        "nextFollowUpDate": "2026-05-20",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n011-3",
@@ -1216,9 +1409,11 @@
         "dose": "20 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
-        "nextFollowUpDate": "2026-06-22"
+        "nextFollowUpDate": "2026-06-22",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n011-2",
@@ -1234,10 +1429,12 @@
         "dose": "20 mg OD",
         "systemRank": 2,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-03-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n011-4",
@@ -1253,10 +1450,12 @@
         "dose": "20 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-05-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -1268,7 +1467,13 @@
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-01-05",
       "followUpMonths": 3,
-      "status": "overdose"
+      "status": "overdose",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -1285,9 +1490,11 @@
         "dose": "5 mg BID",
         "systemRank": 2,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": true,
         "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
-        "nextFollowUpDate": "2026-04-15"
+        "nextFollowUpDate": "2026-04-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n012-2",
@@ -1303,9 +1510,11 @@
         "dose": "5 mg BID",
         "systemRank": 2,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": true,
         "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
-        "nextFollowUpDate": "2026-05-17"
+        "nextFollowUpDate": "2026-05-17",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n012-1",
@@ -1321,10 +1530,12 @@
         "dose": "5 mg BID",
         "systemRank": 2,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-02-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "overdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n012-3",
@@ -1340,10 +1551,12 @@
         "dose": "5 mg BID",
         "systemRank": 2,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-04-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "overdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n012-5",
@@ -1359,10 +1572,12 @@
         "dose": "5 mg BID",
         "systemRank": 2,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-06-12",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -1374,7 +1589,13 @@
       "currentDose": "60 mg OD",
       "therapyStartDate": "2026-01-16",
       "followUpMonths": 1,
-      "status": "appropriate"
+      "status": "appropriate",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -1391,10 +1612,12 @@
         "dose": "60 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-02-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n013-2",
@@ -1410,9 +1633,11 @@
         "dose": "60 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-03-15"
+        "nextFollowUpDate": "2026-03-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n013-3",
@@ -1428,9 +1653,11 @@
         "dose": "60 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-04-15"
+        "nextFollowUpDate": "2026-04-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n013-4",
@@ -1446,9 +1673,11 @@
         "dose": "60 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-05-15"
+        "nextFollowUpDate": "2026-05-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n013-5",
@@ -1464,9 +1693,11 @@
         "dose": "60 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-06-12"
+        "nextFollowUpDate": "2026-06-12",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -1478,7 +1709,14 @@
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-01-15",
       "followUpMonths": 3,
-      "status": "appropriate"
+      "status": "appropriate",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -1495,10 +1733,12 @@
         "dose": "5 mg BID",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
         "nextFollowUpDate": "2026-02-15",
-        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม"
+        "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n014-2",
@@ -1514,9 +1754,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-03-15"
+        "nextFollowUpDate": "2026-03-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n014-3",
@@ -1532,9 +1774,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": false,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-04-15"
+        "nextFollowUpDate": "2026-04-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n014-4",
@@ -1550,9 +1794,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": "ยา P-gp inhibitor ถูกหยุดโดยแพทย์ — กลับสู่แนวทาง",
-        "nextFollowUpDate": "2026-07-10"
+        "nextFollowUpDate": "2026-07-10",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n014-5",
@@ -1568,9 +1814,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": null,
-        "nextFollowUpDate": "2026-08-12"
+        "nextFollowUpDate": "2026-08-12",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -1582,7 +1830,14 @@
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-01-08",
       "followUpMonths": 6,
-      "status": "appropriate"
+      "status": "appropriate",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -1599,8 +1854,10 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-07-08"
+        "nextFollowUpDate": "2026-07-08",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n015-2",
@@ -1616,8 +1873,10 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-07-12"
+        "nextFollowUpDate": "2026-07-12",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n015-3",
@@ -1633,8 +1892,10 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-08-14"
+        "nextFollowUpDate": "2026-08-14",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n015-4",
@@ -1650,8 +1911,10 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-08-16"
+        "nextFollowUpDate": "2026-08-16",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n015-5",
@@ -1667,8 +1930,10 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-09-14"
+        "nextFollowUpDate": "2026-09-14",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -1680,7 +1945,14 @@
       "currentDose": "20 mg OD",
       "therapyStartDate": "2026-02-05",
       "followUpMonths": 6,
-      "status": "appropriate"
+      "status": "appropriate",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -1697,9 +1969,11 @@
         "dose": "15 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": true,
         "overrideReason": "แพทย์ปรับลดขนาดยาตาม CrCl ที่ขอบล่าง",
-        "nextFollowUpDate": "2026-05-05"
+        "nextFollowUpDate": "2026-05-05",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n016-2",
@@ -1715,9 +1989,11 @@
         "dose": "20 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": "CrCl ดีขึ้น ปรับขนาดยากลับเป็น 20 mg",
-        "nextFollowUpDate": "2026-06-10"
+        "nextFollowUpDate": "2026-06-10",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n016-3",
@@ -1733,8 +2009,10 @@
         "dose": "20 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-07-14"
+        "nextFollowUpDate": "2026-07-14",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n016-4",
@@ -1750,8 +2028,10 @@
         "dose": "20 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-07-19"
+        "nextFollowUpDate": "2026-07-19",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -1763,7 +2043,13 @@
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-03-03",
       "followUpMonths": 6,
-      "status": "appropriate"
+      "status": "appropriate",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -1780,8 +2066,10 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-07-03"
+        "nextFollowUpDate": "2026-07-03",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n017-2",
@@ -1797,8 +2085,10 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-08-07"
+        "nextFollowUpDate": "2026-08-07",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n017-3",
@@ -1814,8 +2104,10 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-09-08"
+        "nextFollowUpDate": "2026-09-08",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -1827,7 +2119,14 @@
       "currentDose": "60 mg OD",
       "therapyStartDate": "2026-04-02",
       "followUpMonths": 6,
-      "status": "appropriate"
+      "status": "appropriate",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -1844,8 +2143,10 @@
         "dose": "60 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-08-02"
+        "nextFollowUpDate": "2026-08-02",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n018-2",
@@ -1861,8 +2162,10 @@
         "dose": "60 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-09-06"
+        "nextFollowUpDate": "2026-09-06",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -1874,7 +2177,14 @@
       "currentDose": "2.5 mg BID",
       "therapyStartDate": "2026-01-20",
       "followUpMonths": 3,
-      "status": "underdose"
+      "status": "underdose",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -1891,9 +2201,11 @@
         "dose": "2.5 mg BID",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "overrideReason": "แพทย์กังวลภาวะเลือดออกในผู้สูงอายุ ปรับลดขนาดยา",
-        "nextFollowUpDate": "2026-04-20"
+        "nextFollowUpDate": "2026-04-20",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n019-2",
@@ -1909,9 +2221,11 @@
         "dose": "2.5 mg BID",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "overrideReason": "แพทย์กังวลภาวะเลือดออกในผู้สูงอายุ ปรับลดขนาดยา",
-        "nextFollowUpDate": "2026-05-24"
+        "nextFollowUpDate": "2026-05-24",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n019-3",
@@ -1927,9 +2241,11 @@
         "dose": "2.5 mg BID",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "overrideReason": "แพทย์กังวลภาวะเลือดออกในผู้สูงอายุ ปรับลดขนาดยา",
-        "nextFollowUpDate": "2026-06-27"
+        "nextFollowUpDate": "2026-06-27",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n019-4",
@@ -1945,9 +2261,11 @@
         "dose": "2.5 mg BID",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "overrideReason": "แพทย์กังวลภาวะเลือดออกในผู้สูงอายุ ปรับลดขนาดยา",
-        "nextFollowUpDate": "2026-07-30"
+        "nextFollowUpDate": "2026-07-30",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n019-5",
@@ -1963,9 +2281,11 @@
         "dose": "2.5 mg BID",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "overrideReason": "แพทย์กังวลภาวะเลือดออกในผู้สูงอายุ ปรับลดขนาดยา",
-        "nextFollowUpDate": "2026-08-28"
+        "nextFollowUpDate": "2026-08-28",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -1977,7 +2297,13 @@
       "currentDose": "15 mg OD",
       "therapyStartDate": "2026-03-15",
       "followUpMonths": 3,
-      "status": "underdose"
+      "status": "underdose",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -1994,9 +2320,11 @@
         "dose": "15 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
-        "nextFollowUpDate": "2026-06-15"
+        "nextFollowUpDate": "2026-06-15",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n020-2",
@@ -2012,9 +2340,11 @@
         "dose": "15 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
-        "nextFollowUpDate": "2026-07-21"
+        "nextFollowUpDate": "2026-07-21",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n020-3",
@@ -2030,9 +2360,11 @@
         "dose": "15 mg OD",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
         "overrideReason": "แพทย์กำหนดยาตามผลตรวจเพิ่มเติม",
-        "nextFollowUpDate": "2026-08-23"
+        "nextFollowUpDate": "2026-08-23",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -2044,7 +2376,14 @@
       "currentDose": "5 mg BID",
       "therapyStartDate": "2026-05-05",
       "followUpMonths": 6,
-      "status": "appropriate"
+      "status": "appropriate",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -2061,8 +2400,10 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-09-05"
+        "nextFollowUpDate": "2026-09-05",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -2074,7 +2415,13 @@
       "currentDose": "20 mg OD",
       "therapyStartDate": "2026-04-11",
       "followUpMonths": 3,
-      "status": "appropriate"
+      "status": "appropriate",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -2091,8 +2438,10 @@
         "dose": "20 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-07-11"
+        "nextFollowUpDate": "2026-07-11",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       },
       {
         "id": "disp-n022-2",
@@ -2108,8 +2457,10 @@
         "dose": "20 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-08-15"
+        "nextFollowUpDate": "2026-08-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -2121,7 +2472,14 @@
       "therapyStartDate": "2568-07-01",
       "followUpMonths": 6,
       "status": "appropriate",
-      "patientId": "n023"
+      "patientId": "n023",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -2138,8 +2496,10 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-11-05"
+        "nextFollowUpDate": "2026-11-05",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -2151,7 +2511,13 @@
       "therapyStartDate": "2568-10-01",
       "followUpMonths": 3,
       "status": "appropriate",
-      "patientId": "n024"
+      "patientId": "n024",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -2168,8 +2534,10 @@
         "dose": "20 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-08-06"
+        "nextFollowUpDate": "2026-08-06",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -2181,7 +2549,14 @@
       "therapyStartDate": "2568-04-01",
       "followUpMonths": 3,
       "status": "underdose",
-      "patientId": "n025"
+      "patientId": "n025",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -2198,8 +2573,10 @@
         "dose": "2.5 mg BID",
         "systemRank": 2,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
-        "nextFollowUpDate": "2026-08-08"
+        "nextFollowUpDate": "2026-08-08",
+        "clinicalStatus": "underdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -2211,7 +2588,14 @@
       "therapyStartDate": "2568-08-01",
       "followUpMonths": 3,
       "status": "overdose",
-      "patientId": "n026"
+      "patientId": "n026",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -2228,8 +2612,10 @@
         "dose": "20 mg OD",
         "systemRank": 2,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
-        "nextFollowUpDate": "2026-08-10"
+        "nextFollowUpDate": "2026-08-10",
+        "clinicalStatus": "overdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -2241,7 +2627,13 @@
       "therapyStartDate": "2568-11-01",
       "followUpMonths": 3,
       "status": "overdose",
-      "patientId": "n027"
+      "patientId": "n027",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -2258,8 +2650,10 @@
         "dose": "5 mg BID",
         "systemRank": 2,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
-        "nextFollowUpDate": "2026-08-09"
+        "nextFollowUpDate": "2026-08-09",
+        "clinicalStatus": "overdose",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -2271,7 +2665,14 @@
       "therapyStartDate": "2568-05-01",
       "followUpMonths": 1,
       "status": "contra",
-      "patientId": "n028"
+      "patientId": "n028",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -2288,8 +2689,10 @@
         "dose": "150 mg BID",
         "systemRank": 3,
         "wasTopRecommendation": false,
-        "clinicallyAppropriate": false,
-        "nextFollowUpDate": "2026-06-11"
+        "nextFollowUpDate": "2026-06-11",
+        "clinicalStatus": "contra",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -2301,7 +2704,13 @@
       "therapyStartDate": "2569-02-01",
       "followUpMonths": 6,
       "status": "appropriate",
-      "patientId": "n029"
+      "patientId": "n029",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -2318,8 +2727,10 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-11-13"
+        "nextFollowUpDate": "2026-11-13",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -2331,7 +2742,14 @@
       "therapyStartDate": "2568-09-01",
       "followUpMonths": 6,
       "status": "appropriate",
-      "patientId": "n030"
+      "patientId": "n030",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -2348,8 +2766,10 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-11-15"
+        "nextFollowUpDate": "2026-11-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -2361,7 +2781,13 @@
       "therapyStartDate": "2568-09-01",
       "followUpMonths": 6,
       "status": "appropriate",
-      "patientId": "n031"
+      "patientId": "n031",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -2378,8 +2804,10 @@
         "dose": "20 mg OD",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-11-15"
+        "nextFollowUpDate": "2026-11-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -2391,7 +2819,13 @@
       "therapyStartDate": "2568-09-01",
       "followUpMonths": 6,
       "status": "appropriate",
-      "patientId": "n032"
+      "patientId": "n032",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -2408,8 +2842,10 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
-        "nextFollowUpDate": "2026-11-15"
+        "nextFollowUpDate": "2026-11-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   },
@@ -2423,7 +2859,14 @@
       "currentDose": "5 mg BID",
       "therapyStartDate": "2569-05-15",
       "followUpMonths": 3,
-      "status": "appropriate"
+      "status": "appropriate",
+      "dialysis": false,
+      "mechanicalValve": false,
+      "pregnancy": false,
+      "activeBleeding": false,
+      "childPughClass": "A",
+      "cha2ds2vasc": 2,
+      "needsReview": false
     },
     "dispensingHistory": [
       {
@@ -2440,9 +2883,11 @@
         "dose": "5 mg BID",
         "systemRank": 1,
         "wasTopRecommendation": true,
-        "clinicallyAppropriate": true,
         "pharmacistNote": "เปลี่ยนจาก Warfarin เนื่องจาก TTR ต่ำ (45%) และ INR ควบคุมยาก — เริ่ม Apixaban 5 mg BID",
-        "nextFollowUpDate": "2026-08-15"
+        "nextFollowUpDate": "2026-08-15",
+        "clinicalStatus": "appropriate",
+        "daysSupply": 30,
+        "schemaVersion": 1
       }
     ]
   }

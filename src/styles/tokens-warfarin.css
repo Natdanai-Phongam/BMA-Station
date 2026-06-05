@@ -65,6 +65,11 @@
   /* ╔══ WARFARIN PILL ════════════════════════════════════════════════════════╗
      Physical tablet colors — used in the 7-day schedule pill widgets.
      Circular shape; colors match the physical Waforan tablet reference.
+     Strength → color mapping owned by src/data/types/warfarin.ts (WARFARIN_STRENGTHS):
+       2 mg → orange · 3 mg → blue · 5 mg → pink
+
+     SELF-CONTAINED: these are pill-only. No other token may alias --wf-pill-*.
+     If a non-pill UI needs blue/pink/orange, define its own token — do not point here.
      ╚═════════════════════════════════════════════════════════════════════════╝ */
   --wf-pill-orange: #E07840;  /* 2 mg — orange tablet */
   --wf-pill-blue:   #4A8FD4;  /* 3 mg — blue tablet   */
@@ -80,13 +85,13 @@
      Shown in INR hero card and WfDoseDrawer medication strip.
 
      "increase" (↑ INR — higher bleed risk)  →  amber palette, mirrors --inr-low-*
-     "decrease" (↓ INR — lower protection)   →  blue palette,  mirrors --wf-pill-blue
+     "decrease" (↓ INR — lower protection)   →  independent clinical-blue palette
      ╚═════════════════════════════════════════════════════════════════════════╝ */
   --wf-interact-increase-text: #B45309;   /* = --inr-low-text  */
   --wf-interact-increase-bg:   #FFFBF2;   /* = --inr-low-bg    */
   --wf-interact-increase-ring: #FDE68A;   /* = --inr-low-ring  */
 
-  --wf-interact-decrease-text: #1565C0;   /* = --wf-pill-blue  */
+  --wf-interact-decrease-text: #1565C0;   /* independent — NOT the pill blue (#4A8FD4) */
   --wf-interact-decrease-bg:   #E3F2FD;
   --wf-interact-decrease-ring: #90CAF9;
 }

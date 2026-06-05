@@ -234,11 +234,10 @@
       <div class="log-card">
         <div class="log-header">
           <div class="log-title-wrap">
-            <PhClockCounterClockwise :size="15" color="var(--bma-text-tertiary)" />
             <span class="log-title">ประวัติการวัด INR และการจ่ายยา</span>
             <span class="log-subtitle">INR VISIT LOG</span>
           </div>
-          <span class="log-updated">LAST UPDATE: {{ latestAdjDate }}</span>
+          <span class="log-count">แสดง {{ visibleLog.length }} / {{ unifiedLog.length }} รายการ</span>
         </div>
         <table class="log-table">
           <thead>
@@ -371,7 +370,7 @@
 import { ref, computed, reactive } from 'vue'
 import {
   PhCalculator, PhWarning, PhCheckCircle,
-  PhCalendar, PhClockCounterClockwise, PhPrinter,
+  PhCalendar, PhPrinter,
   PhPencilSimple, PhCaretDown, PhX,
 } from '@phosphor-icons/vue'
 import WfDoseDrawer from '@/components/WfDoseDrawer.vue'
@@ -550,10 +549,6 @@ const visibleLog = computed(() =>
   showAllLog.value ? unifiedLog.value : unifiedLog.value.slice(0, LOG_PREVIEW_COUNT)
 )
 
-const latestAdjDate = computed(() => {
-  const first = unifiedLog.value.find(r => r.adjustment)
-  return first ? formatDateTime(first.inr.measuredAt).date.toUpperCase() : '—'
-})
 
 // ── Inline log editing ────────────────────────────────────────
 const editingAdjId = ref<string | null>(null)
@@ -760,7 +755,7 @@ function pctBadgeClass(pct: number) {
   color: var(--bma-text-muted); text-transform: uppercase; letter-spacing: .08em;
 }
 .inr-dose-info-num {
-  font-family: var(--bma-font-data); font-size: 28px; font-weight: 900;
+  font-family: var(--bma-font-data); font-size: var(--bma-text-kpi-card); font-weight: 900;
   color: var(--bma-text-primary); line-height: 1;
   display: flex; align-items: baseline; gap: 4px;
 }
@@ -872,7 +867,7 @@ function pctBadgeClass(pct: number) {
   color: var(--bma-text-muted); text-transform: uppercase; letter-spacing: .08em;
 }
 .sched-total-val {
-  font-family: var(--bma-font-data); font-size: 28px; font-weight: 900;
+  font-family: var(--bma-font-data); font-size: var(--bma-text-kpi-card); font-weight: 900;
   color: var(--bma-green-500); line-height: 1.1;
 }
 
@@ -1054,14 +1049,14 @@ function pctBadgeClass(pct: number) {
 .log-title    { font-size: 14px; font-weight: 700; color: var(--bma-text-primary); }
 .log-subtitle {
   font-family: var(--bma-font-data); font-size: 10px; font-weight: 700;
-  color: var(--bma-text-muted); background: var(--bma-surface-subtle); border: 1px solid var(--bma-border-card);
+  color: var(--bma-text-tertiary); background: var(--bma-surface-subtle); border: 1px solid var(--bma-border-card);
   padding: 2px 8px; border-radius: var(--bma-radius-full); letter-spacing: .04em;
 }
-.log-updated { font-family: var(--bma-font-data); font-size: 11px; color: var(--bma-text-muted); }
+.log-count { font-family: var(--bma-font-data); font-size: 11px; color: var(--bma-text-tertiary); white-space: nowrap; }
 
 .log-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.log-table thead tr { background: var(--bma-surface-light); border-bottom: 1.5px solid var(--bma-border-subtle); }
-.log-table th { padding: 9px 14px; font-size: 11px; font-weight: 700; color: var(--bma-text-muted); text-align: left; white-space: nowrap; }
+.log-table thead tr { background: var(--bma-surface-light); border-bottom: 2px solid var(--bma-border-subtle); }
+.log-table th { padding: 9px 14px; font-size: 11px; font-weight: 700; color: var(--bma-text-secondary); text-align: left; white-space: nowrap; }
 .log-row { border-bottom: 1px solid var(--bma-surface-subtle); transition: background .1s; }
 .log-row:hover { background: var(--bma-surface-light); }
 .log-row:last-child { border-bottom: none; }

@@ -370,26 +370,102 @@ function evalEdoxaban(input: NoacEngineInput): DrugResult {
 // ── Main export ────────────────────────────────────────────────────────────
 
 export function computeNoacRecommendations(input: NoacEngineInput): NoacRecommendationResult {
-  const drugs: DrugResult[] = [
-    evalApixaban(input),
-    evalRivaroxaban(input),
-    evalDabigatran(input),
-    evalEdoxaban(input),
-  ]
 
+  // ── Step 1: Absolute contraindications — checked BEFORE individual drug eval ──
+  // If any absolute CI is present, all drugs are blocked regardless of renal function.
+  const absoluteContraindications: string[] = []
+
+  if (input.mechanicalValve) {
+    absoluteContraindications.push(
+      'ลิ้นหัวใจเทียมชนิดเครื่องกล (Mechanical valve): ห้ามใช้ NOACs ทุกชนิด — ต้องใช้ Warfarin เท่านั้น'
+    )
+  }
+  if (input.pregnancy) {
+    absoluteContraindications.push('ตั้งครรภ์: ห้ามใช้ NOACs ทุกชนิด')
+  }
+  if (input.activeBleeding) {
+    absoluteContraindications.push('มีเลือดออกเฉียบพลัน (Active bleeding): ห้ามใช้ NOACs จนกว่าจะควบคุมเลือดออกได้')
+  }
+  if (input.childPughClass === 'C') {
+    absoluteContraindications.push('Child-Pugh C (ตับวาย): ห้ามใช้ NOACs ทุกชนิด')
+  }
+
+  // If absolute CI present → mark all drugs contraindicated and return early
+  if (absoluteContraindications.length > 0) {
+    const blockedDrugs: DrugResult[] = (['apixaban', 'rivaroxaban', 'dabigatran', 'edoxaban'] as const).map(drug => ({
+      drug,
+      nameThai:               { apixaban: 'อะพิกซาแบน', rivaroxaban: 'ริวาโรซาแบน', dabigatran: 'ดาบิกาทราน', edoxaban: 'อีด็อกซาแบน' }[drug],
+      nameEn:                 { apixaban: 'Apixaban', rivaroxaban: 'Rivaroxaban', dabigatran: 'Dabigatran', edoxaban: 'Edoxaban' }[drug],
+      brandName:              { apixaban: 'Eliquis®', rivaroxaban: 'Xarelto®', dabigatran: 'Pradaxa®', edoxaban: 'Lixiana®' }[drug],
+      level:                  'contraindicated' as const,
+      doseAmount:             '—',
+      doseUnit:               '',
+      frequency:              '—',
+      frequencyThai:          '—',
+      contraindicationReason: absoluteContraindications[0],
+      interactions:           [],
+    }))
+    return { drugs: blockedDrugs, generalPrecautions: [], absoluteContraindications }
+  }
+
+  // ── Step 2: Dialysis — special case: Apixaban caution, others contraindicated ─
+  // Clinical evidence supports Apixaban use in ESRD/dialysis with caution
+  // (2023 AHA/ACC/ACCP/HRS guideline; FDA allows Apixaban 5mg BID in ESRD)
+  if (input.dialysis) {
+    absoluteContraindications.push(
+      'ผู้ป่วยฟอกเลือด (Dialysis/ESRD): Rivaroxaban, Dabigatran, Edoxaban — ห้ามใช้; Apixaban — ใช้ได้ด้วยความระมัดระวัง'
+    )
+  }
+
+  // ── Step 3: Hepatic caution (Child-Pugh B) ────────────────────────────────────
+  // Child-Pugh B: not absolute CI but warrants caution and possibly lower ranking
+
+  // ── Step 4: Individual drug evaluation ───────────────────────────────────────
+  let drugs: DrugResult[]
+
+  if (input.dialysis) {
+    // Only Apixaban usable; others blocked
+    const apixabanResult = evalApixaban(input)
+    // Add dialysis caution note to Apixaban
+    const apixabanWithCaution: DrugResult = {
+      ...apixabanResult,
+      doseNote: (apixabanResult.doseNote ?? '') + ' (ผู้ป่วยฟอกเลือด: ใช้ด้วยความระมัดระวัง)',
+    }
+    const blockedDrugs = (['rivaroxaban', 'dabigatran', 'edoxaban'] as const).map(drug => ({
+      drug,
+      nameThai:               { rivaroxaban: 'ริวาโรซาแบน', dabigatran: 'ดาบิกาทราน', edoxaban: 'อีด็อกซาแบน' }[drug],
+      nameEn:                 { rivaroxaban: 'Rivaroxaban', dabigatran: 'Dabigatran', edoxaban: 'Edoxaban' }[drug],
+      brandName:              { rivaroxaban: 'Xarelto®', dabigatran: 'Pradaxa®', edoxaban: 'Lixiana®' }[drug],
+      level:                  'contraindicated' as const,
+      doseAmount:             '—',
+      doseUnit:               '',
+      frequency:              '—',
+      frequencyThai:          '—',
+      contraindicationReason: 'ห้ามใช้ในผู้ป่วยฟอกเลือด (ESRD/Dialysis)',
+      interactions:           [],
+    }))
+    drugs = [apixabanWithCaution, ...blockedDrugs]
+  } else {
+    drugs = [
+      evalApixaban(input),
+      evalRivaroxaban(input),
+      evalDabigatran(input),
+      evalEdoxaban(input),
+    ]
+  }
+
+  // ── Step 5: General precautions (apply to all) ───────────────────────────────
   const generalPrecautions: string[] = []
 
-  // NSAIDs affect all NOACs
   const nsaids = matchMeds(input.concurrentMeds, NSAIDS)
   if (nsaids.length) {
     generalPrecautions.push(`${nsaids.map(m => m.name).join(', ')}: เพิ่มความเสี่ยงเลือดออกในทุกยา NOACs`)
   }
 
-  // Antiplatelets — additive risk
   const aps = matchMeds(input.concurrentMeds, ANTIPLATELETS)
   if (aps.length) {
     generalPrecautions.push(`${aps.map(m => m.name).join(', ')}: ยาต้านเกล็ดเลือด — เพิ่มความเสี่ยงเลือดออก`)
   }
 
-  return { drugs, generalPrecautions }
+  return { drugs, generalPrecautions, absoluteContraindications }
 }

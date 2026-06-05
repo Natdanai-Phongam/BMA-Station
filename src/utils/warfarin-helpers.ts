@@ -23,8 +23,8 @@ export function wfConcordanceBadgeClass(adj: DoseAdjustment | undefined): string
 
 export function wfConcordanceLabel(adj: DoseAdjustment | undefined): string {
   if (!adj) return '—'
-  if (adj.systemSuggested) return '✓ ตามแนวทาง'
-  return adj.overrideReason ? '✗ ปรับโดยมีเหตุผล' : '✗ ไม่ระบุเหตุผล'
+  if (adj.systemSuggested) return 'ตามแนวทาง'
+  return adj.overrideReason ? 'ปรับโดยมีเหตุผล' : 'ไม่ระบุเหตุผล'
 }
 
 export const warfarinStatusLabel: Record<WarfarinStatus, string> = {

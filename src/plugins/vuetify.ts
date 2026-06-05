@@ -19,6 +19,11 @@ const bmaLight: ThemeDefinition = {
     'primary-lighten-3': '#C3E6D4',
     'primary-lighten-4': '#E6F5EE',
 
+    // Confirm / finalize — dark neutral for irreversible save actions (drawer CTAs)
+    // Mirrors --bma-neutral-900; distinct from primary to signal "done, permanent"
+    confirm:             '#1F1F1F',
+    'on-confirm':        '#FFFFFF',
+
     // Secondary — muted neutral for secondary actions
     secondary:             '#454545',
     'secondary-lighten-1': '#595959',
@@ -89,8 +94,11 @@ export default createVuetify({
     defaultSet: 'mdi',
     aliases,
     sets: { mdi },
-    // NOTE: Replace with Phosphor Icons for production per design spec.
-    // Install @phosphor-icons/vue and wire up a custom icon set adapter.
+    // mdi powers Vuetify's INTERNAL icons only (dropdown chevrons, checkboxes,
+    // clear buttons, etc). App-level icons use Phosphor (@phosphor-icons/vue,
+    // already installed) imported directly as Vue components in templates —
+    // e.g. `import { PhWarning } from '@phosphor-icons/vue'`. No custom icon-set
+    // adapter is needed for that pattern, so mdi stays as the Vuetify default.
   },
 
   defaults: {
@@ -155,6 +163,7 @@ export default createVuetify({
     // ── Chips / badges ────────────────────────────────────────────────────────
     VChip: {
       rounded: 'pill',
+      style: 'font-family: Sarabun, sans-serif;',
     },
 
     // ── Navigation ────────────────────────────────────────────────────────────
