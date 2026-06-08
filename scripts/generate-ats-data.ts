@@ -21,6 +21,7 @@ import { generateNoac } from './gen/noac'
 import { generateSafety, complicationSummary } from './gen/complications'
 import { buildAtsPatients, buildPatientList } from './gen/lists'
 import { patchKpiOperational, buildKpiSummary } from './gen/kpi'
+import { generateConsultations } from './gen/consultations'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const PREVIEW_DIR = resolve(__dirname, 'gen/preview')
@@ -81,6 +82,10 @@ function main() {
   const kpiOps = patchKpiOperational(kpiOpsExisting)
   const kpiSummary = buildKpiSummary(warfarin, noac, safety, kpiOps)
 
+  // Consultations (regen for new patient ids)
+  const physicians = JSON.parse(readFileSync(resolve(MOCK_DIR, 'physicians.json'), 'utf-8')) as Record<string, { name: string }>
+  const consultations = generateConsultations(patients, physicians)
+
   // ── Write production + preview ──────────────────────────────────────────────
   mkdirSync(PREVIEW_DIR, { recursive: true })
   const files: [string, unknown][] = [
@@ -91,6 +96,7 @@ function main() {
     ['kpi-operational.json', kpiOps],
     ['patient-list.json', patientList],
     ['kpi-summary.json', kpiSummary],
+    ['consultations.json', consultations],
   ]
   for (const [name, data] of files) {
     writeFileSync(resolve(MOCK_DIR, name), J(data))
@@ -115,7 +121,7 @@ function main() {
   console.log(`  complications: bleeding ${compBy('bleeding')} · thrombosis ${compBy('thromboembolism')} · severe→aeHosp ${allComps.filter(c => c.severity === 'severe').length} (denom ${s.total})`)
   console.log(`  outcomes: deceased ${safety.mortality.size} · medErrors ${[...safety.medErrors.values()].flat().length}`)
   console.log(`  kpi: patientsPerDay ${kpiOps.month.efficiency.patientsPerDay}/วัน`)
-  console.log('\n✅ wrote 7 files → src/data/mock/ (+ preview)\n')
+  console.log(`\n✅ wrote ${files.length} files → src/data/mock/ (+ preview)\n`)
 }
 
 main()
