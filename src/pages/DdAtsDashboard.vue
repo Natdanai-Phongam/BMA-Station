@@ -1,6 +1,10 @@
 <template>
   <div class="content-wrap">
 
+    <!-- ── Loading state ────────────────────────────────────── -->
+    <div v-if="loading" class="dash-loading">กำลังโหลดข้อมูล…</div>
+
+    <template v-else>
     <!-- ── White header zone ────────────────────────────────── -->
     <div class="page">
       <div class="page-header">
@@ -221,11 +225,12 @@
       </div>
 
     </div>
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, shallowRef, computed, watch, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import {
   PhBell,
@@ -256,29 +261,28 @@ import KpiEfficiencySection  from '@/components/dd-ats/KpiEfficiencySection.vue'
 import { safetyStatus, qualityStatus, safetyStatusLabel, qualityStatusLabel } from '@/utils/kpi-status'
 import { makeCenterPlugin, donutChartData } from '@/composables/useChartPlugins'
 import { KPI_SAFETY_TARGETS, KPI_QUALITY_TARGETS, KPI_ATS_TARGETS } from '@/data/config/kpi-targets'
-import rawConfig      from '@/data/mock/ats-dashboard.json'
-import rawPatients    from '@/data/mock/ats-patients.json'
-import allWarfarinRaw from '@/data/mock/warfarin-patients.json'
-import allNoacRaw     from '@/data/mock/noac-patients.json'
-import allDetailRaw   from '@/data/mock/patient-detail.json'
-import rawKpiOps      from '@/data/mock/kpi-operational.json'
+import { repo } from '@/data/repository'
 
 
 const router = useRouter()
 const route  = useRoute()
 
-// Cast JSON to typed shapes — swap imports for fetch() calls when backend is ready
-const dashConfig  = rawConfig      as AtsDashboardConfigData
-const patients    = rawPatients    as AtsPatientsData
-const allWarfarin = allWarfarinRaw as Record<string, WarfarinPageData>
-const allNoac     = allNoacRaw     as Record<string, NoacPatientData>
+// Data is loaded via the repository (see onMounted). Refs default to empty
+// shapes; the template is guarded behind `loading`, and every data-derived
+// computed is template-only, so none read the empty shells before data arrives.
+const loading     = ref(true)
+// shallowRef: large read-only source maps — avoid deep-proxying the dataset (perf at scale)
+const dashConfig  = shallowRef<AtsDashboardConfigData>({} as AtsDashboardConfigData)
+const patients    = shallowRef<AtsPatientsData>({ lastSyncedAt: '', warfarin: [], noacs: [] })
+const allWarfarin = shallowRef<Record<string, WarfarinPageData>>({})
+const allNoac     = shallowRef<Record<string, NoacPatientData>>({})
 
 // Enriched patient lists — join ats-patients summary with therapy-specific clinical data.
 // WF status is derived from warfarin-patients.json latestInr (single source of truth)
 // rather than the static status field in ats-patients.json, which can become stale.
 const enrichedWarfarin = computed(() =>
-  patients.warfarin.map(p => {
-    const wf  = allWarfarin[p.id] ?? null
+  patients.value.warfarin.map(p => {
+    const wf  = allWarfarin.value[p.id] ?? null
     const inr = wf?.latestInr?.inrValue
     const status: WarfarinStatus = inr == null
       ? (p.status ?? 'under-range')
@@ -289,8 +293,8 @@ const enrichedWarfarin = computed(() =>
   })
 )
 const enrichedNoacs = computed(() =>
-  patients.noacs.map(p => {
-    const noac   = allNoac[p.id] ?? null
+  patients.value.noacs.map(p => {
+    const noac   = allNoac.value[p.id] ?? null
     const disps  = (noac?.dispensingHistory as NoacDispensingRecord[]) ?? []
     const latest = disps.length ? disps[disps.length - 1] : null
 
@@ -319,12 +323,12 @@ const cards = computed<AtsMonitoringCard[]>(() => {
 
   // Warfarin
   const wTotal   = wList.length
-  const wIn      = wList.filter(p => p.status === dashConfig.warfarin.inRangeStatusKey).length
+  const wIn      = wList.filter(p => p.status === dashConfig.value.warfarin.inRangeStatusKey).length
   const wOut     = wTotal - wIn
   const wAlerts  = wList.filter(p => p.crcl.alert || p.inr.alert).length
   const wRefer   = wList.filter(p => p.referred).length
   const wCard: AtsMonitoringCard = {
-    ...dashConfig.warfarin,
+    ...dashConfig.value.warfarin,
     totalPatients:   wTotal,
     inRangeCount:    wIn,
     inRangePct:      wTotal > 0 ? `${Math.round(wIn / wTotal * 100)}%`  : '0%',
@@ -335,7 +339,7 @@ const cards = computed<AtsMonitoringCard[]>(() => {
     stats: (() => {
       const byStatus = new Map<string, number>()
       for (const p of wList) byStatus.set(p.status, (byStatus.get(p.status) ?? 0) + 1)
-      return dashConfig.warfarin.stats.map(s => {
+      return dashConfig.value.warfarin.stats.map(s => {
         const count = byStatus.get(s.statusKey) ?? 0
         const pct   = wTotal > 0 ? ((count / wTotal) * 100).toFixed(1) : '0'
         return { ...s, count, pctDisplay: `(${pct}%)` }
@@ -345,12 +349,12 @@ const cards = computed<AtsMonitoringCard[]>(() => {
 
   // NOACs
   const nTotal   = nList.length
-  const nIn      = nList.filter(p => p.status === dashConfig.noacs.inRangeStatusKey).length
+  const nIn      = nList.filter(p => p.status === dashConfig.value.noacs.inRangeStatusKey).length
   const nOut     = nTotal - nIn
   const nAlerts  = nList.filter(p => p.crcl.alert || p.egfr.alert).length
   const nRefer   = nList.filter(p => p.referred).length
   const nCard: AtsMonitoringCard = {
-    ...dashConfig.noacs,
+    ...dashConfig.value.noacs,
     totalPatients:   nTotal,
     inRangeCount:    nIn,
     inRangePct:      nTotal > 0 ? `${Math.round(nIn / nTotal * 100)}%`  : '0%',
@@ -361,7 +365,7 @@ const cards = computed<AtsMonitoringCard[]>(() => {
     stats: (() => {
       const byStatus = new Map<string, number>()
       for (const p of nList) byStatus.set(p.status, (byStatus.get(p.status) ?? 0) + 1)
-      return dashConfig.noacs.stats.map(s => {
+      return dashConfig.value.noacs.stats.map(s => {
         const count = byStatus.get(s.statusKey) ?? 0
         const pct   = nTotal > 0 ? ((count / nTotal) * 100).toFixed(1) : '0'
         return { ...s, count, pctDisplay: `(${pct}%)` }
@@ -519,7 +523,7 @@ const activeKpi = computed<KpiMetric[]>(() => {
       context: `เลือดออก ${s.bleeding.events} · ลิ่มเลือด ${s.thrombosis.events} · นอน รพ. ${s.aeHospitalization.events}`,
     },
     {
-      eyebrow:  'Warfarin TTR ≥ 65%',
+      eyebrow:  `Warfarin TTR ≥ ${KPI_QUALITY_TARGETS.wfTtrGoal}%`,
       value:    ttr.value,
       unit:     '%',
       badge:    { label: ttr.value >= ttr.target ? 'ผ่านเกณฑ์' : 'ต่ำกว่าเป้า', good: ttr.value >= ttr.target },
@@ -564,11 +568,11 @@ const summaryPatientLists = computed(() => {
 
   return {
     warfarin: {
-      outOfRange: wList.filter(p => p.status !== dashConfig.warfarin.inRangeStatusKey).map(toWEntry),
+      outOfRange: wList.filter(p => p.status !== dashConfig.value.warfarin.inRangeStatusKey).map(toWEntry),
       referrals:  wList.filter(p => p.referred).map(toWEntry),
     },
     noacs: {
-      outOfRange: nList.filter(p => p.status !== dashConfig.noacs.inRangeStatusKey).map(toNEntry),
+      outOfRange: nList.filter(p => p.status !== dashConfig.value.noacs.inRangeStatusKey).map(toNEntry),
       referrals:  nList.filter(p => p.referred).map(toNEntry),
     },
   }
@@ -582,16 +586,39 @@ function getSummaryPatients(cardId: string, type: 'outOfRange' | 'referrals'): S
 }
 
 // ── Patient list counts (for KPI strip) ─────────────────────────────────────
-const warfarinTotal = computed(() => patients.warfarin.length)
-const noacsTotal    = computed(() => patients.noacs.length)
+const warfarinTotal = computed(() => patients.value.warfarin.length)
+const noacsTotal    = computed(() => patients.value.noacs.length)
 
 
 // ── KPI tab ───────────────────────────────────────────────────────────────────
 // ── KPI data sources ──────────────────────────────────────────────────────────
 // kpiOps: non-derivable mock data (staff, LOS, ATS response, prev/target values)
 // allDetail: patient-detail.json for complication-based safety KPIs
-const kpiOps    = rawKpiOps   as KpiOperationalData
-const allDetail = allDetailRaw as Record<string, PatientDetail>
+const kpiOps    = shallowRef<KpiOperationalData>({} as KpiOperationalData)
+const allDetail = shallowRef<Record<string, PatientDetail>>({})
+
+onMounted(async () => {
+  try {
+    const [config, ats, wf, noac, detail, ops] = await Promise.all([
+      repo.getDashboardConfig(),
+      repo.getAtsPatients(),
+      repo.getWarfarinPatients(),
+      repo.getNoacPatients(),
+      repo.getPatientDetails(),
+      repo.getKpiOperational(),
+    ])
+    dashConfig.value  = config
+    patients.value    = ats
+    allWarfarin.value = wf
+    allNoac.value     = noac
+    allDetail.value   = detail
+    kpiOps.value      = ops
+  } catch (e) {
+    console.error('[DdAtsDashboard] load failed', e)
+  } finally {
+    loading.value = false
+  }
+})
 
 const KPI_MODES: Array<{ value: KpiMode; label: string }> = [
   { value: 'month',   label: 'เดือน'  },
@@ -606,19 +633,22 @@ const _curMonth     = _now.getMonth() + 1
 const _curYearMonth = getAppYearMonth()
 
 // Earliest date with actual data — scan all sources, take the minimum
-const dataMinDate = (() => {
+// Earliest date present in the data → lower bound for the month picker.
+// MUST be a computed: the data refs are populated async (onMounted), so a
+// setup-time IIFE would see empty maps and wrongly pin the bound to the current month.
+const dataMinDate = computed(() => {
   const isos: string[] = []
-  for (const pd of Object.values(allWarfarin))
+  for (const pd of Object.values(allWarfarin.value))
     for (const r of pd.inrHistory ?? []) isos.push(r.measuredAt.substring(0, 10))
-  for (const pd of Object.values(allNoac))
+  for (const pd of Object.values(allNoac.value))
     for (const r of (pd.dispensingHistory as { dispensedAt: string }[]) ?? []) isos.push(r.dispensedAt.substring(0, 10))
-  for (const pd of Object.values(allDetail as Record<string, PatientDetail>))
+  for (const pd of Object.values(allDetail.value as Record<string, PatientDetail>))
     for (const c of (pd.complications as ComplicationEvent[]) ?? []) if (c.dateISO) isos.push(c.dateISO)
   isos.sort()
   const earliest = isos[0] ?? _curYearMonth + '-01'
   const [y, m] = earliest.split('-').map(Number)
   return new Date(y, m - 1, 1)
-})()
+})
 
 const kpiMode = ref<KpiMode>('month')
 
@@ -660,9 +690,9 @@ function isQuarterDisabled(q: number): boolean {
 
 // ── Operational mock for the selected mode ────────────────────────────────────
 const currentKpiOps = computed<KpiOperationalPeriod>(() => {
-  if (kpiMode.value === 'year')    return kpiOps.year
-  if (kpiMode.value === 'quarter') return kpiOps.quarter
-  return kpiOps.month
+  if (kpiMode.value === 'year')    return kpiOps.value.year
+  if (kpiMode.value === 'quarter') return kpiOps.value.quarter
+  return kpiOps.value.month
 })
 
 // ── ISO date range derived from mode + sub-selection ─────────────────────────
@@ -720,7 +750,7 @@ const currentPeriodMetrics = computed<PeriodMetrics>(() => {
   const fromMonth = parseInt(from.substring(5, 7))
   const toMonth   = parseInt(to.substring(5, 7))
 
-  for (const pd of Object.values(allDetail as Record<string, PatientDetail>)) {
+  for (const pd of Object.values(allDetail.value as Record<string, PatientDetail>)) {
     for (const c of (pd.complications as ComplicationEvent[]) ?? []) {
       const inRange = c.dateISO
         ? (c.dateISO >= from && c.dateISO <= to)
@@ -750,16 +780,16 @@ const currentPeriodMetrics = computed<PeriodMetrics>(() => {
   }
 
   // WF: static list + switching patients active in WF during this period
-  const wfPids = new Set<string>(patients.warfarin.map(p => p.id))
-  for (const [pid, pd] of Object.entries(allWarfarin as Record<string, WarfarinPageData & WithActivePeriod>)) {
+  const wfPids = new Set<string>(patients.value.warfarin.map(p => p.id))
+  for (const [pid, pd] of Object.entries(allWarfarin.value as Record<string, WarfarinPageData & WithActivePeriod>)) {
     if (wfPids.has(pid)) continue                         // already in static list
     if (!pd.activeFrom) continue                          // not a switching patient
     if (isTherapyActive(pd, from, to)) wfPids.add(pid)
   }
 
   // NOAC: static list + switching patients active in NOAC during this period
-  const noacPids = new Set<string>(patients.noacs.map(p => p.id))
-  for (const [pid, pd] of Object.entries(allNoac as Record<string, NoacPatientData & WithActivePeriod>)) {
+  const noacPids = new Set<string>(patients.value.noacs.map(p => p.id))
+  for (const [pid, pd] of Object.entries(allNoac.value as Record<string, NoacPatientData & WithActivePeriod>)) {
     if (noacPids.has(pid)) continue
     if (!(pd as WithActivePeriod).activeFrom) continue
     if (isTherapyActive(pd as WithActivePeriod, from, to)) noacPids.add(pid)
@@ -769,7 +799,7 @@ const currentPeriodMetrics = computed<PeriodMetrics>(() => {
   let wfActive = 0, wfAppropriate = 0, wfTtrGoalMet = 0, wfTtrTotal = 0
   let wfAdjTotal = 0, wfAdjAccepted = 0
   for (const pid of wfPids) {
-    const pd = allWarfarin[pid]
+    const pd = allWarfarin.value[pid]
     if (!pd) continue
     // For switching patients: only count INR records within their WF active period
     const wfFrom = (pd as WithActivePeriod).activeFrom ?? from
@@ -784,7 +814,7 @@ const currentPeriodMetrics = computed<PeriodMetrics>(() => {
     if (lastInr.inrValue >= 2.0 && lastInr.inrValue <= 3.0) wfAppropriate++
     if (pd.ttr != null) {
       wfTtrTotal++
-      if (pd.ttr.status === 'goal-met') wfTtrGoalMet++
+      if (pd.ttr.value >= KPI_QUALITY_TARGETS.wfTtrGoal) wfTtrGoalMet++   // per-patient TTR threshold
     }
     // Dose adjustment concordance — count adjustments in period
     for (const adj of pd.doseAdjustments ?? []) {
@@ -798,7 +828,7 @@ const currentPeriodMetrics = computed<PeriodMetrics>(() => {
   // ── NOAC patient-level metrics ────────────────────────────────────────────
   let noacActive = 0, noacAppropriate = 0, dispTotal = 0, dispAccepted = 0
   for (const pid of noacPids) {
-    const pd = allNoac[pid]
+    const pd = allNoac.value[pid]
     if (!pd) continue
     // For switching patients: only count dispensing records within their NOAC active period
     const nFrom = (pd as WithActivePeriod).activeFrom ?? from
@@ -809,7 +839,7 @@ const currentPeriodMetrics = computed<PeriodMetrics>(() => {
     })
     if (!disps.length) continue
     noacActive++
-    if (disps.some(d => (d as NoacDispensingRecord & { clinicallyAppropriate?: boolean }).clinicallyAppropriate)) noacAppropriate++
+    if (disps.some(d => d.clinicalStatus === 'appropriate')) noacAppropriate++
     dispTotal    += disps.length
     dispAccepted += disps.filter(d => d.wasTopRecommendation).length
   }
@@ -879,6 +909,7 @@ const liveKpi = computed<KpiPeriodData>(() => {
         }
       })(),
       responseTimeHr: { ...ops.atsResponseTime, target: KPI_ATS_TARGETS.responseTimeHr },
+      resolutionTimeHr: { ...ops.atsResolutionTime, target: KPI_ATS_TARGETS.resolutionTimeHr },
     },
 
     efficiency: {
@@ -934,6 +965,14 @@ const losStatus = computed<StatusLevel>(() =>
 )
 
 // ── ATS response rows ─────────────────────────────────────────────────────────
+// Decimal hours → "H:MM" (e.g. 18.5 → "18:30")
+function fmtHrMin(hours: number): string {
+  const h = Math.floor(hours)
+  let m = Math.round((hours - h) * 60)
+  if (m === 60) return `${h + 1}:00`
+  return `${h}:${String(m).padStart(2, '0')}`
+}
+
 const atsRows = computed<AtsRow[]>(() => {
   const r = liveKpi.value.atsResponse
   const rows: AtsRow[] = [
@@ -953,6 +992,12 @@ const atsRows = computed<AtsRow[]>(() => {
       key: 'responseTime', name: 'เวลาตอบสนองการส่งต่อ',
       displayValue: `${r.responseTimeHr.value.toFixed(1)} ชม.`,
       targetLabel:  `เป้า ≤ ${r.responseTimeHr.target} ชม.`,
+      status: s, statusLabel: safetyStatusLabel[s],
+    }})(),
+    (() => { const s = safetyStatus(r.resolutionTimeHr.value, r.resolutionTimeHr.target); return {
+      key: 'resolutionTime', name: 'เวลาแก้ไขปัญหาหลังแจ้งเตือน',
+      displayValue: `${fmtHrMin(r.resolutionTimeHr.value)} ชม.`,
+      targetLabel:  `เป้า < ${r.resolutionTimeHr.target} ชม.`,
       status: s, statusLabel: safetyStatusLabel[s],
     }})(),
   ]
@@ -999,6 +1044,13 @@ const tabs = computed(() => [
 
 <style scoped>
 .content-wrap { min-height: 100%; }
+.dash-loading {
+  padding: 48px 24px;
+  text-align: center;
+  font-family: var(--bma-font-thai);
+  font-size: var(--bma-text-sm);
+  color: var(--bma-text-tertiary);
+}
 
 /* ── White header zone ────────────────────────────────────── */
 .page { background: var(--bma-surface); padding: 24px 24px 0; }
@@ -1244,23 +1296,24 @@ const tabs = computed(() => [
 .kpi-tally--ng   { background: var(--bma-emergency-bg); color: var(--bma-emergency); }
 
 /* Safety grid — columns: name | events | pct | trend | target | badge */
-.ksafe-grid { display: grid; grid-template-columns: var(--bma-cols-ksafe); column-gap: 8px; align-items: center; }
-.ksafe-cell { padding: 8px 0; border-bottom: 1px solid var(--bma-border-subtle); }
-.ksafe-cell--last { border-bottom: none; padding-bottom: 0; }
+.ksafe-grid { display: grid; grid-template-columns: var(--bma-cols-ksafe); column-gap: 12px; }
+/* Every cell = same height + vertically centered → equal row heights & aligned dividers */
+.ksafe-cell { display: flex; align-items: center; min-height: 40px; border-bottom: 1px solid var(--bma-border-subtle); }
+.ksafe-cell--last { border-bottom: none; }
 .ksafe-name { font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600; color: var(--bma-text-secondary); }
-.ksafe-events { display: flex; align-items: baseline; gap: 4px; justify-content: flex-end; }
+.ksafe-events { gap: 4px; justify-content: flex-end; }
 .ksafe-en { font-family: var(--bma-font-data); font-size: 15px; font-weight: 700; color: var(--bma-text-primary); }
 .ksafe-en--nz { color: var(--bma-emergency); }
 .ksafe-eu { font-family: var(--bma-font-thai); font-size: 10px; color: var(--bma-text-muted); }
-.ksafe-pct { font-family: var(--bma-font-data); font-size: 12px; font-weight: 700; text-align: right; color: var(--bma-text-muted); }
+.ksafe-pct { justify-content: flex-end; font-family: var(--bma-font-data); font-size: 12px; font-weight: 700; color: var(--bma-text-muted); }
 .ksafe-pct--fail { color: var(--bma-emergency); }
 .ksafe-pct--warn { color: var(--bma-urgency-text); }
 .ksafe-pct--pass { color: var(--bma-text-muted); }
-.ksafe-trend { font-family: var(--bma-font-data); font-size: 11px; font-weight: 600; text-align: right; white-space: nowrap; color: var(--bma-text-muted); }
+.ksafe-trend { justify-content: flex-end; font-family: var(--bma-font-data); font-size: 11px; font-weight: 600; white-space: nowrap; color: var(--bma-text-muted); }
 .ksafe-trend--up   { color: var(--bma-emergency); }
 .ksafe-trend--down { color: var(--bma-success-text); }
 .ksafe-trend--flat { color: var(--bma-text-disabled); }
-.ksafe-target { font-family: var(--bma-font-data); font-size: 11px; font-weight: 500; color: var(--bma-text-muted); text-align: right; white-space: nowrap; }
+.ksafe-target { justify-content: flex-end; font-family: var(--bma-font-data); font-size: 11px; font-weight: 500; color: var(--bma-text-muted); white-space: nowrap; }
 
 /* Quality rows */
 .kqual-rows { display: flex; flex-direction: column; gap: 0; }
@@ -1290,15 +1343,17 @@ const tabs = computed(() => [
 .kqual-los-bench { font-family: var(--bma-font-data); font-size: 11px; color: var(--bma-text-muted); margin-left: 4px; }
 
 /* ATS response grid — columns: name | value | target | badge */
-.kats-grid { display: grid; grid-template-columns: var(--bma-cols-kats); column-gap: 8px; align-items: center; }
-.kats-grid > * { padding: 8px 0; border-bottom: 1px solid var(--bma-border-subtle); }
-.kats-grid > *:nth-last-child(-n+4) { border-bottom: none; padding-bottom: 0; }
+.kats-grid { display: grid; grid-template-columns: var(--bma-cols-kats); column-gap: 16px; }
+/* Every cell = same height + vertically centered → row heights equal & dividers align */
+.kats-grid > * { display: flex; align-items: center; min-height: 40px; border-bottom: 1px solid var(--bma-border-subtle); }
+.kats-grid > *:nth-last-child(-n+4) { border-bottom: none; }
 .kats-name { font-family: var(--bma-font-thai); font-size: 12px; font-weight: 600; color: var(--bma-text-secondary); }
-.kats-val { font-family: var(--bma-font-data); font-size: 15px; font-weight: 700; text-align: right; }
+.kats-val { justify-content: flex-end; font-family: var(--bma-font-data); font-size: 15px; font-weight: 700; }
 .kats-val--pass { color: var(--bma-success-text); }
 .kats-val--warn { color: var(--bma-urgency-text); }
 .kats-val--fail { color: var(--bma-emergency); }
-.kats-target { font-family: var(--bma-font-data); font-size: 11px; color: var(--bma-text-muted); text-align: right; }
+.kats-target { justify-content: flex-end; font-family: var(--bma-font-data); font-size: 11px; color: var(--bma-text-muted); }
+.kats-cell-badge { justify-content: flex-start; }   /* badge stays a pill, left-aligned in the fixed column */
 
 /* System efficiency panel */
 .keff-staff-label { font-family: var(--bma-font-thai); font-size: 11px; font-weight: 600; color: var(--bma-text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .04em; }

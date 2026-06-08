@@ -22,7 +22,7 @@ export const KPI_SAFETY_TARGETS = {
 export const KPI_QUALITY_TARGETS = {
   wfAppropriateness:   70,  // Warfarin patients with INR in therapeutic range
   noacAppropriateness: 80,  // NOAC patients receiving clinically appropriate dose
-  wfTtrGoal:           65,  // Warfarin patients with Rosendaal TTR ≥ 65%
+  wfTtrGoal:           70,  // Per-patient Rosendaal TTR threshold — patient meets goal if TTR ≥ this
   avgLOS:               5,  // Average inpatient stay ≤ 5 days (max threshold)
 } as const
 
@@ -31,6 +31,7 @@ export const KPI_ATS_TARGETS = {
   resolutionRate:  80,   // % referred problems resolved by ATS (min)
   acceptanceRate:  75,   // % ATS recommendations followed by pharmacist (min)
   responseTimeHr:   2,   // Response time to referral ≤ 2 hours (max threshold)
+  resolutionTimeHr: 24,  // Time to resolve problem after alert ≤ 24 hours (max threshold)
 } as const
 
 // Convenience union for type-safe access

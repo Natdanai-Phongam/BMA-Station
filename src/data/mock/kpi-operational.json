@@ -1,131 +1,143 @@
 {
-  "_note": "KPI operational mock — previous-period comparison values (prev), non-derivable display metrics (LOS, ATS resolution/response time, efficiency). Targets are programme constants defined in src/data/config/kpi-targets.ts and applied at runtime.",
-  "_wfTtrMonthly_note": "Pre-computed monthly WF TTR goal-met % (Jan–May 2569). Values = patients with TTR ≥65% / total WF patients that month.",
-  "wfTtrMonthly": [
-    26.7,
-    33.3,
-    40,
-    53.3,
-    66.7
-  ],
-  "month": {
-    "label": "พ.ค. 2569",
-    "safetyPrev": {
-      "bleeding": 0,
-      "thrombosis": 2.2,
-      "aeHospitalization": 0,
-      "death": 0,
-      "medError": 0
-    },
-    "qualityPrev": {
-      "wfAppropriateness": 64.9,
-      "noacAppropriateness": 58.1,
-      "wfTtrGoal": 63.9
-    },
-    "avgLOS": {
-      "value": 3.5,
-      "prev": 4.2
-    },
-    "atsResolution": {
-      "value": 66.7,
-      "n": 4,
-      "d": 6,
-      "prev": 60
-    },
-    "atsResponseTime": {
-      "value": 1.8,
-      "prev": 2.1
-    },
-    "atsAcceptancePrev": 75,
-    "efficiency": {
-      "staff": {
-        "pharmacist": 2,
-        "physician": 1,
-        "nurse": 2,
-        "total": 5
-      },
-      "patientsPerDay": 3.2,
-      "workloadRatio": 9.5
-    }
+ "_note": "KPI operational mock — previous-period comparison values (prev), non-derivable display metrics (LOS, ATS resolution/response time, efficiency). Targets are programme constants defined in src/data/config/kpi-targets.ts and applied at runtime.",
+ "_wfTtrMonthly_note": "Pre-computed monthly WF TTR goal-met % (Jan–May 2569). Values = patients with TTR ≥65% / total WF patients that month.",
+ "wfTtrMonthly": [
+  26.7,
+  33.3,
+  40,
+  53.3,
+  66.7
+ ],
+ "month": {
+  "label": "พ.ค. 2569",
+  "safetyPrev": {
+   "bleeding": 0,
+   "thrombosis": 2.2,
+   "aeHospitalization": 0,
+   "death": 0,
+   "medError": 0
   },
-  "quarter": {
-    "label": "ไตรมาส 2/2569",
-    "safetyPrev": {
-      "bleeding": 4.4,
-      "thrombosis": 2.2,
-      "aeHospitalization": 2.2,
-      "death": 0,
-      "medError": 0
-    },
-    "qualityPrev": {
-      "wfAppropriateness": 36.7,
-      "noacAppropriateness": 28.6,
-      "wfTtrGoal": 33.3
-    },
-    "avgLOS": {
-      "value": 3.8,
-      "prev": 3.5
-    },
-    "atsResolution": {
-      "value": 71.4,
-      "n": 15,
-      "d": 21,
-      "prev": 66.7
-    },
-    "atsResponseTime": {
-      "value": 1.9,
-      "prev": 1.8
-    },
-    "atsAcceptancePrev": 42.9,
-    "efficiency": {
-      "staff": {
-        "pharmacist": 2,
-        "physician": 1,
-        "nurse": 2,
-        "total": 5
-      },
-      "patientsPerDay": 3.1,
-      "workloadRatio": 9.7
-    }
+  "qualityPrev": {
+   "wfAppropriateness": 64.9,
+   "noacAppropriateness": 58.1,
+   "wfTtrGoal": 63.9
   },
-  "year": {
-    "label": "ปี 2569 (ม.ค.–พ.ค.)",
-    "safetyPrev": {
-      "bleeding": 5,
-      "thrombosis": 3.3,
-      "aeHospitalization": 5,
-      "death": 0,
-      "medError": 3.3
-    },
-    "qualityPrev": {
-      "wfAppropriateness": 15,
-      "noacAppropriateness": 20,
-      "wfTtrGoal": 15
-    },
-    "avgLOS": {
-      "value": 4.1,
-      "prev": 3.8
-    },
-    "atsResolution": {
-      "value": 74.2,
-      "n": 23,
-      "d": 31,
-      "prev": 71.4
-    },
-    "atsResponseTime": {
-      "value": 1.7,
-      "prev": 1.9
-    },
-    "atsAcceptancePrev": 30,
-    "efficiency": {
-      "staff": {
-        "pharmacist": 2,
-        "physician": 1,
-        "nurse": 2,
-        "total": 5
-      },
-      "patientsPerDay": 3.5,
-      "workloadRatio": 10.2
-    }
+  "avgLOS": {
+   "value": 3.5,
+   "prev": 4.2
+  },
+  "atsResolution": {
+   "value": 66.7,
+   "n": 4,
+   "d": 6,
+   "prev": 60
+  },
+  "atsResponseTime": {
+   "value": 1.8,
+   "prev": 2.1
+  },
+  "atsAcceptancePrev": 75,
+  "efficiency": {
+   "staff": {
+    "pharmacist": 4,
+    "physician": 6,
+    "nurse": 2,
+    "total": 12
+   },
+   "patientsPerDay": 46,
+   "workloadRatio": 3.8
+  },
+  "atsResolutionTime": {
+   "value": 18.5,
+   "prev": 20
   }
+ },
+ "quarter": {
+  "label": "ไตรมาส 2/2569",
+  "safetyPrev": {
+   "bleeding": 4.4,
+   "thrombosis": 2.2,
+   "aeHospitalization": 2.2,
+   "death": 0,
+   "medError": 0
+  },
+  "qualityPrev": {
+   "wfAppropriateness": 36.7,
+   "noacAppropriateness": 28.6,
+   "wfTtrGoal": 33.3
+  },
+  "avgLOS": {
+   "value": 3.8,
+   "prev": 3.5
+  },
+  "atsResolution": {
+   "value": 71.4,
+   "n": 15,
+   "d": 21,
+   "prev": 66.7
+  },
+  "atsResponseTime": {
+   "value": 1.9,
+   "prev": 1.8
+  },
+  "atsAcceptancePrev": 42.9,
+  "efficiency": {
+   "staff": {
+    "pharmacist": 4,
+    "physician": 6,
+    "nurse": 2,
+    "total": 12
+   },
+   "patientsPerDay": 44,
+   "workloadRatio": 3.7
+  },
+  "atsResolutionTime": {
+   "value": 19.2,
+   "prev": 18.5
+  }
+ },
+ "year": {
+  "label": "ปี 2569 (ม.ค.–พ.ค.)",
+  "safetyPrev": {
+   "bleeding": 5,
+   "thrombosis": 3.3,
+   "aeHospitalization": 5,
+   "death": 0,
+   "medError": 3.3
+  },
+  "qualityPrev": {
+   "wfAppropriateness": 15,
+   "noacAppropriateness": 20,
+   "wfTtrGoal": 15
+  },
+  "avgLOS": {
+   "value": 4.1,
+   "prev": 3.8
+  },
+  "atsResolution": {
+   "value": 74.2,
+   "n": 23,
+   "d": 31,
+   "prev": 71.4
+  },
+  "atsResponseTime": {
+   "value": 1.7,
+   "prev": 1.9
+  },
+  "atsAcceptancePrev": 30,
+  "efficiency": {
+   "staff": {
+    "pharmacist": 4,
+    "physician": 6,
+    "nurse": 2,
+    "total": 12
+   },
+   "patientsPerDay": 44,
+   "workloadRatio": 3.7
+  },
+  "atsResolutionTime": {
+   "value": 17.8,
+   "prev": 19.2
+  }
+ }
 }

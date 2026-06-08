@@ -9,7 +9,7 @@
         <span class="kats-name">{{ row.name }}</span>
         <span class="kats-val" :class="`kats-val--${row.status}`">{{ row.displayValue }}</span>
         <span class="kats-target">{{ row.targetLabel }}</span>
-        <span class="kpi-badge" :class="`kpi-badge--${row.status}`">{{ row.statusLabel }}</span>
+        <span class="kats-cell-badge"><span class="kpi-badge" :class="`kpi-badge--${row.status}`">{{ row.statusLabel }}</span></span>
       </template>
     </div>
   </div>

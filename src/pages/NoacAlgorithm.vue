@@ -1,8 +1,18 @@
 <template>
   <div class="na-wrap">
 
+    <!-- ── Loading state ──────────────────────────────────── -->
+    <div v-if="loading" class="na-empty">
+      <span class="na-empty-text">กำลังโหลดข้อมูล…</span>
+    </div>
+
+    <!-- ── Error state ────────────────────────────────────── -->
+    <div v-else-if="loadError" class="na-empty">
+      <span class="na-empty-text">ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่อีกครั้ง</span>
+    </div>
+
     <!-- ── Empty / no-data state ──────────────────────────── -->
-    <div v-if="!p || !noacData?.profile || !latestLab" class="na-empty">
+    <div v-else-if="!p || !noacData?.profile || !latestLab" class="na-empty">
       <span class="na-empty-text">ไม่พบข้อมูล NOACs สำหรับผู้ป่วยรายนี้</span>
     </div>
 
@@ -171,6 +181,10 @@
                   <span class="na-rec-hero-unit">{{ recommendedDrug.doseUnit }}</span>
                   <span v-if="recommendedDrug.frequency && recommendedDrug.frequency !== '—'" class="freq-chip" :title="recommendedDrug.frequencyThai">{{ recommendedDrug.frequency }}</span>
                 </div>
+                <div v-if="recommendedDrug.loadingPhase" class="na-rec-loading">
+                  <PhInfo :size="11" />
+                  เริ่ม {{ recommendedDrug.loadingPhase.doseAmount }} {{ recommendedDrug.loadingPhase.doseUnit }} {{ recommendedDrug.loadingPhase.frequency }} ×{{ recommendedDrug.loadingPhase.durationText }}
+                </div>
                 <div class="na-rec-hero-status" :class="`na-rec-hero-status--${recommendedDrug.level}`">
                   <PhCheckCircle v-if="recommendedDrug.level === 'recommended'" :size="12" weight="fill" />
                   <PhWarningCircle v-else-if="recommendedDrug.level === 'dose-adjusted'" :size="12" />
@@ -334,15 +348,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, shallowRef, computed, watch, onMounted } from 'vue'
 import { PhWarning, PhWarningCircle, PhProhibit, PhArrowRight, PhCheckCircle, PhCheck, PhStar, PhInfo, PhCaretDown } from '@phosphor-icons/vue'
 import type { PatientDetail } from '@/data/types/patient-detail'
 import type { NoacIndication, RecommendationLevel } from '@/data/types/noac'
 import { concordanceLabel, concordanceBadgeClass } from '@/utils/noac-helpers'
 import type { NoacPatientData, NoacDispensingRecord, NoacClinicalStatus } from '@/data/types/noac-dispensing'
 import { formatThaiDate } from '@/utils/date'
-import allDetailRaw from '@/data/mock/patient-detail.json'
-import allNoacRaw   from '@/data/mock/noac-patients.json'
+import { repo } from '@/data/repository'
 import { computeNoacRecommendations } from '@/utils/noacEngine'
 import { useCrCl } from '@/composables/useCrCl'
 import NoacDispensingDrawer from '@/components/noac/NoacDispensingDrawer.vue'
@@ -352,18 +365,26 @@ const props = defineProps<{
   embedded?:  boolean
 }>()
 
-const allDetail = allDetailRaw as Record<string, PatientDetail>
-const allNoac   = allNoacRaw   as Record<string, NoacPatientData>
+// shallowRef: large read-only source maps — avoid Vue deep-proxying the whole
+// dataset (perf at scale) and keep nested values as plain objects.
+const allDetail = shallowRef<Record<string, PatientDetail>>({})
+const allNoac   = shallowRef<Record<string, NoacPatientData>>({})
+const loading   = ref(true)
+const loadError = ref('')
 
 /** Patient demographics + concurrent medications */
-const p        = computed<PatientDetail | null>(() => allDetail[props.patientId] ?? allDetail['w002'] ?? null)
+const p        = computed<PatientDetail | null>(() => allDetail.value[props.patientId] ?? null)
 
 /** NOACs clinical data — seeded into a reactive store so a dispensing save
  *  propagates to latestLab / result / CrCl / suggestion / history table without
- *  a page reload. structuredClone keeps the imported JSON module immutable across
- *  remounts (a plain spread would share the nested dispensingHistory array). */
-const noacSeed  = allNoac[props.patientId] ?? allNoac['w002'] ?? null
-const noacStore = ref<NoacPatientData | null>(noacSeed ? structuredClone(noacSeed) : null)
+ *  a page reload. A JSON deep-clone keeps the source map immutable across remounts
+ *  (a plain spread would share the nested dispensingHistory array). JSON clone is
+ *  proxy-safe — structuredClone throws on Vue reactive proxies / module objects. */
+const seedStore = (id: string): NoacPatientData | null => {
+  const seed = allNoac.value[id] ?? null   // no fallback to a demo patient — not found → empty state
+  return seed ? JSON.parse(JSON.stringify(seed)) as NoacPatientData : null
+}
+const noacStore = ref<NoacPatientData | null>(null)   // seeded after async load (see onMounted)
 const noacData  = computed<NoacPatientData | null>(() => noacStore.value)
 
 /** Most recent lab snapshot (last dispensing visit) */
@@ -375,6 +396,30 @@ const latestLab = computed(() => {
 
 const drawerOpen = ref(false)
 const precautionsOpen = ref(false)
+
+// Router reuses this component when only :id changes (no remount) → re-seed the store
+// so navigating patient A → B doesn't leave A's data behind.
+watch(() => props.patientId, (id) => {
+  noacStore.value = seedStore(id)
+  drawerOpen.value = false
+})
+
+onMounted(async () => {
+  try {
+    const [detail, noac] = await Promise.all([
+      repo.getPatientDetails(),
+      repo.getNoacPatients(),
+    ])
+    allDetail.value = detail
+    allNoac.value   = noac
+    noacStore.value = seedStore(props.patientId)
+  } catch (e) {
+    loadError.value = String(e)
+    console.error('[NoacAlgorithm] load failed', e)
+  } finally {
+    loading.value = false
+  }
+})
 
 function onDispensingRecordSaved(record: NoacDispensingRecord) {
   // Page owns the mutation (mirrors WarfarinDoseTool.onDrawerSaved). Pushing into
@@ -432,6 +477,7 @@ const result = computed(() => {
     scrMgDl:          lab.scrMgDl,
     crClMlMin:        lab.crClMlMin,
     concurrentMeds:   patient.concurrentMedications ?? [],
+    indication:       profile.indication,
     dialysis:         profile.dialysis,
     mechanicalValve:  profile.mechanicalValve,
     pregnancy:        profile.pregnancy,
@@ -940,6 +986,8 @@ function dispenseDate(iso: string) {
 .na-rec-hero-star { color: var(--bma-green-600); flex-shrink: 0; }
 .na-rec-hero-name { font-family: var(--bma-font-data); font-size: 16px; font-weight: 700; color: var(--bma-text-primary); }
 .na-rec-hero-dose { display: flex; align-items: center; gap: 6px; }
+.na-rec-loading { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--bma-text-tertiary); }
+.na-rec-loading > svg { flex-shrink: 0; color: var(--bma-elective); }
 .na-rec-hero-num  { font-family: var(--bma-font-data); font-size: 16px; font-weight: 700; color: var(--bma-green-600); }
 .na-rec-hero-unit { font-family: var(--bma-font-data); font-size: 12px; color: var(--bma-text-secondary); }
 
@@ -993,91 +1041,6 @@ function dispenseDate(iso: string) {
 .med-badge--warning         { background: var(--bma-urgency-bg);     color: var(--bma-urgency-text); }
 .med-badge--monitor         { background: var(--bma-surface-subtle);  color: var(--bma-text-tertiary); }
 .med-badge--none            { background: var(--bma-surface-subtle);  color: var(--bma-text-tertiary); }
-
-/* ── Reference table ──────────────────────────────────────── */
-.na-reference { display: flex; flex-direction: column; gap: 0; }
-
-.na-ref-toggle-note {
-  font-size: 11px; font-weight: 400;
-  color: var(--bma-urgency-text);
-}
-.na-ref-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--bma-text-secondary);
-  transition: color var(--bma-transition-fast);
-}
-.na-ref-toggle:hover { color: var(--bma-text-primary); }
-
-.na-ref-caret {
-  transition: transform 0.2s ease-out;
-  color: var(--bma-text-tertiary);
-}
-.na-ref-caret--open { transform: rotate(180deg); }
-
-.na-ref-body {
-  margin-top: 12px;
-  background: var(--bma-surface);
-  border: 1px solid var(--bma-border-card);
-  border-radius: var(--bma-radius-lg);
-  overflow-x: auto;
-}
-.na-ref-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 11px;
-}
-.na-ref-table thead tr {
-  background: var(--bma-surface-light);
-  border-bottom: 2px solid var(--bma-border-subtle);
-}
-.na-ref-table th {
-  padding: 6px 8px;
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--bma-text-tertiary);
-  text-align: left;
-  white-space: nowrap;
-}
-.na-ref-table tbody tr { border-bottom: 1px solid var(--bma-border-subtle); }
-.na-ref-table tbody tr:last-child { border-bottom: none; }
-.na-ref-table td {
-  padding: 6px 8px;
-  color: var(--bma-text-primary);
-  vertical-align: middle;
-}
-.na-ref-drug {
-  font-family: var(--bma-font-data) !important;
-  font-weight: 700;
-  font-size: 13px;
-  white-space: nowrap;
-}
-.na-ref-brand {
-  display: block;
-  font-family: var(--bma-font-data);
-  font-size: 10px;
-  color: var(--bma-text-tertiary);
-  font-weight: 400;
-  margin-top: 1px;
-}
-.na-ref-dose {
-  font-family: var(--bma-font-data) !important;
-  font-weight: 700;
-  white-space: nowrap;
-}
-.na-ref-contra {
-  font-family: var(--bma-font-data) !important;
-  font-weight: 600;
-  color: var(--bma-emergency);
-  white-space: nowrap;
-}
 
 /* ── Dispensing history table (Row 4, read-only) ───────────── */
 /* Edge-to-edge log card — seamless rows flush to card edges (mirrors .log-card) */

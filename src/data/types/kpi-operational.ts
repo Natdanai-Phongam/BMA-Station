@@ -70,6 +70,7 @@ export interface KpiOperationalPeriod {
   avgLOS:          KpiLosOps
   atsResolution:   KpiAtsResolutionOps
   atsResponseTime: KpiResponseTimeOps
+  atsResolutionTime: KpiResponseTimeOps   // avg time to RESOLVE after alert (hours; lower = better)
 
   // ATS acceptance prev; live value and target computed at runtime
   atsAcceptancePrev: number

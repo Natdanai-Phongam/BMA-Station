@@ -2,6 +2,10 @@
 <template>
   <div class="content-wrap" :class="{ 'content-wrap--consult': activeTab === 'consult' }">
 
+    <!-- ── Loading state ──────────────────────────────────── -->
+    <div v-if="loading" class="apd-loading">กำลังโหลดข้อมูล…</div>
+
+    <template v-else>
     <!-- ── White header zone ──────────────────────────────── -->
     <div class="page">
       <div class="page-header">
@@ -471,6 +475,7 @@
       </div>
 
     </div>
+    </template>
 
     <!-- Warfarin Dose Drawer — accessible from consultation room -->
     <WfDoseDrawer
@@ -485,7 +490,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, nextTick } from 'vue'
+import { ref, shallowRef, computed, watch, nextTick, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import type { Component } from 'vue'
 import {
@@ -510,12 +515,7 @@ import { getInrStatus } from '@/utils/inrStatus'
 import { buildWeeklySchedule } from '@/utils/warfarinDosing'
 import { formatThaiDate } from '@/utils/date'
 import type { NoacPatientData } from '@/data/types/noac-dispensing'
-import allDetailRaw      from '@/data/mock/patient-detail.json'
-import allWarfarinRaw    from '@/data/mock/warfarin-patients.json'
-import allNoacRaw        from '@/data/mock/noac-patients.json'
-import rawPatients       from '@/data/mock/ats-patients.json'
-import physiciansRaw     from '@/data/mock/physicians.json'
-import consultationsRaw  from '@/data/mock/consultations.json'
+import { repo } from '@/data/repository'
 import type { AtsPatientsData } from '@/data/types/ats-patients'
 import type { Physician } from '@/data/types/physician'
 import WarfarinDoseTool  from '@/pages/WarfarinDoseTool.vue'
@@ -531,19 +531,21 @@ const router = useRouter()
 const route  = useRoute()
 const patientId = computed(() => route.params.id as string)
 
-const allDetail   = allDetailRaw   as Record<string, PatientDetail>
-const allWarfarin = allWarfarinRaw as Record<string, WarfarinPageData>
-const allNoac     = allNoacRaw     as Record<string, NoacPatientData>
+const loading     = ref(true)
+// shallowRef: large read-only source maps — avoid deep-proxying the dataset
+const allDetail   = shallowRef<Record<string, PatientDetail>>({})
+const allWarfarin = shallowRef<Record<string, WarfarinPageData>>({})
+const allNoac     = shallowRef<Record<string, NoacPatientData>>({})
 
 // ats-patients.json is the canonical classification of which program each patient belongs to.
 // Using this (not warfarin/noac data keys) avoids false positives when a patient's ID
 // appears in both data files (e.g. w002 exists in both warfarin and noac mock data).
-const patientsList = rawPatients as AtsPatientsData
-const noacsIdSet   = new Set(patientsList.noacs.map(p => p.id))
+const patientsList = shallowRef<AtsPatientsData>({ lastSyncedAt: '', warfarin: [], noacs: [] })
+const noacsIdSet   = computed(() => new Set(patientsList.value.noacs.map(p => p.id)))
 
-const p        = computed<PatientDetail>(() => allDetail[patientId.value]  ?? allDetail['w002'])
-const wfData   = computed(() => allWarfarin[patientId.value] ?? null)
-const noacData = computed<NoacPatientData | null>(() => allNoac[patientId.value] ?? allNoac['w002'] ?? null)
+const p        = computed<PatientDetail>(() => allDetail.value[patientId.value]  ?? allDetail.value['w002'])
+const wfData   = computed(() => allWarfarin.value[patientId.value] ?? null)
+const noacData = computed<NoacPatientData | null>(() => allNoac.value[patientId.value] ?? allNoac.value['w002'] ?? null)
 const latestNoacLab = computed(() => {
   const history = noacData.value?.dispensingHistory
   if (!history?.length) return null
@@ -555,7 +557,7 @@ type TabValue = 'complications' | 'warfarin' | 'noac' | 'consult'
 // This is the canonical source of truth and works even when patient-detail.json
 // doesn't have an entry for the patient yet.
 const derivedTherapy = computed<'warfarin' | 'noacs'>(() =>
-  noacsIdSet.has(patientId.value) ? 'noacs' : 'warfarin'
+  noacsIdSet.value.has(patientId.value) ? 'noacs' : 'warfarin'
 )
 
 // Default tab follows the patient's active therapy so clicking a NOACs patient
@@ -584,7 +586,7 @@ const tabs = computed<{ value: TabValue; label: string; count: number | null }[]
 
 
 // ── Consultation room ─────────────────────────────────────────────────────────
-const physicians   = physiciansRaw as Record<string, Physician>
+const physicians   = shallowRef<Record<string, Physician>>({})
 
 type ConsultMsg = {
   id:       string
@@ -597,7 +599,7 @@ type ConsultMsg = {
   doseData?: { oldDose: number; newDose: number; pct: number; inr: number; schedule: WeeklySchedule }
 }
 
-const seedData = consultationsRaw as unknown as Record<string, ConsultMsg[]>
+const seedData = shallowRef<Record<string, ConsultMsg[]>>({})
 
 const consultRoleLabel: Record<string, string> = {
   doctor:     'แพทย์',
@@ -617,7 +619,7 @@ const groupedParticipants = computed(() => {
 
 const attendingPhysician = computed<Physician | null>(() => {
   const drId = (p.value as any).attendingPhysicianId as string | undefined
-  return drId ? (physicians[drId] ?? null) : null
+  return drId ? (physicians.value[drId] ?? null) : null
 })
 
 // Reactive counter — incremented when wfData.latestInr is mutated externally
@@ -625,14 +627,40 @@ const attendingPhysician = computed<Physician | null>(() => {
 const consultDataVersion = ref(0)
 
 // Chat messages — seeded from JSON, appended locally on send
-const consultMessages = ref<ConsultMsg[]>([...(seedData[patientId.value] ?? [])])
+const consultMessages = ref<ConsultMsg[]>([])   // seeded after async load (see onMounted)
 const composerRef     = ref<InstanceType<typeof ConsultComposer> | null>(null)
 const chatScrollEl    = ref<HTMLElement | null>(null)
 
 watch(patientId, (id) => {
-  consultMessages.value = [...(seedData[id] ?? [])]
+  consultMessages.value = [...(seedData.value[id] ?? [])]
   composerRef.value?.clear()
   if (activeTab.value === 'consult') scrollChatBottom()
+})
+
+onMounted(async () => {
+  try {
+    const [detail, wf, noac, ats, phys, consults] = await Promise.all([
+      repo.getPatientDetails(),
+      repo.getWarfarinPatients(),
+      repo.getNoacPatients(),
+      repo.getAtsPatients(),
+      repo.getPhysicians(),
+      repo.getConsultations(),
+    ])
+    allDetail.value    = detail
+    allWarfarin.value  = wf
+    allNoac.value      = noac
+    patientsList.value = ats
+    physicians.value   = phys
+    seedData.value     = consults as unknown as Record<string, ConsultMsg[]>
+    // re-derive once data is in (defaults were computed against empty maps)
+    activeTab.value       = defaultTab(derivedTherapy.value)
+    consultMessages.value = [...(seedData.value[patientId.value] ?? [])]
+  } catch (e) {
+    console.error('[AtsPatientDetail] load failed', e)
+  } finally {
+    loading.value = false
+  }
 })
 
 watch(activeTab, (tab) => {
@@ -990,6 +1018,13 @@ const chartOptions = {
 <style scoped>
 /* ── Two-zone layout ──────────────────────────────────── */
 .content-wrap { display: flex; flex-direction: column; height: 100%; }
+.apd-loading {
+  padding: 48px 24px;
+  text-align: center;
+  font-family: var(--bma-font-thai);
+  font-size: var(--bma-text-sm);
+  color: var(--bma-text-tertiary);
+}
 .page { background: var(--bma-surface); padding: 16px 24px 0; }
 
 /* ── Page header ─────────────────────────────────────────── */

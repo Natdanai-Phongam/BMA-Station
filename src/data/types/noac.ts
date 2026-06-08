@@ -28,6 +28,15 @@ export interface DrugResult {
   adjustmentReason?:       string
   contraindicationReason?: string
   interactions:            DrugInteractionResult[]
+  /** Phased/loading regimen for DVT/PE/CAT (e.g. Rivaroxaban 15mg BID ×21d → 20mg OD).
+   *  When present, doseAmount/frequency above describe the MAINTENANCE phase. */
+  loadingPhase?: {
+    doseAmount:    string
+    doseUnit:      string
+    frequency:     string        // "BID" | "OD"
+    frequencyThai: string
+    durationText:  string        // e.g. "21 วันแรก"
+  }
 }
 
 // ── Child-Pugh hepatic function class ────────────────────────────────────────
@@ -51,6 +60,7 @@ export interface NoacEngineInput {
   scrMgDl:        number
   crClMlMin:      number
   concurrentMeds: ConcurrentMedication[]
+  indication:     NoacIndication   // dose regimen differs: NVAF (single) vs DVT/PE/CAT (phased)
 
   // ── Absolute contraindication flags ──────────────────────────────────────
   // These must be checked BEFORE dose computation. Missing = assumed false.

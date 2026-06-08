@@ -73,6 +73,7 @@ export interface KpiPeriodData {
     resolutionRate: AtsMetricData   // % problems resolved (higher = better)
     acceptanceRate: AtsMetricData   // % recommendations accepted (higher = better)
     responseTimeHr: AtsMetricData   // referral response time in hours (lower = better)
+    resolutionTimeHr: AtsMetricData // time to resolve problem after alert, hours (lower = better)
   }
 
   // Part 4: System Efficiency

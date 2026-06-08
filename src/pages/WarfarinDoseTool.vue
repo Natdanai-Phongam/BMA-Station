@@ -10,8 +10,11 @@
       </div>
     </Transition>
 
-    <!-- ── White header ───────────────────────────────────────── -->
+    <!-- ── Loading state ──────────────────────────────────────── -->
+    <div v-if="loading" class="wf-loading">กำลังโหลดข้อมูล…</div>
+
     <!-- ── Main ───────────────────────────────────────────────── -->
+    <template v-else>
     <div class="main-wrap" :class="{ 'main-wrap--embedded': props.embedded }">
 
       <!-- ── Status row: INR (60%) + TTR (40%) ──────────────── -->
@@ -362,12 +365,13 @@
       @close="drawerOpen = false"
       @saved="onDrawerSaved"
     />
+    </template>
 
   </div><!-- /.content-wrap -->
 </template>
 
 <script setup lang="ts">
-import { ref, computed, reactive } from 'vue'
+import { ref, shallowRef, computed, reactive, onMounted } from 'vue'
 import {
   PhCalculator, PhWarning, PhCheckCircle,
   PhCalendar, PhPrinter,
@@ -386,8 +390,7 @@ import { buildWeeklySchedule, computeDosingSuggestion } from '@/utils/warfarinDo
 import { type InrStatus, getInrStatus, inrStatusLabel } from '@/utils/inrStatus'
 import { wfConcordanceBadgeClass, wfConcordanceLabel } from '@/utils/warfarin-helpers'
 
-import allPatientsRaw  from '@/data/mock/warfarin-patients.json'
-import atsPatientsRaw  from '@/data/mock/ats-patients.json'
+import { repo } from '@/data/repository'
 import type { AtsPatientsData } from '@/data/types/ats-patients'
 
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Filler)
@@ -407,17 +410,20 @@ const majorInteractionEffect = computed(() => {
 
 const props = defineProps<{ patientId: string; embedded?: boolean }>()
 
-const allPatients  = allPatientsRaw  as Record<string, WarfarinPageData>
-const atsPatients  = atsPatientsRaw  as AtsPatientsData
-const data = reactive({ ...(allPatients[props.patientId] ?? allPatients['w009']) } as WarfarinPageData)
+const loading = ref(true)
+const atsPatients = shallowRef<AtsPatientsData>({ lastSyncedAt: '', warfarin: [], noacs: [] })
+// Reactive patient record — populated after the async load (see onMounted).
+// Template + drawer are guarded behind `loading`, so they never read the empty
+// shell before data arrives.
+const data = reactive({} as WarfarinPageData)
 
 // Resolve the real Hospital Number (HN) from the patient summary list.
 // Falls back to undefined so the drawer can gracefully degrade to showing the ID.
 const patientHn = computed(() => {
   const id = props.patientId
   return (
-    atsPatients.warfarin.find(p => p.id === id)?.hn ??
-    atsPatients.noacs.find(p => p.id === id)?.hn
+    atsPatients.value.warfarin.find(p => p.id === id)?.hn ??
+    atsPatients.value.noacs.find(p => p.id === id)?.hn
   )
 })
 
@@ -426,7 +432,23 @@ const drawerOpen = ref(false)
 
 // ── This Visit: saved state (set only by drawer) ──────────────
 const visitSaved     = ref(false)
-const visitSavedDose = ref(data.profile.currentDoseMgWk)
+const visitSavedDose = ref(0)   // seeded from data after async load (see onMounted)
+
+onMounted(async () => {
+  try {
+    const [allPatients, ats] = await Promise.all([
+      repo.getWarfarinPatients(),
+      repo.getAtsPatients(),
+    ])
+    atsPatients.value = ats
+    Object.assign(data, allPatients[props.patientId] ?? allPatients['w009'])
+    visitSavedDose.value = data.profile?.currentDoseMgWk ?? 0
+  } catch (e) {
+    console.error('[WarfarinDoseTool] load failed', e)
+  } finally {
+    loading.value = false
+  }
+})
 
 function onDrawerSaved(payload: { newDoseMgWk: number; newAdj: DoseAdjustment; newInr?: InrRecord }) {
   if (payload.newInr) {
@@ -684,6 +706,13 @@ function pctBadgeClass(pct: number) {
 
 <style scoped>
 .content-wrap { display: flex; flex-direction: column; min-height: 100%; }
+.wf-loading {
+  padding: 48px 24px;
+  text-align: center;
+  font-family: var(--bma-font-thai);
+  font-size: var(--bma-text-sm);
+  color: var(--bma-text-tertiary);
+}
 
 /* ── Toast ──────────────────────────────────────────────────── */
 .toast {

@@ -177,7 +177,7 @@
             <PhProhibit :size="20" />
             <div class="ndd-withhold-body">
               <span class="ndd-withhold-title">งดจ่ายยา NOACs</span>
-              <span class="ndd-withhold-sub">มีข้อห้ามใช้สัมบูรณ์ — บันทึกการงดจ่ายเพื่อเก็บประวัติการตรวจ</span>
+              <span class="ndd-withhold-sub">{{ withholdReasonText }} — บันทึกเพื่อเก็บประวัติการตรวจ</span>
             </div>
           </div>
 
@@ -193,7 +193,7 @@
                 drug.level === 'contraindicated' ? 'ndd-drug-card--contra' : '',
                 selectedIdx === idx && idx !== 0 ? 'ndd-drug-card--override' : '',
               ]"
-              :disabled="drug.level === 'contraindicated' || localResult.absoluteContraindications.length > 0"
+              :disabled="drug.level === 'contraindicated' || isWithhold"
               @click="selectDrug(idx)"
             >
               <!-- Rank badge -->
@@ -212,6 +212,9 @@
                   <span class="ndd-drug-dose">{{ drug.doseAmount }} {{ drug.doseUnit }}</span>
                   <span v-if="drug.frequency && drug.frequency !== '—'" class="freq-chip" :title="drug.frequencyThai">{{ drug.frequency }}</span>
                 </div>
+                <span v-if="drug.loadingPhase" class="ndd-drug-loading">
+                  <PhInfo :size="11" weight="bold" />เริ่ม {{ drug.loadingPhase.doseAmount }} {{ drug.loadingPhase.doseUnit }} {{ drug.loadingPhase.frequency }} ×{{ drug.loadingPhase.durationText }} → คงระดับ {{ drug.doseAmount }} {{ drug.doseUnit }} {{ drug.frequency }}
+                </span>
                 <span v-if="drug.adjustmentReason" class="ndd-drug-adj">
                   <PhArrowDown :size="11" weight="bold" />{{ drug.adjustmentReason }}
                 </span>
@@ -422,6 +425,7 @@ const localResult = computed(() => {
     scrMgDl:        labFields.value.scrMgDl,
     crClMlMin:      labFields.value.crClMlMin,
     concurrentMeds: patient.concurrentMedications ?? [],
+    indication:     profile.indication,
     dialysis:       profile.dialysis,
     mechanicalValve: profile.mechanicalValve,
     pregnancy:      profile.pregnancy,
@@ -478,7 +482,17 @@ const daysCautionNote = computed((): string | null => {
 })
 
 // ── Validation ─────────────────────────────────────────────────────────────────
-const isWithhold = computed(() => localResult.value.absoluteContraindications.length > 0)
+// Withhold = NO NOAC is dispensable (total CI: valve/pregnancy/bleeding/Child-Pugh C,
+// or CrCl too low for every drug). Dialysis is NOT total — Apixaban stays usable.
+const isWithhold = computed(() => {
+  const ds = localResult.value.drugs
+  return ds.length > 0 && ds.every(d => d.level === 'contraindicated')
+})
+const withholdReasonText = computed(() =>
+  localResult.value.absoluteContraindications.length
+    ? localResult.value.absoluteContraindications.join(' · ')
+    : 'ไม่มี NOAC ที่จ่ายได้ตาม Lab ปัจจุบัน (CrCl ต่ำเกินไป)',
+)
 const canSave = computed(() => {
   if (isWithhold.value) return true   // withhold can always be recorded (audit trail)
   if (selectedIdx.value === null) return false   // must actively choose a drug (no pre-select)
@@ -516,7 +530,7 @@ async function save() {
       labData,
       dispensed:        false,
       dose:             '—',
-      withholdReason:   localResult.value.absoluteContraindications.join(' · '),
+      withholdReason:   withholdReasonText.value,
       systemRank:       0,
       wasTopRecommendation: false,
       pharmacistNote:   pharmacistNote.value || null,
@@ -527,6 +541,10 @@ async function save() {
     const idx = selectedIdx.value
     if (idx === null) { isSaving.value = false; return }
     const drug = localResult.value.drugs[idx]
+    const lp = drug.loadingPhase
+    const doseStr = lp
+      ? `${lp.doseAmount} ${lp.doseUnit} ${lp.frequency} ×${lp.durationText} → ${drug.doseAmount} ${drug.doseUnit} ${drug.frequency}`
+      : `${drug.doseAmount} ${drug.doseUnit} ${drug.frequency}`
     record = {
       id:               `disp-${Date.now()}`,
       patientId:        props.patientId,
@@ -534,7 +552,7 @@ async function save() {
       labData,
       dispensed:        true,
       drugDispensed:    drug.drug,
-      dose:             `${drug.doseAmount} ${drug.doseUnit} ${drug.frequency}`,
+      dose:             doseStr,
       systemRank:       idx + 1,
       wasTopRecommendation: idx === 0,
       clinicalStatus:   'appropriate',
@@ -893,6 +911,10 @@ async function save() {
   display: inline-flex; align-items: baseline; gap: 4px;
   font-size: 12px; font-weight: 600;
 }
+.ndd-drug-loading {
+  display: inline-flex; align-items: baseline; gap: 4px;
+  font-size: 12px; font-weight: 600; color: var(--bma-elective);
+}
 .ndd-drug-adj       { color: var(--inr-supra-text); }
 .ndd-drug-ci-reason { color: var(--bma-emergency); }
 .ndd-drug-note      { color: var(--bma-text-secondary); font-weight: 500; }
@@ -975,7 +997,7 @@ async function save() {
   border: 2px solid rgb(var(--v-theme-primary));
 }
 .ndd-days-chips::-webkit-scrollbar { display: none; }
-.ndd-days-chips :deep(.ndd-days-suggested-mark) { flex-shrink: 0; color: var(--bma-green-700) !important; }
+.ndd-days-chips :deep(.ndd-days-suggested-mark) { flex-shrink: 0; margin-left: 3px; vertical-align: middle; color: var(--bma-green-700) !important; }
 .ndd-days-caution {
   display: flex; align-items: center; gap: 4px;
   margin-top: 8px;

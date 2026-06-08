@@ -114,22 +114,26 @@ function evalApixaban(input: NoacEngineInput): DrugResult {
     )
   }
 
-  // Dose reduction: ≥ 2 of 3 criteria
-  const criteria = [age >= 80, weightKg <= 60, scrMgDl >= 1.5]
-  const criteriaCount = criteria.filter(Boolean).length
-
   let level: RecommendationLevel = 'recommended'
   let doseAmount = '5'
   let adjustmentReason: string | undefined
+  let loadingPhase: DrugResult['loadingPhase']
 
-  if (criteriaCount >= 2) {
-    doseAmount = '2.5'
-    level = 'dose-adjusted'
-    const parts: string[] = []
-    if (age >= 80)       parts.push(`อายุ ${age} ปี (≥80)`)
-    if (weightKg <= 60)  parts.push(`น้ำหนัก ${weightKg} kg (≤60)`)
-    if (scrMgDl >= 1.5)  parts.push(`SCr ${scrMgDl} mg/dL (≥1.5)`)
-    adjustmentReason = `เกณฑ์ลดขนาดยา: ${parts.join(', ')}`
+  if (input.indication === 'NVAF') {
+    // NVAF: 5 mg BID; reduce to 2.5 if ≥ 2 of (age≥80, ≤60kg, SCr≥1.5)
+    const criteria = [age >= 80, weightKg <= 60, scrMgDl >= 1.5]
+    if (criteria.filter(Boolean).length >= 2) {
+      doseAmount = '2.5'
+      level = 'dose-adjusted'
+      const parts: string[] = []
+      if (age >= 80)       parts.push(`อายุ ${age} ปี (≥80)`)
+      if (weightKg <= 60)  parts.push(`น้ำหนัก ${weightKg} kg (≤60)`)
+      if (scrMgDl >= 1.5)  parts.push(`SCr ${scrMgDl} mg/dL (≥1.5)`)
+      adjustmentReason = `เกณฑ์ลดขนาดยา: ${parts.join(', ')}`
+    }
+  } else {
+    // DVT/PE/CAT: loading 10 mg BID ×7 วัน → maintenance 5 mg BID
+    loadingPhase = { doseAmount: '10', doseUnit: 'mg', frequency: 'BID', frequencyThai: '2 ครั้ง/วัน', durationText: '7 วันแรก' }
   }
 
   // P-gp–only inhibitors (not strong CYP3A4) → monitor
@@ -154,7 +158,7 @@ function evalApixaban(input: NoacEngineInput): DrugResult {
   return {
     drug: 'apixaban', nameThai: 'อะพิกซาแบน', nameEn: 'Apixaban', brandName: 'Eliquis®',
     level, doseAmount, doseUnit: 'mg', frequency: 'BID', frequencyThai: '2 ครั้ง/วัน',
-    adjustmentReason, interactions,
+    adjustmentReason, loadingPhase, interactions,
   }
 }
 
@@ -188,16 +192,24 @@ function evalRivaroxaban(input: NoacEngineInput): DrugResult {
   let doseAmount = '20'
   let adjustmentReason: string | undefined
   let doseNote: string | undefined
+  let loadingPhase: DrugResult['loadingPhase']
 
-  // CrCl 15–49 → reduce to 15 mg OD (NVAF indication)
-  if (crClMlMin >= 15 && crClMlMin < 50) {
-    doseAmount = '15'
-    level = 'dose-adjusted'
-    adjustmentReason = `CrCl ${crClMlMin} mL/min (15–49): ลดขนาดยาเป็น 15 mg OD`
-  }
-
-  if (doseAmount === '20') {
-    doseNote = 'รับประทานพร้อมมื้อเย็น (เพิ่มการดูดซึม)'
+  if (input.indication === 'NVAF') {
+    // NVAF: 20 mg OD with food; CrCl 15–49 → 15 mg OD
+    if (crClMlMin >= 15 && crClMlMin < 50) {
+      doseAmount = '15'
+      level = 'dose-adjusted'
+      adjustmentReason = `CrCl ${crClMlMin} mL/min (15–49): ลดขนาดยาเป็น 15 mg OD`
+    }
+    if (doseAmount === '20') doseNote = 'รับประทานพร้อมมื้อเย็น (เพิ่มการดูดซึม)'
+  } else {
+    // DVT/PE/CAT: loading 15 mg BID ×21 วัน → maintenance 20 mg OD (พร้อมอาหาร)
+    doseNote = 'รับประทานพร้อมอาหาร'
+    loadingPhase = { doseAmount: '15', doseUnit: 'mg', frequency: 'BID', frequencyThai: '2 ครั้ง/วัน', durationText: '21 วันแรก' }
+    if (crClMlMin >= 15 && crClMlMin < 50) {
+      level = 'caution'
+      adjustmentReason = `CrCl ${crClMlMin} mL/min: ใช้ด้วยความระมัดระวังใน DVT/PE`
+    }
   }
 
   // P-gp–only inhibitors → monitor
@@ -221,7 +233,7 @@ function evalRivaroxaban(input: NoacEngineInput): DrugResult {
   return {
     drug: 'rivaroxaban', nameThai: 'ริวาร็อกซาแบน', nameEn: 'Rivaroxaban', brandName: 'Xarelto®',
     level, doseAmount, doseUnit: 'mg', frequency: 'OD', frequencyThai: '1 ครั้ง/วัน',
-    doseNote, adjustmentReason, interactions,
+    doseNote, adjustmentReason, loadingPhase, interactions,
   }
 }
 
@@ -254,6 +266,12 @@ function evalDabigatran(input: NoacEngineInput): DrugResult {
   let level: RecommendationLevel = 'recommended'
   let doseAmount = '150'
   let adjustmentReason: string | undefined
+  let doseNote: string | undefined
+  if (input.indication !== 'NVAF') {
+    // DVT/PE/CAT: requires ≥ 5 days parenteral lead-in (no oral loading phase)
+    doseNote = 'เริ่มหลังให้ยาฉีด (parenteral) อย่างน้อย 5 วัน'
+    if (input.indication === 'CAT') doseNote += ' · ไม่ใช่ยาหลักสำหรับ CAT'
+  }
 
   // Dose reduction criteria
   const ageAdj      = age >= 75
@@ -294,7 +312,7 @@ function evalDabigatran(input: NoacEngineInput): DrugResult {
   return {
     drug: 'dabigatran', nameThai: 'ดาบิแกตแรน', nameEn: 'Dabigatran', brandName: 'Pradaxa®',
     level, doseAmount, doseUnit: 'mg', frequency: 'BID', frequencyThai: '2 ครั้ง/วัน',
-    adjustmentReason, interactions,
+    adjustmentReason, doseNote, interactions,
   }
 }
 
@@ -327,6 +345,11 @@ function evalEdoxaban(input: NoacEngineInput): DrugResult {
   let level: RecommendationLevel = 'recommended'
   let doseAmount = '60'
   let adjustmentReason: string | undefined
+  let doseNote: string | undefined
+  if (input.indication !== 'NVAF') {
+    // DVT/PE/CAT: requires ≥ 5 days parenteral lead-in (no oral loading phase)
+    doseNote = 'เริ่มหลังให้ยาฉีด (parenteral) อย่างน้อย 5 วัน'
+  }
 
   // Dose reduction: CrCl 15–50 OR weight ≤60 OR P-gp inhibitor
   const crClAdj    = crClMlMin >= 15 && crClMlMin <= 50
@@ -363,7 +386,7 @@ function evalEdoxaban(input: NoacEngineInput): DrugResult {
   return {
     drug: 'edoxaban', nameThai: 'เอโดซาแบน', nameEn: 'Edoxaban', brandName: 'Lixiana®',
     level, doseAmount, doseUnit: 'mg', frequency: 'OD', frequencyThai: '1 ครั้ง/วัน',
-    adjustmentReason, interactions,
+    adjustmentReason, doseNote, interactions,
   }
 }
 

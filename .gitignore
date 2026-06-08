@@ -27,3 +27,11 @@ yarn-error.log*
 # OS
 .DS_Store
 Thumbs.db
+
+# Agent / tooling artifacts
+.agents/
+.claude/
+.impeccable/
+
+# Generator preview output (redundant with src/data/mock)
+scripts/gen/preview/

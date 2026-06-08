@@ -1,7 +1,4 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import ConsultList      from '@/pages/ConsultList.vue'
-import DdAtsDashboard   from '@/pages/DdAtsDashboard.vue'
-import AtsPatientDetail from '@/pages/AtsPatientDetail.vue'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -10,20 +7,23 @@ declare module 'vue-router' {
   }
 }
 
+// Lazy route components → each page is code-split into its own chunk, loaded on
+// navigation rather than bundled into the entry. (WarfarinDoseTool / NoacAlgorithm
+// are embedded in AtsPatientDetail, so they ride along in its chunk graph.)
 const routes = [
   {
     path: '/',
-    component: ConsultList,
+    component: () => import('@/pages/ConsultList.vue'),
     meta: { nav: 'consult', sub: 'send' },
   },
   {
     path: '/dd-ats',
-    component: DdAtsDashboard,
+    component: () => import('@/pages/DdAtsDashboard.vue'),
     meta: { nav: 'dd-ats' },
   },
   {
     path: '/dd-ats/patient/:id',
-    component: AtsPatientDetail,
+    component: () => import('@/pages/AtsPatientDetail.vue'),
     meta: { nav: 'dd-ats' },
   },
 ]

@@ -1,0 +1,84 @@
+{
+ "generatedAt": "2026-06-08T08:06:31.527Z",
+ "mockNow": "2026-05-31",
+ "periods": {
+  "month": {
+   "wf": {
+    "total": 292,
+    "ttrGoalMet": 220,
+    "ttrAvg": 85.2,
+    "inrInRange": 244
+   },
+   "noac": {
+    "total": 305,
+    "appropriate": 253
+   },
+   "safety": {
+    "bleeding": 7,
+    "thrombosis": 3,
+    "aeHosp": 3,
+    "death": 2,
+    "medError": 0,
+    "denom": 597
+   },
+   "ats": {
+    "resolutionRate": 66.7,
+    "acceptanceRate": 82,
+    "responseTimeHr": 1.8,
+    "resolutionTimeHr": 18.5
+   }
+  },
+  "quarter": {
+   "wf": {
+    "total": 292,
+    "ttrGoalMet": 220,
+    "ttrAvg": 85.2,
+    "inrInRange": 244
+   },
+   "noac": {
+    "total": 305,
+    "appropriate": 253
+   },
+   "safety": {
+    "bleeding": 10,
+    "thrombosis": 9,
+    "aeHosp": 7,
+    "death": 4,
+    "medError": 0,
+    "denom": 597
+   },
+   "ats": {
+    "resolutionRate": 71.4,
+    "acceptanceRate": 82,
+    "responseTimeHr": 1.9,
+    "resolutionTimeHr": 19.2
+   }
+  },
+  "year": {
+   "wf": {
+    "total": 292,
+    "ttrGoalMet": 220,
+    "ttrAvg": 85.2,
+    "inrInRange": 244
+   },
+   "noac": {
+    "total": 305,
+    "appropriate": 253
+   },
+   "safety": {
+    "bleeding": 10,
+    "thrombosis": 9,
+    "aeHosp": 7,
+    "death": 4,
+    "medError": 0,
+    "denom": 597
+   },
+   "ats": {
+    "resolutionRate": 74.2,
+    "acceptanceRate": 82,
+    "responseTimeHr": 1.7,
+    "resolutionTimeHr": 17.8
+   }
+  }
+ }
+}
