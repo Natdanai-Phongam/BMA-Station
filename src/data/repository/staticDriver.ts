@@ -28,7 +28,12 @@ function load<T>(
 ): Promise<T> {
   let entry = cache.get(key)
   if (!entry) {
-    entry = loader().then((m) => cast(m.default))
+    // Evict on failure so a transient/stale-chunk import error isn't cached
+    // permanently (which would break every later call until a full reload).
+    entry = loader().then((m) => cast(m.default)).catch((err) => {
+      cache.delete(key)
+      throw err
+    })
     cache.set(key, entry)
   }
   return entry as Promise<T>
