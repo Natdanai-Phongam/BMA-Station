@@ -14,6 +14,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w002": {
@@ -31,6 +32,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w003": {
@@ -54,6 +56,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w004": {
@@ -77,6 +80,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w005": {
@@ -94,6 +98,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w006": {
@@ -111,6 +116,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w007": {
@@ -128,6 +134,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w008": {
@@ -145,6 +152,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w009": {
@@ -162,6 +170,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w010": {
@@ -179,6 +188,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w011": {
@@ -196,6 +206,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w012": {
@@ -213,6 +224,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w013": {
@@ -230,6 +242,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w014": {
@@ -247,6 +260,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w015": {
@@ -264,6 +278,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w016": {
@@ -281,6 +296,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w017": {
@@ -298,6 +314,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w018": {
@@ -315,6 +332,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w019": {
@@ -332,6 +350,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w020": {
@@ -349,6 +368,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w021": {
@@ -366,6 +386,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w022": {
@@ -407,6 +428,7 @@
    }
   ],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w023": {
@@ -424,6 +446,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w024": {
@@ -447,6 +470,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w025": {
@@ -482,6 +506,7 @@
    }
   ],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w026": {
@@ -499,6 +524,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w027": {
@@ -516,6 +542,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w028": {
@@ -539,6 +566,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w029": {
@@ -562,6 +590,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w030": {
@@ -579,6 +608,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w031": {
@@ -596,6 +626,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w032": {
@@ -613,6 +644,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w033": {
@@ -630,6 +662,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w034": {
@@ -647,6 +680,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w035": {
@@ -664,6 +698,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w036": {
@@ -687,6 +722,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w037": {
@@ -704,6 +740,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w038": {
@@ -721,6 +758,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w039": {
@@ -738,6 +776,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w040": {
@@ -755,6 +794,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w041": {
@@ -778,6 +818,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w042": {
@@ -795,6 +836,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w043": {
@@ -818,6 +860,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w044": {
@@ -835,6 +878,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w045": {
@@ -852,6 +896,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w046": {
@@ -869,6 +914,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w047": {
@@ -892,6 +938,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w048": {
@@ -909,6 +956,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w049": {
@@ -926,6 +974,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w050": {
@@ -949,6 +998,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w051": {
@@ -977,6 +1027,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w052": {
@@ -994,6 +1045,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w053": {
@@ -1017,6 +1069,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w054": {
@@ -1058,6 +1111,7 @@
    }
   ],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w055": {
@@ -1075,6 +1129,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w056": {
@@ -1092,6 +1147,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w057": {
@@ -1115,6 +1171,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w058": {
@@ -1143,6 +1200,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w059": {
@@ -1160,6 +1218,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w060": {
@@ -1183,6 +1242,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w061": {
@@ -1206,6 +1266,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w062": {
@@ -1223,6 +1284,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w063": {
@@ -1240,6 +1302,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w064": {
@@ -1257,6 +1320,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w065": {
@@ -1292,6 +1356,7 @@
    }
   ],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w066": {
@@ -1309,6 +1374,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w067": {
@@ -1326,6 +1392,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w068": {
@@ -1343,6 +1410,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w069": {
@@ -1366,6 +1434,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w070": {
@@ -1394,6 +1463,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w071": {
@@ -1411,6 +1481,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w072": {
@@ -1428,6 +1499,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w073": {
@@ -1451,6 +1523,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w074": {
@@ -1468,6 +1541,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w075": {
@@ -1485,6 +1559,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w076": {
@@ -1502,6 +1577,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w077": {
@@ -1519,6 +1595,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w078": {
@@ -1536,6 +1613,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w079": {
@@ -1559,6 +1637,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w080": {
@@ -1576,6 +1655,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w081": {
@@ -1593,6 +1673,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w082": {
@@ -1616,6 +1697,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w083": {
@@ -1639,6 +1721,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w084": {
@@ -1656,6 +1739,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w085": {
@@ -1673,6 +1757,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w086": {
@@ -1690,6 +1775,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w087": {
@@ -1707,6 +1793,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w088": {
@@ -1724,6 +1811,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w089": {
@@ -1741,6 +1829,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w090": {
@@ -1764,6 +1853,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w091": {
@@ -1787,6 +1877,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w092": {
@@ -1804,6 +1895,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w093": {
@@ -1832,6 +1924,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w094": {
@@ -1855,6 +1948,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w095": {
@@ -1872,6 +1966,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w096": {
@@ -1889,6 +1984,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w097": {
@@ -1924,6 +2020,7 @@
    }
   ],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w098": {
@@ -1941,6 +2038,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w099": {
@@ -1958,6 +2056,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w100": {
@@ -1986,6 +2085,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w101": {
@@ -2003,6 +2103,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w102": {
@@ -2031,6 +2132,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w103": {
@@ -2059,6 +2161,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w104": {
@@ -2076,6 +2179,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w105": {
@@ -2093,6 +2197,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w106": {
@@ -2110,6 +2215,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w107": {
@@ -2138,6 +2244,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w108": {
@@ -2155,6 +2262,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w109": {
@@ -2172,7 +2280,18 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
-  "attendingPhysicianId": "dr004"
+  "vitalStatus": "alive",
+  "attendingPhysicianId": "dr004",
+  "medErrors": [
+   {
+    "id": "mederr-w109-5",
+    "dateISO": "2026-04-28",
+    "date": "28 เม.ย. 2569",
+    "detail": "บันทึกขนาดยาคลาดเคลื่อน",
+    "severity": "mild",
+    "status": "แก้ไขแล้ว"
+   }
+  ]
  },
  "w110": {
   "id": "w110",
@@ -2195,6 +2314,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w111": {
@@ -2212,6 +2332,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w112": {
@@ -2229,6 +2350,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w113": {
@@ -2252,6 +2374,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w114": {
@@ -2269,6 +2392,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w115": {
@@ -2286,6 +2410,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w116": {
@@ -2303,6 +2428,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w117": {
@@ -2320,7 +2446,18 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
-  "attendingPhysicianId": "dr007"
+  "vitalStatus": "alive",
+  "attendingPhysicianId": "dr007",
+  "medErrors": [
+   {
+    "id": "mederr-w117-4",
+    "dateISO": "2026-05-25",
+    "date": "25 พ.ค. 2569",
+    "detail": "จ่ายยาผิดขนาด (ตรวจพบก่อนผู้ป่วยรับยา)",
+    "severity": "moderate",
+    "status": "ไม่มีผลต่อผู้ป่วย"
+   }
+  ]
  },
  "w118": {
   "id": "w118",
@@ -2337,6 +2474,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w119": {
@@ -2354,6 +2492,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w120": {
@@ -2371,6 +2510,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w121": {
@@ -2388,6 +2528,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w122": {
@@ -2411,6 +2552,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w123": {
@@ -2434,6 +2576,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w124": {
@@ -2451,6 +2594,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w125": {
@@ -2486,6 +2630,7 @@
    }
   ],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w126": {
@@ -2503,6 +2648,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w127": {
@@ -2520,6 +2666,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w128": {
@@ -2543,6 +2690,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w129": {
@@ -2560,6 +2708,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w130": {
@@ -2577,6 +2726,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w131": {
@@ -2600,6 +2750,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w132": {
@@ -2623,6 +2774,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w133": {
@@ -2640,6 +2792,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w134": {
@@ -2657,6 +2810,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w135": {
@@ -2685,6 +2839,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w136": {
@@ -2702,6 +2857,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w137": {
@@ -2719,6 +2875,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w138": {
@@ -2742,6 +2899,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w139": {
@@ -2765,6 +2923,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w140": {
@@ -2782,6 +2941,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w141": {
@@ -2799,6 +2959,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w142": {
@@ -2822,6 +2983,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w143": {
@@ -2839,6 +3001,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w144": {
@@ -2856,6 +3019,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w145": {
@@ -2879,6 +3043,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w146": {
@@ -2896,6 +3061,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w147": {
@@ -2913,6 +3079,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w148": {
@@ -2936,6 +3103,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w149": {
@@ -2953,6 +3121,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w150": {
@@ -2970,6 +3139,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w151": {
@@ -3005,6 +3175,7 @@
    }
   ],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w152": {
@@ -3022,6 +3193,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w153": {
@@ -3039,6 +3211,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w154": {
@@ -3056,6 +3229,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w155": {
@@ -3073,6 +3247,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w156": {
@@ -3090,6 +3265,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w157": {
@@ -3107,6 +3283,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w158": {
@@ -3135,6 +3312,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w159": {
@@ -3152,6 +3330,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w160": {
@@ -3169,6 +3348,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w161": {
@@ -3197,6 +3377,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w162": {
@@ -3214,6 +3395,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w163": {
@@ -3231,6 +3413,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w164": {
@@ -3248,6 +3431,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w165": {
@@ -3265,6 +3449,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w166": {
@@ -3288,6 +3473,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w167": {
@@ -3311,6 +3497,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w168": {
@@ -3334,6 +3521,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w169": {
@@ -3357,6 +3545,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w170": {
@@ -3374,6 +3563,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w171": {
@@ -3397,6 +3587,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w172": {
@@ -3414,6 +3605,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w173": {
@@ -3431,6 +3623,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w174": {
@@ -3448,6 +3641,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w175": {
@@ -3465,6 +3659,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w176": {
@@ -3482,6 +3677,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w177": {
@@ -3505,6 +3701,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w178": {
@@ -3528,6 +3725,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w179": {
@@ -3545,6 +3743,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w180": {
@@ -3573,6 +3772,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w181": {
@@ -3590,6 +3790,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w182": {
@@ -3613,6 +3814,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w183": {
@@ -3636,6 +3838,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w184": {
@@ -3664,6 +3867,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w185": {
@@ -3681,6 +3885,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w186": {
@@ -3698,6 +3903,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w187": {
@@ -3715,6 +3921,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w188": {
@@ -3738,6 +3945,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w189": {
@@ -3755,6 +3963,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w190": {
@@ -3772,6 +3981,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w191": {
@@ -3795,6 +4005,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w192": {
@@ -3812,6 +4023,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w193": {
@@ -3829,6 +4041,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w194": {
@@ -3846,6 +4059,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w195": {
@@ -3863,6 +4077,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w196": {
@@ -3886,6 +4101,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w197": {
@@ -3899,29 +4115,17 @@
   "phone": "081-217-5970",
   "insuranceType": "บัตรทอง (UC)",
   "allergies": [],
-  "totalComplications": 1,
-  "complicationSummary": [
-   {
-    "type": "death",
-    "count": 1,
-    "lastDate": "27 พ.ค. 2569"
-   }
-  ],
-  "complications": [
-   {
-    "id": "comp-w197-death-3",
-    "type": "death",
-    "severity": "severe",
-    "date": "27 พ.ค. 2569",
-    "dateISO": "2026-05-27",
-    "month": 5,
-    "detail": "ภาวะแทรกซ้อนหลอดเลือดสมอง",
-    "treatment": "ส่ง ER — ไม่สามารถช่วยชีวิตได้",
-    "status": "เสียชีวิต"
-   }
-  ],
+  "totalComplications": 0,
+  "complicationSummary": [],
+  "complications": [],
   "currentTherapy": "warfarin",
-  "attendingPhysicianId": "dr005"
+  "vitalStatus": "deceased",
+  "attendingPhysicianId": "dr005",
+  "mortality": {
+   "dateISO": "2026-04-21",
+   "date": "21 เม.ย. 2569",
+   "reason": "ภาวะแทรกซ้อนหลอดเลือดสมอง"
+  }
  },
  "w198": {
   "id": "w198",
@@ -3938,6 +4142,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w199": {
@@ -3961,6 +4166,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w200": {
@@ -3978,6 +4184,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w201": {
@@ -3995,6 +4202,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w202": {
@@ -4023,6 +4231,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w203": {
@@ -4040,6 +4249,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w204": {
@@ -4057,6 +4267,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w205": {
@@ -4074,6 +4285,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w206": {
@@ -4091,6 +4303,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w207": {
@@ -4114,6 +4327,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w208": {
@@ -4131,6 +4345,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w209": {
@@ -4148,6 +4363,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w210": {
@@ -4171,6 +4387,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w211": {
@@ -4194,6 +4411,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w212": {
@@ -4217,6 +4435,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w213": {
@@ -4234,6 +4453,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w214": {
@@ -4251,6 +4471,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w215": {
@@ -4268,6 +4489,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w216": {
@@ -4285,6 +4507,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w217": {
@@ -4320,6 +4543,7 @@
    }
   ],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w218": {
@@ -4343,6 +4567,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w219": {
@@ -4366,6 +4591,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w220": {
@@ -4383,6 +4609,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w221": {
@@ -4400,6 +4627,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w222": {
@@ -4417,6 +4645,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w223": {
@@ -4434,6 +4663,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w224": {
@@ -4457,6 +4687,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w225": {
@@ -4474,6 +4705,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w226": {
@@ -4491,6 +4723,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w227": {
@@ -4508,6 +4741,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w228": {
@@ -4525,6 +4759,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w229": {
@@ -4548,6 +4783,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w230": {
@@ -4571,6 +4807,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w231": {
@@ -4588,6 +4825,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w232": {
@@ -4605,6 +4843,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w233": {
@@ -4622,6 +4861,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w234": {
@@ -4639,6 +4879,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w235": {
@@ -4662,6 +4903,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w236": {
@@ -4679,6 +4921,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w237": {
@@ -4696,6 +4939,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w238": {
@@ -4713,6 +4957,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w239": {
@@ -4730,6 +4975,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w240": {
@@ -4747,6 +4993,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w241": {
@@ -4770,6 +5017,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w242": {
@@ -4793,6 +5041,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w243": {
@@ -4810,6 +5059,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w244": {
@@ -4827,6 +5077,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w245": {
@@ -4844,6 +5095,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w246": {
@@ -4867,6 +5119,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w247": {
@@ -4884,6 +5137,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w248": {
@@ -4901,6 +5155,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w249": {
@@ -4918,6 +5173,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w250": {
@@ -4935,6 +5191,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w251": {
@@ -4952,6 +5209,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w252": {
@@ -4993,6 +5251,7 @@
    }
   ],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w253": {
@@ -5021,6 +5280,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w254": {
@@ -5038,6 +5298,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w255": {
@@ -5061,6 +5322,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w256": {
@@ -5078,6 +5340,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w257": {
@@ -5095,6 +5358,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w258": {
@@ -5112,6 +5376,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w259": {
@@ -5129,6 +5394,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w260": {
@@ -5146,6 +5412,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w261": {
@@ -5169,6 +5436,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w262": {
@@ -5192,6 +5460,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w263": {
@@ -5209,6 +5478,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w264": {
@@ -5226,6 +5496,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w265": {
@@ -5243,6 +5514,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w266": {
@@ -5260,6 +5532,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w267": {
@@ -5277,6 +5550,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w268": {
@@ -5294,6 +5568,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w269": {
@@ -5311,6 +5586,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w270": {
@@ -5334,6 +5610,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "w271": {
@@ -5357,6 +5634,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w272": {
@@ -5374,6 +5652,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w273": {
@@ -5391,6 +5670,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w274": {
@@ -5408,6 +5688,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w275": {
@@ -5425,6 +5706,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w276": {
@@ -5448,6 +5730,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w277": {
@@ -5465,6 +5748,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w278": {
@@ -5482,6 +5766,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "w279": {
@@ -5499,6 +5784,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w280": {
@@ -5516,6 +5802,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w281": {
@@ -5533,6 +5820,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w282": {
@@ -5550,6 +5838,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w283": {
@@ -5578,6 +5867,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "w284": {
@@ -5595,6 +5885,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w285": {
@@ -5612,6 +5903,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w286": {
@@ -5629,6 +5921,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w287": {
@@ -5646,6 +5939,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "w288": {
@@ -5663,6 +5957,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "w289": {
@@ -5680,6 +5975,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "w290": {
@@ -5697,6 +5993,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "w291": {
@@ -5714,6 +6011,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "w292": {
@@ -5731,6 +6029,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "warfarin",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n001": {
@@ -5748,6 +6047,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n002": {
@@ -5765,6 +6065,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Amiodarone",
@@ -5791,6 +6092,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Diltiazem",
@@ -5817,6 +6119,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n005": {
@@ -5834,6 +6137,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Ketoconazole",
@@ -5866,6 +6170,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n007": {
@@ -5889,6 +6194,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n008": {
@@ -5906,6 +6212,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n009": {
@@ -5923,6 +6230,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n010": {
@@ -5946,6 +6254,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n011": {
@@ -5963,6 +6272,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Ibuprofen",
@@ -5989,6 +6299,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Ibuprofen",
@@ -6021,6 +6332,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n014": {
@@ -6038,6 +6350,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n015": {
@@ -6061,6 +6374,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n016": {
@@ -6078,6 +6392,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n017": {
@@ -6101,6 +6416,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n018": {
@@ -6118,6 +6434,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n019": {
@@ -6135,6 +6452,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n020": {
@@ -6152,6 +6470,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n021": {
@@ -6169,6 +6488,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Ibuprofen",
@@ -6195,6 +6515,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Amiodarone",
@@ -6221,6 +6542,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n024": {
@@ -6249,6 +6571,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "n025": {
@@ -6266,6 +6589,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n026": {
@@ -6289,6 +6613,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n027": {
@@ -6306,6 +6631,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n028": {
@@ -6329,6 +6655,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Verapamil",
@@ -6355,6 +6682,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n030": {
@@ -6372,6 +6700,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n031": {
@@ -6389,6 +6718,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n032": {
@@ -6406,6 +6736,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n033": {
@@ -6423,7 +6754,18 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
-  "attendingPhysicianId": "dr003"
+  "vitalStatus": "alive",
+  "attendingPhysicianId": "dr003",
+  "medErrors": [
+   {
+    "id": "mederr-n033-3",
+    "dateISO": "2026-05-20",
+    "date": "20 พ.ค. 2569",
+    "detail": "ความถี่การให้ยาผิด",
+    "severity": "mild",
+    "status": "แก้ไขแล้ว"
+   }
+  ]
  },
  "n034": {
   "id": "n034",
@@ -6440,6 +6782,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n035": {
@@ -6463,6 +6806,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n036": {
@@ -6480,6 +6824,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n037": {
@@ -6503,6 +6848,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "n038": {
@@ -6520,6 +6866,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n039": {
@@ -6543,6 +6890,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n040": {
@@ -6571,6 +6919,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n041": {
@@ -6588,6 +6937,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n042": {
@@ -6616,6 +6966,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n043": {
@@ -6633,6 +6984,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n044": {
@@ -6656,6 +7008,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n045": {
@@ -6673,6 +7026,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n046": {
@@ -6690,6 +7044,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n047": {
@@ -6725,6 +7080,7 @@
    }
   ],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n048": {
@@ -6742,6 +7098,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n049": {
@@ -6765,6 +7122,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "n050": {
@@ -6782,6 +7140,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Diltiazem",
@@ -6814,6 +7173,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Ibuprofen",
@@ -6840,6 +7200,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Diltiazem",
@@ -6872,6 +7233,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "n054": {
@@ -6889,6 +7251,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n055": {
@@ -6912,6 +7275,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n056": {
@@ -6929,6 +7293,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n057": {
@@ -6946,6 +7311,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Amiodarone",
@@ -6978,6 +7344,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n059": {
@@ -6995,6 +7362,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n060": {
@@ -7030,6 +7398,7 @@
    }
   ],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n061": {
@@ -7058,6 +7427,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "n062": {
@@ -7075,6 +7445,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Clopidogrel",
@@ -7101,6 +7472,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Ibuprofen",
@@ -7127,6 +7499,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n065": {
@@ -7144,6 +7517,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n066": {
@@ -7167,6 +7541,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n067": {
@@ -7184,6 +7559,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Clopidogrel",
@@ -7221,6 +7597,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n069": {
@@ -7238,6 +7615,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n070": {
@@ -7255,6 +7633,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n071": {
@@ -7272,6 +7651,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "n072": {
@@ -7289,6 +7669,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n073": {
@@ -7302,29 +7683,17 @@
   "phone": "088-212-7860",
   "insuranceType": "ข้าราชการ",
   "allergies": [],
-  "totalComplications": 1,
-  "complicationSummary": [
-   {
-    "type": "death",
-    "count": 1,
-    "lastDate": "17 พ.ค. 2569"
-   }
-  ],
-  "complications": [
-   {
-    "id": "comp-n073-death-4",
-    "type": "death",
-    "severity": "severe",
-    "date": "17 พ.ค. 2569",
-    "dateISO": "2026-05-17",
-    "month": 5,
-    "detail": "ภาวะแทรกซ้อนหลอดเลือดสมอง",
-    "treatment": "admit ICU — เสียชีวิต",
-    "status": "เสียชีวิต"
-   }
-  ],
+  "totalComplications": 0,
+  "complicationSummary": [],
+  "complications": [],
   "currentTherapy": "noacs",
-  "attendingPhysicianId": "dr003"
+  "vitalStatus": "deceased",
+  "attendingPhysicianId": "dr003",
+  "mortality": {
+   "dateISO": "2026-04-29",
+   "date": "29 เม.ย. 2569",
+   "reason": "เลือดออกในสมองรุนแรง"
+  }
  },
  "n074": {
   "id": "n074",
@@ -7341,6 +7710,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n075": {
@@ -7358,6 +7728,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n076": {
@@ -7375,6 +7746,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "n077": {
@@ -7392,6 +7764,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Ibuprofen",
@@ -7418,6 +7791,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n079": {
@@ -7435,6 +7809,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Verapamil",
@@ -7461,6 +7836,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n081": {
@@ -7478,6 +7854,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n082": {
@@ -7506,6 +7883,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n083": {
@@ -7529,6 +7907,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n084": {
@@ -7546,6 +7925,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n085": {
@@ -7563,6 +7943,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n086": {
@@ -7580,6 +7961,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n087": {
@@ -7597,6 +7979,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Diltiazem",
@@ -7623,6 +8006,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n089": {
@@ -7640,6 +8024,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n090": {
@@ -7663,6 +8048,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "n091": {
@@ -7680,6 +8066,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n092": {
@@ -7697,6 +8084,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n093": {
@@ -7720,6 +8108,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n094": {
@@ -7737,6 +8126,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n095": {
@@ -7754,6 +8144,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n096": {
@@ -7777,6 +8168,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n097": {
@@ -7794,6 +8186,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n098": {
@@ -7817,6 +8210,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Diltiazem",
@@ -7843,6 +8237,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n100": {
@@ -7860,6 +8255,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n101": {
@@ -7877,6 +8273,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "n102": {
@@ -7894,6 +8291,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n103": {
@@ -7911,6 +8309,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n104": {
@@ -7939,6 +8338,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n105": {
@@ -7956,6 +8356,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n106": {
@@ -7973,6 +8374,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n107": {
@@ -8008,6 +8410,7 @@
    }
   ],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n108": {
@@ -8031,6 +8434,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n109": {
@@ -8048,6 +8452,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n110": {
@@ -8071,6 +8476,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n111": {
@@ -8088,6 +8494,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n112": {
@@ -8105,6 +8512,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Amiodarone",
@@ -8137,6 +8545,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n114": {
@@ -8154,6 +8563,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n115": {
@@ -8171,6 +8581,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n116": {
@@ -8194,6 +8605,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n117": {
@@ -8211,6 +8623,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n118": {
@@ -8228,6 +8641,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n119": {
@@ -8245,6 +8659,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n120": {
@@ -8262,6 +8677,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n121": {
@@ -8285,6 +8701,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n122": {
@@ -8313,6 +8730,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n123": {
@@ -8341,6 +8759,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n124": {
@@ -8364,6 +8783,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n125": {
@@ -8387,6 +8807,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Diltiazem",
@@ -8413,6 +8834,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n127": {
@@ -8430,6 +8852,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n128": {
@@ -8447,6 +8870,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n129": {
@@ -8464,6 +8888,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n130": {
@@ -8481,6 +8906,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "n131": {
@@ -8498,6 +8924,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n132": {
@@ -8515,6 +8942,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "n133": {
@@ -8556,6 +8984,7 @@
    }
   ],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n134": {
@@ -8573,6 +9002,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n135": {
@@ -8590,6 +9020,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n136": {
@@ -8613,6 +9044,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Diltiazem",
@@ -8639,6 +9071,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n138": {
@@ -8656,6 +9089,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n139": {
@@ -8673,6 +9107,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n140": {
@@ -8690,6 +9125,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Verapamil",
@@ -8699,7 +9135,17 @@
     "interactionNote": "P-gp inhibitor — ติดตามอาการเลือดออก"
    }
   ],
-  "attendingPhysicianId": "dr006"
+  "attendingPhysicianId": "dr006",
+  "medErrors": [
+   {
+    "id": "mederr-n140-2",
+    "dateISO": "2026-05-21",
+    "date": "21 พ.ค. 2569",
+    "detail": "จ่ายยาซ้ำซ้อน",
+    "severity": "moderate",
+    "status": "ไม่มีผลต่อผู้ป่วย"
+   }
+  ]
  },
  "n141": {
   "id": "n141",
@@ -8722,6 +9168,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n142": {
@@ -8739,6 +9186,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Diltiazem",
@@ -8765,6 +9213,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "n144": {
@@ -8788,6 +9237,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n145": {
@@ -8805,6 +9255,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n146": {
@@ -8822,6 +9273,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n147": {
@@ -8850,6 +9302,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n148": {
@@ -8873,6 +9326,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n149": {
@@ -8896,6 +9350,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n150": {
@@ -8913,6 +9368,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Clopidogrel",
@@ -8939,6 +9395,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n152": {
@@ -8956,6 +9413,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n153": {
@@ -8973,6 +9431,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n154": {
@@ -9001,6 +9460,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n155": {
@@ -9024,6 +9484,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n156": {
@@ -9041,6 +9502,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n157": {
@@ -9058,6 +9520,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n158": {
@@ -9081,6 +9544,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n159": {
@@ -9098,6 +9562,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Diltiazem",
@@ -9124,6 +9589,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n161": {
@@ -9137,29 +9603,17 @@
   "phone": "088-231-4341",
   "insuranceType": "ประกันสังคม",
   "allergies": [],
-  "totalComplications": 1,
-  "complicationSummary": [
-   {
-    "type": "death",
-    "count": 1,
-    "lastDate": "5 เม.ย. 2569"
-   }
-  ],
-  "complications": [
-   {
-    "id": "comp-n161-death-2",
-    "type": "death",
-    "severity": "severe",
-    "date": "5 เม.ย. 2569",
-    "dateISO": "2026-04-05",
-    "month": 4,
-    "detail": "ภาวะแทรกซ้อนหลอดเลือดสมอง",
-    "treatment": "ส่ง ER — ไม่สามารถช่วยชีวิตได้",
-    "status": "เสียชีวิต"
-   }
-  ],
+  "totalComplications": 0,
+  "complicationSummary": [],
+  "complications": [],
   "currentTherapy": "noacs",
-  "attendingPhysicianId": "dr007"
+  "vitalStatus": "deceased",
+  "attendingPhysicianId": "dr007",
+  "mortality": {
+   "dateISO": "2026-05-27",
+   "date": "27 พ.ค. 2569",
+   "reason": "ภาวะหัวใจล้มเหลวเฉียบพลัน"
+  }
  },
  "n162": {
   "id": "n162",
@@ -9176,6 +9630,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n163": {
@@ -9193,6 +9648,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Ibuprofen",
@@ -9230,6 +9686,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Amiodarone",
@@ -9256,6 +9713,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "n166": {
@@ -9273,6 +9731,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Ibuprofen",
@@ -9299,6 +9758,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n168": {
@@ -9316,6 +9776,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "n169": {
@@ -9333,6 +9794,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n170": {
@@ -9350,6 +9812,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n171": {
@@ -9367,6 +9830,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Clopidogrel",
@@ -9393,6 +9857,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n173": {
@@ -9410,6 +9875,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n174": {
@@ -9427,6 +9893,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Verapamil",
@@ -9459,6 +9926,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n176": {
@@ -9476,6 +9944,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n177": {
@@ -9504,6 +9973,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n178": {
@@ -9521,6 +9991,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n179": {
@@ -9538,6 +10009,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n180": {
@@ -9555,6 +10027,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n181": {
@@ -9572,6 +10045,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n182": {
@@ -9595,6 +10069,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Verapamil",
@@ -9627,6 +10102,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Diltiazem",
@@ -9659,6 +10135,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n185": {
@@ -9676,6 +10153,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n186": {
@@ -9693,6 +10171,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n187": {
@@ -9710,6 +10189,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n188": {
@@ -9733,6 +10213,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n189": {
@@ -9750,6 +10231,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n190": {
@@ -9773,6 +10255,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n191": {
@@ -9801,6 +10284,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n192": {
@@ -9829,6 +10313,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n193": {
@@ -9852,6 +10337,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n194": {
@@ -9869,6 +10355,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n195": {
@@ -9886,6 +10373,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n196": {
@@ -9921,6 +10409,7 @@
    }
   ],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n197": {
@@ -9956,6 +10445,7 @@
    }
   ],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n198": {
@@ -9973,6 +10463,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Clopidogrel",
@@ -9999,6 +10490,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Ibuprofen",
@@ -10025,6 +10517,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Diltiazem",
@@ -10057,6 +10550,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Amiodarone",
@@ -10083,6 +10577,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n203": {
@@ -10100,6 +10595,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n204": {
@@ -10117,6 +10613,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n205": {
@@ -10140,6 +10637,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n206": {
@@ -10157,6 +10655,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "n207": {
@@ -10174,6 +10673,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n208": {
@@ -10197,6 +10697,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n209": {
@@ -10214,6 +10715,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n210": {
@@ -10231,6 +10733,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n211": {
@@ -10248,6 +10751,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n212": {
@@ -10265,6 +10769,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Clopidogrel",
@@ -10291,6 +10796,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Amiodarone",
@@ -10323,6 +10829,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n215": {
@@ -10340,6 +10847,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n216": {
@@ -10357,6 +10865,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n217": {
@@ -10374,6 +10883,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n218": {
@@ -10409,6 +10919,7 @@
    }
   ],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n219": {
@@ -10426,6 +10937,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n220": {
@@ -10443,6 +10955,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n221": {
@@ -10460,6 +10973,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n222": {
@@ -10477,6 +10991,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n223": {
@@ -10494,6 +11009,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n224": {
@@ -10529,6 +11045,7 @@
    }
   ],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "n225": {
@@ -10546,6 +11063,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n226": {
@@ -10569,6 +11087,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n227": {
@@ -10586,6 +11105,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Ibuprofen",
@@ -10612,6 +11132,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n229": {
@@ -10629,6 +11150,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n230": {
@@ -10646,6 +11168,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Amiodarone",
@@ -10672,6 +11195,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n232": {
@@ -10695,6 +11219,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n233": {
@@ -10712,6 +11237,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n234": {
@@ -10735,6 +11261,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n235": {
@@ -10752,6 +11279,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n236": {
@@ -10775,6 +11303,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n237": {
@@ -10803,6 +11332,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n238": {
@@ -10826,6 +11356,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n239": {
@@ -10849,6 +11380,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n240": {
@@ -10866,6 +11398,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n241": {
@@ -10883,6 +11416,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Diltiazem",
@@ -10915,6 +11449,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n243": {
@@ -10932,6 +11467,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n244": {
@@ -10949,6 +11485,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Verapamil",
@@ -10975,6 +11512,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n246": {
@@ -10992,6 +11530,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Ibuprofen",
@@ -11047,6 +11586,7 @@
    }
   ],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n248": {
@@ -11064,6 +11604,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n249": {
@@ -11081,6 +11622,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Verapamil",
@@ -11107,6 +11649,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n251": {
@@ -11124,6 +11667,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n252": {
@@ -11141,6 +11685,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n253": {
@@ -11158,6 +11703,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n254": {
@@ -11181,6 +11727,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Clopidogrel",
@@ -11207,6 +11754,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n256": {
@@ -11224,6 +11772,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Amiodarone",
@@ -11250,6 +11799,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n258": {
@@ -11267,6 +11817,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Verapamil",
@@ -11293,6 +11844,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n260": {
@@ -11310,6 +11862,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n261": {
@@ -11333,6 +11886,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Verapamil",
@@ -11359,6 +11913,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n263": {
@@ -11382,7 +11937,18 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
-  "attendingPhysicianId": "dr008"
+  "vitalStatus": "alive",
+  "attendingPhysicianId": "dr008",
+  "medErrors": [
+   {
+    "id": "mederr-n263-1",
+    "dateISO": "2026-05-05",
+    "date": "5 พ.ค. 2569",
+    "detail": "บันทึกขนาดยาคลาดเคลื่อน",
+    "severity": "mild",
+    "status": "แก้ไขแล้ว"
+   }
+  ]
  },
  "n264": {
   "id": "n264",
@@ -11410,6 +11976,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n265": {
@@ -11427,6 +11994,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n266": {
@@ -11450,6 +12018,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n267": {
@@ -11473,6 +12042,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n268": {
@@ -11492,29 +12062,17 @@
     "severity": "moderate"
    }
   ],
-  "totalComplications": 1,
-  "complicationSummary": [
-   {
-    "type": "death",
-    "count": 1,
-    "lastDate": "29 เม.ย. 2569"
-   }
-  ],
-  "complications": [
-   {
-    "id": "comp-n268-death-1",
-    "type": "death",
-    "severity": "severe",
-    "date": "29 เม.ย. 2569",
-    "dateISO": "2026-04-29",
-    "month": 4,
-    "detail": "เลือดออกในสมองรุนแรง",
-    "treatment": "admit ICU — เสียชีวิต",
-    "status": "เสียชีวิต"
-   }
-  ],
+  "totalComplications": 0,
+  "complicationSummary": [],
+  "complications": [],
   "currentTherapy": "noacs",
-  "attendingPhysicianId": "dr003"
+  "vitalStatus": "deceased",
+  "attendingPhysicianId": "dr003",
+  "mortality": {
+   "dateISO": "2026-05-04",
+   "date": "4 พ.ค. 2569",
+   "reason": "ภาวะหัวใจล้มเหลวเฉียบพลัน"
+  }
  },
  "n269": {
   "id": "n269",
@@ -11531,6 +12089,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n270": {
@@ -11554,6 +12113,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n271": {
@@ -11571,6 +12131,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Diltiazem",
@@ -11597,6 +12158,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n273": {
@@ -11614,6 +12176,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n274": {
@@ -11631,6 +12194,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n275": {
@@ -11648,6 +12212,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n276": {
@@ -11665,6 +12230,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n277": {
@@ -11682,6 +12248,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n278": {
@@ -11699,6 +12266,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Verapamil",
@@ -11725,6 +12293,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Clopidogrel",
@@ -11757,6 +12326,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n281": {
@@ -11774,6 +12344,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n282": {
@@ -11797,6 +12368,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n283": {
@@ -11814,6 +12386,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n284": {
@@ -11831,6 +12404,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n285": {
@@ -11848,6 +12422,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Clopidogrel",
@@ -11874,6 +12449,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Verapamil",
@@ -11900,6 +12476,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n288": {
@@ -11917,6 +12494,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n289": {
@@ -11934,6 +12512,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n290": {
@@ -11951,6 +12530,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n291": {
@@ -11992,6 +12572,7 @@
    }
   ],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr002"
  },
  "n292": {
@@ -12009,6 +12590,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr005"
  },
  "n293": {
@@ -12026,6 +12608,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr001"
  },
  "n294": {
@@ -12043,6 +12626,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr007"
  },
  "n295": {
@@ -12066,6 +12650,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n296": {
@@ -12083,6 +12668,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n297": {
@@ -12106,6 +12692,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n298": {
@@ -12129,6 +12716,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "concurrentMedications": [
    {
     "name": "Ibuprofen",
@@ -12155,6 +12743,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n300": {
@@ -12172,6 +12761,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n301": {
@@ -12189,6 +12779,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr006"
  },
  "n302": {
@@ -12206,6 +12797,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr004"
  },
  "n303": {
@@ -12223,6 +12815,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr003"
  },
  "n304": {
@@ -12240,6 +12833,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  },
  "n305": {
@@ -12257,6 +12851,7 @@
   "complicationSummary": [],
   "complications": [],
   "currentTherapy": "noacs",
+  "vitalStatus": "alive",
   "attendingPhysicianId": "dr008"
  }
 }

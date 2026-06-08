@@ -751,15 +751,20 @@ const currentPeriodMetrics = computed<PeriodMetrics>(() => {
   const toMonth   = parseInt(to.substring(5, 7))
 
   for (const pd of Object.values(allDetail.value as Record<string, PatientDetail>)) {
+    // Clinical complications (อาการผิดปกติ) — bleeding / thromboembolism
     for (const c of (pd.complications as ComplicationEvent[]) ?? []) {
       const inRange = c.dateISO
         ? (c.dateISO >= from && c.dateISO <= to)
         : (c.month >= fromMonth && c.month <= toMonth)
       if (!inRange) continue
-      if      (c.type === 'bleeding')            comps.bleeding++
-      else if (c.type === 'thromboembolism')    comps.thrombosis++
-      else if (c.type === 'death')              comps.death++
-      if (c.severity === 'severe')              comps.aeHospitalization++
+      if      (c.type === 'bleeding')         comps.bleeding++
+      else if (c.type === 'thromboembolism')  comps.thrombosis++
+      if (c.severity === 'severe')            comps.aeHospitalization++
+    }
+    // Death (outcome) + medication errors (process) — tracked separately
+    if (pd.mortality && pd.mortality.dateISO >= from && pd.mortality.dateISO <= to) comps.death++
+    for (const me of pd.medErrors ?? []) {
+      if (me.dateISO >= from && me.dateISO <= to) comps.medError++
     }
   }
 
@@ -844,9 +849,10 @@ const currentPeriodMetrics = computed<PeriodMetrics>(() => {
     dispAccepted += disps.filter(d => d.wasTopRecommendation).length
   }
 
-  // medError = patients whose treatment is out-of-range in the period
-  // WF: last INR out of 2.0–3.0 | NOAC: not clinically appropriate
-  comps.medError = (wfActive - wfAppropriate) + (noacActive - noacAppropriate)
+  // medError is a real dispensing/dosing-error EVENT, counted by date in the
+  // complications scan above (like bleeding/thrombosis) — NOT derived from
+  // out-of-range patients (that conflated INR control with a med error and
+  // produced a non-additive ~18%; target is <1%).
 
   const result: PeriodMetrics = {
     comps,

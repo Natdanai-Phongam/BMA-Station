@@ -1,23 +1,24 @@
-// ─── G5: Complications ───────────────────────────────────────────────────────
-// Distributes safety events across Apr–May so every safety KPI stays BELOW target
-// (bleeding<2%, thrombosis<2%, death<1%, severe→aeHosp<5% of ~597 patients).
-// Dashboard counts by type + dateISO, and severity==='severe' → aeHospitalization.
+// ─── G5: Complications + outcomes + med errors ───────────────────────────────
+// Clinical complications (bleeding / thromboembolism) go in the complications
+// list. Death (outcome) and medication errors (process) are tracked SEPARATELY
+// so they don't mix with "อาการผิดปกติ". All distributed across Apr–May so every
+// safety KPI stays BELOW target (bleeding<2%, thrombosis<2%, death<1%,
+// medError<1%, severe→aeHosp<5% of ~597 patients).
 // ─────────────────────────────────────────────────────────────────────────────
 
-import type { ComplicationEvent, ComplicationSummary, Severity } from '../../src/data/types/patient-detail'
+import type { ComplicationEvent, ComplicationSummary, Severity, Mortality, MedErrorEvent } from '../../src/data/types/patient-detail'
 import { DATA_WINDOW } from '../../src/data/config/data-window'
 import { randInt, pick, weighted, shuffle } from './rng'
-import { addDays, parseISO, thaiDate, isoDate, THAI_MONTHS } from './pools'
+import { addDays, parseISO, thaiDate, isoDate } from './pools'
 import type { GenPatient } from './identity'
 
 const WINDOW_START = parseISO(DATA_WINDOW.start)
 const WINDOW_DAYS = Math.round((+parseISO(DATA_WINDOW.end) - +WINDOW_START) / 86400000)
 
-// Broaden the persisted type (data carries 'death' beyond the TS union, as existing mock does)
-type CompType = 'bleeding' | 'thromboembolism' | 'death'
+type ClinType = 'bleeding' | 'thromboembolism'
 
 interface Spec {
-  type: CompType
+  type: ClinType
   count: number
   details: string[]
   treatments: string[]
@@ -40,58 +41,81 @@ const SPECS: Spec[] = [
     statuses: ['อาการดีขึ้น', 'อยู่ระหว่างรักษา', 'ฟื้นตัว'],
     severities: [['moderate', 55], ['severe', 45]],
   },
-  {
-    type: 'death', count: 4,
-    details: ['เลือดออกในสมองรุนแรง', 'ภาวะแทรกซ้อนหลอดเลือดสมอง', 'ภาวะหัวใจล้มเหลวเฉียบพลัน'],
-    treatments: ['ส่ง ER — ไม่สามารถช่วยชีวิตได้', 'admit ICU — เสียชีวิต'],
-    statuses: ['เสียชีวิต'],
-    severities: [['severe', 100]],
-  },
 ]
 
-export function generateComplications(patients: GenPatient[]): Map<string, ComplicationEvent[]> {
-  const byPatient = new Map<string, ComplicationEvent[]>()
-  // candidates: patients enrolled (exclude none) — shuffle for assignment
+const DEATH_REASONS = ['เลือดออกในสมองรุนแรง', 'ภาวะแทรกซ้อนหลอดเลือดสมอง', 'ภาวะหัวใจล้มเหลวเฉียบพลัน', 'ติดเชื้อในกระแสเลือด']
+const MEDERR_DETAILS = ['จ่ายยาผิดขนาด (ตรวจพบก่อนผู้ป่วยรับยา)', 'บันทึกขนาดยาคลาดเคลื่อน', 'จ่ายยาซ้ำซ้อน', 'ความถี่การให้ยาผิด']
+const MEDERR_STATUS = ['แก้ไขแล้ว', 'ไม่มีผลต่อผู้ป่วย']
+
+const DEATH_COUNT = 4
+const MEDERR_COUNT = 5
+
+export interface SafetyData {
+  complications: Map<string, ComplicationEvent[]>
+  mortality: Map<string, Mortality>
+  medErrors: Map<string, MedErrorEvent[]>
+}
+
+export function generateSafety(patients: GenPatient[]): SafetyData {
+  const complications = new Map<string, ComplicationEvent[]>()
+  const mortality = new Map<string, Mortality>()
+  const medErrors = new Map<string, MedErrorEvent[]>()
+
   const pool = shuffle('comp:pool', patients.map(p => p.id))
   let cursor = 0
+  const next = () => pool[cursor++ % pool.length]
+  const dateAt = (key: string) => addDays(WINDOW_START, randInt(`${key}:day`, 0, WINDOW_DAYS))
 
+  // Clinical complications
   for (const spec of SPECS) {
     for (let k = 0; k < spec.count; k++) {
-      const pid = pool[cursor++ % pool.length]
+      const pid = next()
       const key = `${spec.type}:${k}`
-      const day = randInt(`comp:${key}:day`, 0, WINDOW_DAYS)
-      const date = addDays(WINDOW_START, day)
-      const severity = weighted<Severity>(`comp:${key}:sev`, spec.severities)
+      const date = dateAt(`comp:${key}`)
       const ev: ComplicationEvent = {
         id: `comp-${pid}-${spec.type}-${k + 1}`,
-        type: spec.type as ComplicationEvent['type'],
-        severity,
-        date: thaiDate(date),
-        dateISO: isoDate(date),
-        month: date.getUTCMonth() + 1,
+        type: spec.type,
+        severity: weighted<Severity>(`comp:${key}:sev`, spec.severities),
+        date: thaiDate(date), dateISO: isoDate(date), month: date.getUTCMonth() + 1,
         detail: pick(`comp:${key}:detail`, spec.details),
         treatment: pick(`comp:${key}:tx`, spec.treatments),
         status: pick(`comp:${key}:st`, spec.statuses),
       }
-      const arr = byPatient.get(pid) ?? []
-      arr.push(ev)
-      byPatient.set(pid, arr)
+      const arr = complications.get(pid) ?? []; arr.push(ev); complications.set(pid, arr)
     }
   }
-  return byPatient
+
+  // Death (outcome flag)
+  for (let k = 0; k < DEATH_COUNT; k++) {
+    const pid = next()
+    const date = dateAt(`death:${k}`)
+    mortality.set(pid, { dateISO: isoDate(date), date: thaiDate(date), reason: pick(`death:${k}:r`, DEATH_REASONS) })
+  }
+
+  // Medication errors (process events)
+  for (let k = 0; k < MEDERR_COUNT; k++) {
+    const pid = next()
+    const date = dateAt(`mederr:${k}`)
+    const ev: MedErrorEvent = {
+      id: `mederr-${pid}-${k + 1}`,
+      dateISO: isoDate(date), date: thaiDate(date),
+      detail: pick(`mederr:${k}:d`, MEDERR_DETAILS),
+      severity: weighted<Severity>(`mederr:${k}:sev`, [['mild', 70], ['moderate', 30]]),
+      status: pick(`mederr:${k}:st`, MEDERR_STATUS),
+    }
+    const arr = medErrors.get(pid) ?? []; arr.push(ev); medErrors.set(pid, arr)
+  }
+
+  return { complications, mortality, medErrors }
 }
 
-/** Build the per-patient complicationSummary from events. */
+/** Per-patient complicationSummary from clinical complications. */
 export function complicationSummary(events: ComplicationEvent[]): ComplicationSummary[] {
   const m = new Map<string, ComplicationEvent[]>()
-  for (const e of events) {
-    const arr = m.get(e.type) ?? []; arr.push(e); m.set(e.type, arr)
-  }
+  for (const e of events) { const arr = m.get(e.type) ?? []; arr.push(e); m.set(e.type, arr) }
   return [...m.entries()].map(([type, evs]) => ({
     type: type as ComplicationSummary['type'],
     count: evs.length,
     lastDate: evs.map(e => e.date).sort().at(-1) ?? evs[0].date,
   }))
 }
-
-export { THAI_MONTHS }

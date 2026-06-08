@@ -18,7 +18,7 @@ import { generateIdentities, summarize, type GenPatient } from './gen/identity'
 import { indexPatients } from './gen/schedule'
 import { generateWarfarin } from './gen/warfarin'
 import { generateNoac } from './gen/noac'
-import { generateComplications, complicationSummary } from './gen/complications'
+import { generateSafety, complicationSummary } from './gen/complications'
 import { buildAtsPatients, buildPatientList } from './gen/lists'
 import { patchKpiOperational, buildKpiSummary } from './gen/kpi'
 
@@ -34,7 +34,7 @@ function toPatientDetail(p: GenPatient): DetailRow {
     bloodGroup: p.bloodGroup, phone: p.phone, insuranceType: p.insuranceType,
     allergies: p.allergies,
     totalComplications: 0, complicationSummary: [], complications: [],
-    currentTherapy: p.therapy,
+    currentTherapy: p.therapy, vitalStatus: 'alive',
     ...(p.concurrentMedications?.length ? { concurrentMedications: p.concurrentMedications } : {}),
     attendingPhysicianId: p.attendingPhysicianId,
   }
@@ -59,12 +59,17 @@ function main() {
   // G1 detail + G5 complications merge
   const detail: Record<string, DetailRow> = {}
   for (const p of patients) detail[p.id] = toPatientDetail(p)
-  const compMap = generateComplications(patients)
+  const safety = generateSafety(patients)
   for (const p of patients) {
-    const evs = compMap.get(p.id) ?? []
+    const evs = safety.complications.get(p.id) ?? []
     detail[p.id].complications = evs
     detail[p.id].totalComplications = evs.length
     detail[p.id].complicationSummary = complicationSummary(evs)
+    const mort = safety.mortality.get(p.id)
+    detail[p.id].vitalStatus = mort ? 'deceased' : 'alive'
+    if (mort) detail[p.id].mortality = mort
+    const me = safety.medErrors.get(p.id)
+    if (me?.length) detail[p.id].medErrors = me
   }
 
   // G6 lists
@@ -74,7 +79,7 @@ function main() {
   // G7 kpi
   const kpiOpsExisting = JSON.parse(readFileSync(resolve(MOCK_DIR, 'kpi-operational.json'), 'utf-8'))
   const kpiOps = patchKpiOperational(kpiOpsExisting)
-  const kpiSummary = buildKpiSummary(warfarin, noac, compMap, kpiOps)
+  const kpiSummary = buildKpiSummary(warfarin, noac, safety, kpiOps)
 
   // ── Write production + preview ──────────────────────────────────────────────
   mkdirSync(PREVIEW_DIR, { recursive: true })
@@ -99,7 +104,7 @@ function main() {
   const goalMet = wfArr.filter(w => w.ttr.status === 'goal-met').length
   const inRange = wfArr.filter(w => { const r = w.profile.targetRange ?? { min: 2, max: 3 }; const v = w.latestInr.inrValue; return v >= r.min && v <= r.max }).length
   const apt = noArr.filter(n => n.profile.status === 'appropriate').length
-  const allComps = [...compMap.values()].flat()
+  const allComps = [...safety.complications.values()].flat()
   const compBy = (t: string) => allComps.filter(c => (c.type as string) === t).length
 
   console.log('── Summary ─────────────────────────────────────────')
@@ -107,7 +112,8 @@ function main() {
   console.log(`  NOAC indication ${JSON.stringify(s.noacIndication)} · edges ${s.edgeCases.length}`)
   console.log(`  WF: ${wfArr.reduce((a, w) => a + w.inrHistory.length, 0)} INR · TTR goal-met ${Math.round(goalMet / wfArr.length * 100)}% · in-range ${Math.round(inRange / wfArr.length * 100)}%`)
   console.log(`  NOAC: ${noArr.reduce((a, n) => a + n.dispensingHistory.length, 0)} dispensing · appropriate ${Math.round(apt / noArr.length * 100)}%`)
-  console.log(`  complications: bleeding ${compBy('bleeding')} · thrombosis ${compBy('thromboembolism')} · death ${compBy('death')} · severe ${allComps.filter(c => c.severity === 'severe').length} (denom ${s.total})`)
+  console.log(`  complications: bleeding ${compBy('bleeding')} · thrombosis ${compBy('thromboembolism')} · severe→aeHosp ${allComps.filter(c => c.severity === 'severe').length} (denom ${s.total})`)
+  console.log(`  outcomes: deceased ${safety.mortality.size} · medErrors ${[...safety.medErrors.values()].flat().length}`)
   console.log(`  kpi: patientsPerDay ${kpiOps.month.efficiency.patientsPerDay}/วัน`)
   console.log('\n✅ wrote 7 files → src/data/mock/ (+ preview)\n')
 }

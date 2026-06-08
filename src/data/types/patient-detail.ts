@@ -43,6 +43,27 @@ export interface ComplicationSummary {
   lastDate: string
 }
 
+// ── Patient outcome / safety events kept SEPARATE from clinical complications ──
+// Death is an outcome (not an "อาการผิดปกติ"); medication errors are process
+// events. Both are tracked apart from the complications list shown in the
+// complications tab, but still feed the dashboard safety KPIs.
+export type VitalStatus = 'alive' | 'deceased'
+
+export interface Mortality {
+  dateISO: string   // ISO/CE date of death
+  date:    string   // Thai display date
+  reason:  string
+}
+
+export interface MedErrorEvent {
+  id:       string
+  dateISO:  string
+  date:     string
+  detail:   string
+  severity: Severity
+  status:   string
+}
+
 export interface PatientDetail {
   id:                     string
   name:                   string
@@ -61,4 +82,10 @@ export interface PatientDetail {
   currentTherapy:          CurrentTherapy
   /** Current concurrent medications (shared across Warfarin + NOACs) */
   concurrentMedications?:  ConcurrentMedication[]
+  /** Patient outcome — defaults to 'alive'. Kept separate from complications. */
+  vitalStatus?:            VitalStatus
+  /** Death record (present when vitalStatus === 'deceased') */
+  mortality?:              Mortality
+  /** Medication dispensing/dosing errors — separate from clinical complications */
+  medErrors?:              MedErrorEvent[]
 }

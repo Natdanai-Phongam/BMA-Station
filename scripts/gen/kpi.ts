@@ -6,8 +6,8 @@
 
 import type { WarfarinPageData } from '../../src/data/types/warfarin'
 import type { NoacPatientData } from '../../src/data/types/noac-dispensing'
-import type { ComplicationEvent } from '../../src/data/types/patient-detail'
 import type { KpiSummary, KpiPeriodSummary } from '../../src/data/repository/types'
+import type { SafetyData } from './complications'
 import { DEFAULT_TARGET_RANGE, DEFAULT_TTR_GOAL_PCT } from '../../src/data/types/warfarin'
 import { DATA_WINDOW } from '../../src/data/config/data-window'
 import { randInt } from './rng'
@@ -37,12 +37,14 @@ const PERIODS: Record<'month' | 'quarter' | 'year', [string, string]> = {
 export function buildKpiSummary(
   warfarin: Record<string, WarfarinPageData>,
   noac: Record<string, NoacPatientData>,
-  complications: Map<string, ComplicationEvent[]>,
+  safety: SafetyData,
   kpiOps: any,
 ): KpiSummary {
   const wfArr = Object.values(warfarin)
   const noArr = Object.values(noac)
-  const allComps = [...complications.values()].flat()
+  const allComps = [...safety.complications.values()].flat()
+  const allDeaths = [...safety.mortality.values()]
+  const allMedErrors = [...safety.medErrors.values()].flat()
 
   const periods = {} as Record<'month' | 'quarter' | 'year', KpiPeriodSummary>
   for (const key of ['month', 'quarter', 'year'] as const) {
@@ -65,12 +67,12 @@ export function buildKpiSummary(
       appropriate: noArr.filter(n => n.profile.status === 'appropriate').length,
     }
     const comps = allComps.filter(c => inWin(c.dateISO))
-    const safety = {
+    const safetySum = {
       bleeding: comps.filter(c => c.type === 'bleeding').length,
-      thrombosis: comps.filter(c => (c.type as string) === 'thromboembolism').length,
+      thrombosis: comps.filter(c => c.type === 'thromboembolism').length,
       aeHosp: comps.filter(c => c.severity === 'severe').length,
-      death: comps.filter(c => (c.type as string) === 'death').length,
-      medError: 0,
+      death: allDeaths.filter(d => inWin(d.dateISO)).length,
+      medError: allMedErrors.filter(e => inWin(e.dateISO)).length,
       denom: wfArr.length + noArr.length,
     }
     const ops = kpiOps[key] ?? {}
@@ -80,7 +82,7 @@ export function buildKpiSummary(
       responseTimeHr: ops.atsResponseTime?.value ?? 1.6,
       resolutionTimeHr: ops.atsResolutionTime?.value ?? 18.5,
     }
-    periods[key] = { wf, noac: noacSum, safety, ats }
+    periods[key] = { wf, noac: noacSum, safety: safetySum, ats }
   }
 
   return { generatedAt: new Date().toISOString(), mockNow: DATA_WINDOW.mockNow, periods }
