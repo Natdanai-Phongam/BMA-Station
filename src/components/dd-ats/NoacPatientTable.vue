@@ -96,8 +96,8 @@
                 <div class="patient-name">{{ p.name }}</div>
                 <div class="patient-hn-row">
                   <span class="patient-hn">{{ p.hn }}</span>
-                  <span v-if="p.noac" class="indication-chip">
-                    {{ indicationChipLabel[p.noac.profile.indication] }}
+                  <span class="indication-chip">
+                    {{ indicationChipLabel[p.indication] }}
                   </span>
                 </div>
               </td>
@@ -108,11 +108,11 @@
                 </span>
               </td>
               <td class="col-drug">
-                <template v-if="p.noac">
+                <template v-if="p.drug">
                   <div class="drug-inline">
-                    <span class="drug-name">{{ drugDisplayLabel[p.noac.profile.currentDrug] }}</span>
+                    <span class="drug-name">{{ drugDisplayLabel[p.drug] }}</span>
                     <span class="drug-sep">·</span>
-                    <span class="drug-dose">{{ p.noac.profile.currentDose }}</span>
+                    <span class="drug-dose">{{ p.dose }}</span>
                   </div>
                 </template>
                 <span v-else class="col-dash">—</span>
@@ -132,12 +132,9 @@
                 </div>
               </td>
               <td class="col-concordance">
-                <template v-if="p.noac?.dispensingHistory?.length">
-                  <span
-                    class="concordance-badge"
-                    :class="concordanceBadgeClass(lastDispensing(p.noac))"
-                  >
-                    {{ concordanceLabel(lastDispensing(p.noac)) }}
+                <template v-if="p.concordanceClass !== 'concordance--none'">
+                  <span class="concordance-badge" :class="p.concordanceClass">
+                    {{ p.concordanceLabel }}
                   </span>
                 </template>
                 <span v-else class="col-dash">—</span>
@@ -163,11 +160,11 @@ import { ref, computed, watch } from 'vue'
 import {
   PhMagnifyingGlass, PhCalendar, PhX, PhArrowSquareOut, PhWarningCircle,
 } from '@phosphor-icons/vue'
-import type { EnrichedNoacPatient } from '@/data/types/ats-patients'
-import { lastDispensing, concordanceBadgeClass, concordanceLabel, noacsStatusLabel, drugDisplayLabel, indicationChipLabel } from '@/utils/noac-helpers'
+import type { NoacListEntry } from '@/data/repository'
+import { noacsStatusLabel, drugDisplayLabel, indicationChipLabel } from '@/utils/noac-helpers'
 import BmaTablePagination from '@/components/BmaTablePagination.vue'
 
-const props = defineProps<{ rows: EnrichedNoacPatient[] }>()
+const props = defineProps<{ rows: NoacListEntry[] }>()
 const emit  = defineEmits<{ 'go-to-patient': [id: string] }>()
 
 // ── Filter state ──────────────────────────────────────────────────────────────
@@ -220,7 +217,7 @@ const filteredRows = computed(() => {
   }
   if (activeDateFrom.value || activeDateTo.value) {
     list = list.filter(p => {
-      const d = lastDispensing(p.noac)?.dispensedAt?.substring(0, 10)
+      const d = p.lastDispensedAt?.substring(0, 10)
       if (!d) return false
       if (activeDateFrom.value && d < activeDateFrom.value) return false
       if (activeDateTo.value   && d > activeDateTo.value)   return false

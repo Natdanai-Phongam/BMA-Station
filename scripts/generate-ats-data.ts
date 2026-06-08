@@ -80,7 +80,7 @@ function main() {
   // G7 kpi
   const kpiOpsExisting = JSON.parse(readFileSync(resolve(MOCK_DIR, 'kpi-operational.json'), 'utf-8'))
   const kpiOps = patchKpiOperational(kpiOpsExisting)
-  const kpiSummary = buildKpiSummary(warfarin, noac, safety, kpiOps)
+  const kpiSummary = buildKpiSummary(warfarin, noac, detail)
 
   // Consultations (regen for new patient ids)
   const physicians = JSON.parse(readFileSync(resolve(MOCK_DIR, 'physicians.json'), 'utf-8')) as Record<string, { name: string }>

@@ -1,20 +1,22 @@
 // ─── G7: KPI files ───────────────────────────────────────────────────────────
 // patchKpiOperational → bump mock patientsPerDay (~45) / workloadRatio, keep rest.
-// buildKpiSummary    → pre-aggregate data-derived KPIs per period (§3.5) for the
-//                      dashboard's future light path (Tier-1 wiring deferred).
+// buildKpiSummary    → PRE-COMPUTE PeriodMetrics for every period range the
+//                      dashboard can request (months + ranges + quarter + year),
+//                      using the shared computePeriodMetrics. The dashboard then
+//                      reads these instead of scanning the raw dataset (§3.11).
 // ─────────────────────────────────────────────────────────────────────────────
 
 import type { WarfarinPageData } from '../../src/data/types/warfarin'
 import type { NoacPatientData } from '../../src/data/types/noac-dispensing'
-import type { KpiSummary, KpiPeriodSummary } from '../../src/data/repository/types'
-import type { SafetyData } from './complications'
-import { DEFAULT_TARGET_RANGE, DEFAULT_TTR_GOAL_PCT } from '../../src/data/types/warfarin'
+import type { PatientDetail } from '../../src/data/types/patient-detail'
+import type { KpiSummary } from '../../src/data/repository/types'
+import { computePeriodMetrics } from '../../src/utils/kpi-metrics'
 import { DATA_WINDOW } from '../../src/data/config/data-window'
 import { randInt } from './rng'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function patchKpiOperational(existing: any): any {
-  const k = structuredCloneSafe(existing)
+  const k = JSON.parse(JSON.stringify(existing))
   const perDay: Record<string, number> = { month: 45, quarter: 44, year: 43 }
   for (const period of ['month', 'quarter', 'year']) {
     if (!k[period]?.efficiency) continue
@@ -26,64 +28,49 @@ export function patchKpiOperational(existing: any): any {
   return k
 }
 
-function structuredCloneSafe<T>(o: T): T { return JSON.parse(JSON.stringify(o)) }
+function pad(n: number): string { return String(n).padStart(2, '0') }
+function lastDay(y: number, m: number): number { return new Date(Date.UTC(y, m, 0)).getUTCDate() }
 
-const PERIODS: Record<'month' | 'quarter' | 'year', [string, string]> = {
-  month: ['2026-05-01', DATA_WINDOW.end],
-  quarter: [DATA_WINDOW.start, DATA_WINDOW.end],
-  year: [DATA_WINDOW.start, DATA_WINDOW.end],
+/** Every [from,to] range the dashboard's period selector can produce for this
+ *  window: each month, each from→to month pair, the quarter, and the year
+ *  (Jan→current, capped at mockNow). Keyed "from|to". */
+function periodRanges(): string[] {
+  const start = DATA_WINDOW.start, end = DATA_WINDOW.end
+  const [sy, sm] = start.split('-').map(Number)
+  const [ey, em] = end.split('-').map(Number)
+  const months: { y: number; m: number }[] = []
+  for (let y = sy, m = sm; y < ey || (y === ey && m <= em); m === 12 ? (y++, m = 1) : m++) months.push({ y, m })
+
+  const keys = new Set<string>()
+  // month + month-pair ranges
+  for (let i = 0; i < months.length; i++) {
+    for (let j = i; j < months.length; j++) {
+      const a = months[i], b = months[j]
+      keys.add(`${a.y}-${pad(a.m)}-01|${b.y}-${pad(b.m)}-${pad(lastDay(b.y, b.m))}`)
+    }
+  }
+  // year (Jan 1 of mockNow year → end)
+  keys.add(`${ey}-01-01|${end}`)
+  return [...keys]
 }
 
 export function buildKpiSummary(
   warfarin: Record<string, WarfarinPageData>,
   noac: Record<string, NoacPatientData>,
-  safety: SafetyData,
-  kpiOps: any,
+  details: Record<string, PatientDetail>,
 ): KpiSummary {
-  const wfArr = Object.values(warfarin)
-  const noArr = Object.values(noac)
-  const allComps = [...safety.complications.values()].flat()
-  const allDeaths = [...safety.mortality.values()]
-  const allMedErrors = [...safety.medErrors.values()].flat()
-
-  const periods = {} as Record<'month' | 'quarter' | 'year', KpiPeriodSummary>
-  for (const key of ['month', 'quarter', 'year'] as const) {
-    const [from, to] = PERIODS[key]
-    const inWin = (iso?: string) => !!iso && iso >= from && iso <= to
-
-    const ttrVals = wfArr.map(w => w.ttr.value)
-    const wf = {
-      total: wfArr.length,
-      ttrGoalMet: wfArr.filter(w => w.ttr.value >= DEFAULT_TTR_GOAL_PCT).length,
-      ttrAvg: Math.round((ttrVals.reduce((a, b) => a + b, 0) / wfArr.length) * 10) / 10,
-      inrInRange: wfArr.filter(w => {
-        const r = w.profile.targetRange ?? DEFAULT_TARGET_RANGE
-        const v = w.latestInr.inrValue
-        return v >= r.min && v <= r.max
-      }).length,
-    }
-    const noacSum = {
-      total: noArr.length,
-      appropriate: noArr.filter(n => n.profile.status === 'appropriate').length,
-    }
-    const comps = allComps.filter(c => inWin(c.dateISO))
-    const safetySum = {
-      bleeding: comps.filter(c => c.type === 'bleeding').length,
-      thrombosis: comps.filter(c => c.type === 'thromboembolism').length,
-      aeHosp: comps.filter(c => c.severity === 'severe').length,
-      death: allDeaths.filter(d => inWin(d.dateISO)).length,
-      medError: allMedErrors.filter(e => inWin(e.dateISO)).length,
-      denom: wfArr.length + noArr.length,
-    }
-    const ops = kpiOps[key] ?? {}
-    const ats = {
-      resolutionRate: ops.atsResolution?.value ?? 85,
-      acceptanceRate: ops.atsAcceptancePrev?.value ?? 82,
-      responseTimeHr: ops.atsResponseTime?.value ?? 1.6,
-      resolutionTimeHr: ops.atsResolutionTime?.value ?? 18.5,
-    }
-    periods[key] = { wf, noac: noacSum, safety: safetySum, ats }
+  const input = { warfarin, noac, details }
+  const ranges: Record<string, ReturnType<typeof computePeriodMetrics>> = {}
+  for (const key of periodRanges()) {
+    const [from, to] = key.split('|')
+    ranges[key] = computePeriodMetrics(input, from, to)
   }
-
-  return { generatedAt: new Date().toISOString(), mockNow: DATA_WINDOW.mockNow, periods }
+  return {
+    meta: {
+      generatedAt: `${DATA_WINDOW.mockNow}T08:00:00`,
+      mockNow: DATA_WINDOW.mockNow,
+      dataMinDate: DATA_WINDOW.start,
+    },
+    ranges,
+  }
 }

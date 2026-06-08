@@ -1,83 +1,100 @@
 {
- "generatedAt": "2026-06-08T09:01:36.876Z",
- "mockNow": "2026-05-31",
- "periods": {
-  "month": {
+ "meta": {
+  "generatedAt": "2026-05-31T08:00:00",
+  "mockNow": "2026-05-31",
+  "dataMinDate": "2026-04-01"
+ },
+ "ranges": {
+  "2026-04-01|2026-04-30": {
+   "comps": {
+    "bleeding": 3,
+    "thrombosis": 6,
+    "aeHospitalization": 2,
+    "death": 2,
+    "medError": 1
+   },
    "wf": {
-    "total": 292,
-    "ttrGoalMet": 220,
-    "ttrAvg": 85.2,
-    "inrInRange": 244
+    "active": 243,
+    "appropriate": 198,
+    "ttrGoalMet": 181,
+    "ttrTotal": 243,
+    "adjTotal": 343,
+    "adjAccepted": 276
    },
    "noac": {
-    "total": 305,
-    "appropriate": 253
+    "active": 176,
+    "appropriate": 155,
+    "dispTotal": 180,
+    "dispAccepted": 131
+   }
+  },
+  "2026-04-01|2026-05-31": {
+   "comps": {
+    "bleeding": 10,
+    "thrombosis": 9,
+    "aeHospitalization": 3,
+    "death": 4,
+    "medError": 5
    },
-   "safety": {
+   "wf": {
+    "active": 292,
+    "appropriate": 236,
+    "ttrGoalMet": 220,
+    "ttrTotal": 292,
+    "adjTotal": 821,
+    "adjAccepted": 659
+   },
+   "noac": {
+    "active": 305,
+    "appropriate": 276,
+    "dispTotal": 491,
+    "dispAccepted": 344
+   }
+  },
+  "2026-05-01|2026-05-31": {
+   "comps": {
     "bleeding": 7,
     "thrombosis": 3,
-    "aeHosp": 1,
+    "aeHospitalization": 1,
     "death": 2,
-    "medError": 4,
-    "denom": 597
+    "medError": 4
    },
-   "ats": {
-    "resolutionRate": 66.7,
-    "acceptanceRate": 82,
-    "responseTimeHr": 1.8,
-    "resolutionTimeHr": 18.5
-   }
-  },
-  "quarter": {
    "wf": {
-    "total": 292,
+    "active": 292,
+    "appropriate": 236,
     "ttrGoalMet": 220,
-    "ttrAvg": 85.2,
-    "inrInRange": 244
+    "ttrTotal": 292,
+    "adjTotal": 478,
+    "adjAccepted": 383
    },
    "noac": {
-    "total": 305,
-    "appropriate": 253
-   },
-   "safety": {
-    "bleeding": 10,
-    "thrombosis": 9,
-    "aeHosp": 3,
-    "death": 4,
-    "medError": 5,
-    "denom": 597
-   },
-   "ats": {
-    "resolutionRate": 71.4,
-    "acceptanceRate": 82,
-    "responseTimeHr": 1.9,
-    "resolutionTimeHr": 19.2
+    "active": 297,
+    "appropriate": 247,
+    "dispTotal": 311,
+    "dispAccepted": 213
    }
   },
-  "year": {
-   "wf": {
-    "total": 292,
-    "ttrGoalMet": 220,
-    "ttrAvg": 85.2,
-    "inrInRange": 244
-   },
-   "noac": {
-    "total": 305,
-    "appropriate": 253
-   },
-   "safety": {
+  "2026-01-01|2026-05-31": {
+   "comps": {
     "bleeding": 10,
     "thrombosis": 9,
-    "aeHosp": 3,
+    "aeHospitalization": 3,
     "death": 4,
-    "medError": 5,
-    "denom": 597
+    "medError": 5
    },
-   "ats": {
-    "resolutionRate": 74.2,
-    "acceptanceRate": 82,
-    "responseTimeHr": 1.7,
-    "resolutionTimeHr": 17.8
+   "wf": {
+    "active": 292,
+    "appropriate": 236,
+    "ttrGoalMet": 220,
+    "ttrTotal": 292,
+    "adjTotal": 821,
+    "adjAccepted": 659
+   },
+   "noac": {
+    "active": 305,
+    "appropriate": 276,
+    "dispTotal": 491,
+    "dispAccepted": 344
    }
   }
  }

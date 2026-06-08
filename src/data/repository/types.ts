@@ -25,28 +25,22 @@ import type { Physician } from '@/data/types/physician'
 export type ConsultationsData = Record<string, unknown>
 
 // ─── KPI Summary contract (pre-aggregated) ───────────────────────────────────
-// Produced by the generator (PART B) so the dashboard reads a tiny summary
-// instead of computing KPIs from the full raw patient set. Defined here now so
-// the contract is stable before the generator fills it.
-// NOTE: getKpiSummary() lands in #5 P4 (staticDriver computes it transiently
-//       from raw until the generator emits kpi-summary.json).
-export interface KpiPeriodSummary {
-  wf:   { total: number; ttrGoalMet: number; ttrAvg: number; inrInRange: number }
-  noac: { total: number; appropriate: number }
-  safety: {
-    bleeding: number; thrombosis: number; aeHosp: number
-    death: number; medError: number; denom: number
-  }
-  ats: {
-    resolutionRate: number; acceptanceRate: number
-    responseTimeHr: number; resolutionTimeHr: number
-  }
+// The generator pre-computes PeriodMetrics for every period range the dashboard
+// can request (keyed "from|to"), so the dashboard reads the result instead of
+// scanning the full raw patient set on every period change. See §3.11 / §3.5.
+import type { PeriodMetrics } from '@/data/types/kpi-operational'
+
+export interface KpiSummaryMeta {
+  generatedAt: string
+  mockNow: string
+  /** Earliest date present in the data → month-picker lower bound */
+  dataMinDate: string
 }
 
 export interface KpiSummary {
-  generatedAt: string
-  mockNow: string
-  periods: Record<'month' | 'quarter' | 'year', KpiPeriodSummary>
+  meta: KpiSummaryMeta
+  /** PeriodMetrics keyed by "YYYY-MM-DD|YYYY-MM-DD" (period from|to) */
+  ranges: Record<string, PeriodMetrics>
 }
 
 // ─── Patient-list projection (Tier-1, light) ─────────────────────────────────
@@ -67,10 +61,12 @@ export interface WfListEntry {
   status: WarfarinStatus              // precomputed (was derived from latestInr)
   inr: { value: number; alert: boolean }
   crcl: { value: number; alert: boolean }
+  inrDate: string                     // latestInr.measuredAt (date filter)
   ttrValue: number; ttrStatus: TtrStatus
   currentDoseMgWk: number
-  majorInteractions: { name: string; note: string }[]
+  majorInteractions: { name: string; note: string; effect: string }[]
   concordanceLabel: string            // precomputed from last dose adjustment
+  concordanceClass: string            // badge class (concordance--yes/adjusted/no/none)
 }
 
 export interface NoacListEntry {
@@ -83,6 +79,8 @@ export interface NoacListEntry {
   crcl: { value: number; alert: boolean }
   egfr: { value: number; alert: boolean }
   concordanceLabel: string
+  concordanceClass: string            // badge class (concordance--yes/adjusted/no/none)
+  lastDispensedAt: string | null      // for sorting by recency
   lab: NoacLabData | null
 }
 
@@ -115,9 +113,9 @@ export interface DataRepository {
   // consultation threads
   getConsultations(): Promise<ConsultationsData>
 
-  // ── Filled by the generator (added when the generator emits the files) ─────
-  // getPatientList(): Promise<PatientListData>   // Tier-1 light list for dashboard tables
-  // getKpiSummary(): Promise<KpiSummary>         // pre-aggregated KPIs for dashboard
+  // ── Tier-1 light projections (generator-produced) ──────────────────────────
+  getPatientList(): Promise<PatientListData>   // light list for dashboard tables
+  getKpiSummary(): Promise<KpiSummary>         // pre-aggregated KPIs per period range
 
   // ── Future (Scope B — real server-side windowing) ──────────────────────────
   // getWarfarinPatientsWindowed(range: { from: string; to: string }): Promise<Record<string, WarfarinPageData>>

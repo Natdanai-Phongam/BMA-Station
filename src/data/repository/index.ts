@@ -12,6 +12,6 @@ import type { DataRepository } from './types'
 export const repo: DataRepository = staticDriver
 
 export type {
-  DataRepository, KpiSummary, KpiPeriodSummary, ConsultationsData,
+  DataRepository, KpiSummary, KpiSummaryMeta, ConsultationsData,
   PatientListData, WfListEntry, NoacListEntry,
 } from './types'

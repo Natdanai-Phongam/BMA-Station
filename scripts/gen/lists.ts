@@ -10,8 +10,8 @@ import type { WarfarinPageData } from '../../src/data/types/warfarin'
 import type { NoacPatientData } from '../../src/data/types/noac-dispensing'
 import type { PatientListData, WfListEntry, NoacListEntry } from '../../src/data/repository/types'
 import { DEFAULT_TARGET_RANGE } from '../../src/data/types/warfarin'
-import { lastDoseAdjustment, wfConcordanceLabel } from '../../src/utils/warfarin-helpers'
-import { lastDispensing, concordanceLabel } from '../../src/utils/noac-helpers'
+import { lastDoseAdjustment, wfConcordanceLabel, wfConcordanceBadgeClass } from '../../src/utils/warfarin-helpers'
+import { lastDispensing, concordanceLabel, concordanceBadgeClass } from '../../src/utils/noac-helpers'
 import { DATA_WINDOW } from '../../src/data/config/data-window'
 import { chance } from './rng'
 import { crCl as cg } from './pools'
@@ -73,10 +73,12 @@ export function buildPatientList(patients: GenPatient[], warfarin: Record<string
         status: wfStatus(inr, range.min, range.max),
         inr: { value: inr, alert: inr < range.min || inr > range.max },
         crcl: { value: crcl, alert: crcl < 30 },
+        inrDate: wf.latestInr.measuredAt.substring(0, 10),
         ttrValue: wf.ttr.value, ttrStatus: wf.ttr.status,
         currentDoseMgWk: wf.profile.currentDoseMgWk,
-        majorInteractions: (wf.profile.concurrentMeds ?? []).filter(m => m.severity === 'major').map(m => ({ name: m.name, note: m.note ?? '' })),
+        majorInteractions: (wf.profile.concurrentMeds ?? []).filter(m => m.severity === 'major').map(m => ({ name: m.name, note: m.note ?? '', effect: m.effect })),
         concordanceLabel: wfConcordanceLabel(lastDoseAdjustment(wf)),
+        concordanceClass: wfConcordanceBadgeClass(lastDoseAdjustment(wf)),
       })
     } else {
       const nd = noac[p.id]
@@ -92,9 +94,11 @@ export function buildPatientList(patients: GenPatient[], warfarin: Record<string
         crcl: { value: lab?.crClMlMin ?? 0, alert: (lab?.crClMlMin ?? 99) < 30 },
         egfr: { value: lab?.crClMlMin ?? 0, alert: (lab?.crClMlMin ?? 99) < 30 },
         concordanceLabel: concordanceLabel(last),
+        concordanceClass: concordanceBadgeClass(last),
+        lastDispensedAt: last?.dispensedAt ?? null,
         lab,
       })
     }
   }
-  return { generatedAt: new Date().toISOString(), warfarin: wfEntries, noacs: noacEntries }
+  return { generatedAt: `${DATA_WINDOW.mockNow}T08:00:00`, warfarin: wfEntries, noacs: noacEntries }
 }

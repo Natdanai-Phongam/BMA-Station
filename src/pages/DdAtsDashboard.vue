@@ -238,12 +238,9 @@ import {
   PhArrowsClockwise,
 } from '@phosphor-icons/vue'
 import type { AtsDashboardConfigData, AtsMonitoringCard } from '@/data/types/ats'
-import type { AtsPatientsData, WarfarinStatus, NoacsStatus, SummaryPatientEntry } from '@/data/types/ats-patients'
-import type { WarfarinPageData } from '@/data/types/warfarin'
-import type { NoacPatientData, NoacDispensingRecord } from '@/data/types/noac-dispensing'
+import type { WarfarinStatus, NoacsStatus, SummaryPatientEntry } from '@/data/types/ats-patients'
 import type { KpiPeriodData, KpiMode, KpiMetric } from '@/data/types/ats-kpi'
 import { getAppDate, getAppYearMonth, monthToQuarter, monthStart, monthEnd } from '@/utils/app-date'
-import type { PatientDetail, ComplicationEvent } from '@/data/types/patient-detail'
 import type { KpiOperationalData, KpiOperationalPeriod, PeriodMetrics, StatusLevel, SafetyRow, QualityBarRow, AtsRow } from '@/data/types/kpi-operational'
 import { thaiMonth }                   from '@/utils/date'
 import { parsePct }                    from '@/utils/number-helpers'
@@ -262,6 +259,9 @@ import { safetyStatus, qualityStatus, safetyStatusLabel, qualityStatusLabel } fr
 import { makeCenterPlugin, donutChartData } from '@/composables/useChartPlugins'
 import { KPI_SAFETY_TARGETS, KPI_QUALITY_TARGETS, KPI_ATS_TARGETS } from '@/data/config/kpi-targets'
 import { repo } from '@/data/repository'
+import type { PatientListData, KpiSummary } from '@/data/repository'
+import { emptyPeriodMetrics } from '@/utils/kpi-metrics'
+import { DATA_WINDOW } from '@/data/config/data-window'
 
 
 const router = useRouter()
@@ -273,44 +273,14 @@ const route  = useRoute()
 const loading     = ref(true)
 // shallowRef: large read-only source maps — avoid deep-proxying the dataset (perf at scale)
 const dashConfig  = shallowRef<AtsDashboardConfigData>({} as AtsDashboardConfigData)
-const patients    = shallowRef<AtsPatientsData>({ lastSyncedAt: '', warfarin: [], noacs: [] })
-const allWarfarin = shallowRef<Record<string, WarfarinPageData>>({})
-const allNoac     = shallowRef<Record<string, NoacPatientData>>({})
+// Tier-1 light projection (generator-produced) — the dashboard reads this instead
+// of joining ats-patients with the heavy raw records. status/concordance/ttr are
+// precomputed (§3.11). kpiSummary holds PeriodMetrics per period range.
+const patientList = shallowRef<PatientListData>({ generatedAt: '', warfarin: [], noacs: [] })
+const kpiSummary  = shallowRef<KpiSummary>({ meta: { generatedAt: '', mockNow: '', dataMinDate: DATA_WINDOW.start }, ranges: {} })
 
-// Enriched patient lists — join ats-patients summary with therapy-specific clinical data.
-// WF status is derived from warfarin-patients.json latestInr (single source of truth)
-// rather than the static status field in ats-patients.json, which can become stale.
-const enrichedWarfarin = computed(() =>
-  patients.value.warfarin.map(p => {
-    const wf  = allWarfarin.value[p.id] ?? null
-    const inr = wf?.latestInr?.inrValue
-    const status: WarfarinStatus = inr == null
-      ? (p.status ?? 'under-range')
-      : inr < 2.0 ? 'under-range'
-      : inr > 3.0 ? 'over-range'
-      : 'in-range'
-    return { ...p, status, wf }
-  })
-)
-const enrichedNoacs = computed(() =>
-  patients.value.noacs.map(p => {
-    const noac   = allNoac.value[p.id] ?? null
-    const disps  = (noac?.dispensingHistory as NoacDispensingRecord[]) ?? []
-    const latest = disps.length ? disps[disps.length - 1] : null
-
-    // Status: from noac-patients.json profile (single source of truth)
-    const status = noac?.profile?.status ?? 'appropriate'
-
-    // Lab values from the most recent dispensing record
-    const lab    = latest?.labData ?? null
-    const crcl   = lab
-      ? { value: Math.round(lab.crClMlMin), alert: lab.crClMlMin < 30 }
-      : (p.crcl ?? { value: 0, alert: false })
-    const weight = lab?.weightKg ?? p.weight
-
-    return { ...p, status, crcl, weight, noac }
-  })
-)
+const enrichedWarfarin = computed(() => patientList.value.warfarin)
+const enrichedNoacs    = computed(() => patientList.value.noacs)
 
 // Map icon name strings from JSON to Phosphor icon components
 
@@ -586,32 +556,26 @@ function getSummaryPatients(cardId: string, type: 'outOfRange' | 'referrals'): S
 }
 
 // ── Patient list counts (for KPI strip) ─────────────────────────────────────
-const warfarinTotal = computed(() => patients.value.warfarin.length)
-const noacsTotal    = computed(() => patients.value.noacs.length)
+const warfarinTotal = computed(() => patientList.value.warfarin.length)
+const noacsTotal    = computed(() => patientList.value.noacs.length)
 
 
 // ── KPI tab ───────────────────────────────────────────────────────────────────
 // ── KPI data sources ──────────────────────────────────────────────────────────
 // kpiOps: non-derivable mock data (staff, LOS, ATS response, prev/target values)
-// allDetail: patient-detail.json for complication-based safety KPIs
-const kpiOps    = shallowRef<KpiOperationalData>({} as KpiOperationalData)
-const allDetail = shallowRef<Record<string, PatientDetail>>({})
+const kpiOps = shallowRef<KpiOperationalData>({} as KpiOperationalData)
 
 onMounted(async () => {
   try {
-    const [config, ats, wf, noac, detail, ops] = await Promise.all([
+    const [config, list, summary, ops] = await Promise.all([
       repo.getDashboardConfig(),
-      repo.getAtsPatients(),
-      repo.getWarfarinPatients(),
-      repo.getNoacPatients(),
-      repo.getPatientDetails(),
+      repo.getPatientList(),
+      repo.getKpiSummary(),
       repo.getKpiOperational(),
     ])
     dashConfig.value  = config
-    patients.value    = ats
-    allWarfarin.value = wf
-    allNoac.value     = noac
-    allDetail.value   = detail
+    patientList.value = list
+    kpiSummary.value  = summary
     kpiOps.value      = ops
   } catch (e) {
     console.error('[DdAtsDashboard] load failed', e)
@@ -634,20 +598,11 @@ const _curYearMonth = getAppYearMonth()
 
 // Earliest date with actual data — scan all sources, take the minimum
 // Earliest date present in the data → lower bound for the month picker.
-// MUST be a computed: the data refs are populated async (onMounted), so a
-// setup-time IIFE would see empty maps and wrongly pin the bound to the current month.
+// Read from the pre-computed kpi-summary meta (reactive — set after async load).
 const dataMinDate = computed(() => {
-  const isos: string[] = []
-  for (const pd of Object.values(allWarfarin.value))
-    for (const r of pd.inrHistory ?? []) isos.push(r.measuredAt.substring(0, 10))
-  for (const pd of Object.values(allNoac.value))
-    for (const r of (pd.dispensingHistory as { dispensedAt: string }[]) ?? []) isos.push(r.dispensedAt.substring(0, 10))
-  for (const pd of Object.values(allDetail.value as Record<string, PatientDetail>))
-    for (const c of (pd.complications as ComplicationEvent[]) ?? []) if (c.dateISO) isos.push(c.dateISO)
-  isos.sort()
-  const earliest = isos[0] ?? _curYearMonth + '-01'
-  const [y, m] = earliest.split('-').map(Number)
-  return new Date(y, m - 1, 1)
+  const d = kpiSummary.value.meta.dataMinDate || `${_curYearMonth}-01`
+  const [y, m, day] = d.split('-').map(Number)
+  return new Date(y, m - 1, day || 1)
 })
 
 const kpiMode = ref<KpiMode>('month')
@@ -731,136 +686,15 @@ const kpiPeriodLabel = computed(() => {
   return `ปี ${yearNum.value + 543}`
 })
 
-// ── Period metrics — single-pass with Map cache ────────────────────────────────
-// All KPI metrics computed in one pass through patient records.
-// Cached by date-range + version; call refreshKpiData() to invalidate.
-
-const periodCache     = new Map<string, PeriodMetrics>()
-const kpiCacheVersion = ref(0)
-
-function refreshKpiData() { kpiCacheVersion.value++ }
+// ── Period metrics — read pre-computed PeriodMetrics from kpi-summary ──────────
+// The generator pre-aggregates PeriodMetrics for every selectable period range
+// (scripts/gen/kpi.ts + src/utils/kpi-metrics.ts) → the dashboard looks up the
+// result by "from|to" instead of scanning the full raw dataset.
+function refreshKpiData() { /* data is static mock; refresh is a no-op */ }
 
 const currentPeriodMetrics = computed<PeriodMetrics>(() => {
   const [from, to] = periodDateRange.value
-  const cacheKey   = `${from}|${to}|v${kpiCacheVersion.value}`
-  if (periodCache.has(cacheKey)) return periodCache.get(cacheKey)!
-
-  // ── Complications — full scan of allDetail by date range ─────────────────
-  const comps = { bleeding: 0, thrombosis: 0, aeHospitalization: 0, death: 0, medError: 0 }
-  const fromMonth = parseInt(from.substring(5, 7))
-  const toMonth   = parseInt(to.substring(5, 7))
-
-  for (const pd of Object.values(allDetail.value as Record<string, PatientDetail>)) {
-    // Clinical complications (อาการผิดปกติ) — bleeding / thromboembolism
-    for (const c of (pd.complications as ComplicationEvent[]) ?? []) {
-      const inRange = c.dateISO
-        ? (c.dateISO >= from && c.dateISO <= to)
-        : (c.month >= fromMonth && c.month <= toMonth)
-      if (!inRange) continue
-      if      (c.type === 'bleeding')         comps.bleeding++
-      else if (c.type === 'thromboembolism')  comps.thrombosis++
-      if (c.severity === 'severe')            comps.aeHospitalization++
-    }
-    // Death (outcome) + medication errors (process) — tracked separately
-    if (pd.mortality && pd.mortality.dateISO >= from && pd.mortality.dateISO <= to) comps.death++
-    for (const me of pd.medErrors ?? []) {
-      if (me.dateISO >= from && me.dateISO <= to) comps.medError++
-    }
-  }
-
-  // ── Build active patient ID sets for the query period ──────────────────
-  // Standard patients: those in the static ats-patients lists
-  // Switching patients: those with activeFrom/activeTo in therapy records
-  //   → included only when their active period overlaps [from, to]
-  //   → excluded from the opposite therapy list for the same period
-  type WithActivePeriod = { activeFrom?: string; activeTo?: string | null }
-
-  function isTherapyActive(pd: WithActivePeriod, queryFrom: string, queryTo: string): boolean {
-    const af = pd.activeFrom ?? null
-    const at = pd.activeTo   ?? null
-    if (!af && at == null) return true                    // no period defined = always active
-    const start = af  ?? '2000-01-01'
-    const end   = at  ?? '9999-12-31'
-    return start <= queryTo && end >= queryFrom
-  }
-
-  // WF: static list + switching patients active in WF during this period
-  const wfPids = new Set<string>(patients.value.warfarin.map(p => p.id))
-  for (const [pid, pd] of Object.entries(allWarfarin.value as Record<string, WarfarinPageData & WithActivePeriod>)) {
-    if (wfPids.has(pid)) continue                         // already in static list
-    if (!pd.activeFrom) continue                          // not a switching patient
-    if (isTherapyActive(pd, from, to)) wfPids.add(pid)
-  }
-
-  // NOAC: static list + switching patients active in NOAC during this period
-  const noacPids = new Set<string>(patients.value.noacs.map(p => p.id))
-  for (const [pid, pd] of Object.entries(allNoac.value as Record<string, NoacPatientData & WithActivePeriod>)) {
-    if (noacPids.has(pid)) continue
-    if (!(pd as WithActivePeriod).activeFrom) continue
-    if (isTherapyActive(pd as WithActivePeriod, from, to)) noacPids.add(pid)
-  }
-
-  // ── WF patient-level metrics ──────────────────────────────────────────────
-  let wfActive = 0, wfAppropriate = 0, wfTtrGoalMet = 0, wfTtrTotal = 0
-  let wfAdjTotal = 0, wfAdjAccepted = 0
-  for (const pid of wfPids) {
-    const pd = allWarfarin.value[pid]
-    if (!pd) continue
-    // For switching patients: only count INR records within their WF active period
-    const wfFrom = (pd as WithActivePeriod).activeFrom ?? from
-    const wfTo   = (pd as WithActivePeriod).activeTo   ?? to
-    const inrs = (pd.inrHistory ?? []).filter(r => {
-      const d = r.measuredAt.substring(0, 10)
-      return d >= from && d <= to && d >= wfFrom && d <= wfTo
-    })
-    if (!inrs.length) continue
-    wfActive++
-    const lastInr = [...inrs].sort((a, b) => a.measuredAt.localeCompare(b.measuredAt)).at(-1)!
-    if (lastInr.inrValue >= 2.0 && lastInr.inrValue <= 3.0) wfAppropriate++
-    if (pd.ttr != null) {
-      wfTtrTotal++
-      if (pd.ttr.value >= KPI_QUALITY_TARGETS.wfTtrGoal) wfTtrGoalMet++   // per-patient TTR threshold
-    }
-    // Dose adjustment concordance — count adjustments in period
-    for (const adj of pd.doseAdjustments ?? []) {
-      const d = adj.adjustedAt.substring(0, 10)
-      if (d < from || d > to || d < wfFrom || d > wfTo) continue
-      wfAdjTotal++
-      if (adj.systemSuggested) wfAdjAccepted++
-    }
-  }
-
-  // ── NOAC patient-level metrics ────────────────────────────────────────────
-  let noacActive = 0, noacAppropriate = 0, dispTotal = 0, dispAccepted = 0
-  for (const pid of noacPids) {
-    const pd = allNoac.value[pid]
-    if (!pd) continue
-    // For switching patients: only count dispensing records within their NOAC active period
-    const nFrom = (pd as WithActivePeriod).activeFrom ?? from
-    const nTo   = (pd as WithActivePeriod).activeTo   ?? to
-    const disps = (pd.dispensingHistory as NoacDispensingRecord[]).filter(r => {
-      const d = r.dispensedAt.substring(0, 10)
-      return d >= from && d <= to && d >= nFrom && d <= nTo
-    })
-    if (!disps.length) continue
-    noacActive++
-    if (disps.some(d => d.clinicalStatus === 'appropriate')) noacAppropriate++
-    dispTotal    += disps.length
-    dispAccepted += disps.filter(d => d.wasTopRecommendation).length
-  }
-
-  // medError is a real dispensing/dosing-error EVENT, counted by date in the
-  // complications scan above (like bleeding/thrombosis) — NOT derived from
-  // out-of-range patients (that conflated INR control with a med error and
-  // produced a non-additive ~18%; target is <1%).
-
-  const result: PeriodMetrics = {
-    comps,
-    wf:   { active: wfActive, appropriate: wfAppropriate, ttrGoalMet: wfTtrGoalMet, ttrTotal: wfTtrTotal, adjTotal: wfAdjTotal, adjAccepted: wfAdjAccepted },
-    noac: { active: noacActive, appropriate: noacAppropriate, dispTotal, dispAccepted },
-  }
-  periodCache.set(cacheKey, result)
-  return result
+  return kpiSummary.value.ranges[`${from}|${to}`] ?? emptyPeriodMetrics()
 })
 
 // ── Live KPI — currentPeriodMetrics + operational mock ────────────────────────

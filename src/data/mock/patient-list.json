@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-08T09:01:36.875Z",
+ "generatedAt": "2026-05-31T08:00:00",
  "warfarin": [
   {
    "id": "w001",
@@ -17,11 +17,13 @@
     "value": 114,
     "alert": false
    },
+   "inrDate": "2026-05-25",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 34,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w002",
@@ -39,11 +41,13 @@
     "value": 90,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 16,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 15,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w003",
@@ -61,11 +65,13 @@
     "value": 24,
     "alert": true
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 53.5,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 35,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w004",
@@ -83,11 +89,13 @@
     "value": 31,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 90.9,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 39,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w005",
@@ -105,16 +113,19 @@
     "value": 43,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 78.9,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 30,
    "majorInteractions": [
     {
      "name": "Rifampicin",
-     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด"
+     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด",
+     "effect": "decrease"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w006",
@@ -132,11 +143,13 @@
     "value": 42,
     "alert": false
    },
+   "inrDate": "2026-05-25",
    "ttrValue": 37.5,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 27.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w007",
@@ -154,11 +167,13 @@
     "value": 48,
     "alert": false
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 56.4,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 15,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w008",
@@ -176,11 +191,13 @@
     "value": 44,
     "alert": false
    },
+   "inrDate": "2026-05-18",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 39,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w009",
@@ -198,11 +215,13 @@
     "value": 57,
     "alert": false
    },
+   "inrDate": "2026-05-08",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 21.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w010",
@@ -220,11 +239,13 @@
     "value": 102,
     "alert": false
    },
+   "inrDate": "2026-05-22",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 32,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w011",
@@ -242,11 +263,13 @@
     "value": 87,
     "alert": false
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 42.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w012",
@@ -264,16 +287,19 @@
     "value": 44,
     "alert": false
    },
+   "inrDate": "2026-05-24",
    "ttrValue": 84.2,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 31,
    "majorInteractions": [
     {
      "name": "Amiodarone",
-     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด"
+     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w013",
@@ -291,11 +317,13 @@
     "value": 30,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 29,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w014",
@@ -313,11 +341,13 @@
     "value": 136,
     "alert": false
    },
+   "inrDate": "2026-05-12",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 35,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w015",
@@ -335,16 +365,19 @@
     "value": 80,
     "alert": false
    },
+   "inrDate": "2026-05-21",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 34,
    "majorInteractions": [
     {
      "name": "Fluconazole",
-     "note": "เพิ่มระดับ warfarin"
+     "note": "เพิ่มระดับ warfarin",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w016",
@@ -362,11 +395,13 @@
     "value": 57,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 33,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w017",
@@ -384,11 +419,13 @@
     "value": 147,
     "alert": false
    },
+   "inrDate": "2026-05-18",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 28,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w018",
@@ -406,11 +443,13 @@
     "value": 57,
     "alert": false
    },
+   "inrDate": "2026-05-14",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 42,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w019",
@@ -428,11 +467,13 @@
     "value": 44,
     "alert": false
    },
+   "inrDate": "2026-05-24",
    "ttrValue": 60,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 15,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w020",
@@ -450,11 +491,13 @@
     "value": 77,
     "alert": false
    },
+   "inrDate": "2026-05-12",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 28.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w021",
@@ -472,11 +515,13 @@
     "value": 61,
     "alert": false
    },
+   "inrDate": "2026-05-31",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 40.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w022",
@@ -494,11 +539,13 @@
     "value": 32,
     "alert": false
    },
+   "inrDate": "2026-05-07",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 31.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w023",
@@ -516,11 +563,13 @@
     "value": 35,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 42.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w024",
@@ -538,11 +587,13 @@
     "value": 58,
     "alert": false
    },
+   "inrDate": "2026-05-17",
    "ttrValue": 62.2,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 19,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w025",
@@ -560,11 +611,13 @@
     "value": 80,
     "alert": false
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 67.4,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 22.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w026",
@@ -582,11 +635,13 @@
     "value": 68,
     "alert": false
    },
+   "inrDate": "2026-05-15",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 35.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w027",
@@ -604,11 +659,13 @@
     "value": 37,
     "alert": false
    },
+   "inrDate": "2026-05-11",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 45.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w028",
@@ -626,11 +683,13 @@
     "value": 105,
     "alert": false
    },
+   "inrDate": "2026-05-18",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 23.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w029",
@@ -648,16 +707,19 @@
     "value": 106,
     "alert": false
    },
+   "inrDate": "2026-05-31",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 19.5,
    "majorInteractions": [
     {
      "name": "Amiodarone",
-     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด"
+     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w030",
@@ -675,16 +737,19 @@
     "value": 64,
     "alert": false
    },
+   "inrDate": "2026-05-20",
    "ttrValue": 48.7,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 28.5,
    "majorInteractions": [
     {
      "name": "Fluconazole",
-     "note": "เพิ่มระดับ warfarin"
+     "note": "เพิ่มระดับ warfarin",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w031",
@@ -702,11 +767,13 @@
     "value": 56,
     "alert": false
    },
+   "inrDate": "2026-05-20",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 27.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w032",
@@ -724,11 +791,13 @@
     "value": 103,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 29,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w033",
@@ -746,16 +815,19 @@
     "value": 35,
     "alert": false
    },
+   "inrDate": "2026-05-21",
    "ttrValue": 54.8,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 22.5,
    "majorInteractions": [
     {
      "name": "Amiodarone",
-     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด"
+     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w034",
@@ -773,11 +845,13 @@
     "value": 50,
     "alert": false
    },
+   "inrDate": "2026-05-18",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 27,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w035",
@@ -795,11 +869,13 @@
     "value": 129,
     "alert": false
    },
+   "inrDate": "2026-05-31",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 42,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w036",
@@ -817,11 +893,13 @@
     "value": 46,
     "alert": false
    },
+   "inrDate": "2026-05-18",
    "ttrValue": 0,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 20,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w037",
@@ -839,11 +917,13 @@
     "value": 53,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 32.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w038",
@@ -861,11 +941,13 @@
     "value": 46,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 33.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w039",
@@ -883,11 +965,13 @@
     "value": 64,
     "alert": false
    },
+   "inrDate": "2026-05-24",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 37,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w040",
@@ -905,11 +989,13 @@
     "value": 97,
     "alert": false
    },
+   "inrDate": "2026-05-22",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 29,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w041",
@@ -927,11 +1013,13 @@
     "value": 63,
     "alert": false
    },
+   "inrDate": "2026-05-16",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 42.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w042",
@@ -949,16 +1037,19 @@
     "value": 85,
     "alert": false
    },
+   "inrDate": "2026-05-15",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 35,
    "majorInteractions": [
     {
      "name": "Fluconazole",
-     "note": "เพิ่มระดับ warfarin"
+     "note": "เพิ่มระดับ warfarin",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w043",
@@ -976,11 +1067,13 @@
     "value": 58,
     "alert": false
    },
+   "inrDate": "2026-05-25",
    "ttrValue": 27.8,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 25,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w044",
@@ -998,11 +1091,13 @@
     "value": 42,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 25,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w045",
@@ -1020,11 +1115,13 @@
     "value": 41,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 49.1,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 32.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w046",
@@ -1042,11 +1139,13 @@
     "value": 45,
     "alert": false
    },
+   "inrDate": "2026-05-17",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 27.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w047",
@@ -1064,11 +1163,13 @@
     "value": 21,
     "alert": true
    },
+   "inrDate": "2026-05-09",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 34.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w048",
@@ -1086,16 +1187,19 @@
     "value": 32,
     "alert": false
    },
+   "inrDate": "2026-05-10",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 31,
    "majorInteractions": [
     {
      "name": "Amiodarone",
-     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด"
+     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w049",
@@ -1113,11 +1217,13 @@
     "value": 33,
     "alert": false
    },
+   "inrDate": "2026-05-14",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 43.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w050",
@@ -1135,11 +1241,13 @@
     "value": 54,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 23.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w051",
@@ -1157,11 +1265,13 @@
     "value": 63,
     "alert": false
    },
+   "inrDate": "2026-05-17",
    "ttrValue": 88.2,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 40,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w052",
@@ -1179,11 +1289,13 @@
     "value": 57,
     "alert": false
    },
+   "inrDate": "2026-05-18",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 34,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w053",
@@ -1201,11 +1313,13 @@
     "value": 55,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 28,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w054",
@@ -1223,11 +1337,13 @@
     "value": 63,
     "alert": false
    },
+   "inrDate": "2026-05-22",
    "ttrValue": 74.1,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 32.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w055",
@@ -1245,11 +1361,13 @@
     "value": 34,
     "alert": false
    },
+   "inrDate": "2026-05-16",
    "ttrValue": 42.1,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 32.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w056",
@@ -1267,11 +1385,13 @@
     "value": 63,
     "alert": false
    },
+   "inrDate": "2026-05-18",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 29.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w057",
@@ -1289,11 +1409,13 @@
     "value": 98,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 24.4,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 16,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w058",
@@ -1311,11 +1433,13 @@
     "value": 63,
     "alert": false
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 34.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w059",
@@ -1333,11 +1457,13 @@
     "value": 63,
     "alert": false
    },
+   "inrDate": "2026-05-22",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 20.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w060",
@@ -1355,11 +1481,13 @@
     "value": 48,
     "alert": false
    },
+   "inrDate": "2026-05-17",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 39,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w061",
@@ -1377,11 +1505,13 @@
     "value": 94,
     "alert": false
    },
+   "inrDate": "2026-05-19",
    "ttrValue": 60.7,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 22.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w062",
@@ -1399,11 +1529,13 @@
     "value": 51,
     "alert": false
    },
+   "inrDate": "2026-05-11",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 33.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w063",
@@ -1421,16 +1553,19 @@
     "value": 91,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 32,
    "majorInteractions": [
     {
      "name": "Rifampicin",
-     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด"
+     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด",
+     "effect": "decrease"
     }
    ],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w064",
@@ -1448,11 +1583,13 @@
     "value": 37,
     "alert": false
    },
+   "inrDate": "2026-05-08",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 29,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w065",
@@ -1470,16 +1607,19 @@
     "value": 99,
     "alert": false
    },
+   "inrDate": "2026-05-25",
    "ttrValue": 76.9,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 25,
    "majorInteractions": [
     {
      "name": "Rifampicin",
-     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด"
+     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด",
+     "effect": "decrease"
     }
    ],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w066",
@@ -1497,11 +1637,13 @@
     "value": 56,
     "alert": false
    },
+   "inrDate": "2026-05-24",
    "ttrValue": 32.4,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 15,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w067",
@@ -1519,11 +1661,13 @@
     "value": 52,
     "alert": false
    },
+   "inrDate": "2026-05-31",
    "ttrValue": 42.3,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 35,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w068",
@@ -1541,16 +1685,19 @@
     "value": 91,
     "alert": false
    },
+   "inrDate": "2026-05-16",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 21,
    "majorInteractions": [
     {
      "name": "Rifampicin",
-     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด"
+     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด",
+     "effect": "decrease"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w069",
@@ -1568,11 +1715,13 @@
     "value": 69,
     "alert": false
    },
+   "inrDate": "2026-05-24",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 32.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w070",
@@ -1590,11 +1739,13 @@
     "value": 39,
     "alert": false
    },
+   "inrDate": "2026-05-26",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 23.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w071",
@@ -1612,11 +1763,13 @@
     "value": 67,
     "alert": false
    },
+   "inrDate": "2026-05-17",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 26.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w072",
@@ -1634,11 +1787,13 @@
     "value": 30,
     "alert": false
    },
+   "inrDate": "2026-05-21",
    "ttrValue": 37.5,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 20,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w073",
@@ -1656,11 +1811,13 @@
     "value": 35,
     "alert": false
    },
+   "inrDate": "2026-05-22",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 36.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w074",
@@ -1678,11 +1835,13 @@
     "value": 102,
     "alert": false
    },
+   "inrDate": "2026-05-12",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 32,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w075",
@@ -1700,11 +1859,13 @@
     "value": 55,
     "alert": false
    },
+   "inrDate": "2026-05-30",
    "ttrValue": 54.4,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 18,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w076",
@@ -1722,11 +1883,13 @@
     "value": 57,
     "alert": false
    },
+   "inrDate": "2026-05-14",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 38,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w077",
@@ -1744,11 +1907,13 @@
     "value": 39,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 51.9,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 22.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w078",
@@ -1766,11 +1931,13 @@
     "value": 59,
     "alert": false
    },
+   "inrDate": "2026-05-31",
    "ttrValue": 36.4,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 32.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w079",
@@ -1788,11 +1955,13 @@
     "value": 64,
     "alert": false
    },
+   "inrDate": "2026-05-21",
    "ttrValue": 47.4,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 32.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w080",
@@ -1810,11 +1979,13 @@
     "value": 70,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 42.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w081",
@@ -1832,11 +2003,13 @@
     "value": 74,
     "alert": false
    },
+   "inrDate": "2026-05-26",
    "ttrValue": 0,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 37.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w082",
@@ -1854,16 +2027,19 @@
     "value": 73,
     "alert": false
    },
+   "inrDate": "2026-05-13",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 33,
    "majorInteractions": [
     {
      "name": "Fluconazole",
-     "note": "เพิ่มระดับ warfarin"
+     "note": "เพิ่มระดับ warfarin",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w083",
@@ -1881,11 +2057,13 @@
     "value": 47,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 50,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 52.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w084",
@@ -1903,11 +2081,13 @@
     "value": 56,
     "alert": false
    },
+   "inrDate": "2026-05-26",
    "ttrValue": 57.5,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 34,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w085",
@@ -1925,11 +2105,13 @@
     "value": 47,
     "alert": false
    },
+   "inrDate": "2026-05-05",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 43.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w086",
@@ -1947,11 +2129,13 @@
     "value": 65,
     "alert": false
    },
+   "inrDate": "2026-05-25",
    "ttrValue": 53.8,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 19.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w087",
@@ -1969,11 +2153,13 @@
     "value": 65,
     "alert": false
    },
+   "inrDate": "2026-05-21",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 35.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w088",
@@ -1991,11 +2177,13 @@
     "value": 69,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 30.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w089",
@@ -2013,11 +2201,13 @@
     "value": 55,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 50,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 37.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w090",
@@ -2035,16 +2225,19 @@
     "value": 100,
     "alert": false
    },
+   "inrDate": "2026-05-08",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 17.5,
    "majorInteractions": [
     {
      "name": "Fluconazole",
-     "note": "เพิ่มระดับ warfarin"
+     "note": "เพิ่มระดับ warfarin",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w091",
@@ -2062,11 +2255,13 @@
     "value": 29,
     "alert": true
    },
+   "inrDate": "2026-05-31",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 18.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w092",
@@ -2084,11 +2279,13 @@
     "value": 52,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 66.1,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 31.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w093",
@@ -2106,11 +2303,13 @@
     "value": 76,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 32.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w094",
@@ -2128,11 +2327,13 @@
     "value": 60,
     "alert": false
    },
+   "inrDate": "2026-05-21",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 23,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w095",
@@ -2150,11 +2351,13 @@
     "value": 60,
     "alert": false
    },
+   "inrDate": "2026-05-11",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 20,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w096",
@@ -2172,11 +2375,13 @@
     "value": 46,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 30.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w097",
@@ -2194,11 +2399,13 @@
     "value": 29,
     "alert": true
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 33.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w098",
@@ -2216,11 +2423,13 @@
     "value": 43,
     "alert": false
    },
+   "inrDate": "2026-05-22",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 28,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w099",
@@ -2238,11 +2447,13 @@
     "value": 72,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 22,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w100",
@@ -2260,11 +2471,13 @@
     "value": 62,
     "alert": false
    },
+   "inrDate": "2026-05-31",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 38,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w101",
@@ -2282,11 +2495,13 @@
     "value": 122,
     "alert": false
    },
+   "inrDate": "2026-05-19",
    "ttrValue": 89.1,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 40,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w102",
@@ -2304,11 +2519,13 @@
     "value": 46,
     "alert": false
    },
+   "inrDate": "2026-05-12",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 32,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w103",
@@ -2326,11 +2543,13 @@
     "value": 60,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 84.2,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 30,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w104",
@@ -2348,11 +2567,13 @@
     "value": 72,
     "alert": false
    },
+   "inrDate": "2026-05-22",
    "ttrValue": 51,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 25.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w105",
@@ -2370,11 +2591,13 @@
     "value": 97,
     "alert": false
    },
+   "inrDate": "2026-05-15",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 26,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w106",
@@ -2392,11 +2615,13 @@
     "value": 32,
     "alert": false
    },
+   "inrDate": "2026-05-15",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 35,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w107",
@@ -2414,11 +2639,13 @@
     "value": 32,
     "alert": false
    },
+   "inrDate": "2026-05-21",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 35,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w108",
@@ -2436,11 +2663,13 @@
     "value": 36,
     "alert": false
    },
+   "inrDate": "2026-05-31",
    "ttrValue": 81.4,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 15,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w109",
@@ -2458,11 +2687,13 @@
     "value": 108,
     "alert": false
    },
+   "inrDate": "2026-05-17",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 29.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w110",
@@ -2480,11 +2711,13 @@
     "value": 65,
     "alert": false
    },
+   "inrDate": "2026-05-18",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 18.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w111",
@@ -2502,11 +2735,13 @@
     "value": 41,
     "alert": false
    },
+   "inrDate": "2026-05-17",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 25,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w112",
@@ -2524,11 +2759,13 @@
     "value": 50,
     "alert": false
    },
+   "inrDate": "2026-05-30",
    "ttrValue": 53.4,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 27.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w113",
@@ -2546,11 +2783,13 @@
     "value": 31,
     "alert": false
    },
+   "inrDate": "2026-05-09",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 26,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w114",
@@ -2568,11 +2807,13 @@
     "value": 113,
     "alert": false
    },
+   "inrDate": "2026-05-26",
    "ttrValue": 25,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 45,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w115",
@@ -2590,11 +2831,13 @@
     "value": 48,
     "alert": false
    },
+   "inrDate": "2026-05-19",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 44,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w116",
@@ -2612,11 +2855,13 @@
     "value": 50,
     "alert": false
    },
+   "inrDate": "2026-05-17",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 33,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w117",
@@ -2634,11 +2879,13 @@
     "value": 55,
     "alert": false
    },
+   "inrDate": "2026-05-24",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 31,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w118",
@@ -2656,11 +2903,13 @@
     "value": 70,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 47.6,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 42,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w119",
@@ -2678,11 +2927,13 @@
     "value": 97,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 41.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w120",
@@ -2700,11 +2951,13 @@
     "value": 57,
     "alert": false
    },
+   "inrDate": "2026-05-24",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 30.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w121",
@@ -2722,16 +2975,19 @@
     "value": 40,
     "alert": false
    },
+   "inrDate": "2026-05-16",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 19.5,
    "majorInteractions": [
     {
      "name": "Amiodarone",
-     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด"
+     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w122",
@@ -2749,11 +3005,13 @@
     "value": 57,
     "alert": false
    },
+   "inrDate": "2026-05-20",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 39,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w123",
@@ -2771,11 +3029,13 @@
     "value": 84,
     "alert": false
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 43.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w124",
@@ -2793,11 +3053,13 @@
     "value": 113,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 28,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w125",
@@ -2815,11 +3077,13 @@
     "value": 55,
     "alert": false
    },
+   "inrDate": "2026-05-22",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 32.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w126",
@@ -2837,11 +3101,13 @@
     "value": 61,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 27,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w127",
@@ -2859,11 +3125,13 @@
     "value": 33,
     "alert": false
    },
+   "inrDate": "2026-05-26",
    "ttrValue": 25.9,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 39,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w128",
@@ -2881,11 +3149,13 @@
     "value": 46,
     "alert": false
    },
+   "inrDate": "2026-05-21",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 23.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w129",
@@ -2903,11 +3173,13 @@
     "value": 77,
     "alert": false
    },
+   "inrDate": "2026-05-17",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 37,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w130",
@@ -2925,16 +3197,19 @@
     "value": 29,
     "alert": true
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 57.7,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 30,
    "majorInteractions": [
     {
      "name": "Fluconazole",
-     "note": "เพิ่มระดับ warfarin"
+     "note": "เพิ่มระดับ warfarin",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w131",
@@ -2952,11 +3227,13 @@
     "value": 50,
     "alert": false
    },
+   "inrDate": "2026-05-26",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 29.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w132",
@@ -2974,11 +3251,13 @@
     "value": 64,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 21.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w133",
@@ -2996,11 +3275,13 @@
     "value": 108,
     "alert": false
    },
+   "inrDate": "2026-05-25",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 36,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w134",
@@ -3018,11 +3299,13 @@
     "value": 31,
     "alert": false
    },
+   "inrDate": "2026-05-31",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 31,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w135",
@@ -3040,11 +3323,13 @@
     "value": 34,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 21.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w136",
@@ -3062,11 +3347,13 @@
     "value": 48,
     "alert": false
    },
+   "inrDate": "2026-05-14",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 23,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w137",
@@ -3084,11 +3371,13 @@
     "value": 48,
     "alert": false
    },
+   "inrDate": "2026-05-17",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 33,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w138",
@@ -3106,11 +3395,13 @@
     "value": 60,
     "alert": false
    },
+   "inrDate": "2026-05-17",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 34.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w139",
@@ -3128,11 +3419,13 @@
     "value": 41,
     "alert": false
    },
+   "inrDate": "2026-05-22",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 33.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w140",
@@ -3150,11 +3443,13 @@
     "value": 99,
     "alert": false
    },
+   "inrDate": "2026-05-16",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 20,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w141",
@@ -3172,16 +3467,19 @@
     "value": 64,
     "alert": false
    },
+   "inrDate": "2026-05-22",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 35,
    "majorInteractions": [
     {
      "name": "Amiodarone",
-     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด"
+     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w142",
@@ -3199,11 +3497,13 @@
     "value": 51,
     "alert": false
    },
+   "inrDate": "2026-05-21",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 40.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w143",
@@ -3221,11 +3521,13 @@
     "value": 45,
     "alert": false
    },
+   "inrDate": "2026-05-30",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 22.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w144",
@@ -3243,11 +3545,13 @@
     "value": 80,
     "alert": false
    },
+   "inrDate": "2026-05-26",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 29,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w145",
@@ -3265,16 +3569,19 @@
     "value": 87,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 26,
    "majorInteractions": [
     {
      "name": "Rifampicin",
-     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด"
+     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด",
+     "effect": "decrease"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w146",
@@ -3292,11 +3599,13 @@
     "value": 64,
     "alert": false
    },
+   "inrDate": "2026-05-19",
    "ttrValue": 66,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 25,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w147",
@@ -3314,11 +3623,13 @@
     "value": 64,
     "alert": false
    },
+   "inrDate": "2026-05-31",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 32,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w148",
@@ -3336,11 +3647,13 @@
     "value": 95,
     "alert": false
    },
+   "inrDate": "2026-05-30",
    "ttrValue": 53.6,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 34.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w149",
@@ -3358,16 +3671,19 @@
     "value": 115,
     "alert": false
    },
+   "inrDate": "2026-05-17",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 27,
    "majorInteractions": [
     {
      "name": "Fluconazole",
-     "note": "เพิ่มระดับ warfarin"
+     "note": "เพิ่มระดับ warfarin",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w150",
@@ -3385,11 +3701,13 @@
     "value": 30,
     "alert": false
    },
+   "inrDate": "2026-05-24",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 18,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w151",
@@ -3407,11 +3725,13 @@
     "value": 93,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 15.2,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 17,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w152",
@@ -3429,16 +3749,19 @@
     "value": 50,
     "alert": false
    },
+   "inrDate": "2026-05-26",
    "ttrValue": 41.2,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 25,
    "majorInteractions": [
     {
      "name": "Rifampicin",
-     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด"
+     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด",
+     "effect": "decrease"
     }
    ],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w153",
@@ -3456,11 +3779,13 @@
     "value": 72,
     "alert": false
    },
+   "inrDate": "2026-05-20",
    "ttrValue": 78.1,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 32.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w154",
@@ -3478,11 +3803,13 @@
     "value": 57,
     "alert": false
    },
+   "inrDate": "2026-05-14",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 42.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w155",
@@ -3500,11 +3827,13 @@
     "value": 58,
     "alert": false
    },
+   "inrDate": "2026-05-19",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 33,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w156",
@@ -3522,11 +3851,13 @@
     "value": 83,
     "alert": false
    },
+   "inrDate": "2026-05-21",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 17.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w157",
@@ -3544,16 +3875,19 @@
     "value": 52,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 30.5,
    "majorInteractions": [
     {
      "name": "Amiodarone",
-     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด"
+     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w158",
@@ -3571,11 +3905,13 @@
     "value": 41,
     "alert": false
    },
+   "inrDate": "2026-05-06",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 38.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w159",
@@ -3593,11 +3929,13 @@
     "value": 91,
     "alert": false
    },
+   "inrDate": "2026-05-26",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 29.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w160",
@@ -3615,11 +3953,13 @@
     "value": 93,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 31.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w161",
@@ -3637,16 +3977,19 @@
     "value": 30,
     "alert": false
    },
+   "inrDate": "2026-05-24",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 30,
    "majorInteractions": [
     {
      "name": "Fluconazole",
-     "note": "เพิ่มระดับ warfarin"
+     "note": "เพิ่มระดับ warfarin",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w162",
@@ -3664,11 +4007,13 @@
     "value": 100,
     "alert": false
    },
+   "inrDate": "2026-05-16",
    "ttrValue": 43.3,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 25.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w163",
@@ -3686,11 +4031,13 @@
     "value": 38,
     "alert": false
    },
+   "inrDate": "2026-05-25",
    "ttrValue": 17.8,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 55,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w164",
@@ -3708,11 +4055,13 @@
     "value": 53,
     "alert": false
    },
+   "inrDate": "2026-05-20",
    "ttrValue": 39.5,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 25,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w165",
@@ -3730,11 +4079,13 @@
     "value": 90,
     "alert": false
    },
+   "inrDate": "2026-05-12",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 28.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w166",
@@ -3752,11 +4103,13 @@
     "value": 80,
     "alert": false
    },
+   "inrDate": "2026-05-15",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 47.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w167",
@@ -3774,11 +4127,13 @@
     "value": 85,
     "alert": false
    },
+   "inrDate": "2026-05-12",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 23,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w168",
@@ -3796,11 +4151,13 @@
     "value": 99,
     "alert": false
    },
+   "inrDate": "2026-05-19",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 39.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w169",
@@ -3818,11 +4175,13 @@
     "value": 38,
     "alert": false
    },
+   "inrDate": "2026-05-05",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 27,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w170",
@@ -3840,11 +4199,13 @@
     "value": 55,
     "alert": false
    },
+   "inrDate": "2026-05-22",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 33.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w171",
@@ -3862,11 +4223,13 @@
     "value": 54,
     "alert": false
    },
+   "inrDate": "2026-05-24",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 34.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w172",
@@ -3884,11 +4247,13 @@
     "value": 84,
     "alert": false
    },
+   "inrDate": "2026-05-08",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 23.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w173",
@@ -3906,11 +4271,13 @@
     "value": 107,
     "alert": false
    },
+   "inrDate": "2026-05-22",
    "ttrValue": 35.3,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 34.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w174",
@@ -3928,11 +4295,13 @@
     "value": 54,
     "alert": false
    },
+   "inrDate": "2026-05-24",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 37,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w175",
@@ -3950,16 +4319,19 @@
     "value": 46,
     "alert": false
    },
+   "inrDate": "2026-05-16",
    "ttrValue": 44.4,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 31.5,
    "majorInteractions": [
     {
      "name": "Amiodarone",
-     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด"
+     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w176",
@@ -3977,11 +4349,13 @@
     "value": 54,
     "alert": false
    },
+   "inrDate": "2026-05-20",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 25,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w177",
@@ -3999,11 +4373,13 @@
     "value": 76,
     "alert": false
    },
+   "inrDate": "2026-05-09",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 19.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w178",
@@ -4021,11 +4397,13 @@
     "value": 37,
     "alert": false
    },
+   "inrDate": "2026-05-24",
    "ttrValue": 37.8,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 12.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w179",
@@ -4043,11 +4421,13 @@
     "value": 50,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 65.8,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 17,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w180",
@@ -4065,16 +4445,19 @@
     "value": 62,
     "alert": false
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 38,
    "majorInteractions": [
     {
      "name": "Rifampicin",
-     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด"
+     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด",
+     "effect": "decrease"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w181",
@@ -4092,11 +4475,13 @@
     "value": 76,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 29,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w182",
@@ -4114,11 +4499,13 @@
     "value": 48,
     "alert": false
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 63.3,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 40,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w183",
@@ -4136,11 +4523,13 @@
     "value": 68,
     "alert": false
    },
+   "inrDate": "2026-05-15",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 32.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w184",
@@ -4158,11 +4547,13 @@
     "value": 74,
     "alert": false
    },
+   "inrDate": "2026-05-30",
    "ttrValue": 54.4,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 25,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w185",
@@ -4180,11 +4571,13 @@
     "value": 43,
     "alert": false
    },
+   "inrDate": "2026-05-07",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 23.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w186",
@@ -4202,11 +4595,13 @@
     "value": 31,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 17.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w187",
@@ -4224,11 +4619,13 @@
     "value": 36,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 20.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w188",
@@ -4246,11 +4643,13 @@
     "value": 55,
     "alert": false
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 44,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w189",
@@ -4268,11 +4667,13 @@
     "value": 35,
     "alert": false
    },
+   "inrDate": "2026-05-31",
    "ttrValue": 53.3,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 20,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w190",
@@ -4290,11 +4691,13 @@
     "value": 101,
     "alert": false
    },
+   "inrDate": "2026-05-09",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 22.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w191",
@@ -4312,11 +4715,13 @@
     "value": 48,
     "alert": false
    },
+   "inrDate": "2026-05-11",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 30,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w192",
@@ -4334,11 +4739,13 @@
     "value": 38,
     "alert": false
    },
+   "inrDate": "2026-05-03",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 47.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w193",
@@ -4356,11 +4763,13 @@
     "value": 37,
     "alert": false
    },
+   "inrDate": "2026-05-25",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 26,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w194",
@@ -4378,11 +4787,13 @@
     "value": 29,
     "alert": true
    },
+   "inrDate": "2026-05-11",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 36,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w195",
@@ -4400,16 +4811,19 @@
     "value": 55,
     "alert": false
    },
+   "inrDate": "2026-05-19",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 35.5,
    "majorInteractions": [
     {
      "name": "Fluconazole",
-     "note": "เพิ่มระดับ warfarin"
+     "note": "เพิ่มระดับ warfarin",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w196",
@@ -4427,11 +4841,13 @@
     "value": 29,
     "alert": true
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 33,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w197",
@@ -4449,11 +4865,13 @@
     "value": 75,
     "alert": false
    },
+   "inrDate": "2026-05-11",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 31,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w198",
@@ -4471,11 +4889,13 @@
     "value": 64,
     "alert": false
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 33,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w199",
@@ -4493,11 +4913,13 @@
     "value": 98,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 31.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w200",
@@ -4515,16 +4937,19 @@
     "value": 40,
     "alert": false
    },
+   "inrDate": "2026-05-30",
    "ttrValue": 83.3,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 12.5,
    "majorInteractions": [
     {
      "name": "Fluconazole",
-     "note": "เพิ่มระดับ warfarin"
+     "note": "เพิ่มระดับ warfarin",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w201",
@@ -4542,11 +4967,13 @@
     "value": 59,
     "alert": false
    },
+   "inrDate": "2026-05-25",
    "ttrValue": 43.8,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 30,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w202",
@@ -4564,11 +4991,13 @@
     "value": 75,
     "alert": false
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 40,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w203",
@@ -4586,11 +5015,13 @@
     "value": 63,
     "alert": false
    },
+   "inrDate": "2026-05-08",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 39.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w204",
@@ -4608,11 +5039,13 @@
     "value": 88,
     "alert": false
    },
+   "inrDate": "2026-05-14",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 37,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w205",
@@ -4630,11 +5063,13 @@
     "value": 75,
     "alert": false
    },
+   "inrDate": "2026-05-08",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 39,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w206",
@@ -4652,11 +5087,13 @@
     "value": 121,
     "alert": false
    },
+   "inrDate": "2026-05-18",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 36,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w207",
@@ -4674,16 +5111,19 @@
     "value": 20,
     "alert": true
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 28.8,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 12,
    "majorInteractions": [
     {
      "name": "Rifampicin",
-     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด"
+     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด",
+     "effect": "decrease"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w208",
@@ -4701,11 +5141,13 @@
     "value": 26,
     "alert": true
    },
+   "inrDate": "2026-05-06",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 28,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w209",
@@ -4723,11 +5165,13 @@
     "value": 36,
     "alert": false
    },
+   "inrDate": "2026-05-21",
    "ttrValue": 6.3,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 30,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w210",
@@ -4745,11 +5189,13 @@
     "value": 87,
     "alert": false
    },
+   "inrDate": "2026-05-16",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 25.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w211",
@@ -4767,11 +5213,13 @@
     "value": 139,
     "alert": false
    },
+   "inrDate": "2026-05-20",
    "ttrValue": 80.6,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 28.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w212",
@@ -4789,11 +5237,13 @@
     "value": 64,
     "alert": false
    },
+   "inrDate": "2026-05-25",
    "ttrValue": 28.6,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 25,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w213",
@@ -4811,11 +5261,13 @@
     "value": 63,
     "alert": false
    },
+   "inrDate": "2026-05-07",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 27.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w214",
@@ -4833,11 +5285,13 @@
     "value": 51,
     "alert": false
    },
+   "inrDate": "2026-05-18",
    "ttrValue": 45.5,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 45,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w215",
@@ -4855,11 +5309,13 @@
     "value": 58,
     "alert": false
    },
+   "inrDate": "2026-05-30",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 29.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w216",
@@ -4877,11 +5333,13 @@
     "value": 81,
     "alert": false
    },
+   "inrDate": "2026-05-08",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 17.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w217",
@@ -4899,11 +5357,13 @@
     "value": 61,
     "alert": false
    },
+   "inrDate": "2026-05-12",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 27,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w218",
@@ -4921,11 +5381,13 @@
     "value": 68,
     "alert": false
    },
+   "inrDate": "2026-05-22",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 35,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w219",
@@ -4943,11 +5405,13 @@
     "value": 33,
     "alert": false
    },
+   "inrDate": "2026-05-18",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 30.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w220",
@@ -4965,11 +5429,13 @@
     "value": 64,
     "alert": false
    },
+   "inrDate": "2026-05-18",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 18.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w221",
@@ -4987,11 +5453,13 @@
     "value": 51,
     "alert": false
    },
+   "inrDate": "2026-05-25",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 22,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w222",
@@ -5009,11 +5477,13 @@
     "value": 65,
     "alert": false
    },
+   "inrDate": "2026-05-24",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 42,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w223",
@@ -5031,11 +5501,13 @@
     "value": 54,
     "alert": false
    },
+   "inrDate": "2026-05-31",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 43,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w224",
@@ -5053,16 +5525,19 @@
     "value": 68,
     "alert": false
    },
+   "inrDate": "2026-05-18",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 34,
    "majorInteractions": [
     {
      "name": "Fluconazole",
-     "note": "เพิ่มระดับ warfarin"
+     "note": "เพิ่มระดับ warfarin",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w225",
@@ -5080,16 +5555,19 @@
     "value": 54,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 31,
    "majorInteractions": [
     {
      "name": "Rifampicin",
-     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด"
+     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด",
+     "effect": "decrease"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w226",
@@ -5107,11 +5585,13 @@
     "value": 50,
     "alert": false
    },
+   "inrDate": "2026-05-24",
    "ttrValue": 25,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 20,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w227",
@@ -5129,11 +5609,13 @@
     "value": 60,
     "alert": false
    },
+   "inrDate": "2026-05-25",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 27,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w228",
@@ -5151,11 +5633,13 @@
     "value": 78,
     "alert": false
    },
+   "inrDate": "2026-05-31",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 44,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w229",
@@ -5173,11 +5657,13 @@
     "value": 90,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 89.4,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 30,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w230",
@@ -5195,11 +5681,13 @@
     "value": 110,
     "alert": false
    },
+   "inrDate": "2026-05-16",
    "ttrValue": 51.4,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 39,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w231",
@@ -5217,11 +5705,13 @@
     "value": 51,
     "alert": false
    },
+   "inrDate": "2026-05-04",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 27.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w232",
@@ -5239,11 +5729,13 @@
     "value": 58,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 59,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 52.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w233",
@@ -5261,11 +5753,13 @@
     "value": 49,
     "alert": false
    },
+   "inrDate": "2026-05-13",
    "ttrValue": 65,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 36,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w234",
@@ -5283,16 +5777,19 @@
     "value": 99,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 33.5,
    "majorInteractions": [
     {
      "name": "Rifampicin",
-     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด"
+     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด",
+     "effect": "decrease"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w235",
@@ -5310,11 +5807,13 @@
     "value": 84,
     "alert": false
    },
+   "inrDate": "2026-05-24",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 29.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w236",
@@ -5332,11 +5831,13 @@
     "value": 81,
     "alert": false
    },
+   "inrDate": "2026-05-30",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 20,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w237",
@@ -5354,11 +5855,13 @@
     "value": 120,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 72.9,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 39,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w238",
@@ -5376,11 +5879,13 @@
     "value": 54,
     "alert": false
    },
+   "inrDate": "2026-05-22",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 30,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w239",
@@ -5398,11 +5903,13 @@
     "value": 72,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 34.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w240",
@@ -5420,11 +5927,13 @@
     "value": 69,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 82.9,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 17,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w241",
@@ -5442,16 +5951,19 @@
     "value": 41,
     "alert": false
    },
+   "inrDate": "2026-05-31",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 28,
    "majorInteractions": [
     {
      "name": "Rifampicin",
-     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด"
+     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด",
+     "effect": "decrease"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w242",
@@ -5469,11 +5981,13 @@
     "value": 44,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 67.4,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 35,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w243",
@@ -5491,16 +6005,19 @@
     "value": 29,
     "alert": true
    },
+   "inrDate": "2026-05-10",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 27,
    "majorInteractions": [
     {
      "name": "Rifampicin",
-     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด"
+     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด",
+     "effect": "decrease"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w244",
@@ -5518,11 +6035,13 @@
     "value": 78,
     "alert": false
    },
+   "inrDate": "2026-05-31",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 28,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w245",
@@ -5540,16 +6059,19 @@
     "value": 53,
     "alert": false
    },
+   "inrDate": "2026-05-06",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 19.5,
    "majorInteractions": [
     {
      "name": "Rifampicin",
-     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด"
+     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด",
+     "effect": "decrease"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w246",
@@ -5567,11 +6089,13 @@
     "value": 62,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 32.7,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 50,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w247",
@@ -5589,11 +6113,13 @@
     "value": 25,
     "alert": true
    },
+   "inrDate": "2026-05-22",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 21,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w248",
@@ -5611,16 +6137,19 @@
     "value": 83,
     "alert": false
    },
+   "inrDate": "2026-05-31",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 35.5,
    "majorInteractions": [
     {
      "name": "Amiodarone",
-     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด"
+     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w249",
@@ -5638,16 +6167,19 @@
     "value": 57,
     "alert": false
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 35.6,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 25,
    "majorInteractions": [
     {
      "name": "Amiodarone",
-     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด"
+     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w250",
@@ -5665,11 +6197,13 @@
     "value": 113,
     "alert": false
    },
+   "inrDate": "2026-05-20",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 44,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w251",
@@ -5687,11 +6221,13 @@
     "value": 24,
     "alert": true
    },
+   "inrDate": "2026-05-20",
    "ttrValue": 64.7,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 27,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w252",
@@ -5709,11 +6245,13 @@
     "value": 48,
     "alert": false
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 60.4,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 27,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w253",
@@ -5731,11 +6269,13 @@
     "value": 52,
     "alert": false
    },
+   "inrDate": "2026-05-17",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 36.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w254",
@@ -5753,11 +6293,13 @@
     "value": 54,
     "alert": false
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 43.5,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 30,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w255",
@@ -5775,11 +6317,13 @@
     "value": 28,
     "alert": true
    },
+   "inrDate": "2026-05-08",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 34,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w256",
@@ -5797,11 +6341,13 @@
     "value": 44,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 29.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w257",
@@ -5819,11 +6365,13 @@
     "value": 52,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 37,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w258",
@@ -5841,11 +6389,13 @@
     "value": 50,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 41,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w259",
@@ -5863,11 +6413,13 @@
     "value": 59,
     "alert": false
    },
+   "inrDate": "2026-05-24",
    "ttrValue": 76,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 25,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w260",
@@ -5885,11 +6437,13 @@
     "value": 71,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 34.8,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 19.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w261",
@@ -5907,11 +6461,13 @@
     "value": 36,
     "alert": false
    },
+   "inrDate": "2026-05-25",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 26,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w262",
@@ -5929,11 +6485,13 @@
     "value": 36,
     "alert": false
    },
+   "inrDate": "2026-05-20",
    "ttrValue": 65.4,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 46.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w263",
@@ -5951,11 +6509,13 @@
     "value": 162,
     "alert": false
    },
+   "inrDate": "2026-05-30",
    "ttrValue": 48.1,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 32.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w264",
@@ -5973,11 +6533,13 @@
     "value": 27,
     "alert": true
    },
+   "inrDate": "2026-05-21",
    "ttrValue": 20,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 25.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w265",
@@ -5995,11 +6557,13 @@
     "value": 58,
     "alert": false
    },
+   "inrDate": "2026-05-18",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 26.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w266",
@@ -6017,11 +6581,13 @@
     "value": 34,
     "alert": false
    },
+   "inrDate": "2026-05-14",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 27.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w267",
@@ -6039,11 +6605,13 @@
     "value": 133,
     "alert": false
    },
+   "inrDate": "2026-05-31",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 38,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w268",
@@ -6061,11 +6629,13 @@
     "value": 108,
     "alert": false
    },
+   "inrDate": "2026-05-04",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 26,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w269",
@@ -6083,11 +6653,13 @@
     "value": 65,
     "alert": false
    },
+   "inrDate": "2026-05-12",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 40,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w270",
@@ -6105,11 +6677,13 @@
     "value": 72,
     "alert": false
    },
+   "inrDate": "2026-05-30",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 35.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w271",
@@ -6127,11 +6701,13 @@
     "value": 52,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 17.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w272",
@@ -6149,11 +6725,13 @@
     "value": 76,
     "alert": false
    },
+   "inrDate": "2026-05-14",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 37,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w273",
@@ -6171,11 +6749,13 @@
     "value": 92,
     "alert": false
    },
+   "inrDate": "2026-05-11",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 31,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w274",
@@ -6193,11 +6773,13 @@
     "value": 49,
     "alert": false
    },
+   "inrDate": "2026-05-17",
    "ttrValue": 61.3,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 33,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w275",
@@ -6215,11 +6797,13 @@
     "value": 69,
     "alert": false
    },
+   "inrDate": "2026-05-29",
    "ttrValue": 65.1,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 24,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w276",
@@ -6237,11 +6821,13 @@
     "value": 41,
     "alert": false
    },
+   "inrDate": "2026-05-20",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 46,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w277",
@@ -6259,11 +6845,13 @@
     "value": 100,
     "alert": false
    },
+   "inrDate": "2026-05-30",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 38,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w278",
@@ -6281,11 +6869,13 @@
     "value": 50,
     "alert": false
    },
+   "inrDate": "2026-05-26",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 39.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w279",
@@ -6303,16 +6893,19 @@
     "value": 38,
     "alert": false
    },
+   "inrDate": "2026-05-20",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 35,
    "majorInteractions": [
     {
      "name": "Rifampicin",
-     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด"
+     "note": "ลดฤทธิ์ warfarin — อาจต้องเพิ่มขนาด",
+     "effect": "decrease"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w280",
@@ -6330,11 +6923,13 @@
     "value": 59,
     "alert": false
    },
+   "inrDate": "2026-05-25",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 23.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w281",
@@ -6352,11 +6947,13 @@
     "value": 43,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 30,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w282",
@@ -6374,11 +6971,13 @@
     "value": 49,
     "alert": false
    },
+   "inrDate": "2026-05-21",
    "ttrValue": 0,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 23,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w283",
@@ -6396,11 +6995,13 @@
     "value": 32,
     "alert": false
    },
+   "inrDate": "2026-05-26",
    "ttrValue": 31.3,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 27.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w284",
@@ -6418,11 +7019,13 @@
     "value": 30,
     "alert": false
    },
+   "inrDate": "2026-05-11",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 32.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w285",
@@ -6440,11 +7043,13 @@
     "value": 64,
     "alert": false
    },
+   "inrDate": "2026-05-20",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 17.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w286",
@@ -6462,11 +7067,13 @@
     "value": 48,
     "alert": false
    },
+   "inrDate": "2026-05-07",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 50,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w287",
@@ -6484,11 +7091,13 @@
     "value": 40,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 30,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w288",
@@ -6506,16 +7115,19 @@
     "value": 101,
     "alert": false
    },
+   "inrDate": "2026-05-27",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 31.5,
    "majorInteractions": [
     {
      "name": "Amiodarone",
-     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด"
+     "note": "เพิ่มฤทธิ์ warfarin — ติดตาม INR ใกล้ชิด",
+     "effect": "increase"
     }
    ],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w289",
@@ -6533,11 +7145,13 @@
     "value": 54,
     "alert": false
    },
+   "inrDate": "2026-05-16",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 25,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w290",
@@ -6555,11 +7169,13 @@
     "value": 98,
     "alert": false
    },
+   "inrDate": "2026-05-23",
    "ttrValue": 40.5,
    "ttrStatus": "below-goal",
    "currentDoseMgWk": 19.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   },
   {
    "id": "w291",
@@ -6577,11 +7193,13 @@
     "value": 70,
     "alert": false
    },
+   "inrDate": "2026-05-30",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 29.5,
    "majorInteractions": [],
-   "concordanceLabel": "ปรับโดยมีเหตุผล"
+   "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted"
   },
   {
    "id": "w292",
@@ -6599,11 +7217,13 @@
     "value": 71,
     "alert": false
    },
+   "inrDate": "2026-05-28",
    "ttrValue": 100,
    "ttrStatus": "goal-met",
    "currentDoseMgWk": 43.5,
    "majorInteractions": [],
-   "concordanceLabel": "ตามแนวทาง"
+   "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes"
   }
  ],
  "noacs": [
@@ -6627,6 +7247,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-18T09:28:00",
    "lab": {
     "weightKg": 60.3,
     "scrMgDl": 0.87,
@@ -6654,6 +7276,8 @@
     "alert": true
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-12T09:28:00",
    "lab": {
     "weightKg": 77.4,
     "scrMgDl": 4.07,
@@ -6681,6 +7305,8 @@
     "alert": true
    },
    "concordanceLabel": "ไม่ระบุเหตุผล",
+   "concordanceClass": "concordance--no",
+   "lastDispensedAt": "2026-05-14T09:31:00",
    "lab": {
     "weightKg": 43.3,
     "scrMgDl": 3.34,
@@ -6708,6 +7334,8 @@
     "alert": false
    },
    "concordanceLabel": "ไม่ระบุเหตุผล",
+   "concordanceClass": "concordance--no",
+   "lastDispensedAt": "2026-05-09T09:03:00",
    "lab": {
     "weightKg": 55.1,
     "scrMgDl": 0.5,
@@ -6735,6 +7363,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-11T09:53:00",
    "lab": {
     "weightKg": 60.7,
     "scrMgDl": 0.99,
@@ -6762,6 +7392,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:50:00",
    "lab": {
     "weightKg": 58,
     "scrMgDl": 0.58,
@@ -6789,6 +7421,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-28T09:38:00",
    "lab": {
     "weightKg": 47.1,
     "scrMgDl": 0.91,
@@ -6816,6 +7450,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-26T09:51:00",
    "lab": {
     "weightKg": 66.9,
     "scrMgDl": 0.5,
@@ -6843,6 +7479,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-29T09:07:00",
    "lab": {
     "weightKg": 61.5,
     "scrMgDl": 0.85,
@@ -6870,6 +7508,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-19T09:34:00",
    "lab": {
     "weightKg": 47.2,
     "scrMgDl": 1.06,
@@ -6897,6 +7537,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-31T09:35:00",
    "lab": {
     "weightKg": 53,
     "scrMgDl": 0.92,
@@ -6924,6 +7566,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-24T09:36:00",
    "lab": {
     "weightKg": 50.5,
     "scrMgDl": 1.26,
@@ -6951,6 +7595,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-18T09:42:00",
    "lab": {
     "weightKg": 60.7,
     "scrMgDl": 1.05,
@@ -6978,6 +7624,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-24T09:22:00",
    "lab": {
     "weightKg": 81,
     "scrMgDl": 1.04,
@@ -7005,6 +7653,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-30T09:23:00",
    "lab": {
     "weightKg": 90.3,
     "scrMgDl": 1.09,
@@ -7032,6 +7682,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-27T09:43:00",
    "lab": {
     "weightKg": 52.3,
     "scrMgDl": 1.42,
@@ -7059,6 +7711,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-24T09:57:00",
    "lab": {
     "weightKg": 69.1,
     "scrMgDl": 1.23,
@@ -7086,6 +7740,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-06T09:16:00",
    "lab": {
     "weightKg": 78,
     "scrMgDl": 0.83,
@@ -7113,6 +7769,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-11T09:31:00",
    "lab": {
     "weightKg": 89.2,
     "scrMgDl": 1.33,
@@ -7140,6 +7798,8 @@
     "alert": true
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-15T09:33:00",
    "lab": {
     "weightKg": 45.2,
     "scrMgDl": 1.18,
@@ -7167,6 +7827,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-12T09:34:00",
    "lab": {
     "weightKg": 64,
     "scrMgDl": 1.33,
@@ -7194,6 +7856,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-20T09:34:00",
    "lab": {
     "weightKg": 57.5,
     "scrMgDl": 1.3,
@@ -7221,6 +7885,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-26T09:46:00",
    "lab": {
     "weightKg": 80.6,
     "scrMgDl": 1.05,
@@ -7248,6 +7914,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-12T09:17:00",
    "lab": {
     "weightKg": 66.2,
     "scrMgDl": 0.72,
@@ -7275,6 +7943,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-29T09:46:00",
    "lab": {
     "weightKg": 67.2,
     "scrMgDl": 1.26,
@@ -7302,6 +7972,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-29T09:08:00",
    "lab": {
     "weightKg": 60.7,
     "scrMgDl": 1.45,
@@ -7329,6 +8001,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:54:00",
    "lab": {
     "weightKg": 62.1,
     "scrMgDl": 1.2,
@@ -7356,6 +8030,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-24T09:39:00",
    "lab": {
     "weightKg": 81.2,
     "scrMgDl": 1.57,
@@ -7383,6 +8059,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-29T09:15:00",
    "lab": {
     "weightKg": 52.2,
     "scrMgDl": 1.32,
@@ -7410,6 +8088,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-01T09:01:00",
    "lab": {
     "weightKg": 70.1,
     "scrMgDl": 1.15,
@@ -7437,6 +8117,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-31T09:27:00",
    "lab": {
     "weightKg": 56.1,
     "scrMgDl": 0.83,
@@ -7464,6 +8146,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-22T09:41:00",
    "lab": {
     "weightKg": 50.2,
     "scrMgDl": 0.98,
@@ -7491,6 +8175,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-25T09:42:00",
    "lab": {
     "weightKg": 51.8,
     "scrMgDl": 0.87,
@@ -7518,6 +8204,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-29T09:42:00",
    "lab": {
     "weightKg": 76,
     "scrMgDl": 1,
@@ -7545,6 +8233,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-06T09:43:00",
    "lab": {
     "weightKg": 72.9,
     "scrMgDl": 1.78,
@@ -7572,6 +8262,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-15T09:30:00",
    "lab": {
     "weightKg": 61,
     "scrMgDl": 0.93,
@@ -7599,6 +8291,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-01T09:57:00",
    "lab": {
     "weightKg": 75,
     "scrMgDl": 0.91,
@@ -7626,6 +8320,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-06T09:52:00",
    "lab": {
     "weightKg": 50.3,
     "scrMgDl": 0.87,
@@ -7653,6 +8349,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-14T09:15:00",
    "lab": {
     "weightKg": 82.8,
     "scrMgDl": 1.27,
@@ -7680,6 +8378,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-31T09:04:00",
    "lab": {
     "weightKg": 70.8,
     "scrMgDl": 1.13,
@@ -7707,6 +8407,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-04-30T09:11:00",
    "lab": {
     "weightKg": 61,
     "scrMgDl": 0.51,
@@ -7734,6 +8436,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-13T09:50:00",
    "lab": {
     "weightKg": 59.9,
     "scrMgDl": 1.4,
@@ -7761,6 +8465,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-05T09:27:00",
    "lab": {
     "weightKg": 67.7,
     "scrMgDl": 0.97,
@@ -7788,6 +8494,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-24T09:26:00",
    "lab": {
     "weightKg": 73.5,
     "scrMgDl": 1.1,
@@ -7815,6 +8523,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-25T09:50:00",
    "lab": {
     "weightKg": 73,
     "scrMgDl": 1.16,
@@ -7842,6 +8552,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-31T09:17:00",
    "lab": {
     "weightKg": 65.5,
     "scrMgDl": 1.07,
@@ -7869,6 +8581,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-22T09:21:00",
    "lab": {
     "weightKg": 55.1,
     "scrMgDl": 0.97,
@@ -7896,6 +8610,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-24T09:34:00",
    "lab": {
     "weightKg": 53.5,
     "scrMgDl": 1.11,
@@ -7923,6 +8639,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-26T09:14:00",
    "lab": {
     "weightKg": 79.5,
     "scrMgDl": 1.18,
@@ -7950,6 +8668,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-04-30T09:24:00",
    "lab": {
     "weightKg": 72.8,
     "scrMgDl": 1.21,
@@ -7977,6 +8697,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-11T09:01:00",
    "lab": {
     "weightKg": 67.3,
     "scrMgDl": 1.07,
@@ -8004,6 +8726,8 @@
     "alert": false
    },
    "concordanceLabel": "ไม่ระบุเหตุผล",
+   "concordanceClass": "concordance--no",
+   "lastDispensedAt": "2026-05-11T09:02:00",
    "lab": {
     "weightKg": 69,
     "scrMgDl": 1.38,
@@ -8031,6 +8755,8 @@
     "alert": true
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-21T09:29:00",
    "lab": {
     "weightKg": 45.6,
     "scrMgDl": 1.46,
@@ -8058,6 +8784,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-31T09:10:00",
    "lab": {
     "weightKg": 49,
     "scrMgDl": 1.13,
@@ -8085,6 +8813,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-21T09:57:00",
    "lab": {
     "weightKg": 67.5,
     "scrMgDl": 1.46,
@@ -8112,6 +8842,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-31T09:17:00",
    "lab": {
     "weightKg": 56.8,
     "scrMgDl": 0.91,
@@ -8139,6 +8871,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-31T09:00:00",
    "lab": {
     "weightKg": 49.2,
     "scrMgDl": 1.06,
@@ -8166,6 +8900,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-11T09:36:00",
    "lab": {
     "weightKg": 51.3,
     "scrMgDl": 0.89,
@@ -8193,6 +8929,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-27T09:21:00",
    "lab": {
     "weightKg": 78.1,
     "scrMgDl": 0.78,
@@ -8220,6 +8958,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-23T09:59:00",
    "lab": {
     "weightKg": 72.9,
     "scrMgDl": 0.86,
@@ -8247,6 +8987,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-28T09:43:00",
    "lab": {
     "weightKg": 73.3,
     "scrMgDl": 0.86,
@@ -8274,6 +9016,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-03T09:55:00",
    "lab": {
     "weightKg": 71.9,
     "scrMgDl": 0.78,
@@ -8301,6 +9045,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-31T09:47:00",
    "lab": {
     "weightKg": 57,
     "scrMgDl": 1.09,
@@ -8328,6 +9074,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-28T09:06:00",
    "lab": {
     "weightKg": 68.3,
     "scrMgDl": 1.16,
@@ -8355,6 +9103,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-01T09:32:00",
    "lab": {
     "weightKg": 39.1,
     "scrMgDl": 0.97,
@@ -8382,6 +9132,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-06T09:27:00",
    "lab": {
     "weightKg": 81.7,
     "scrMgDl": 1.21,
@@ -8409,6 +9161,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-07T09:09:00",
    "lab": {
     "weightKg": 54.5,
     "scrMgDl": 0.59,
@@ -8436,6 +9190,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-20T09:36:00",
    "lab": {
     "weightKg": 69.9,
     "scrMgDl": 0.56,
@@ -8463,6 +9219,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-15T09:00:00",
    "lab": {
     "weightKg": 63.9,
     "scrMgDl": 0.55,
@@ -8490,6 +9248,8 @@
     "alert": true
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-12T09:20:00",
    "lab": {
     "weightKg": 48.9,
     "scrMgDl": 1.51,
@@ -8517,6 +9277,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-25T09:22:00",
    "lab": {
     "weightKg": 51,
     "scrMgDl": 0.81,
@@ -8544,6 +9306,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-29T09:00:00",
    "lab": {
     "weightKg": 42.7,
     "scrMgDl": 0.98,
@@ -8571,6 +9335,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-06T09:01:00",
    "lab": {
     "weightKg": 66.1,
     "scrMgDl": 1.17,
@@ -8598,6 +9364,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-04-29T09:05:00",
    "lab": {
     "weightKg": 53.1,
     "scrMgDl": 1.26,
@@ -8625,6 +9393,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-05T09:31:00",
    "lab": {
     "weightKg": 49.3,
     "scrMgDl": 0.9,
@@ -8652,6 +9422,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-27T09:57:00",
    "lab": {
     "weightKg": 63.5,
     "scrMgDl": 0.74,
@@ -8679,6 +9451,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-25T09:47:00",
    "lab": {
     "weightKg": 63.9,
     "scrMgDl": 1.17,
@@ -8706,6 +9480,8 @@
     "alert": true
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-04-30T09:54:00",
    "lab": {
     "weightKg": 40.8,
     "scrMgDl": 1.34,
@@ -8733,6 +9509,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-13T09:08:00",
    "lab": {
     "weightKg": 63.4,
     "scrMgDl": 0.85,
@@ -8760,6 +9538,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-13T09:14:00",
    "lab": {
     "weightKg": 74.9,
     "scrMgDl": 1.15,
@@ -8787,6 +9567,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-21T09:12:00",
    "lab": {
     "weightKg": 59.1,
     "scrMgDl": 0.95,
@@ -8814,6 +9596,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-22T09:50:00",
    "lab": {
     "weightKg": 64.6,
     "scrMgDl": 1.1,
@@ -8841,6 +9625,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-06T09:41:00",
    "lab": {
     "weightKg": 70.3,
     "scrMgDl": 1.25,
@@ -8868,6 +9654,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-04T09:05:00",
    "lab": {
     "weightKg": 70.1,
     "scrMgDl": 1.42,
@@ -8895,6 +9683,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-07T09:25:00",
    "lab": {
     "weightKg": 78.6,
     "scrMgDl": 1.33,
@@ -8922,6 +9712,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-31T09:34:00",
    "lab": {
     "weightKg": 51.9,
     "scrMgDl": 1.28,
@@ -8949,6 +9741,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-04-30T09:24:00",
    "lab": {
     "weightKg": 62.2,
     "scrMgDl": 0.77,
@@ -8976,6 +9770,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-29T09:39:00",
    "lab": {
     "weightKg": 62.6,
     "scrMgDl": 1.08,
@@ -9003,6 +9799,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-14T09:40:00",
    "lab": {
     "weightKg": 54.1,
     "scrMgDl": 0.92,
@@ -9030,6 +9828,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-25T09:24:00",
    "lab": {
     "weightKg": 57.6,
     "scrMgDl": 0.78,
@@ -9057,6 +9857,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-08T09:38:00",
    "lab": {
     "weightKg": 69.9,
     "scrMgDl": 0.76,
@@ -9084,6 +9886,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-13T09:07:00",
    "lab": {
     "weightKg": 71.4,
     "scrMgDl": 0.79,
@@ -9111,6 +9915,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-04T09:06:00",
    "lab": {
     "weightKg": 73,
     "scrMgDl": 1.38,
@@ -9138,6 +9944,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-07T09:02:00",
    "lab": {
     "weightKg": 81.5,
     "scrMgDl": 0.5,
@@ -9165,6 +9973,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-11T09:49:00",
    "lab": {
     "weightKg": 46.4,
     "scrMgDl": 0.86,
@@ -9192,6 +10002,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-16T09:56:00",
    "lab": {
     "weightKg": 56.4,
     "scrMgDl": 1.2,
@@ -9219,6 +10031,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-10T09:31:00",
    "lab": {
     "weightKg": 72.7,
     "scrMgDl": 1.06,
@@ -9246,6 +10060,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-31T09:27:00",
    "lab": {
     "weightKg": 67.3,
     "scrMgDl": 1.03,
@@ -9273,6 +10089,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-29T09:09:00",
    "lab": {
     "weightKg": 63.1,
     "scrMgDl": 0.73,
@@ -9300,6 +10118,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-27T09:11:00",
    "lab": {
     "weightKg": 75.5,
     "scrMgDl": 0.69,
@@ -9327,6 +10147,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-05T09:30:00",
    "lab": {
     "weightKg": 75.5,
     "scrMgDl": 0.51,
@@ -9354,6 +10176,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-16T09:46:00",
    "lab": {
     "weightKg": 59.8,
     "scrMgDl": 1.1,
@@ -9381,6 +10205,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-26T09:17:00",
    "lab": {
     "weightKg": 49.1,
     "scrMgDl": 1.19,
@@ -9408,6 +10234,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-14T09:22:00",
    "lab": {
     "weightKg": 65.8,
     "scrMgDl": 1.5,
@@ -9435,6 +10263,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-29T09:35:00",
    "lab": {
     "weightKg": 79.7,
     "scrMgDl": 1.3,
@@ -9462,6 +10292,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-09T09:35:00",
    "lab": {
     "weightKg": 59.6,
     "scrMgDl": 1.19,
@@ -9489,6 +10321,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-09T09:05:00",
    "lab": {
     "weightKg": 53.6,
     "scrMgDl": 0.98,
@@ -9516,6 +10350,8 @@
     "alert": true
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:36:00",
    "lab": {
     "weightKg": 54.3,
     "scrMgDl": 1.35,
@@ -9543,6 +10379,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-20T09:04:00",
    "lab": {
     "weightKg": 76.3,
     "scrMgDl": 0.85,
@@ -9570,6 +10408,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-17T09:30:00",
    "lab": {
     "weightKg": 39.9,
     "scrMgDl": 0.92,
@@ -9597,6 +10437,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-22T09:26:00",
    "lab": {
     "weightKg": 55.6,
     "scrMgDl": 1.24,
@@ -9624,6 +10466,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-11T09:14:00",
    "lab": {
     "weightKg": 75.3,
     "scrMgDl": 1.33,
@@ -9651,6 +10495,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-03T09:43:00",
    "lab": {
     "weightKg": 64.1,
     "scrMgDl": 1.01,
@@ -9678,6 +10524,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-26T09:49:00",
    "lab": {
     "weightKg": 79.5,
     "scrMgDl": 0.91,
@@ -9705,6 +10553,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-08T09:51:00",
    "lab": {
     "weightKg": 58,
     "scrMgDl": 1.37,
@@ -9732,6 +10582,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:18:00",
    "lab": {
     "weightKg": 85,
     "scrMgDl": 1.26,
@@ -9759,6 +10611,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-28T09:48:00",
    "lab": {
     "weightKg": 74.8,
     "scrMgDl": 0.75,
@@ -9786,6 +10640,8 @@
     "alert": true
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-23T09:33:00",
    "lab": {
     "weightKg": 65.4,
     "scrMgDl": 1.66,
@@ -9813,6 +10669,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-24T09:08:00",
    "lab": {
     "weightKg": 70.2,
     "scrMgDl": 0.53,
@@ -9840,6 +10698,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-22T09:00:00",
    "lab": {
     "weightKg": 62.9,
     "scrMgDl": 0.89,
@@ -9867,6 +10727,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-06T09:44:00",
    "lab": {
     "weightKg": 81.2,
     "scrMgDl": 1.18,
@@ -9894,6 +10756,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-05T09:27:00",
    "lab": {
     "weightKg": 74.9,
     "scrMgDl": 0.57,
@@ -9921,6 +10785,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-27T09:14:00",
    "lab": {
     "weightKg": 67.8,
     "scrMgDl": 1.31,
@@ -9948,6 +10814,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-01T09:40:00",
    "lab": {
     "weightKg": 68.9,
     "scrMgDl": 0.95,
@@ -9975,6 +10843,8 @@
     "alert": true
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-24T09:59:00",
    "lab": {
     "weightKg": 40.2,
     "scrMgDl": 1.49,
@@ -10002,6 +10872,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-18T09:41:00",
    "lab": {
     "weightKg": 77.1,
     "scrMgDl": 0.95,
@@ -10029,6 +10901,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:22:00",
    "lab": {
     "weightKg": 50.3,
     "scrMgDl": 0.6,
@@ -10056,6 +10930,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-12T09:28:00",
    "lab": {
     "weightKg": 62.3,
     "scrMgDl": 1.33,
@@ -10083,6 +10959,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-17T09:03:00",
    "lab": {
     "weightKg": 55.8,
     "scrMgDl": 1.28,
@@ -10110,6 +10988,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-26T09:58:00",
    "lab": {
     "weightKg": 47.1,
     "scrMgDl": 0.89,
@@ -10137,6 +11017,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-06T09:02:00",
    "lab": {
     "weightKg": 73.4,
     "scrMgDl": 1.26,
@@ -10164,6 +11046,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-16T09:45:00",
    "lab": {
     "weightKg": 48.3,
     "scrMgDl": 0.77,
@@ -10191,6 +11075,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-12T09:33:00",
    "lab": {
     "weightKg": 86.1,
     "scrMgDl": 1.19,
@@ -10218,6 +11104,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-21T09:15:00",
    "lab": {
     "weightKg": 54,
     "scrMgDl": 0.77,
@@ -10245,6 +11133,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-08T09:28:00",
    "lab": {
     "weightKg": 55.2,
     "scrMgDl": 0.79,
@@ -10272,6 +11162,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:19:00",
    "lab": {
     "weightKg": 67.6,
     "scrMgDl": 1.44,
@@ -10299,6 +11191,8 @@
     "alert": true
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-28T09:12:00",
    "lab": {
     "weightKg": 53,
     "scrMgDl": 1.48,
@@ -10326,6 +11220,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-20T09:13:00",
    "lab": {
     "weightKg": 63.8,
     "scrMgDl": 0.95,
@@ -10353,6 +11249,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-17T09:32:00",
    "lab": {
     "weightKg": 72.9,
     "scrMgDl": 0.59,
@@ -10380,6 +11278,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-05T09:39:00",
    "lab": {
     "weightKg": 58.1,
     "scrMgDl": 0.57,
@@ -10407,6 +11307,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-11T09:51:00",
    "lab": {
     "weightKg": 66,
     "scrMgDl": 1.35,
@@ -10434,6 +11336,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-07T09:00:00",
    "lab": {
     "weightKg": 53.6,
     "scrMgDl": 0.97,
@@ -10461,6 +11365,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-15T09:21:00",
    "lab": {
     "weightKg": 69,
     "scrMgDl": 1.23,
@@ -10488,6 +11394,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-26T09:19:00",
    "lab": {
     "weightKg": 84.1,
     "scrMgDl": 0.68,
@@ -10515,6 +11423,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-23T09:30:00",
    "lab": {
     "weightKg": 41.1,
     "scrMgDl": 1.39,
@@ -10542,6 +11452,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-18T09:16:00",
    "lab": {
     "weightKg": 54.5,
     "scrMgDl": 1.02,
@@ -10569,6 +11481,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-21T09:08:00",
    "lab": {
     "weightKg": 84.8,
     "scrMgDl": 1.28,
@@ -10596,6 +11510,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-13T09:33:00",
    "lab": {
     "weightKg": 45.5,
     "scrMgDl": 1.17,
@@ -10623,6 +11539,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-09T09:56:00",
    "lab": {
     "weightKg": 44.2,
     "scrMgDl": 0.82,
@@ -10650,6 +11568,8 @@
     "alert": false
    },
    "concordanceLabel": "ไม่ระบุเหตุผล",
+   "concordanceClass": "concordance--no",
+   "lastDispensedAt": "2026-05-03T09:48:00",
    "lab": {
     "weightKg": 82.7,
     "scrMgDl": 0.7,
@@ -10677,6 +11597,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:41:00",
    "lab": {
     "weightKg": 58.1,
     "scrMgDl": 0.8,
@@ -10704,6 +11626,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-31T09:07:00",
    "lab": {
     "weightKg": 70.5,
     "scrMgDl": 0.73,
@@ -10731,6 +11655,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-22T09:05:00",
    "lab": {
     "weightKg": 68.7,
     "scrMgDl": 1.03,
@@ -10758,6 +11684,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-31T09:14:00",
    "lab": {
     "weightKg": 63,
     "scrMgDl": 1.52,
@@ -10785,6 +11713,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-07T09:49:00",
    "lab": {
     "weightKg": 74.4,
     "scrMgDl": 1.11,
@@ -10812,6 +11742,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-11T09:08:00",
    "lab": {
     "weightKg": 68.9,
     "scrMgDl": 1.05,
@@ -10839,6 +11771,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-17T09:21:00",
    "lab": {
     "weightKg": 86.9,
     "scrMgDl": 1.61,
@@ -10866,6 +11800,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-13T09:47:00",
    "lab": {
     "weightKg": 57.3,
     "scrMgDl": 1,
@@ -10893,6 +11829,8 @@
     "alert": true
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:26:00",
    "lab": {
     "weightKg": 53.9,
     "scrMgDl": 1.13,
@@ -10920,6 +11858,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-27T09:30:00",
    "lab": {
     "weightKg": 65.6,
     "scrMgDl": 1.05,
@@ -10947,6 +11887,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-17T09:53:00",
    "lab": {
     "weightKg": 75.1,
     "scrMgDl": 1.17,
@@ -10974,6 +11916,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-27T09:07:00",
    "lab": {
     "weightKg": 72.3,
     "scrMgDl": 0.8,
@@ -11001,6 +11945,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-19T09:27:00",
    "lab": {
     "weightKg": 51.7,
     "scrMgDl": 1.27,
@@ -11028,6 +11974,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-20T09:42:00",
    "lab": {
     "weightKg": 57.5,
     "scrMgDl": 0.72,
@@ -11055,6 +12003,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-26T09:38:00",
    "lab": {
     "weightKg": 59.3,
     "scrMgDl": 0.89,
@@ -11082,6 +12032,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-22T09:32:00",
    "lab": {
     "weightKg": 64.5,
     "scrMgDl": 1.24,
@@ -11109,6 +12061,8 @@
     "alert": true
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-06T09:02:00",
    "lab": {
     "weightKg": 43.7,
     "scrMgDl": 1.05,
@@ -11136,6 +12090,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-17T09:18:00",
    "lab": {
     "weightKg": 76.5,
     "scrMgDl": 1.03,
@@ -11163,6 +12119,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-11T09:53:00",
    "lab": {
     "weightKg": 57.2,
     "scrMgDl": 0.83,
@@ -11190,6 +12148,8 @@
     "alert": true
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-19T09:57:00",
    "lab": {
     "weightKg": 41.4,
     "scrMgDl": 1.38,
@@ -11217,6 +12177,8 @@
     "alert": true
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-07T09:53:00",
    "lab": {
     "weightKg": 56.3,
     "scrMgDl": 1.68,
@@ -11244,6 +12206,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-01T09:11:00",
    "lab": {
     "weightKg": 60.7,
     "scrMgDl": 1.14,
@@ -11271,6 +12235,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-31T09:06:00",
    "lab": {
     "weightKg": 55.9,
     "scrMgDl": 1.11,
@@ -11298,6 +12264,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-11T09:59:00",
    "lab": {
     "weightKg": 50.1,
     "scrMgDl": 1.07,
@@ -11325,6 +12293,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-16T09:04:00",
    "lab": {
     "weightKg": 79.1,
     "scrMgDl": 0.61,
@@ -11352,6 +12322,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:09:00",
    "lab": {
     "weightKg": 69.1,
     "scrMgDl": 1.24,
@@ -11379,6 +12351,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-21T09:27:00",
    "lab": {
     "weightKg": 53.7,
     "scrMgDl": 1.23,
@@ -11406,6 +12380,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-31T09:30:00",
    "lab": {
     "weightKg": 42.5,
     "scrMgDl": 0.86,
@@ -11433,6 +12409,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-10T09:31:00",
    "lab": {
     "weightKg": 61.5,
     "scrMgDl": 0.79,
@@ -11460,6 +12438,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-26T09:30:00",
    "lab": {
     "weightKg": 46.4,
     "scrMgDl": 0.73,
@@ -11487,6 +12467,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-08T09:54:00",
    "lab": {
     "weightKg": 50.7,
     "scrMgDl": 1.09,
@@ -11514,6 +12496,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-18T09:38:00",
    "lab": {
     "weightKg": 50.6,
     "scrMgDl": 1.19,
@@ -11541,6 +12525,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-03T09:08:00",
    "lab": {
     "weightKg": 60.6,
     "scrMgDl": 0.73,
@@ -11568,6 +12554,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-10T09:07:00",
    "lab": {
     "weightKg": 65.2,
     "scrMgDl": 1,
@@ -11595,6 +12583,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-06T09:25:00",
    "lab": {
     "weightKg": 48.7,
     "scrMgDl": 0.74,
@@ -11622,6 +12612,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:48:00",
    "lab": {
     "weightKg": 69.4,
     "scrMgDl": 0.84,
@@ -11649,6 +12641,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-17T09:39:00",
    "lab": {
     "weightKg": 69.3,
     "scrMgDl": 1.08,
@@ -11676,6 +12670,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-04-29T09:22:00",
    "lab": {
     "weightKg": 60.8,
     "scrMgDl": 1.17,
@@ -11703,6 +12699,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-31T09:11:00",
    "lab": {
     "weightKg": 69.2,
     "scrMgDl": 0.99,
@@ -11730,6 +12728,8 @@
     "alert": true
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-28T09:54:00",
    "lab": {
     "weightKg": 52.4,
     "scrMgDl": 1.88,
@@ -11757,6 +12757,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-22T09:36:00",
    "lab": {
     "weightKg": 58,
     "scrMgDl": 1.04,
@@ -11784,6 +12786,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-15T09:12:00",
    "lab": {
     "weightKg": 64.5,
     "scrMgDl": 1.41,
@@ -11811,6 +12815,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-16T09:28:00",
    "lab": {
     "weightKg": 80.4,
     "scrMgDl": 0.8,
@@ -11838,6 +12844,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-02T09:00:00",
    "lab": {
     "weightKg": 67.9,
     "scrMgDl": 1.32,
@@ -11865,6 +12873,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-19T09:02:00",
    "lab": {
     "weightKg": 55.8,
     "scrMgDl": 1.57,
@@ -11892,6 +12902,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-20T09:34:00",
    "lab": {
     "weightKg": 88.6,
     "scrMgDl": 0.72,
@@ -11919,6 +12931,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-22T09:10:00",
    "lab": {
     "weightKg": 81.4,
     "scrMgDl": 0.9,
@@ -11946,6 +12960,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-15T09:12:00",
    "lab": {
     "weightKg": 62.1,
     "scrMgDl": 1.13,
@@ -11973,6 +12989,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-09T09:31:00",
    "lab": {
     "weightKg": 54.3,
     "scrMgDl": 1.03,
@@ -12000,6 +13018,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-07T09:45:00",
    "lab": {
     "weightKg": 56.1,
     "scrMgDl": 1.39,
@@ -12027,6 +13047,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-09T09:59:00",
    "lab": {
     "weightKg": 51.7,
     "scrMgDl": 1.06,
@@ -12054,6 +13076,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-27T09:29:00",
    "lab": {
     "weightKg": 74.1,
     "scrMgDl": 0.9,
@@ -12081,6 +13105,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-29T09:23:00",
    "lab": {
     "weightKg": 62.9,
     "scrMgDl": 0.63,
@@ -12108,6 +13134,8 @@
     "alert": false
    },
    "concordanceLabel": "ไม่ระบุเหตุผล",
+   "concordanceClass": "concordance--no",
+   "lastDispensedAt": "2026-05-27T09:44:00",
    "lab": {
     "weightKg": 66.3,
     "scrMgDl": 1.09,
@@ -12135,6 +13163,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-09T09:47:00",
    "lab": {
     "weightKg": 61,
     "scrMgDl": 0.79,
@@ -12162,6 +13192,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-16T09:27:00",
    "lab": {
     "weightKg": 60.1,
     "scrMgDl": 0.62,
@@ -12189,6 +13221,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-04T09:31:00",
    "lab": {
     "weightKg": 42,
     "scrMgDl": 0.53,
@@ -12216,6 +13250,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-03T09:15:00",
    "lab": {
     "weightKg": 59.9,
     "scrMgDl": 1.14,
@@ -12243,6 +13279,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-18T09:18:00",
    "lab": {
     "weightKg": 76.5,
     "scrMgDl": 0.52,
@@ -12270,6 +13308,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-27T09:20:00",
    "lab": {
     "weightKg": 58.1,
     "scrMgDl": 0.73,
@@ -12297,6 +13337,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-15T09:51:00",
    "lab": {
     "weightKg": 58.4,
     "scrMgDl": 0.74,
@@ -12324,6 +13366,8 @@
     "alert": true
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-26T09:35:00",
    "lab": {
     "weightKg": 45,
     "scrMgDl": 1.58,
@@ -12351,6 +13395,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-18T09:36:00",
    "lab": {
     "weightKg": 63.2,
     "scrMgDl": 1.01,
@@ -12378,6 +13424,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-09T09:52:00",
    "lab": {
     "weightKg": 67.9,
     "scrMgDl": 0.7,
@@ -12405,6 +13453,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-12T09:47:00",
    "lab": {
     "weightKg": 58.2,
     "scrMgDl": 0.84,
@@ -12432,6 +13482,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-22T09:43:00",
    "lab": {
     "weightKg": 65.8,
     "scrMgDl": 0.9,
@@ -12459,6 +13511,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-27T09:03:00",
    "lab": {
     "weightKg": 80.1,
     "scrMgDl": 0.79,
@@ -12486,6 +13540,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-09T09:20:00",
    "lab": {
     "weightKg": 54.4,
     "scrMgDl": 1.17,
@@ -12513,6 +13569,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:44:00",
    "lab": {
     "weightKg": 61.4,
     "scrMgDl": 1.34,
@@ -12540,6 +13598,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-08T09:44:00",
    "lab": {
     "weightKg": 65.1,
     "scrMgDl": 0.65,
@@ -12567,6 +13627,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:06:00",
    "lab": {
     "weightKg": 67.7,
     "scrMgDl": 0.95,
@@ -12594,6 +13656,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-04-29T09:20:00",
    "lab": {
     "weightKg": 58,
     "scrMgDl": 1.36,
@@ -12621,6 +13685,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-10T09:19:00",
    "lab": {
     "weightKg": 58.9,
     "scrMgDl": 1.05,
@@ -12648,6 +13714,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-13T09:01:00",
    "lab": {
     "weightKg": 68.7,
     "scrMgDl": 0.63,
@@ -12675,6 +13743,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-17T09:58:00",
    "lab": {
     "weightKg": 55.7,
     "scrMgDl": 0.73,
@@ -12702,6 +13772,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-24T09:22:00",
    "lab": {
     "weightKg": 57.6,
     "scrMgDl": 1.12,
@@ -12729,6 +13801,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-28T09:49:00",
    "lab": {
     "weightKg": 68.2,
     "scrMgDl": 0.55,
@@ -12756,6 +13830,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-31T09:50:00",
    "lab": {
     "weightKg": 62.8,
     "scrMgDl": 1.36,
@@ -12783,6 +13859,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-03T09:30:00",
    "lab": {
     "weightKg": 62.8,
     "scrMgDl": 1.52,
@@ -12810,6 +13888,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-15T09:40:00",
    "lab": {
     "weightKg": 61.8,
     "scrMgDl": 0.92,
@@ -12837,6 +13917,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-28T09:49:00",
    "lab": {
     "weightKg": 78.9,
     "scrMgDl": 1.3,
@@ -12864,6 +13946,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-19T09:03:00",
    "lab": {
     "weightKg": 74.5,
     "scrMgDl": 1.19,
@@ -12891,6 +13975,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-07T09:52:00",
    "lab": {
     "weightKg": 59.5,
     "scrMgDl": 0.82,
@@ -12918,6 +14004,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:06:00",
    "lab": {
     "weightKg": 52.4,
     "scrMgDl": 0.6,
@@ -12945,6 +14033,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-19T09:32:00",
    "lab": {
     "weightKg": 38.5,
     "scrMgDl": 0.89,
@@ -12972,6 +14062,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-26T09:29:00",
    "lab": {
     "weightKg": 67.8,
     "scrMgDl": 0.5,
@@ -12999,6 +14091,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-10T09:28:00",
    "lab": {
     "weightKg": 77.3,
     "scrMgDl": 1.21,
@@ -13026,6 +14120,8 @@
     "alert": true
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-22T09:06:00",
    "lab": {
     "weightKg": 44.8,
     "scrMgDl": 1.3,
@@ -13053,6 +14149,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-09T09:29:00",
    "lab": {
     "weightKg": 67.8,
     "scrMgDl": 1.46,
@@ -13080,6 +14178,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-03T09:27:00",
    "lab": {
     "weightKg": 55.5,
     "scrMgDl": 0.67,
@@ -13107,6 +14207,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-24T09:38:00",
    "lab": {
     "weightKg": 56.9,
     "scrMgDl": 1.04,
@@ -13134,6 +14236,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-05T09:10:00",
    "lab": {
     "weightKg": 57.9,
     "scrMgDl": 1.14,
@@ -13161,6 +14265,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-21T09:38:00",
    "lab": {
     "weightKg": 66.8,
     "scrMgDl": 1.32,
@@ -13188,6 +14294,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:10:00",
    "lab": {
     "weightKg": 62,
     "scrMgDl": 1,
@@ -13215,6 +14323,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-27T09:00:00",
    "lab": {
     "weightKg": 55.1,
     "scrMgDl": 0.97,
@@ -13242,6 +14352,8 @@
     "alert": true
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-29T09:52:00",
    "lab": {
     "weightKg": 47,
     "scrMgDl": 1.39,
@@ -13269,6 +14381,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-24T09:59:00",
    "lab": {
     "weightKg": 53.2,
     "scrMgDl": 0.92,
@@ -13296,6 +14410,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-01T09:05:00",
    "lab": {
     "weightKg": 65.8,
     "scrMgDl": 1.3,
@@ -13323,6 +14439,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-15T09:50:00",
    "lab": {
     "weightKg": 68.1,
     "scrMgDl": 0.61,
@@ -13350,6 +14468,8 @@
     "alert": true
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-24T09:29:00",
    "lab": {
     "weightKg": 54.8,
     "scrMgDl": 1.42,
@@ -13377,6 +14497,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-21T09:46:00",
    "lab": {
     "weightKg": 63.8,
     "scrMgDl": 0.61,
@@ -13404,6 +14526,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-05T09:59:00",
    "lab": {
     "weightKg": 73.3,
     "scrMgDl": 1.35,
@@ -13431,6 +14555,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-16T09:34:00",
    "lab": {
     "weightKg": 53,
     "scrMgDl": 0.91,
@@ -13458,6 +14584,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-11T09:52:00",
    "lab": {
     "weightKg": 71.7,
     "scrMgDl": 0.5,
@@ -13485,6 +14613,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-22T09:34:00",
    "lab": {
     "weightKg": 57.8,
     "scrMgDl": 1.1,
@@ -13512,6 +14642,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-28T09:16:00",
    "lab": {
     "weightKg": 42.7,
     "scrMgDl": 0.93,
@@ -13539,6 +14671,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:56:00",
    "lab": {
     "weightKg": 47.3,
     "scrMgDl": 0.72,
@@ -13566,6 +14700,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-27T09:45:00",
    "lab": {
     "weightKg": 80.9,
     "scrMgDl": 1.27,
@@ -13593,6 +14729,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-12T09:33:00",
    "lab": {
     "weightKg": 43.4,
     "scrMgDl": 1.39,
@@ -13620,6 +14758,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-24T09:45:00",
    "lab": {
     "weightKg": 76.1,
     "scrMgDl": 1.44,
@@ -13647,6 +14787,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-11T09:44:00",
    "lab": {
     "weightKg": 58.9,
     "scrMgDl": 0.56,
@@ -13674,6 +14816,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-26T09:02:00",
    "lab": {
     "weightKg": 55.9,
     "scrMgDl": 1.3,
@@ -13701,6 +14845,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-13T09:31:00",
    "lab": {
     "weightKg": 67.3,
     "scrMgDl": 1.57,
@@ -13728,6 +14874,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-24T09:44:00",
    "lab": {
     "weightKg": 56.2,
     "scrMgDl": 0.96,
@@ -13755,6 +14903,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-04T09:51:00",
    "lab": {
     "weightKg": 77.8,
     "scrMgDl": 1.23,
@@ -13782,6 +14932,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:05:00",
    "lab": {
     "weightKg": 60.1,
     "scrMgDl": 1.05,
@@ -13809,6 +14961,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-02T09:18:00",
    "lab": {
     "weightKg": 77.7,
     "scrMgDl": 1.32,
@@ -13836,6 +14990,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-21T09:41:00",
    "lab": {
     "weightKg": 78,
     "scrMgDl": 0.87,
@@ -13863,6 +15019,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:34:00",
    "lab": {
     "weightKg": 74.6,
     "scrMgDl": 0.86,
@@ -13890,6 +15048,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-06T09:08:00",
    "lab": {
     "weightKg": 40.3,
     "scrMgDl": 0.64,
@@ -13917,6 +15077,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-16T09:16:00",
    "lab": {
     "weightKg": 60.3,
     "scrMgDl": 0.88,
@@ -13944,6 +15106,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-09T09:09:00",
    "lab": {
     "weightKg": 65.6,
     "scrMgDl": 0.5,
@@ -13971,6 +15135,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-19T09:09:00",
    "lab": {
     "weightKg": 65.4,
     "scrMgDl": 1.22,
@@ -13998,6 +15164,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-20T09:58:00",
    "lab": {
     "weightKg": 67.8,
     "scrMgDl": 0.97,
@@ -14025,6 +15193,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:32:00",
    "lab": {
     "weightKg": 87.7,
     "scrMgDl": 1.97,
@@ -14052,6 +15222,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-05T09:26:00",
    "lab": {
     "weightKg": 71.7,
     "scrMgDl": 0.66,
@@ -14079,6 +15251,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-25T09:03:00",
    "lab": {
     "weightKg": 79,
     "scrMgDl": 1.44,
@@ -14106,6 +15280,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-19T09:37:00",
    "lab": {
     "weightKg": 68.3,
     "scrMgDl": 0.99,
@@ -14133,6 +15309,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-21T09:37:00",
    "lab": {
     "weightKg": 68.5,
     "scrMgDl": 1.1,
@@ -14160,6 +15338,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-07T09:42:00",
    "lab": {
     "weightKg": 60,
     "scrMgDl": 0.69,
@@ -14187,6 +15367,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-19T09:31:00",
    "lab": {
     "weightKg": 98.5,
     "scrMgDl": 0.67,
@@ -14214,6 +15396,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-16T09:20:00",
    "lab": {
     "weightKg": 74.3,
     "scrMgDl": 0.91,
@@ -14241,6 +15425,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-23T09:35:00",
    "lab": {
     "weightKg": 72.2,
     "scrMgDl": 0.89,
@@ -14268,6 +15454,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-20T09:41:00",
    "lab": {
     "weightKg": 62.8,
     "scrMgDl": 1.24,
@@ -14295,6 +15483,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-05T09:11:00",
    "lab": {
     "weightKg": 54.1,
     "scrMgDl": 0.85,
@@ -14322,6 +15512,8 @@
     "alert": true
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-04T09:00:00",
    "lab": {
     "weightKg": 49.7,
     "scrMgDl": 1.17,
@@ -14349,6 +15541,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-01T09:29:00",
    "lab": {
     "weightKg": 55,
     "scrMgDl": 1.26,
@@ -14376,6 +15570,8 @@
     "alert": true
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-07T09:31:00",
    "lab": {
     "weightKg": 41.9,
     "scrMgDl": 1.72,
@@ -14403,6 +15599,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-31T09:48:00",
    "lab": {
     "weightKg": 85.1,
     "scrMgDl": 0.58,
@@ -14430,6 +15628,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-25T09:30:00",
    "lab": {
     "weightKg": 61.1,
     "scrMgDl": 1.34,
@@ -14457,6 +15657,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-04-29T09:48:00",
    "lab": {
     "weightKg": 78.4,
     "scrMgDl": 0.81,
@@ -14484,6 +15686,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-14T09:22:00",
    "lab": {
     "weightKg": 81.9,
     "scrMgDl": 0.5,
@@ -14511,6 +15715,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-31T09:14:00",
    "lab": {
     "weightKg": 52.9,
     "scrMgDl": 0.94,
@@ -14538,6 +15744,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-29T09:26:00",
    "lab": {
     "weightKg": 82,
     "scrMgDl": 1.44,
@@ -14565,6 +15773,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-09T09:52:00",
    "lab": {
     "weightKg": 56.3,
     "scrMgDl": 0.87,
@@ -14592,6 +15802,8 @@
     "alert": true
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-20T09:11:00",
    "lab": {
     "weightKg": 55.4,
     "scrMgDl": 1.6,
@@ -14619,6 +15831,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-15T09:38:00",
    "lab": {
     "weightKg": 44.2,
     "scrMgDl": 0.89,
@@ -14646,6 +15860,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-23T09:21:00",
    "lab": {
     "weightKg": 58.2,
     "scrMgDl": 0.79,
@@ -14673,6 +15889,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-22T09:57:00",
    "lab": {
     "weightKg": 58.7,
     "scrMgDl": 0.9,
@@ -14700,6 +15918,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-15T09:32:00",
    "lab": {
     "weightKg": 64.4,
     "scrMgDl": 1.16,
@@ -14727,6 +15947,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-12T09:41:00",
    "lab": {
     "weightKg": 58.5,
     "scrMgDl": 0.92,
@@ -14754,6 +15976,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-06T09:40:00",
    "lab": {
     "weightKg": 41,
     "scrMgDl": 0.82,
@@ -14781,6 +16005,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-30T09:01:00",
    "lab": {
     "weightKg": 77,
     "scrMgDl": 0.93,
@@ -14808,6 +16034,8 @@
     "alert": false
    },
    "concordanceLabel": "ตามแนวทาง",
+   "concordanceClass": "concordance--yes",
+   "lastDispensedAt": "2026-05-29T09:09:00",
    "lab": {
     "weightKg": 49,
     "scrMgDl": 0.67,
@@ -14835,6 +16063,8 @@
     "alert": false
    },
    "concordanceLabel": "ปรับโดยมีเหตุผล",
+   "concordanceClass": "concordance--adjusted",
+   "lastDispensedAt": "2026-05-28T09:29:00",
    "lab": {
     "weightKg": 59.1,
     "scrMgDl": 1,

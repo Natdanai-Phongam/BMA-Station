@@ -1,15 +1,6 @@
 import type { WarfarinPageData, DoseAdjustment } from '@/data/types/warfarin'
 import type { WarfarinStatus } from '@/data/types/ats-patients'
 
-export function majorIxnCount(wf: WarfarinPageData | null): number {
-  if (!wf?.profile.concurrentMeds) return 0
-  return wf.profile.concurrentMeds.filter(m => m.severity === 'major').length
-}
-
-export function getMajorIxns(wf: WarfarinPageData | null) {
-  return wf?.profile.concurrentMeds?.filter(m => m.severity === 'major') ?? []
-}
-
 export function lastDoseAdjustment(wf: WarfarinPageData | null): DoseAdjustment | undefined {
   const adj = wf?.doseAdjustments
   return adj?.length ? adj[adj.length - 1] : undefined

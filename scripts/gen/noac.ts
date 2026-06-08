@@ -11,7 +11,7 @@ import type { DrugResult, NoacDrug, NoacEngineInput, NoacRecommendationResult, R
 import type {
   NoacPatientData, NoacProfile, NoacDispensingRecord, NoacLabData, NoacClinicalStatus,
 } from '../../src/data/types/noac-dispensing'
-import { rand, randInt, randNormal, chance, weighted } from './rng'
+import { randInt, randNormal, chance, weighted } from './rng'
 import { isoDate, crCl, addDays } from './pools'
 import { noacVisits } from './schedule'
 import type { GenPatient } from './identity'

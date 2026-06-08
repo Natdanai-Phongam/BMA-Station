@@ -7,13 +7,13 @@
 
 import { computeDosingSuggestion } from '../../src/utils/warfarinDosing'
 import {
-  DEFAULT_TARGET_RANGE, DEFAULT_PROTOCOL, DEFAULT_TTR_GOAL_PCT, INR_TARGET_RANGES,
+  DEFAULT_TARGET_RANGE, DEFAULT_TTR_GOAL_PCT, INR_TARGET_RANGES,
 } from '../../src/data/types/warfarin'
 import type {
   WarfarinPageData, WarfarinProfile, InrRecord, DoseAdjustment, TtrResult,
   PillStrengthMg, InrTargetRange, ConcurrentMed,
 } from '../../src/data/types/warfarin'
-import { rand, randInt, randFloat, randNormal, chance, pick, weighted } from './rng'
+import { randInt, randNormal, chance, pick, weighted } from './rng'
 import { isoDate } from './pools'
 import { warfarinVisits } from './schedule'
 import type { GenPatient } from './identity'

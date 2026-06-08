@@ -45,26 +45,8 @@ export interface AtsPatientsData {
   noacs:        AtsNoacsPatient[]
 }
 
-// ── Enriched patient types (ats-patients + therapy-specific clinical data) ────
-// These are the runtime shapes produced by enrichedWarfarin / enrichedNoacs
-// in DdAtsDashboard.vue and accepted as props by the table components.
-import type { WarfarinPageData } from './warfarin'
-import type { NoacPatientData }  from './noac-dispensing'
-
-export type EnrichedWfPatient = AtsWarfarinPatient & {
-  /** Always defined — computed from warfarin-patients.json latestInr */
-  status: WarfarinStatus
-  wf:     WarfarinPageData | null
-}
-
-export type EnrichedNoacPatient = AtsNoacsPatient & {
-  /** Always defined — from noac-patients.json profile.status */
-  status: NoacsStatus
-  /** Always defined — derived from latest dispensing labData */
-  crcl:   LabValue
-  weight: number
-  noac:   NoacPatientData | null
-}
+// NOTE: dashboard tables now consume the Tier-1 projection (WfListEntry /
+// NoacListEntry in src/data/repository/types.ts) instead of enriched raw shapes.
 
 /** Minimal patient entry used in the summary hover-tooltip lists */
 export interface SummaryPatientEntry {

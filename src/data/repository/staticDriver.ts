@@ -15,7 +15,7 @@ import type { NoacPatientData } from '@/data/types/noac-dispensing'
 import type { PatientDetail } from '@/data/types/patient-detail'
 import type { KpiOperationalData } from '@/data/types/kpi-operational'
 import type { Physician } from '@/data/types/physician'
-import type { DataRepository, ConsultationsData } from './types'
+import type { DataRepository, ConsultationsData, PatientListData, KpiSummary } from './types'
 
 // In-memory cache — each key resolves to a single shared promise so concurrent
 // callers never trigger duplicate imports.
@@ -86,4 +86,14 @@ export const staticDriver: DataRepository = {
     load('consultations',
       () => import('@/data/mock/consultations.json'),
       (r) => r as ConsultationsData),
+
+  getPatientList: () =>
+    load('patientList',
+      () => import('@/data/mock/patient-list.json'),
+      (r) => r as PatientListData),
+
+  getKpiSummary: () =>
+    load('kpiSummary',
+      () => import('@/data/mock/kpi-summary.json'),
+      (r) => r as KpiSummary),
 }

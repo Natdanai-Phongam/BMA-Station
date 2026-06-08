@@ -113,26 +113,20 @@
                 </span>
               </td>
               <td class="col-ttr">
-                <template v-if="p.wf">
-                  <div class="ttr-display">
-                    <span class="ttr-val" :class="`ttr--${p.wf.ttr.status}`">{{ p.wf.ttr.value }}%</span>
-                    <span class="ttr-status-badge" :class="`ttr-badge--${p.wf.ttr.status}`">{{ ttrStatusLabel[p.wf.ttr.status] }}</span>
-                  </div>
-                </template>
-                <span v-else class="col-dash">—</span>
+                <div class="ttr-display">
+                  <span class="ttr-val" :class="`ttr--${p.ttrStatus}`">{{ p.ttrValue }}%</span>
+                  <span class="ttr-status-badge" :class="`ttr-badge--${p.ttrStatus}`">{{ ttrStatusLabel[p.ttrStatus] }}</span>
+                </div>
               </td>
               <td class="col-dose">
-                <template v-if="p.wf">
-                  <div class="dose-display">
-                    <span class="dose-val">{{ p.wf.profile.currentDoseMgWk }}</span>
-                    <span class="dose-unit">mg/สป.</span>
-                  </div>
-                </template>
-                <span v-else class="col-dash">—</span>
+                <div class="dose-display">
+                  <span class="dose-val">{{ p.currentDoseMgWk }}</span>
+                  <span class="dose-unit">mg/สป.</span>
+                </div>
               </td>
               <td class="col-ixn">
                 <v-tooltip
-                  v-if="majorIxnCount(p.wf) > 0"
+                  v-if="p.majorInteractions.length > 0"
                   location="top"
                   :max-width="340"
                   content-class="ixn-tt-overlay"
@@ -140,13 +134,13 @@
                   <template #activator="{ props: ttProps }">
                     <span v-bind="ttProps" class="ixn-badge ixn-badge--hoverable">
                       <PhWarning :size="11" />
-                      {{ majorIxnCount(p.wf) }}
+                      {{ p.majorInteractions.length }}
                     </span>
                   </template>
                   <div class="ixn-tt-header">Drug Interactions · Major</div>
                   <div class="tt-scroll-body">
                     <div
-                      v-for="med in getMajorIxns(p.wf)"
+                      v-for="med in p.majorInteractions"
                       :key="med.name"
                       class="ixn-tt-row"
                     >
@@ -163,12 +157,9 @@
                 <span v-else class="col-dash">—</span>
               </td>
               <td class="col-concordance">
-                <template v-if="p.wf?.doseAdjustments?.length">
-                  <span
-                    class="concordance-badge"
-                    :class="wfConcordanceBadgeClass(lastDoseAdjustment(p.wf))"
-                  >
-                    {{ wfConcordanceLabel(lastDoseAdjustment(p.wf)) }}
+                <template v-if="p.concordanceClass !== 'concordance--none'">
+                  <span class="concordance-badge" :class="p.concordanceClass">
+                    {{ p.concordanceLabel }}
                   </span>
                 </template>
                 <span v-else class="col-dash">—</span>
@@ -194,11 +185,11 @@ import { ref, computed, watch } from 'vue'
 import {
   PhMagnifyingGlass, PhCalendar, PhX, PhArrowSquareOut, PhWarning,
 } from '@phosphor-icons/vue'
-import type { EnrichedWfPatient } from '@/data/types/ats-patients'
-import { majorIxnCount, getMajorIxns, lastDoseAdjustment, wfConcordanceBadgeClass, wfConcordanceLabel, warfarinStatusLabel, effectLabel, ttrStatusLabel } from '@/utils/warfarin-helpers'
+import type { WfListEntry } from '@/data/repository'
+import { warfarinStatusLabel, effectLabel, ttrStatusLabel } from '@/utils/warfarin-helpers'
 import BmaTablePagination from '@/components/BmaTablePagination.vue'
 
-const props = defineProps<{ rows: EnrichedWfPatient[] }>()
+const props = defineProps<{ rows: WfListEntry[] }>()
 const emit  = defineEmits<{ 'go-to-patient': [id: string] }>()
 
 // ── Filter state ──────────────────────────────────────────────────────────────
@@ -253,7 +244,7 @@ const filteredRows = computed(() => {
   }
   if (activeDateFrom.value || activeDateTo.value) {
     list = list.filter(p => {
-      const d = p.wf?.latestInr?.measuredAt?.substring(0, 10)
+      const d = p.inrDate
       if (!d) return false
       if (activeDateFrom.value && d < activeDateFrom.value) return false
       if (activeDateTo.value   && d > activeDateTo.value)   return false
