@@ -55,15 +55,6 @@ export interface Mortality {
   reason:  string
 }
 
-export interface MedErrorEvent {
-  id:       string
-  dateISO:  string
-  date:     string
-  detail:   string
-  severity: Severity
-  status:   string
-}
-
 export interface PatientDetail {
   id:                     string
   name:                   string
@@ -86,6 +77,4 @@ export interface PatientDetail {
   vitalStatus?:            VitalStatus
   /** Death record (present when vitalStatus === 'deceased') */
   mortality?:              Mortality
-  /** Medication dispensing/dosing errors — separate from clinical complications */
-  medErrors?:              MedErrorEvent[]
 }

@@ -9,6 +9,7 @@
           <span class="pc-eyebrow">ชื่อ-นามสกุล</span>
           <div class="pc-name-row">
             <span class="patient-name">{{ patient.name }}</span>
+            <span v-if="patient.vitalStatus === 'deceased'" class="pc-deceased-chip">เสียชีวิต</span>
             <span class="hn-badge">HN {{ patient.hn }}</span>
           </div>
         </div>
@@ -335,6 +336,16 @@ const crClStatus = computed(() => {
   font-size: 12px;
   font-weight: 700;
   color: var(--bma-green-500);
+}
+.pc-deceased-chip {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: var(--bma-radius-full);
+  background: var(--bma-emergency-bg);
+  color: var(--bma-emergency);
+  font-family: var(--bma-font-thai);
+  font-size: 12px;
+  font-weight: 700;
 }
 
 /* ── Demographics grid ──────────────────────────────────── */

@@ -58,6 +58,7 @@ import type { NoacDrug, NoacIndication } from '@/data/types/noac'
 export interface WfListEntry {
   id: string; name: string; hn: string; hospital: string
   weight: number; referred: boolean
+  deceased: boolean                   // outcome flag — row highlight + chip
   status: WarfarinStatus              // precomputed (was derived from latestInr)
   inr: { value: number; alert: boolean }
   crcl: { value: number; alert: boolean }
@@ -72,6 +73,7 @@ export interface WfListEntry {
 export interface NoacListEntry {
   id: string; name: string; hn: string; hospital: string
   weight: number; referred: boolean
+  deceased: boolean                   // outcome flag — row highlight + chip
   indication: NoacIndication
   status: NoacClinicalStatus
   drug: NoacDrug | null               // null when withheld

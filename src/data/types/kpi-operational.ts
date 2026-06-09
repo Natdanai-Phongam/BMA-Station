@@ -132,6 +132,8 @@ export interface SafetyRow {
   trendLabel:  string
   trendDir:    'up' | 'down' | 'flat'
   statusLabel: string
+  /** Informational metric (e.g. medError) — no target/trend/pass-fail badge */
+  informational?: boolean
 }
 
 export interface QualityBarRow {

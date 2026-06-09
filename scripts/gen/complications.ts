@@ -6,7 +6,7 @@
 // medError<1%, severe→aeHosp<5% of ~597 patients).
 // ─────────────────────────────────────────────────────────────────────────────
 
-import type { ComplicationEvent, ComplicationSummary, Severity, Mortality, MedErrorEvent } from '../../src/data/types/patient-detail'
+import type { ComplicationEvent, ComplicationSummary, Severity, Mortality } from '../../src/data/types/patient-detail'
 import { DATA_WINDOW } from '../../src/data/config/data-window'
 import { randInt, pick, weighted, shuffle } from './rng'
 import { addDays, parseISO, thaiDate, isoDate } from './pools'
@@ -44,22 +44,17 @@ const SPECS: Spec[] = [
 ]
 
 const DEATH_REASONS = ['เลือดออกในสมองรุนแรง', 'ภาวะแทรกซ้อนหลอดเลือดสมอง', 'ภาวะหัวใจล้มเหลวเฉียบพลัน', 'ติดเชื้อในกระแสเลือด']
-const MEDERR_DETAILS = ['จ่ายยาผิดขนาด (ตรวจพบก่อนผู้ป่วยรับยา)', 'บันทึกขนาดยาคลาดเคลื่อน', 'จ่ายยาซ้ำซ้อน', 'ความถี่การให้ยาผิด']
-const MEDERR_STATUS = ['แก้ไขแล้ว', 'ไม่มีผลต่อผู้ป่วย']
 
 const DEATH_COUNT = 4
-const MEDERR_COUNT = 5
 
 export interface SafetyData {
   complications: Map<string, ComplicationEvent[]>
   mortality: Map<string, Mortality>
-  medErrors: Map<string, MedErrorEvent[]>
 }
 
 export function generateSafety(patients: GenPatient[]): SafetyData {
   const complications = new Map<string, ComplicationEvent[]>()
   const mortality = new Map<string, Mortality>()
-  const medErrors = new Map<string, MedErrorEvent[]>()
 
   const pool = shuffle('comp:pool', patients.map(p => p.id))
   let cursor = 0
@@ -92,21 +87,7 @@ export function generateSafety(patients: GenPatient[]): SafetyData {
     mortality.set(pid, { dateISO: isoDate(date), date: thaiDate(date), reason: pick(`death:${k}:r`, DEATH_REASONS) })
   }
 
-  // Medication errors (process events)
-  for (let k = 0; k < MEDERR_COUNT; k++) {
-    const pid = next()
-    const date = dateAt(`mederr:${k}`)
-    const ev: MedErrorEvent = {
-      id: `mederr-${pid}-${k + 1}`,
-      dateISO: isoDate(date), date: thaiDate(date),
-      detail: pick(`mederr:${k}:d`, MEDERR_DETAILS),
-      severity: weighted<Severity>(`mederr:${k}:sev`, [['mild', 70], ['moderate', 30]]),
-      status: pick(`mederr:${k}:st`, MEDERR_STATUS),
-    }
-    const arr = medErrors.get(pid) ?? []; arr.push(ev); medErrors.set(pid, arr)
-  }
-
-  return { complications, mortality, medErrors }
+  return { complications, mortality }
 }
 
 /** Per-patient complicationSummary from clinical complications. */

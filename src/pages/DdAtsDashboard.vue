@@ -478,8 +478,9 @@ const activeKpi = computed<KpiMetric[]>(() => {
   // ── KPI tab strip ─────────────────────────────────────────────────────────
   const d    = liveKpi.value
   const s    = d.safety
+  // medError is a dispensing-appropriateness metric, not a complication → excluded
   const totalAE = s.bleeding.events + s.thrombosis.events + s.aeHospitalization.events
-                + s.death.events + s.medError.events
+                + s.death.events
   const ttr  = d.quality.wfTtrGoal
   const acc  = d.atsResponse.acceptanceRate
   return [
@@ -713,7 +714,9 @@ const liveKpi = computed<KpiPeriodData>(() => {
       thrombosis:        { events: m.comps.thrombosis,        pct: pct(m.comps.thrombosis),        prev: ops.safetyPrev.thrombosis,        target: KPI_SAFETY_TARGETS.thrombosis        },
       aeHospitalization: { events: m.comps.aeHospitalization, pct: pct(m.comps.aeHospitalization), prev: ops.safetyPrev.aeHospitalization, target: KPI_SAFETY_TARGETS.aeHospitalization },
       death:             { events: m.comps.death,             pct: pct(m.comps.death),             prev: ops.safetyPrev.death,             target: KPI_SAFETY_TARGETS.death             },
-      medError:          { events: m.comps.medError,          pct: pct(m.comps.medError),          prev: ops.safetyPrev.medError,          target: KPI_SAFETY_TARGETS.medError          },
+      // medError = out-of-range / inappropriate dispensings ÷ total dispensings
+      // (informational — no target/trend; see safetyRows)
+      medError:          { events: m.comps.medError, pct: (() => { const dn = m.wf.adjTotal + m.noac.dispTotal; return dn > 0 ? parseFloat((m.comps.medError / dn * 100).toFixed(1)) : 0 })(), prev: 0, target: 0 },
     },
 
     quality: {
@@ -772,6 +775,11 @@ const safetyRows = computed<SafetyRow[]>(() => {
     { key: 'medError',          name: 'ความคลาดเคลื่อนทางยา',     m: s.medError          },
   ]
   return defs.map(({ key, name, m }) => {
+    // medError = dispensing-appropriateness complement → informational only
+    // (no target / trend / pass-fail), per product decision
+    if (key === 'medError') {
+      return { key, name, events: m.events, pct: m.pct, target: 0, status: 'pass' as StatusLevel, trendLabel: '', trendDir: 'flat' as const, statusLabel: '', informational: true }
+    }
     const status = safetyStatus(m.pct, m.target)
     const delta  = parseFloat((m.pct - m.prev).toFixed(1))
     // Safety: ▲ worsened (bad), ▼ improved (good)
@@ -782,9 +790,9 @@ const safetyRows = computed<SafetyRow[]>(() => {
   })
 })
 
-const safetyPassCount = computed(() => safetyRows.value.filter(r => r.status === 'pass').length)
-const safetyWarnCount = computed(() => safetyRows.value.filter(r => r.status === 'warn').length)
-const safetyFailCount = computed(() => safetyRows.value.filter(r => r.status === 'fail').length)
+const safetyPassCount = computed(() => safetyRows.value.filter(r => !r.informational && r.status === 'pass').length)
+const safetyWarnCount = computed(() => safetyRows.value.filter(r => !r.informational && r.status === 'warn').length)
+const safetyFailCount = computed(() => safetyRows.value.filter(r => !r.informational && r.status === 'fail').length)
 
 // ── Quality bar rows ──────────────────────────────────────────────────────────
 const qualityBarRows = computed<QualityBarRow[]>(() => {
@@ -1292,6 +1300,9 @@ const tabs = computed(() => [
 .data-row--under-range:hover, .data-row--underdose:hover { background: var(--bma-row-underdose-hover); }
 .data-row--over-range, .data-row--overdose, .data-row--contra, .data-row--interaction { background: var(--bma-row-overdose-bg); }
 .data-row--over-range:hover, .data-row--overdose:hover, .data-row--contra:hover, .data-row--interaction:hover { background: var(--bma-row-overdose-hover); }
+/* Deceased — outcome highlight, takes precedence over status tints (defined later) */
+.data-row--deceased, .data-row--deceased:hover { background: var(--bma-emergency-bg-soft); }
+.data-row--deceased .patient-name { color: var(--bma-text-secondary); }
 
 /* ── Shared column widths ─────────────────────────────────── */
 .col-action      { width: var(--bma-col-action-w); }
@@ -1302,6 +1313,13 @@ const tabs = computed(() => [
 
 /* ── Patient name cell ────────────────────────────────────── */
 .patient-name    { font-size: 13px; font-weight: 600; color: var(--bma-text-primary); }
+.deceased-chip {
+  display: inline-block; margin-left: 6px; padding: 1px 7px;
+  border-radius: var(--bma-radius-full);
+  background: var(--bma-emergency-bg); color: var(--bma-emergency);
+  font-family: var(--bma-font-thai); font-size: 10px; font-weight: 700;
+  vertical-align: middle; white-space: nowrap;
+}
 .patient-hn      { font-size: 11px; color: var(--bma-text-muted); margin-top: 2px; font-family: var(--bma-font-data); }
 .patient-hn-row  { display: flex; align-items: center; gap: 4px; margin-top: 2px; flex-wrap: wrap; }
 /* action-btn removed — table row action buttons now use v-btn icon size="small" */

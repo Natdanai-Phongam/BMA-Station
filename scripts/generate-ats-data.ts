@@ -69,13 +69,11 @@ function main() {
     const mort = safety.mortality.get(p.id)
     detail[p.id].vitalStatus = mort ? 'deceased' : 'alive'
     if (mort) detail[p.id].mortality = mort
-    const me = safety.medErrors.get(p.id)
-    if (me?.length) detail[p.id].medErrors = me
   }
 
   // G6 lists
   const atsPatients = buildAtsPatients(patients, warfarin, noac)
-  const patientList = buildPatientList(patients, warfarin, noac)
+  const patientList = buildPatientList(patients, warfarin, noac, detail)
 
   // G7 kpi
   const kpiOpsExisting = JSON.parse(readFileSync(resolve(MOCK_DIR, 'kpi-operational.json'), 'utf-8'))
@@ -119,7 +117,7 @@ function main() {
   console.log(`  WF: ${wfArr.reduce((a, w) => a + w.inrHistory.length, 0)} INR · TTR goal-met ${Math.round(goalMet / wfArr.length * 100)}% · in-range ${Math.round(inRange / wfArr.length * 100)}%`)
   console.log(`  NOAC: ${noArr.reduce((a, n) => a + n.dispensingHistory.length, 0)} dispensing · appropriate ${Math.round(apt / noArr.length * 100)}%`)
   console.log(`  complications: bleeding ${compBy('bleeding')} · thrombosis ${compBy('thromboembolism')} · severe→aeHosp ${allComps.filter(c => c.severity === 'severe').length} (denom ${s.total})`)
-  console.log(`  outcomes: deceased ${safety.mortality.size} · medErrors ${[...safety.medErrors.values()].flat().length}`)
+  console.log(`  outcomes: deceased ${safety.mortality.size} · medError (derived per-record from KPI summary)`)
   console.log(`  kpi: patientsPerDay ${kpiOps.month.efficiency.patientsPerDay}/วัน`)
   console.log(`\n✅ wrote ${files.length} files → src/data/mock/ (+ preview)\n`)
 }

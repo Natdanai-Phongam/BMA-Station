@@ -261,6 +261,7 @@
                 :class="[
                   row.adjustment && editingAdjId === row.adjustment.id ? 'log-row--editing' : '',
                   !row.adjustment ? 'log-row--no-action' : '',
+                  { 'log-row--out': inrOutOfRange(row.inr.inrValue) },
                 ]"
               >
                 <!-- Date -->
@@ -698,6 +699,11 @@ function inrChipClass(inr: number) {
   if (inr < tr.min) return 'inr-chip--low'
   if (inr > tr.max) return 'inr-chip--high'
   return 'inr-chip--ok'
+}
+/** Dose given while INR out of target range → per-visit med-dispensing feedback */
+function inrOutOfRange(inr: number): boolean {
+  const tr = data.profile.targetRange ?? DEFAULT_TARGET_RANGE
+  return inr < tr.min || inr > tr.max
 }
 function pctBadgeClass(pct: number) {
   return pct > 0 ? 'pct-badge--up' : pct < 0 ? 'pct-badge--down' : 'pct-badge--neutral'
@@ -1155,6 +1161,8 @@ function pctBadgeClass(pct: number) {
 /* ── P0-C: Log row states ────────────────────────────────────── */
 .log-row--editing  { background: var(--bma-surface-light); }
 .log-row--no-action { opacity: 0.55; }
+/* Dose given while INR out of target range — per-visit dispensing feedback */
+.log-row--out, .log-row--out:hover { background: var(--bma-urgency-bg-soft); }
 .log-maintain-text  { font-family: var(--bma-font-thai); font-size: 12px; color: var(--bma-text-muted); }
 .log-no-action-text { font-family: var(--bma-font-thai); font-size: 11px; color: var(--bma-text-disabled); font-style: italic; }
 .log-edit-row > td {

@@ -88,7 +88,7 @@
               v-for="p in pagedRows"
               :key="p.id"
               class="data-row"
-              :class="`data-row--${p.status}`"
+              :class="[`data-row--${p.status}`, { 'data-row--deceased': p.deceased }]"
             >
               <td class="col-action">
                 <v-btn icon size="small" variant="text" color="primary" @click="emit('go-to-patient', p.id)" title="ดูรายละเอียด">
@@ -96,7 +96,10 @@
                 </v-btn>
               </td>
               <td class="col-name">
-                <div class="patient-name">{{ p.name }}</div>
+                <div class="patient-name">
+                  {{ p.name }}
+                  <span v-if="p.deceased" class="deceased-chip">เสียชีวิต</span>
+                </div>
                 <div class="patient-hn-row">
                   <span class="patient-hn">{{ p.hn }}</span>
                 </div>

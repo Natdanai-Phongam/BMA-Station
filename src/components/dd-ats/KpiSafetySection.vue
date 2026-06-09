@@ -19,17 +19,17 @@
           <span class="ksafe-en" :class="{ 'ksafe-en--nz': row.events > 0 }">{{ row.events }}</span>
           <span class="ksafe-eu">ราย</span>
         </span>
-        <span :class="['ksafe-cell', 'ksafe-pct', `ksafe-pct--${row.status}`, { 'ksafe-cell--last': ri === rows.length - 1 }]">
+        <span :class="['ksafe-cell', 'ksafe-pct', row.informational ? '' : `ksafe-pct--${row.status}`, { 'ksafe-cell--last': ri === rows.length - 1 }]">
           {{ row.pct.toFixed(1) }}%
         </span>
         <span :class="['ksafe-cell', 'ksafe-trend', `ksafe-trend--${row.trendDir}`, { 'ksafe-cell--last': ri === rows.length - 1 }]">
-          {{ row.trendLabel }}
+          {{ row.informational ? '' : row.trendLabel }}
         </span>
         <span :class="['ksafe-cell', 'ksafe-target', { 'ksafe-cell--last': ri === rows.length - 1 }]">
-          {{ row.target > 0 ? `< ${row.target}%` : '= 0%' }}
+          {{ row.informational ? '—' : (row.target > 0 ? `< ${row.target}%` : '= 0%') }}
         </span>
         <span :class="['ksafe-cell', { 'ksafe-cell--last': ri === rows.length - 1 }]">
-          <span class="kpi-badge" :class="`kpi-badge--${row.status}`">{{ row.statusLabel }}</span>
+          <span v-if="!row.informational" class="kpi-badge" :class="`kpi-badge--${row.status}`">{{ row.statusLabel }}</span>
         </span>
       </template>
     </div>

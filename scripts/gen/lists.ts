@@ -8,6 +8,7 @@
 import type { AtsPatientsData, AtsWarfarinPatient, AtsNoacsPatient, WarfarinStatus } from '../../src/data/types/ats-patients'
 import type { WarfarinPageData } from '../../src/data/types/warfarin'
 import type { NoacPatientData } from '../../src/data/types/noac-dispensing'
+import type { PatientDetail } from '../../src/data/types/patient-detail'
 import type { PatientListData, WfListEntry, NoacListEntry } from '../../src/data/repository/types'
 import { DEFAULT_TARGET_RANGE } from '../../src/data/types/warfarin'
 import { lastDoseAdjustment, wfConcordanceLabel, wfConcordanceBadgeClass } from '../../src/utils/warfarin-helpers'
@@ -57,7 +58,7 @@ export function buildAtsPatients(patients: GenPatient[], warfarin: Record<string
   return { lastSyncedAt: `${DATA_WINDOW.mockNow}T08:00:00`, warfarin: warfarinList, noacs: noacsList }
 }
 
-export function buildPatientList(patients: GenPatient[], warfarin: Record<string, WarfarinPageData>, noac: Record<string, NoacPatientData>): PatientListData {
+export function buildPatientList(patients: GenPatient[], warfarin: Record<string, WarfarinPageData>, noac: Record<string, NoacPatientData>, details: Record<string, PatientDetail>): PatientListData {
   const wfEntries: WfListEntry[] = []
   const noacEntries: NoacListEntry[] = []
 
@@ -70,6 +71,7 @@ export function buildPatientList(patients: GenPatient[], warfarin: Record<string
       wfEntries.push({
         id: p.id, name: p.name, hn: p.hn, hospital: p.hospital,
         weight: p.baseWeightKg, referred: referred(p.id),
+        deceased: details[p.id]?.vitalStatus === 'deceased',
         status: wfStatus(inr, range.min, range.max),
         inr: { value: inr, alert: inr < range.min || inr > range.max },
         crcl: { value: crcl, alert: crcl < 30 },
@@ -87,6 +89,7 @@ export function buildPatientList(patients: GenPatient[], warfarin: Record<string
       noacEntries.push({
         id: p.id, name: p.name, hn: p.hn, hospital: p.hospital,
         weight: lab?.weightKg ?? p.baseWeightKg, referred: referred(p.id),
+        deceased: details[p.id]?.vitalStatus === 'deceased',
         indication: p.indication!,
         status: nd.profile.status,
         drug: last?.dispensed === false ? null : (nd.profile.currentDrug ?? null),

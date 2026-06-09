@@ -28,7 +28,10 @@ export function emptyPeriodMetrics(): PeriodMetrics {
 export function computePeriodMetrics(input: KpiMetricsInput, from: string, to: string): PeriodMetrics {
   const m = emptyPeriodMetrics()
 
-  // Safety — complications (clinical) + mortality (outcome) + medErrors (process)
+  // Safety — clinical complications + mortality (outcome).
+  // medError is derived per-dispensing below (WF: dose given while INR out of
+  // target range · NOAC: dose dispensed at an inappropriate level) — i.e. the
+  // complement of dispensing appropriateness, counted per record.
   for (const pd of Object.values(input.details)) {
     for (const c of pd.complications ?? []) {
       if (!c.dateISO || c.dateISO < from || c.dateISO > to) continue
@@ -37,9 +40,6 @@ export function computePeriodMetrics(input: KpiMetricsInput, from: string, to: s
       if (c.severity === 'severe') m.comps.aeHospitalization++
     }
     if (pd.mortality && pd.mortality.dateISO >= from && pd.mortality.dateISO <= to) m.comps.death++
-    for (const me of pd.medErrors ?? []) {
-      if (me.dateISO >= from && me.dateISO <= to) m.comps.medError++
-    }
   }
 
   // Warfarin — patients with an INR in range; last INR therapeutic; TTR goal; concordance
@@ -52,6 +52,8 @@ export function computePeriodMetrics(input: KpiMetricsInput, from: string, to: s
     m.wf.active++
     const last = [...inrs].sort((a, b) => a.measuredAt.localeCompare(b.measuredAt)).at(-1)!
     if (last.inrValue >= 2.0 && last.inrValue <= 3.0) m.wf.appropriate++
+    // medError: each visit where the dose was given while INR was out of target
+    for (const r of inrs) if (r.inrValue < 2.0 || r.inrValue > 3.0) m.comps.medError++
     if (pd.ttr != null) {
       m.wf.ttrTotal++
       if (pd.ttr.value >= KPI_QUALITY_TARGETS.wfTtrGoal) m.wf.ttrGoalMet++
@@ -75,6 +77,11 @@ export function computePeriodMetrics(input: KpiMetricsInput, from: string, to: s
     if (disps.some(d => d.clinicalStatus === 'appropriate')) m.noac.appropriate++
     m.noac.dispTotal += disps.length
     m.noac.dispAccepted += disps.filter(d => d.wasTopRecommendation).length
+    // medError: a drug was dispensed at an inappropriate dose (under/overdose/
+    // interaction) — exclude withheld records (contra), where NOT dispensing is correct
+    for (const d of disps) {
+      if (d.dispensed !== false && d.clinicalStatus && d.clinicalStatus !== 'appropriate' && d.clinicalStatus !== 'contra') m.comps.medError++
+    }
   }
 
   return m

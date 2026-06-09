@@ -2281,17 +2281,7 @@
   "complications": [],
   "currentTherapy": "warfarin",
   "vitalStatus": "alive",
-  "attendingPhysicianId": "dr004",
-  "medErrors": [
-   {
-    "id": "mederr-w109-5",
-    "dateISO": "2026-04-28",
-    "date": "28 เม.ย. 2569",
-    "detail": "บันทึกขนาดยาคลาดเคลื่อน",
-    "severity": "mild",
-    "status": "แก้ไขแล้ว"
-   }
-  ]
+  "attendingPhysicianId": "dr004"
  },
  "w110": {
   "id": "w110",
@@ -2447,17 +2437,7 @@
   "complications": [],
   "currentTherapy": "warfarin",
   "vitalStatus": "alive",
-  "attendingPhysicianId": "dr007",
-  "medErrors": [
-   {
-    "id": "mederr-w117-4",
-    "dateISO": "2026-05-25",
-    "date": "25 พ.ค. 2569",
-    "detail": "จ่ายยาผิดขนาด (ตรวจพบก่อนผู้ป่วยรับยา)",
-    "severity": "moderate",
-    "status": "ไม่มีผลต่อผู้ป่วย"
-   }
-  ]
+  "attendingPhysicianId": "dr007"
  },
  "w118": {
   "id": "w118",
@@ -6755,17 +6735,7 @@
   "complications": [],
   "currentTherapy": "noacs",
   "vitalStatus": "alive",
-  "attendingPhysicianId": "dr003",
-  "medErrors": [
-   {
-    "id": "mederr-n033-3",
-    "dateISO": "2026-05-20",
-    "date": "20 พ.ค. 2569",
-    "detail": "ความถี่การให้ยาผิด",
-    "severity": "mild",
-    "status": "แก้ไขแล้ว"
-   }
-  ]
+  "attendingPhysicianId": "dr003"
  },
  "n034": {
   "id": "n034",
@@ -9135,17 +9105,7 @@
     "interactionNote": "P-gp inhibitor — ติดตามอาการเลือดออก"
    }
   ],
-  "attendingPhysicianId": "dr006",
-  "medErrors": [
-   {
-    "id": "mederr-n140-2",
-    "dateISO": "2026-05-21",
-    "date": "21 พ.ค. 2569",
-    "detail": "จ่ายยาซ้ำซ้อน",
-    "severity": "moderate",
-    "status": "ไม่มีผลต่อผู้ป่วย"
-   }
-  ]
+  "attendingPhysicianId": "dr006"
  },
  "n141": {
   "id": "n141",
@@ -11938,17 +11898,7 @@
   "complications": [],
   "currentTherapy": "noacs",
   "vitalStatus": "alive",
-  "attendingPhysicianId": "dr008",
-  "medErrors": [
-   {
-    "id": "mederr-n263-1",
-    "dateISO": "2026-05-05",
-    "date": "5 พ.ค. 2569",
-    "detail": "บันทึกขนาดยาคลาดเคลื่อน",
-    "severity": "mild",
-    "status": "แก้ไขแล้ว"
-   }
-  ]
+  "attendingPhysicianId": "dr008"
  },
  "n264": {
   "id": "n264",

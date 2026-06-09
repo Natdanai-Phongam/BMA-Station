@@ -11,7 +11,7 @@
     "thrombosis": 6,
     "aeHospitalization": 2,
     "death": 2,
-    "medError": 1
+    "medError": 102
    },
    "wf": {
     "active": 243,
@@ -34,7 +34,7 @@
     "thrombosis": 9,
     "aeHospitalization": 3,
     "death": 4,
-    "medError": 5
+    "medError": 285
    },
    "wf": {
     "active": 292,
@@ -57,7 +57,7 @@
     "thrombosis": 3,
     "aeHospitalization": 1,
     "death": 2,
-    "medError": 4
+    "medError": 183
    },
    "wf": {
     "active": 292,
@@ -80,7 +80,7 @@
     "thrombosis": 9,
     "aeHospitalization": 3,
     "death": 4,
-    "medError": 5
+    "medError": 285
    },
    "wf": {
     "active": 292,
