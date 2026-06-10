@@ -51,7 +51,7 @@ function onSizeChange(e: Event) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px;
+  padding: 0 16px;
   border-top: 1px solid var(--bma-border-subtle);
 }
 .pg-info {

@@ -15,12 +15,13 @@ import type { WarfarinPageData } from '../src/data/types/warfarin'
 import type { NoacPatientData } from '../src/data/types/noac-dispensing'
 import { DATA_WINDOW } from '../src/data/config/data-window'
 import { generateIdentities, summarize, type GenPatient } from './gen/identity'
+import { assignKpiQuotas } from './gen/quotas'
 import { indexPatients } from './gen/schedule'
 import { generateWarfarin } from './gen/warfarin'
 import { generateNoac } from './gen/noac'
 import { generateSafety, complicationSummary } from './gen/complications'
 import { buildAtsPatients, buildPatientList } from './gen/lists'
-import { patchKpiOperational, buildKpiSummary } from './gen/kpi'
+import { buildKpiSummary } from './gen/kpi'
 import { generateConsultations } from './gen/consultations'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -48,6 +49,7 @@ function main() {
 
   const patients = generateIdentities()
   indexPatients(patients)
+  assignKpiQuotas(patients)   // stamp deterministic KPI quota flags (exact 53/62/33)
 
   // G3/G4 — clinical records (engine-driven)
   const warfarin: Record<string, WarfarinPageData> = {}
@@ -75,10 +77,8 @@ function main() {
   const atsPatients = buildAtsPatients(patients, warfarin, noac)
   const patientList = buildPatientList(patients, warfarin, noac, detail)
 
-  // G7 kpi
-  const kpiOpsExisting = JSON.parse(readFileSync(resolve(MOCK_DIR, 'kpi-operational.json'), 'utf-8'))
-  const kpiOps = patchKpiOperational(kpiOpsExisting)
-  const kpiSummary = buildKpiSummary(warfarin, noac, detail)
+  // G7 kpi — per-hospital metrics + operational mock (kpi-operational.json retired)
+  const kpiSummary = buildKpiSummary(warfarin, noac, detail, patients)
 
   // Consultations (regen for new patient ids)
   const physicians = JSON.parse(readFileSync(resolve(MOCK_DIR, 'physicians.json'), 'utf-8')) as Record<string, { name: string }>
@@ -91,7 +91,6 @@ function main() {
     ['warfarin-patients.json', warfarin],
     ['noac-patients.json', noac],
     ['ats-patients.json', atsPatients],
-    ['kpi-operational.json', kpiOps],
     ['patient-list.json', patientList],
     ['kpi-summary.json', kpiSummary],
     ['consultations.json', consultations],
@@ -118,7 +117,8 @@ function main() {
   console.log(`  NOAC: ${noArr.reduce((a, n) => a + n.dispensingHistory.length, 0)} dispensing · appropriate ${Math.round(apt / noArr.length * 100)}%`)
   console.log(`  complications: bleeding ${compBy('bleeding')} · thrombosis ${compBy('thromboembolism')} · severe→aeHosp ${allComps.filter(c => c.severity === 'severe').length} (denom ${s.total})`)
   console.log(`  outcomes: deceased ${safety.mortality.size} · medError (derived per-record from KPI summary)`)
-  console.log(`  kpi: patientsPerDay ${kpiOps.month.efficiency.patientsPerDay}/วัน`)
+  const ppdAll = Object.values(kpiSummary.ops).reduce((a, o) => a + o.month.patientsPerDay, 0)
+  console.log(`  kpi: ${kpiSummary.meta.hospitals.length} hospitals · patientsPerDay(all) ~${ppdAll}/วัน`)
   console.log(`\n✅ wrote ${files.length} files → src/data/mock/ (+ preview)\n`)
 }
 

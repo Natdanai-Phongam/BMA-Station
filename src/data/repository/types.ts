@@ -35,12 +35,27 @@ export interface KpiSummaryMeta {
   mockNow: string
   /** Earliest date present in the data → month-picker lower bound */
   dataMinDate: string
+  /** Hospitals in the programme — drives the KPI hospital multi-select */
+  hospitals: { id: string; name: string }[]
+}
+
+/** Non-derivable operational mock, per hospital per period mode. Aggregated by
+ *  the dashboard for the selected hospitals (counts sum; rates patient-weighted). */
+export interface HospitalOps {
+  avgLOS: number            // days
+  resolutionRate: number    // %
+  responseTimeHr: number    // hr
+  resolutionTimeHr: number  // hr
+  staff: { pharmacist: number; physician: number; nurse: number }
+  patientsPerDay: number
 }
 
 export interface KpiSummary {
   meta: KpiSummaryMeta
-  /** PeriodMetrics keyed by "YYYY-MM-DD|YYYY-MM-DD" (period from|to) */
-  ranges: Record<string, PeriodMetrics>
+  /** Derived counts: ranges["from|to"][hospitalId] = PeriodMetrics (additive) */
+  ranges: Record<string, Record<string, PeriodMetrics>>
+  /** Operational mock: ops[hospitalId]["month"|"quarter"|"year"] = HospitalOps */
+  ops: Record<string, Record<'month' | 'quarter' | 'year', HospitalOps>>
 }
 
 // ─── Patient-list projection (Tier-1, light) ─────────────────────────────────

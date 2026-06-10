@@ -459,7 +459,7 @@
             <template v-if="noacData?.profile">
               <div class="consult-noac-row">
                 <span class="consult-noac-label">ยาปัจจุบัน</span>
-                <span class="consult-noac-val">{{ noacData.profile.currentDrug }} {{ noacData.profile.currentDose }}</span>
+                <span class="consult-noac-val">{{ noacData.profile.status === 'contra' ? 'งดจ่าย' : `${noacData.profile.currentDrug} ${noacData.profile.currentDose}` }}</span>
               </div>
               <div class="consult-noac-row">
                 <span class="consult-noac-label">ข้อบ่งใช้</span>

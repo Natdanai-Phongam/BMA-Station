@@ -39,6 +39,7 @@ export interface GenPatient {
   phone: string
   insuranceType: string
   hospital: string
+  hospitalId: string
   attendingPhysicianId: string
   allergies: Allergy[]
   // baseline labs — per-visit values add noise around these
@@ -57,6 +58,10 @@ export interface GenPatient {
   cha2ds2vasc?: number
   concurrentMedications?: ConcurrentMedication[]   // feeds the NOAC engine + detail page
   edgeTag?: string             // label for curated edge cases
+  // KPI quota flags (assigned by assignKpiQuotas → exact target percentages)
+  wfGood?: boolean             // well-controlled → TTR ≥ goal
+  wfLastApp?: boolean          // latest INR in therapeutic range
+  noacAppropriate?: boolean    // dispensed at an appropriate dose
 }
 
 // NOAC concurrent meds — names the engine recognises (so interactions fire)
@@ -144,6 +149,7 @@ function commonIdentity(id: string, therapy: Therapy, age: number, sex: 'ชา�
   for (let i = 0; i < nAllergy; i++) allergies.push(pick(`${id}:allergy${i}`, ALLERGY_POOL))
   // dedupe by substance
   const uniqAllergies = allergies.filter((a, i, arr) => arr.findIndex(x => x.substance === a.substance) === i)
+  const hosp = weighted(`${id}:hosp`, HOSPITALS.map(h => [h, h.weight] as const))
   return {
     id, therapy,
     name: makeName(id, sex, age),
@@ -152,7 +158,8 @@ function commonIdentity(id: string, therapy: Therapy, age: number, sex: 'ชา�
     bloodGroup: weighted(`${id}:blood`, BLOOD_GROUPS),
     phone: makePhone(id),
     insuranceType: weighted(`${id}:ins`, INSURANCE_TYPES),
-    hospital: pick(`${id}:hosp`, HOSPITALS),
+    hospital: hosp.name,
+    hospitalId: hosp.id,
     attendingPhysicianId: pick(`${id}:dr`, PHYSICIAN_IDS),
     allergies: uniqAllergies,
     baseWeightKg: weight,

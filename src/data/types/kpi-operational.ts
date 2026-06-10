@@ -122,18 +122,13 @@ export interface PeriodMetrics {
   }
 }
 
+// Patient-safety metrics are shown informationally (count + rate). No target /
+// trend / pass-fail badge per product decision.
 export interface SafetyRow {
-  key:         string
-  name:        string
-  events:      number
-  pct:         number
-  target:      number
-  status:      StatusLevel
-  trendLabel:  string
-  trendDir:    'up' | 'down' | 'flat'
-  statusLabel: string
-  /** Informational metric (e.g. medError) — no target/trend/pass-fail badge */
-  informational?: boolean
+  key:    string
+  name:   string
+  events: number
+  pct:    number
 }
 
 export interface QualityBarRow {

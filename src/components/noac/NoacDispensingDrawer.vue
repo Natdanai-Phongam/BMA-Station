@@ -182,71 +182,112 @@
           </div>
 
           <div v-else class="ndd-drug-list">
-            <button
+            <div
               v-for="(drug, idx) in localResult.drugs"
               :key="drug.drug"
-              class="ndd-drug-card"
+              class="ndd-drug"
               :class="[
-                `ndd-drug--${drug.level}`,
-                idx === 0 ? 'ndd-drug-card--rank-first' : '',
-                selectedIdx === idx ? 'ndd-drug-card--selected' : '',
-                drug.level === 'contraindicated' ? 'ndd-drug-card--contra' : '',
-                selectedIdx === idx && idx !== 0 ? 'ndd-drug-card--override' : '',
+                selectedIdx === idx ? 'ndd-drug--selected' : '',
+                drug.level === 'contraindicated' ? 'ndd-drug--contra' : '',
+                selectedIdx === idx && (isDrugOverride || isDoseOverride) ? 'ndd-drug--override' : '',
               ]"
-              :disabled="drug.level === 'contraindicated' || isWithhold"
-              @click="selectDrug(idx)"
             >
-              <!-- Rank badge -->
-              <div class="ndd-drug-rank">
-                <span class="ndd-drug-rank-num">{{ idx + 1 }}</span>
-              </div>
-
-              <!-- Drug info -->
-              <div class="ndd-drug-info">
-                <div class="ndd-drug-name-row">
-                  <span class="ndd-drug-name">{{ drug.nameEn }}</span>
-                  <span v-if="idx === 0" class="ndd-rec-chip">แนะนำ</span>
-                  <span class="ndd-drug-thai">{{ drug.nameThai }}</span>
+              <!-- Head — selects the drug -->
+              <button
+                class="ndd-drug-head"
+                :class="idx === 0 ? 'ndd-drug-head--rank-first' : ''"
+                :disabled="drug.level === 'contraindicated' || isWithhold"
+                @click="selectDrug(idx)"
+              >
+                <div class="ndd-drug-rank">
+                  <PhCheck v-if="selectedIdx === idx" :size="14" weight="bold" class="ndd-drug-rank-check" />
+                  <span v-else class="ndd-drug-rank-num">{{ idx + 1 }}</span>
                 </div>
-                <div class="ndd-drug-dose-row">
-                  <span class="ndd-drug-dose">{{ drug.doseAmount }} {{ drug.doseUnit }}</span>
-                  <span v-if="drug.frequency && drug.frequency !== '—'" class="freq-chip" :title="drug.frequencyThai">{{ drug.frequency }}</span>
+
+                <div class="ndd-drug-info">
+                  <div class="ndd-drug-name-row">
+                    <span class="ndd-drug-name">{{ drug.nameEn }}</span>
+                    <span v-if="idx === 0" class="ndd-rec-chip">แนะนำ</span>
+                    <span class="ndd-drug-thai">{{ drug.nameThai }}</span>
+                  </div>
+                  <div class="ndd-drug-dose-row">
+                    <span class="ndd-drug-dose">{{ drug.doseAmount }} {{ drug.doseUnit }}</span>
+                    <span v-if="drug.frequency && drug.frequency !== '—'" class="freq-chip" :title="drug.frequencyThai">{{ drug.frequency }}</span>
+                  </div>
+                  <span v-if="drug.loadingPhase" class="ndd-drug-loading">
+                    <PhInfo :size="11" weight="bold" />เริ่ม {{ drug.loadingPhase.doseAmount }} {{ drug.loadingPhase.doseUnit }} {{ drug.loadingPhase.frequency }} ×{{ drug.loadingPhase.durationText }} → คงระดับ {{ drug.doseAmount }} {{ drug.doseUnit }} {{ drug.frequency }}
+                  </span>
+                  <span v-if="drug.contraindicationReason" class="ndd-drug-ci-reason">
+                    <PhWarning :size="11" weight="bold" />{{ drug.contraindicationReason }}
+                  </span>
+                  <span v-if="drug.doseNote" class="ndd-drug-note">
+                    <PhInfo :size="11" weight="bold" />{{ drug.doseNote }}
+                  </span>
                 </div>
-                <span v-if="drug.loadingPhase" class="ndd-drug-loading">
-                  <PhInfo :size="11" weight="bold" />เริ่ม {{ drug.loadingPhase.doseAmount }} {{ drug.loadingPhase.doseUnit }} {{ drug.loadingPhase.frequency }} ×{{ drug.loadingPhase.durationText }} → คงระดับ {{ drug.doseAmount }} {{ drug.doseUnit }} {{ drug.frequency }}
-                </span>
-                <span v-if="drug.adjustmentReason" class="ndd-drug-adj">
-                  <PhArrowDown :size="11" weight="bold" />{{ drug.adjustmentReason }}
-                </span>
-                <span v-if="drug.contraindicationReason" class="ndd-drug-ci-reason">
-                  <PhWarning :size="11" weight="bold" />{{ drug.contraindicationReason }}
-                </span>
-                <span v-if="drug.doseNote" class="ndd-drug-note">
-                  <PhInfo :size="11" weight="bold" />{{ drug.doseNote }}
-                </span>
-              </div>
 
-              <!-- Level badge — absolute top-right, outside flow -->
-              <span class="ndd-drug-level-badge" :class="`ndd-level--${drug.level}`">
-                <PhStar v-if="drug.level === 'recommended'" :size="10" weight="fill" />
-                {{ levelLabel[drug.level] }}
-              </span>
+                <span class="ndd-drug-level-badge" :class="`ndd-level--${drug.level}`">
+                  <PhStar v-if="drug.level === 'recommended'" :size="10" weight="fill" />
+                  {{ levelLabel[drug.level] }}
+                </span>
+              </button>
 
-              <!-- Selected checkmark — absolute bottom-right, CSS opacity only (no DOM reflow) -->
-              <div class="ndd-drug-check">
-                <PhCheckCircle :size="18" weight="fill" />
-              </div>
-            </button>
+              <!-- Expand — criteria checklist vs current condition + dose-level choice -->
+              <Transition name="ndd-expand">
+                <div v-if="selectedIdx === idx && !isWithhold" class="ndd-drug-body">
+                  <div class="ndd-crit">
+                    <span class="ndd-crit-title">เกณฑ์ลดขนาดตามสภาวะคนไข้</span>
+                    <template v-if="drug.criteria && drug.criteria.length">
+                      <div
+                        v-for="c in drug.criteria"
+                        :key="c.key"
+                        class="ndd-crit-row"
+                        :class="c.met ? 'ndd-crit-row--met' : ''"
+                      >
+                        <PhX v-if="c.met" :size="12" weight="bold" class="ndd-crit-ic" />
+                        <span v-else class="ndd-crit-spacer" aria-hidden="true" />
+                        <span class="ndd-crit-label">{{ c.label }}</span>
+                        <span class="ndd-crit-val">{{ c.patientValue }}</span>
+                        <span class="ndd-crit-thr">· เกณฑ์ {{ c.threshold }}</span>
+                      </div>
+                    </template>
+                    <span v-else class="ndd-crit-none">ไม่มีเกณฑ์ลดขนาดสำหรับข้อบ่งใช้นี้</span>
+                  </div>
+
+                  <div class="ndd-dose">
+                    <span class="ndd-dose-label">ขนาดที่จ่าย</span>
+                    <div class="ndd-seg">
+                      <button
+                        v-for="opt in doseOptions(drug)"
+                        :key="opt.key"
+                        class="ndd-seg-opt"
+                        :class="selectedDose === opt.key ? 'ndd-seg-opt--active' : ''"
+                        @click="selectDose(opt.key)"
+                      >
+                        <span class="ndd-seg-val">{{ opt.label }}</span>
+                        <span v-if="opt.key === recommendedKey(drug)" class="ndd-seg-rec">
+                          <PhStar :size="9" weight="fill" />แนะนำ
+                        </span>
+                      </button>
+                    </div>
+                    <span v-if="selectedStatus && selectedStatus !== 'appropriate'" class="ndd-dose-warn">
+                      <PhWarning :size="12" weight="bold" />{{ statusLabel[selectedStatus as 'underdose' | 'overdose'] }}
+                    </span>
+                  </div>
+                </div>
+              </Transition>
+            </div>
           </div>
 
         </section>
 
-        <!-- ③ Override reason — conditional step, only when non-rank-1 selected -->
+        <!-- ③ Override reason — when a non-rank-1 drug OR a non-recommended dose is chosen -->
         <Transition name="ndd-expand">
-          <section v-if="isOverride && !isWithhold" class="ndd-section ndd-step ndd-step--override">
+          <section v-if="needsOverride && !isWithhold" class="ndd-section ndd-step ndd-step--override">
             <div class="ndd-step-hd">
               <span class="ndd-step-num ndd-step-num--override">3</span>
-              <span class="ndd-step-title ndd-step-title--override">ระบุเหตุผลที่เลือกยานอกแนวทาง</span>
+              <span class="ndd-step-title ndd-step-title--override">
+                {{ isDrugOverride && isDoseOverride ? 'ระบุเหตุผล (เลือกยา + ขนาดนอกคำแนะนำ)' : isDoseOverride ? 'ระบุเหตุผลที่จ่ายขนาดนอกคำแนะนำ' : 'ระบุเหตุผลที่เลือกยานอกแนวทาง' }}
+              </span>
             </div>
             <select
               v-model="overrideCode"
@@ -274,18 +315,19 @@
             <span class="ndd-step-title">รายละเอียดการจ่ายยา</span>
           </div>
           <span class="ndd-subsection-label">จำนวนวันที่จ่าย (Days Supply)</span>
-          <div class="ndd-days-chips">
-            <v-chip
+          <div class="ndd-seg">
+            <button
               v-for="d in DAYS_OPTIONS"
               :key="d"
-              :variant="daysSupply === d ? 'tonal' : 'outlined'"
-              :color="daysSupply === d ? 'primary' : undefined"
-              :class="{ 'ndd-days-chip--suggested': d === suggestedDays }"
+              class="ndd-seg-opt"
+              :class="daysSupply === d ? 'ndd-seg-opt--active' : ''"
               @click="daysSupply = d"
             >
-              {{ d }} วัน
-              <PhStar v-if="d === suggestedDays" :size="11" weight="fill" class="ndd-days-suggested-mark" />
-            </v-chip>
+              <span class="ndd-seg-val">{{ d }} วัน</span>
+              <span v-if="d === suggestedDays" class="ndd-seg-rec">
+                <PhStar :size="9" weight="fill" />แนะนำ
+              </span>
+            </button>
           </div>
           <p v-if="daysCautionNote" class="ndd-days-caution">
             <PhInfo :size="12" />
@@ -326,13 +368,17 @@
 import { ref, computed, watch, nextTick } from 'vue'
 import {
   PhX, PhCheckCircle, PhWarning, PhProhibit,
-  PhStar, PhInfo, PhArrowDown, PhArrowsClockwise,
+  PhStar, PhInfo, PhArrowsClockwise, PhCheck,
 } from '@phosphor-icons/vue'
 import type { PatientDetail } from '@/data/types/patient-detail'
-import type { NoacOverrideCode, RecommendationLevel } from '@/data/types/noac'
-import type { NoacPatientData, NoacDispensingRecord } from '@/data/types/noac-dispensing'
+import type { NoacOverrideCode, RecommendationLevel, DrugResult } from '@/data/types/noac'
+import type { NoacPatientData, NoacDispensingRecord, NoacClinicalStatus } from '@/data/types/noac-dispensing'
 import { computeNoacRecommendations } from '@/utils/noacEngine'
+import { NOAC_REFERENCE, formatDose, followUpDaysForCrCl } from '@/data/noacReference'
 import { useCrCl } from '@/composables/useCrCl'
+
+/** Dose-level key — the two NVAF dose options every NOAC has in the reference. */
+type DoseKey = 'standard' | 'reduced'
 
 // ── Props / Emits ─────────────────────────────────────────────────────────────
 const props = defineProps<{
@@ -348,7 +394,7 @@ const emit = defineEmits<{
 }>()
 
 // ── Constants ─────────────────────────────────────────────────────────────────
-const DAYS_OPTIONS = [30, 60, 90, 180] as const
+const DAYS_OPTIONS = [30, 60, 90] as const   // capped at the renal-monitoring cadence (≤90)
 
 const OVERRIDE_OPTIONS: { code: NoacOverrideCode; label: string }[] = [
   { code: 'patient-preference',    label: 'ผู้ป่วยต้องการยาเฉพาะ' },
@@ -381,11 +427,10 @@ const labFields = ref<{ weightKg: number; scrMgDl: number; crClMlMin: number }>(
 })
 
 const selectedIdx    = ref<number | null>(null)   // null = ยังไม่เลือก (ไม่ pre-select)
+const selectedDose   = ref<DoseKey | null>(null)  // dose level chosen for the selected drug
 const overrideCode   = ref<NoacOverrideCode | ''>('')
 const overrideNote   = ref('')
-const daysSupply     = ref<30 | 60 | 90 | 180>(
-  Math.min(props.noacData.profile.followUpMonths * 30, 180) as 30 | 60 | 90 | 180
-)
+const daysSupply     = ref<30 | 60 | 90>(followUpDaysForCrCl(prevLab.value?.crClMlMin ?? 60))
 const pharmacistNote = ref('')
 const isSaving       = ref(false)
 const bodyEl         = ref<HTMLElement | null>(null)
@@ -401,10 +446,11 @@ watch(() => props.isOpen, (open) => {
     crClMlMin: prevLab.value?.crClMlMin ?? 60,
   }
   selectedIdx.value  = null
+  selectedDose.value = null
   overrideCode.value = ''
   overrideNote.value = ''
   pharmacistNote.value = ''
-  daysSupply.value   = Math.min(props.noacData.profile.followUpMonths * 30, 180) as 30 | 60 | 90 | 180
+  daysSupply.value   = followUpDaysForCrCl(prevLab.value?.crClMlMin ?? 60)
   nextTick(() => { bodyEl.value?.scrollTo({ top: 0 }) })
 })
 
@@ -450,34 +496,71 @@ const labChanged = computed(() => Object.values(labDelta.value).some(Boolean))
 function onLabChange() {
   // Lab changed → recommendations recompute; clear selection (pharmacist must re-choose)
   selectedIdx.value = null
+  selectedDose.value = null
 }
 
-// ── Override state ────────────────────────────────────────────────────────────
-const isOverride       = computed(() => selectedIdx.value !== null && selectedIdx.value !== 0)
-const daysSupplyStep   = computed(() => isOverride.value ? 4 : 3)
+// ── Dose-level helpers ─────────────────────────────────────────────────────────
+// Every NOAC has a standard + reduced NVAF dose in the reference. The engine's
+// recommended dose (drug.doseAmount, condition-aware) matches one of them; the
+// other is the deviation. Appropriateness = chosen dose vs the condition-correct
+// dose — independent of which drug was picked.
+interface DoseOption { key: DoseKey; label: string }
 
+function recommendedKey(d: DrugResult): DoseKey {
+  const reduced = NOAC_REFERENCE[d.drug].nvaf.reduced
+  return reduced && d.doseAmount === reduced.amount ? 'reduced' : 'standard'
+}
+function doseOptions(d: DrugResult): DoseOption[] {
+  const ref = NOAC_REFERENCE[d.drug].nvaf
+  const opts: DoseOption[] = [{ key: 'standard', label: formatDose(ref.standard) }]
+  if (ref.reduced) opts.push({ key: 'reduced', label: formatDose(ref.reduced) })
+  return opts
+}
+/** clinicalStatus for a (drug, dose) vs the condition-correct dose. */
+function statusFor(d: DrugResult, key: DoseKey): NoacClinicalStatus {
+  if (key === recommendedKey(d)) return 'appropriate'
+  return key === 'reduced' ? 'underdose' : 'overdose'   // gave less / more than condition needs
+}
+
+const statusLabel: Record<'underdose' | 'overdose', string> = {
+  underdose: 'ต่ำกว่าที่สภาวะต้องการ (underdose)',
+  overdose:  'สูงกว่าที่สภาวะต้องการ (overdose)',
+}
+
+// ── Selection state ────────────────────────────────────────────────────────────
+const selectedDrug   = computed(() => selectedIdx.value !== null ? localResult.value.drugs[selectedIdx.value] : null)
+const selectedStatus = computed<NoacClinicalStatus | null>(() =>
+  selectedDrug.value && selectedDose.value ? statusFor(selectedDrug.value, selectedDose.value) : null)
+
+const isDrugOverride = computed(() => selectedIdx.value !== null && selectedIdx.value !== 0)
+const isDoseOverride = computed(() =>
+  !!selectedDrug.value && !!selectedDose.value && selectedDose.value !== recommendedKey(selectedDrug.value))
+const needsOverride  = computed(() => isDrugOverride.value || isDoseOverride.value)
+const daysSupplyStep = computed(() => needsOverride.value ? 4 : 3)
+
+function clearOverrideIfConcordant() {
+  if (!needsOverride.value) { overrideCode.value = ''; overrideNote.value = '' }
+}
 function selectDrug(idx: number) {
   const drug = localResult.value.drugs[idx]
   if (drug?.level === 'contraindicated') return
-  selectedIdx.value = idx
-  if (idx === 0) {
-    overrideCode.value = ''
-    overrideNote.value = ''
-  }
+  selectedIdx.value  = idx
+  selectedDose.value = recommendedKey(drug)   // default to the condition-correct dose
+  clearOverrideIfConcordant()
+}
+function selectDose(key: DoseKey) {
+  selectedDose.value = key
+  clearOverrideIfConcordant()
 }
 
 // ── Days supply suggestions ───────────────────────────────────────────────────
-const suggestedDays = computed((): 30 | 60 | 90 | 180 => {
-  const crcl = labFields.value.crClMlMin
-  if (crcl < 30)  return 30
-  if (crcl < 50)  return 60
-  return Math.min(props.noacData.profile.followUpMonths * 30, 180) as 30 | 60 | 90 | 180
-})
+// Suggested supply = the renal-monitoring cadence for the CURRENT CrCl (shared with the generator)
+const suggestedDays = computed((): 30 | 60 | 90 => followUpDaysForCrCl(labFields.value.crClMlMin))
 
 const daysCautionNote = computed((): string | null => {
   const crcl = labFields.value.crClMlMin
-  if (crcl < 30) return `CrCl ${crcl} mL/min: ควรนัดตรวจ Lab ซ้ำก่อน refill ครั้งหน้า`
-  if (crcl < 50) return `CrCl ${crcl} mL/min: แนะนำตรวจ Lab ทุก 3-6 เดือน`
+  if (crcl < 30) return `CrCl ${crcl} mL/min: การทำงานของไตต่ำ — นัดตรวจ Lab ซ้ำทุก 30 วันก่อน refill`
+  if (crcl < 60) return `CrCl ${crcl} mL/min: นัดตรวจ Lab ซ้ำทุก ~60 วัน`
   return null
 })
 
@@ -495,10 +578,10 @@ const withholdReasonText = computed(() =>
 )
 const canSave = computed(() => {
   if (isWithhold.value) return true   // withhold can always be recorded (audit trail)
-  if (selectedIdx.value === null) return false   // must actively choose a drug (no pre-select)
+  if (selectedIdx.value === null || selectedDose.value === null) return false   // must actively choose drug + dose
   const drug = localResult.value.drugs[selectedIdx.value]
   if (!drug || drug.level === 'contraindicated') return false
-  if (isOverride.value && !overrideCode.value) return false
+  if (needsOverride.value && !overrideCode.value) return false
   return true
 })
 
@@ -539,12 +622,15 @@ async function save() {
     }
   } else {
     const idx = selectedIdx.value
-    if (idx === null) { isSaving.value = false; return }
+    const doseKey = selectedDose.value
+    if (idx === null || doseKey === null) { isSaving.value = false; return }
     const drug = localResult.value.drugs[idx]
+    const ref = NOAC_REFERENCE[drug.drug].nvaf
+    const chosen = doseKey === 'reduced' && ref.reduced ? ref.reduced : ref.standard
     const lp = drug.loadingPhase
     const doseStr = lp
-      ? `${lp.doseAmount} ${lp.doseUnit} ${lp.frequency} ×${lp.durationText} → ${drug.doseAmount} ${drug.doseUnit} ${drug.frequency}`
-      : `${drug.doseAmount} ${drug.doseUnit} ${drug.frequency}`
+      ? `${lp.doseAmount} ${lp.doseUnit} ${lp.frequency} ×${lp.durationText} → ${formatDose(chosen)}`
+      : formatDose(chosen)
     record = {
       id:               `disp-${Date.now()}`,
       patientId:        props.patientId,
@@ -554,9 +640,9 @@ async function save() {
       drugDispensed:    drug.drug,
       dose:             doseStr,
       systemRank:       idx + 1,
-      wasTopRecommendation: idx === 0,
-      clinicalStatus:   'appropriate',
-      overrideCode:     isOverride.value ? (overrideCode.value as NoacOverrideCode) : undefined,
+      wasTopRecommendation: idx === 0 && doseKey === recommendedKey(drug),
+      clinicalStatus:   statusFor(drug, doseKey),
+      overrideCode:     needsOverride.value ? (overrideCode.value as NoacOverrideCode) : undefined,
       overrideNote:     overrideNote.value || undefined,
       pharmacistNote:   pharmacistNote.value || null,
       nextFollowUpDate: followUp(daysSupply.value),
@@ -816,51 +902,47 @@ async function save() {
 
 /* ── Drug cards ──────────────────────────────────────────────── */
 .ndd-drug-list { display: flex; flex-direction: column; gap: 8px; }
-.ndd-drug-card {
+
+/* Wrapper card — owns the border + selected state, expands to reveal the body */
+.ndd-drug {
+  border: 1.5px solid var(--bma-border-card);
+  border-radius: var(--bma-radius-md);
+  background: var(--bma-surface);
+  overflow: hidden;
+  transition: border-color var(--bma-transition-fast);
+}
+.ndd-drug--selected { border-color: var(--bma-green-500); }
+.ndd-drug--override.ndd-drug--selected { border-color: var(--inr-supra-ring); }
+.ndd-drug--contra { opacity: .5; background: var(--bma-surface-subtle); }
+
+/* Head — clickable drug-select button */
+.ndd-drug-head {
   display: flex;
   align-items: flex-start;
   gap: 8px;
   padding: 12px 120px 12px 12px;
-  border: 1.5px solid var(--bma-border-card);
-  border-radius: var(--bma-radius-md);
-  background: var(--bma-surface);
+  width: 100%;
+  background: transparent;
+  border: none;
   cursor: pointer;
   text-align: left;
-  width: 100%;
-  transition: border-color var(--bma-transition-fast),
-              background var(--bma-transition-fast);
   position: relative;
+  transition: background var(--bma-transition-fast);
 }
-/* Rank-1 hover → green (safe / on-track) */
-.ndd-drug-card.ndd-drug-card--rank-first:hover:not(:disabled) {
-  border-color: var(--bma-green-300);
-  background: var(--bma-green-50);
-}
-/* Non-rank-1 hover → amber (signals override is coming) */
-.ndd-drug-card:not(.ndd-drug-card--rank-first):hover:not(:disabled) {
-  border-color: var(--inr-supra-ring);
-  background: var(--inr-supra-bg);
-}
-/* All selected → green base */
-.ndd-drug-card--selected {
-  border-color: var(--bma-green-500);
-  background: var(--bma-green-50);
-}
-/* Override selected → amber (consistent with hover signal) */
-.ndd-drug-card--override.ndd-drug-card--selected {
-  border-color: var(--inr-supra-ring);
-  background: var(--inr-supra-bg);
-}
-.ndd-drug-card--contra {
-  opacity: .5;
-  cursor: not-allowed;
-  background: var(--bma-surface-subtle);
-}
+.ndd-drug-head:disabled { cursor: not-allowed; }
+/* Rank-1 hover → green (on-track); non-rank-1 hover → amber (signals override) */
+.ndd-drug-head--rank-first:hover:not(:disabled) { background: var(--bma-green-50); }
+.ndd-drug-head:not(.ndd-drug-head--rank-first):hover:not(:disabled) { background: var(--inr-supra-bg); }
+/* Selected base tints the head */
+.ndd-drug--selected .ndd-drug-head { background: var(--bma-green-50); }
+.ndd-drug--override.ndd-drug--selected .ndd-drug-head { background: var(--inr-supra-bg); }
 
 /* Rank badge */
+/* Fixed-width left slot — same for every card; rank number swaps to a check when
+   selected so the layout never shifts between selected / unselected cards */
 .ndd-drug-rank {
-  display: flex; align-items: center; gap: 2px;
-  flex-shrink: 0; padding-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  width: 14px; flex-shrink: 0; padding-top: 1px;
 }
 .ndd-drug-rank-num {
   font-family: var(--bma-font-data);
@@ -868,7 +950,7 @@ async function save() {
   color: var(--bma-text-tertiary);
   width: 14px; text-align: center;
 }
-.ndd-drug-star { color: var(--bma-green-500); }
+.ndd-drug-rank-check { color: var(--bma-green-600); }
 
 /* Drug info */
 .ndd-drug-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
@@ -905,7 +987,6 @@ async function save() {
 .ndd-withhold-body { display: flex; flex-direction: column; gap: 2px; }
 .ndd-withhold-title { font-size: 14px; font-weight: 700; color: var(--bma-emergency); }
 .ndd-withhold-sub { font-size: 12px; color: var(--bma-text-secondary); }
-.ndd-drug-adj,
 .ndd-drug-ci-reason,
 .ndd-drug-note {
   display: inline-flex; align-items: baseline; gap: 4px;
@@ -915,7 +996,6 @@ async function save() {
   display: inline-flex; align-items: baseline; gap: 4px;
   font-size: 12px; font-weight: 600; color: var(--bma-elective);
 }
-.ndd-drug-adj       { color: var(--inr-supra-text); }
 .ndd-drug-ci-reason { color: var(--bma-emergency); }
 .ndd-drug-note      { color: var(--bma-text-secondary); font-weight: 500; }
 
@@ -937,16 +1017,77 @@ async function save() {
 .ndd-level--dose-adjusted { background: var(--inr-supra-bg);       color: var(--inr-supra-text);   border: 1.5px solid var(--inr-supra-text); }
 .ndd-level--caution       { background: var(--bma-urgency-bg-soft); color: var(--bma-urgency-text); border: 1.5px solid var(--bma-urgency-text); }
 
-/* Checkmark — absolute bottom-right, opacity-only transition, zero layout impact */
-.ndd-drug-check {
-  position: absolute;
-  bottom: 12px; right: 12px;
-  color: var(--bma-green-500);
-  opacity: 0;
-  transition: opacity .15s ease;
-  pointer-events: none;
+/* ── Expand body — criteria checklist + dose-level choice ──────── */
+.ndd-drug-body {
+  padding: 12px;
+  border-top: 1px solid var(--bma-border-subtle);
+  display: flex; flex-direction: column; gap: 14px;
 }
-.ndd-drug-card--selected .ndd-drug-check { opacity: 1; }
+/* Criteria checklist */
+.ndd-crit { display: flex; flex-direction: column; gap: 6px; }
+.ndd-crit-title {
+  font-size: 10px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--bma-text-tertiary);
+}
+/* Fixed columns: [icon] [label] [value] [threshold] — values line up across rows */
+.ndd-crit-row {
+  display: grid;
+  grid-template-columns: 14px 60px 92px 1fr;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: var(--bma-radius-sm);
+  font-size: 12px;
+}
+/* Met = an active dose-reduction factor → soft amber highlight (informational, not alarming) */
+.ndd-crit-row--met { background: var(--inr-supra-bg); }
+.ndd-crit-ic { color: var(--inr-supra-text); }
+.ndd-crit-label { color: var(--bma-text-secondary); }
+.ndd-crit-val {
+  font-family: var(--bma-font-data); font-weight: 700;
+  color: var(--bma-text-primary);
+}
+.ndd-crit-row--met .ndd-crit-val { color: var(--inr-supra-text); }
+.ndd-crit-thr {
+  font-family: var(--bma-font-data); font-size: 11px;
+  color: var(--bma-text-tertiary); white-space: nowrap;
+}
+.ndd-crit-none { font-size: 12px; color: var(--bma-text-tertiary); }
+
+/* Dose-level choice */
+.ndd-dose { display: flex; flex-direction: column; gap: 6px; }
+.ndd-dose-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--bma-text-tertiary);
+}
+.ndd-dose-warn {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; font-weight: 600; color: var(--inr-supra-text);
+}
+
+/* ── Segmented selector — shared by dose-level + days-supply (native, on-token) ── */
+.ndd-seg { display: flex; gap: 8px; }
+.ndd-seg-opt {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  padding: 8px 12px;
+  border: 1.5px solid var(--bma-border);
+  border-radius: var(--bma-radius-md);
+  background: var(--bma-surface);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .15s, background .15s;
+}
+.ndd-seg-opt:hover { border-color: var(--bma-green-300); }
+.ndd-seg-opt--active { border-color: var(--bma-green-500); background: var(--bma-green-50); }
+.ndd-seg-val {
+  font-family: var(--bma-font-data); font-size: 14px; font-weight: 700;
+  color: var(--bma-text-primary);
+}
+.ndd-seg-rec {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 10px; font-weight: 700; color: var(--bma-green-600);
+}
 
 /* ── Override section ────────────────────────────────────────── */
 /* ── Native form elements — consistent with system design tokens ── */
@@ -984,20 +1125,7 @@ async function save() {
 /* Override step inputs focus → amber to match context */
 .ndd-step--override .ndd-native-select:focus,
 .ndd-step--override .ndd-native-textarea:focus { border-color: var(--inr-supra-ring); }
-/* ── Days supply chips ───────────────────────────────────────── */
-.ndd-days-chips {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 2px;
-  scrollbar-width: none;
-}
-/* tonal selected chip needs explicit border — tonal variant has no border by default */
-.ndd-days-chips :deep(.v-chip--variant-tonal) {
-  border: 2px solid rgb(var(--v-theme-primary));
-}
-.ndd-days-chips::-webkit-scrollbar { display: none; }
-.ndd-days-chips :deep(.ndd-days-suggested-mark) { flex-shrink: 0; margin-left: 3px; vertical-align: middle; color: var(--bma-green-700) !important; }
+/* ── Days supply caution ─────────────────────────────────────── */
 .ndd-days-caution {
   display: flex; align-items: center; gap: 4px;
   margin-top: 8px;

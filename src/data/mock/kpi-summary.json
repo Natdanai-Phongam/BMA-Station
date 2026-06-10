@@ -2,99 +2,555 @@
  "meta": {
   "generatedAt": "2026-05-31T08:00:00",
   "mockNow": "2026-05-31",
-  "dataMinDate": "2026-04-01"
+  "dataMinDate": "2026-04-01",
+  "hospitals": [
+   {
+    "id": "h1",
+    "name": "โรงพยาบาลตากสิน"
+   },
+   {
+    "id": "h2",
+    "name": "โรงพยาบาลกลาง"
+   },
+   {
+    "id": "h3",
+    "name": "โรงพยาบาลเจริญกรุงประชารักษ์"
+   },
+   {
+    "id": "h4",
+    "name": "โรงพยาบาลราชพิพัฒน์"
+   }
+  ]
  },
  "ranges": {
   "2026-04-01|2026-04-30": {
-   "comps": {
-    "bleeding": 3,
-    "thrombosis": 6,
-    "aeHospitalization": 2,
-    "death": 2,
-    "medError": 102
+   "h1": {
+    "comps": {
+     "bleeding": 1,
+     "thrombosis": 2,
+     "aeHospitalization": 1,
+     "death": 2,
+     "medError": 58
+    },
+    "wf": {
+     "active": 57,
+     "appropriate": 36,
+     "ttrGoalMet": 17,
+     "ttrTotal": 57,
+     "adjTotal": 96,
+     "adjAccepted": 75
+    },
+    "noac": {
+     "active": 51,
+     "appropriate": 33,
+     "dispTotal": 53,
+     "dispAccepted": 28
+    }
    },
-   "wf": {
-    "active": 243,
-    "appropriate": 198,
-    "ttrGoalMet": 181,
-    "ttrTotal": 243,
-    "adjTotal": 343,
-    "adjAccepted": 276
+   "h2": {
+    "comps": {
+     "bleeding": 1,
+     "thrombosis": 2,
+     "aeHospitalization": 1,
+     "death": 0,
+     "medError": 61
+    },
+    "wf": {
+     "active": 62,
+     "appropriate": 37,
+     "ttrGoalMet": 17,
+     "ttrTotal": 62,
+     "adjTotal": 97,
+     "adjAccepted": 84
+    },
+    "noac": {
+     "active": 42,
+     "appropriate": 27,
+     "dispTotal": 42,
+     "dispAccepted": 21
+    }
    },
-   "noac": {
-    "active": 176,
-    "appropriate": 155,
-    "dispTotal": 180,
-    "dispAccepted": 131
+   "h3": {
+    "comps": {
+     "bleeding": 0,
+     "thrombosis": 2,
+     "aeHospitalization": 0,
+     "death": 0,
+     "medError": 53
+    },
+    "wf": {
+     "active": 54,
+     "appropriate": 35,
+     "ttrGoalMet": 22,
+     "ttrTotal": 54,
+     "adjTotal": 87,
+     "adjAccepted": 69
+    },
+    "noac": {
+     "active": 48,
+     "appropriate": 30,
+     "dispTotal": 49,
+     "dispAccepted": 24
+    }
+   },
+   "h4": {
+    "comps": {
+     "bleeding": 1,
+     "thrombosis": 0,
+     "aeHospitalization": 0,
+     "death": 0,
+     "medError": 61
+    },
+    "wf": {
+     "active": 55,
+     "appropriate": 32,
+     "ttrGoalMet": 18,
+     "ttrTotal": 55,
+     "adjTotal": 98,
+     "adjAccepted": 79
+    },
+    "noac": {
+     "active": 35,
+     "appropriate": 23,
+     "dispTotal": 36,
+     "dispAccepted": 22
+    }
    }
   },
   "2026-04-01|2026-05-31": {
-   "comps": {
-    "bleeding": 10,
-    "thrombosis": 9,
-    "aeHospitalization": 3,
-    "death": 4,
-    "medError": 285
+   "h1": {
+    "comps": {
+     "bleeding": 5,
+     "thrombosis": 2,
+     "aeHospitalization": 1,
+     "death": 2,
+     "medError": 167
+    },
+    "wf": {
+     "active": 71,
+     "appropriate": 37,
+     "ttrGoalMet": 22,
+     "ttrTotal": 71,
+     "adjTotal": 225,
+     "adjAccepted": 172
+    },
+    "noac": {
+     "active": 90,
+     "appropriate": 51,
+     "dispTotal": 148,
+     "dispAccepted": 73
+    }
    },
-   "wf": {
-    "active": 292,
-    "appropriate": 236,
-    "ttrGoalMet": 220,
-    "ttrTotal": 292,
-    "adjTotal": 821,
-    "adjAccepted": 659
+   "h2": {
+    "comps": {
+     "bleeding": 2,
+     "thrombosis": 2,
+     "aeHospitalization": 1,
+     "death": 0,
+     "medError": 192
+    },
+    "wf": {
+     "active": 83,
+     "appropriate": 39,
+     "ttrGoalMet": 22,
+     "ttrTotal": 83,
+     "adjTotal": 265,
+     "adjAccepted": 216
+    },
+    "noac": {
+     "active": 81,
+     "appropriate": 48,
+     "dispTotal": 125,
+     "dispAccepted": 56
+    }
    },
-   "noac": {
-    "active": 305,
-    "appropriate": 276,
-    "dispTotal": 491,
-    "dispAccepted": 344
+   "h3": {
+    "comps": {
+     "bleeding": 2,
+     "thrombosis": 4,
+     "aeHospitalization": 1,
+     "death": 1,
+     "medError": 141
+    },
+    "wf": {
+     "active": 70,
+     "appropriate": 38,
+     "ttrGoalMet": 24,
+     "ttrTotal": 70,
+     "adjTotal": 214,
+     "adjAccepted": 176
+    },
+    "noac": {
+     "active": 72,
+     "appropriate": 48,
+     "dispTotal": 120,
+     "dispAccepted": 59
+    }
+   },
+   "h4": {
+    "comps": {
+     "bleeding": 1,
+     "thrombosis": 1,
+     "aeHospitalization": 0,
+     "death": 1,
+     "medError": 148
+    },
+    "wf": {
+     "active": 68,
+     "appropriate": 41,
+     "ttrGoalMet": 25,
+     "ttrTotal": 68,
+     "adjTotal": 236,
+     "adjAccepted": 192
+    },
+    "noac": {
+     "active": 62,
+     "appropriate": 39,
+     "dispTotal": 98,
+     "dispAccepted": 55
+    }
    }
   },
   "2026-05-01|2026-05-31": {
-   "comps": {
-    "bleeding": 7,
-    "thrombosis": 3,
-    "aeHospitalization": 1,
-    "death": 2,
-    "medError": 183
+   "h1": {
+    "comps": {
+     "bleeding": 4,
+     "thrombosis": 0,
+     "aeHospitalization": 0,
+     "death": 0,
+     "medError": 109
+    },
+    "wf": {
+     "active": 71,
+     "appropriate": 37,
+     "ttrGoalMet": 22,
+     "ttrTotal": 71,
+     "adjTotal": 129,
+     "adjAccepted": 97
+    },
+    "noac": {
+     "active": 89,
+     "appropriate": 50,
+     "dispTotal": 95,
+     "dispAccepted": 45
+    }
    },
-   "wf": {
-    "active": 292,
-    "appropriate": 236,
-    "ttrGoalMet": 220,
-    "ttrTotal": 292,
-    "adjTotal": 478,
-    "adjAccepted": 383
+   "h2": {
+    "comps": {
+     "bleeding": 1,
+     "thrombosis": 0,
+     "aeHospitalization": 0,
+     "death": 0,
+     "medError": 131
+    },
+    "wf": {
+     "active": 83,
+     "appropriate": 39,
+     "ttrGoalMet": 22,
+     "ttrTotal": 83,
+     "adjTotal": 168,
+     "adjAccepted": 132
+    },
+    "noac": {
+     "active": 79,
+     "appropriate": 47,
+     "dispTotal": 83,
+     "dispAccepted": 35
+    }
    },
-   "noac": {
-    "active": 297,
-    "appropriate": 247,
-    "dispTotal": 311,
-    "dispAccepted": 213
+   "h3": {
+    "comps": {
+     "bleeding": 2,
+     "thrombosis": 2,
+     "aeHospitalization": 1,
+     "death": 1,
+     "medError": 88
+    },
+    "wf": {
+     "active": 70,
+     "appropriate": 38,
+     "ttrGoalMet": 24,
+     "ttrTotal": 70,
+     "adjTotal": 127,
+     "adjAccepted": 107
+    },
+    "noac": {
+     "active": 69,
+     "appropriate": 45,
+     "dispTotal": 71,
+     "dispAccepted": 35
+    }
+   },
+   "h4": {
+    "comps": {
+     "bleeding": 0,
+     "thrombosis": 1,
+     "aeHospitalization": 0,
+     "death": 1,
+     "medError": 87
+    },
+    "wf": {
+     "active": 68,
+     "appropriate": 41,
+     "ttrGoalMet": 25,
+     "ttrTotal": 68,
+     "adjTotal": 138,
+     "adjAccepted": 113
+    },
+    "noac": {
+     "active": 60,
+     "appropriate": 38,
+     "dispTotal": 62,
+     "dispAccepted": 33
+    }
    }
   },
   "2026-01-01|2026-05-31": {
-   "comps": {
-    "bleeding": 10,
-    "thrombosis": 9,
-    "aeHospitalization": 3,
-    "death": 4,
-    "medError": 285
+   "h1": {
+    "comps": {
+     "bleeding": 5,
+     "thrombosis": 2,
+     "aeHospitalization": 1,
+     "death": 2,
+     "medError": 167
+    },
+    "wf": {
+     "active": 71,
+     "appropriate": 37,
+     "ttrGoalMet": 22,
+     "ttrTotal": 71,
+     "adjTotal": 225,
+     "adjAccepted": 172
+    },
+    "noac": {
+     "active": 90,
+     "appropriate": 51,
+     "dispTotal": 148,
+     "dispAccepted": 73
+    }
    },
-   "wf": {
-    "active": 292,
-    "appropriate": 236,
-    "ttrGoalMet": 220,
-    "ttrTotal": 292,
-    "adjTotal": 821,
-    "adjAccepted": 659
+   "h2": {
+    "comps": {
+     "bleeding": 2,
+     "thrombosis": 2,
+     "aeHospitalization": 1,
+     "death": 0,
+     "medError": 192
+    },
+    "wf": {
+     "active": 83,
+     "appropriate": 39,
+     "ttrGoalMet": 22,
+     "ttrTotal": 83,
+     "adjTotal": 265,
+     "adjAccepted": 216
+    },
+    "noac": {
+     "active": 81,
+     "appropriate": 48,
+     "dispTotal": 125,
+     "dispAccepted": 56
+    }
    },
-   "noac": {
-    "active": 305,
-    "appropriate": 276,
-    "dispTotal": 491,
-    "dispAccepted": 344
+   "h3": {
+    "comps": {
+     "bleeding": 2,
+     "thrombosis": 4,
+     "aeHospitalization": 1,
+     "death": 1,
+     "medError": 141
+    },
+    "wf": {
+     "active": 70,
+     "appropriate": 38,
+     "ttrGoalMet": 24,
+     "ttrTotal": 70,
+     "adjTotal": 214,
+     "adjAccepted": 176
+    },
+    "noac": {
+     "active": 72,
+     "appropriate": 48,
+     "dispTotal": 120,
+     "dispAccepted": 59
+    }
+   },
+   "h4": {
+    "comps": {
+     "bleeding": 1,
+     "thrombosis": 1,
+     "aeHospitalization": 0,
+     "death": 1,
+     "medError": 148
+    },
+    "wf": {
+     "active": 68,
+     "appropriate": 41,
+     "ttrGoalMet": 25,
+     "ttrTotal": 68,
+     "adjTotal": 236,
+     "adjAccepted": 192
+    },
+    "noac": {
+     "active": 62,
+     "appropriate": 39,
+     "dispTotal": 98,
+     "dispAccepted": 55
+    }
+   }
+  }
+ },
+ "ops": {
+  "h1": {
+   "month": {
+    "avgLOS": 3.6,
+    "resolutionRate": 86.1,
+    "responseTimeHr": 1.4,
+    "resolutionTimeHr": 19.1,
+    "staff": {
+     "pharmacist": 2,
+     "physician": 2,
+     "nurse": 1
+    },
+    "patientsPerDay": 13
+   },
+   "quarter": {
+    "avgLOS": 4.1,
+    "resolutionRate": 84.9,
+    "responseTimeHr": 1.7,
+    "resolutionTimeHr": 16.4,
+    "staff": {
+     "pharmacist": 1,
+     "physician": 2,
+     "nurse": 1
+    },
+    "patientsPerDay": 11
+   },
+   "year": {
+    "avgLOS": 3.4,
+    "resolutionRate": 89.5,
+    "responseTimeHr": 1.6,
+    "resolutionTimeHr": 20.8,
+    "staff": {
+     "pharmacist": 1,
+     "physician": 3,
+     "nurse": 1
+    },
+    "patientsPerDay": 12
+   }
+  },
+  "h2": {
+   "month": {
+    "avgLOS": 3.7,
+    "resolutionRate": 82.2,
+    "responseTimeHr": 1.3,
+    "resolutionTimeHr": 20.3,
+    "staff": {
+     "pharmacist": 2,
+     "physician": 3,
+     "nurse": 1
+    },
+    "patientsPerDay": 11
+   },
+   "quarter": {
+    "avgLOS": 3.4,
+    "resolutionRate": 84.3,
+    "responseTimeHr": 1.5,
+    "resolutionTimeHr": 16.5,
+    "staff": {
+     "pharmacist": 2,
+     "physician": 2,
+     "nurse": 1
+    },
+    "patientsPerDay": 12
+   },
+   "year": {
+    "avgLOS": 3.8,
+    "resolutionRate": 88.2,
+    "responseTimeHr": 1.8,
+    "resolutionTimeHr": 17,
+    "staff": {
+     "pharmacist": 1,
+     "physician": 3,
+     "nurse": 1
+    },
+    "patientsPerDay": 11
+   }
+  },
+  "h3": {
+   "month": {
+    "avgLOS": 4.5,
+    "resolutionRate": 89.3,
+    "responseTimeHr": 1.8,
+    "resolutionTimeHr": 20.5,
+    "staff": {
+     "pharmacist": 2,
+     "physician": 3,
+     "nurse": 1
+    },
+    "patientsPerDay": 13
+   },
+   "quarter": {
+    "avgLOS": 4.6,
+    "resolutionRate": 82.6,
+    "responseTimeHr": 1.9,
+    "resolutionTimeHr": 21.5,
+    "staff": {
+     "pharmacist": 1,
+     "physician": 2,
+     "nurse": 1
+    },
+    "patientsPerDay": 13
+   },
+   "year": {
+    "avgLOS": 3.4,
+    "resolutionRate": 85.1,
+    "responseTimeHr": 1.3,
+    "resolutionTimeHr": 20.2,
+    "staff": {
+     "pharmacist": 1,
+     "physician": 3,
+     "nurse": 1
+    },
+    "patientsPerDay": 13
+   }
+  },
+  "h4": {
+   "month": {
+    "avgLOS": 3.3,
+    "resolutionRate": 86.7,
+    "responseTimeHr": 1.7,
+    "resolutionTimeHr": 19.6,
+    "staff": {
+     "pharmacist": 1,
+     "physician": 3,
+     "nurse": 1
+    },
+    "patientsPerDay": 9
+   },
+   "quarter": {
+    "avgLOS": 4.2,
+    "resolutionRate": 85.3,
+    "responseTimeHr": 1.4,
+    "resolutionTimeHr": 20.7,
+    "staff": {
+     "pharmacist": 1,
+     "physician": 2,
+     "nurse": 1
+    },
+    "patientsPerDay": 11
+   },
+   "year": {
+    "avgLOS": 3.9,
+    "resolutionRate": 88.9,
+    "responseTimeHr": 1.9,
+    "resolutionTimeHr": 17.4,
+    "staff": {
+     "pharmacist": 1,
+     "physician": 3,
+     "nurse": 1
+    },
+    "patientsPerDay": 9
    }
   }
  }

@@ -13,6 +13,7 @@ import type {
 } from '../../src/data/types/noac-dispensing'
 import { randInt, randNormal, chance, weighted } from './rng'
 import { isoDate, crCl, addDays } from './pools'
+import { followUpDaysForCrCl } from '../../src/data/noacReference'
 import { noacVisits } from './schedule'
 import type { GenPatient } from './identity'
 
@@ -48,9 +49,7 @@ function engineInput(p: GenPatient, lab: NoacLabData): NoacEngineInput {
 function followUpMonths(crcl: number): number {
   return crcl >= 60 ? 6 : crcl >= 30 ? 3 : 1
 }
-function followUpDays(crcl: number): number {
-  return crcl >= 60 ? 90 : crcl >= 30 ? 60 : 30
-}
+// followUpDays now sourced from noacReference.followUpDaysForCrCl (single source)
 
 /** Patient's drug — chosen once at baseline from the top usable recommendation. */
 function chooseDrug(p: GenPatient): NoacDrug {
@@ -71,7 +70,7 @@ export function generateNoac(p: GenPatient): NoacPatientData {
     const res: NoacRecommendationResult = computeNoacRecommendations(engineInput(p, lab))
     const rd = ranked(res.drugs)
     const dispensedAt = `${isoDate(date)}T09:${String(randInt(`${p.id}:m${i}`, 0, 59)).padStart(2, '0')}:00`
-    const nextFollowUpDate = isoDate(addDays(date, followUpDays(lab.crClMlMin)))
+    const nextFollowUpDate = isoDate(addDays(date, followUpDaysForCrCl(lab.crClMlMin)))
 
     // All contraindicated → withhold
     if (rd[0].level === 'contraindicated') {
@@ -91,7 +90,11 @@ export function generateNoac(p: GenPatient): NoacPatientData {
     if (!chosen || chosen.level === 'contraindicated') { chosen = rd[0]; switched = true }
 
     // Dose concordance — NVAF can deviate (under/overdose); phased indications stay concordant
-    const concordant = p.indication !== 'NVAF' ? true : chance(`${p.id}:dose${i}`, 0.84)
+    // appropriateness decided per PATIENT via KPI quota (assignKpiQuotas) so the
+    // metric is exact + stable across periods. Fallback chance for any untagged.
+    const concordant = p.indication !== 'NVAF'
+      ? true
+      : (p.noacAppropriate ?? chance(`${p.id}:concord`, 0.55))
     let dose: string
     let clinicalStatus: NoacClinicalStatus
     if (concordant) {

@@ -56,6 +56,23 @@
       <!-- ── KPI period strip — bare, visible only on KPI tab ───── -->
       <Transition name="kpi-period-strip-slide">
         <div v-if="activeTab === 'kpi'" class="kpi-period-strip">
+          <!-- Hospital multi-select — scopes the KPI numbers to selected hospitals -->
+          <div class="kpi-hospital-row">
+            <span class="kpi-period-scope">โรงพยาบาล</span>
+            <div class="kpi-hosp-group">
+              <button
+                v-for="h in hospitalList" :key="h.id"
+                class="kpi-hosp-chip"
+                :class="{ 'kpi-hosp-chip--on': selectedHospitals.includes(h.id) }"
+                @click="toggleHospital(h.id)"
+              >
+                <span class="kpi-hosp-check">
+                  <PhCheck v-if="selectedHospitals.includes(h.id)" :size="11" weight="bold" />
+                </span>
+                {{ h.name }}
+              </button>
+            </div>
+          </div>
           <div class="kpi-period-strip-row">
             <div class="kpi-period-panel-left">
               <button class="kpi-refresh-btn" @click="refreshKpiData" title="รีเฟรชข้อมูล">
@@ -193,12 +210,7 @@
             <span class="kpi-st-text">ตัวชี้วัดหลัก</span>
           </div>
           <div class="kpi-container-grid kpi-container-grid--primary">
-            <KpiSafetySection
-              :rows="safetyRows"
-              :pass-count="safetyPassCount"
-              :warn-count="safetyWarnCount"
-              :fail-count="safetyFailCount"
-            />
+            <KpiSafetySection :rows="safetyRows" />
             <KpiQualitySection
               :rows="qualityBarRows"
               :avg-l-o-s="liveKpi.quality.avgLOS"
@@ -236,12 +248,13 @@ import {
   PhBell,
   PhCalendar,
   PhArrowsClockwise,
+  PhCheck,
 } from '@phosphor-icons/vue'
 import type { AtsDashboardConfigData, AtsMonitoringCard } from '@/data/types/ats'
 import type { WarfarinStatus, NoacsStatus, SummaryPatientEntry } from '@/data/types/ats-patients'
 import type { KpiPeriodData, KpiMode, KpiMetric } from '@/data/types/ats-kpi'
 import { getAppDate, getAppYearMonth, monthToQuarter, monthStart, monthEnd } from '@/utils/app-date'
-import type { KpiOperationalData, KpiOperationalPeriod, PeriodMetrics, StatusLevel, SafetyRow, QualityBarRow, AtsRow } from '@/data/types/kpi-operational'
+import type { PeriodMetrics, StatusLevel, SafetyRow, QualityBarRow, AtsRow } from '@/data/types/kpi-operational'
 import { thaiMonth }                   from '@/utils/date'
 import { parsePct }                    from '@/utils/number-helpers'
 import { warfarinStatusLabel }          from '@/utils/warfarin-helpers'
@@ -277,7 +290,7 @@ const dashConfig  = shallowRef<AtsDashboardConfigData>({} as AtsDashboardConfigD
 // of joining ats-patients with the heavy raw records. status/concordance/ttr are
 // precomputed (§3.11). kpiSummary holds PeriodMetrics per period range.
 const patientList = shallowRef<PatientListData>({ generatedAt: '', warfarin: [], noacs: [] })
-const kpiSummary  = shallowRef<KpiSummary>({ meta: { generatedAt: '', mockNow: '', dataMinDate: DATA_WINDOW.start }, ranges: {} })
+const kpiSummary  = shallowRef<KpiSummary>({ meta: { generatedAt: '', mockNow: '', dataMinDate: DATA_WINDOW.start, hospitals: [] }, ranges: {}, ops: {} })
 
 const enrichedWarfarin = computed(() => patientList.value.warfarin)
 const enrichedNoacs    = computed(() => patientList.value.noacs)
@@ -562,22 +575,31 @@ const noacsTotal    = computed(() => patientList.value.noacs.length)
 
 
 // ── KPI tab ───────────────────────────────────────────────────────────────────
-// ── KPI data sources ──────────────────────────────────────────────────────────
-// kpiOps: non-derivable mock data (staff, LOS, ATS response, prev/target values)
-const kpiOps = shallowRef<KpiOperationalData>({} as KpiOperationalData)
+// ── Hospital filter (KPI tab) — multi-select, default all ─────────────────────
+const selectedHospitals = ref<string[]>([])   // hospitalIds; seeded in onMounted
+const hospitalList = computed(() => kpiSummary.value.meta.hospitals)
+function toggleHospital(id: string) {
+  const s = new Set(selectedHospitals.value)
+  s.has(id) ? s.delete(id) : s.add(id)
+  // never allow empty selection → fall back to all
+  selectedHospitals.value = s.size ? [...s] : hospitalList.value.map(h => h.id)
+}
+/** Hospital ids in effect (selection, or all if somehow empty). */
+const effectiveHospitals = computed(() =>
+  selectedHospitals.value.length ? selectedHospitals.value : hospitalList.value.map(h => h.id),
+)
 
 onMounted(async () => {
   try {
-    const [config, list, summary, ops] = await Promise.all([
+    const [config, list, summary] = await Promise.all([
       repo.getDashboardConfig(),
       repo.getPatientList(),
       repo.getKpiSummary(),
-      repo.getKpiOperational(),
     ])
     dashConfig.value  = config
     patientList.value = list
     kpiSummary.value  = summary
-    kpiOps.value      = ops
+    selectedHospitals.value = summary.meta.hospitals.map(h => h.id)
   } catch (e) {
     console.error('[DdAtsDashboard] load failed', e)
   } finally {
@@ -644,13 +666,6 @@ function isQuarterDisabled(q: number): boolean {
   return qStart > _curMonth
 }
 
-// ── Operational mock for the selected mode ────────────────────────────────────
-const currentKpiOps = computed<KpiOperationalPeriod>(() => {
-  if (kpiMode.value === 'year')    return kpiOps.value.year
-  if (kpiMode.value === 'quarter') return kpiOps.value.quarter
-  return kpiOps.value.month
-})
-
 // ── ISO date range derived from mode + sub-selection ─────────────────────────
 const periodDateRange = computed<[string, string]>(() => {
   if (kpiMode.value === 'month') {
@@ -693,9 +708,62 @@ const kpiPeriodLabel = computed(() => {
 // result by "from|to" instead of scanning the full raw dataset.
 function refreshKpiData() { /* data is static mock; refresh is a no-op */ }
 
+/** Sum PeriodMetrics across hospitals (all fields are additive counts). */
+function sumMetrics(list: PeriodMetrics[]): PeriodMetrics {
+  const a = emptyPeriodMetrics()
+  for (const m of list) {
+    a.comps.bleeding += m.comps.bleeding
+    a.comps.thrombosis += m.comps.thrombosis
+    a.comps.aeHospitalization += m.comps.aeHospitalization
+    a.comps.death += m.comps.death
+    a.comps.medError += m.comps.medError
+    a.wf.active += m.wf.active; a.wf.appropriate += m.wf.appropriate
+    a.wf.ttrGoalMet += m.wf.ttrGoalMet; a.wf.ttrTotal += m.wf.ttrTotal
+    a.wf.adjTotal += m.wf.adjTotal; a.wf.adjAccepted += m.wf.adjAccepted
+    a.noac.active += m.noac.active; a.noac.appropriate += m.noac.appropriate
+    a.noac.dispTotal += m.noac.dispTotal; a.noac.dispAccepted += m.noac.dispAccepted
+  }
+  return a
+}
+
 const currentPeriodMetrics = computed<PeriodMetrics>(() => {
   const [from, to] = periodDateRange.value
-  return kpiSummary.value.ranges[`${from}|${to}`] ?? emptyPeriodMetrics()
+  const byHid = kpiSummary.value.ranges[`${from}|${to}`] ?? {}
+  return sumMetrics(effectiveHospitals.value.map(h => byHid[h]).filter(Boolean))
+})
+
+// ── Operational mock, aggregated over the selected hospitals ──────────────────
+// Counts (staff / patients-per-day) sum; rates (LOS / resolution / times) are
+// averaged weighted by each hospital's active-patient count in the period.
+const currentKpiOps = computed(() => {
+  const [from, to] = periodDateRange.value
+  const byHid = kpiSummary.value.ranges[`${from}|${to}`] ?? {}
+  const opsAll = kpiSummary.value.ops
+  let pharmacist = 0, physician = 0, nurse = 0, patientsPerDay = 0
+  let wLOS = 0, wRes = 0, wRT = 0, wResT = 0, wSum = 0
+  for (const h of effectiveHospitals.value) {
+    const o = opsAll[h]?.[kpiMode.value]
+    if (!o) continue
+    pharmacist += o.staff.pharmacist; physician += o.staff.physician; nurse += o.staff.nurse
+    patientsPerDay += o.patientsPerDay
+    const m = byHid[h]
+    const w = (m ? m.wf.active + m.noac.active : 0) || 1
+    wLOS += o.avgLOS * w; wRes += o.resolutionRate * w; wRT += o.responseTimeHr * w; wResT += o.resolutionTimeHr * w; wSum += w
+  }
+  const total = pharmacist + physician + nurse
+  const wavg = (x: number) => (wSum > 0 ? Math.round((x / wSum) * 10) / 10 : 0)
+  return {
+    label: kpiPeriodLabel.value,
+    avgLOS:            { value: wavg(wLOS) },
+    atsResolution:     { value: wavg(wRes) },
+    atsResponseTime:   { value: wavg(wRT) },
+    atsResolutionTime: { value: wavg(wResT) },
+    efficiency: {
+      staff: { pharmacist, physician, nurse, total },
+      patientsPerDay,
+      workloadRatio: total > 0 ? Math.round((patientsPerDay / total) * 10) / 10 : 0,
+    },
+  }
 })
 
 // ── Live KPI — currentPeriodMetrics + operational mock ────────────────────────
@@ -710,10 +778,10 @@ const liveKpi = computed<KpiPeriodData>(() => {
     patientCount: total,
 
     safety: {
-      bleeding:          { events: m.comps.bleeding,          pct: pct(m.comps.bleeding),          prev: ops.safetyPrev.bleeding,          target: KPI_SAFETY_TARGETS.bleeding          },
-      thrombosis:        { events: m.comps.thrombosis,        pct: pct(m.comps.thrombosis),        prev: ops.safetyPrev.thrombosis,        target: KPI_SAFETY_TARGETS.thrombosis        },
-      aeHospitalization: { events: m.comps.aeHospitalization, pct: pct(m.comps.aeHospitalization), prev: ops.safetyPrev.aeHospitalization, target: KPI_SAFETY_TARGETS.aeHospitalization },
-      death:             { events: m.comps.death,             pct: pct(m.comps.death),             prev: ops.safetyPrev.death,             target: KPI_SAFETY_TARGETS.death             },
+      bleeding:          { events: m.comps.bleeding,          pct: pct(m.comps.bleeding),          prev: 0,          target: KPI_SAFETY_TARGETS.bleeding          },
+      thrombosis:        { events: m.comps.thrombosis,        pct: pct(m.comps.thrombosis),        prev: 0,        target: KPI_SAFETY_TARGETS.thrombosis        },
+      aeHospitalization: { events: m.comps.aeHospitalization, pct: pct(m.comps.aeHospitalization), prev: 0, target: KPI_SAFETY_TARGETS.aeHospitalization },
+      death:             { events: m.comps.death,             pct: pct(m.comps.death),             prev: 0,             target: KPI_SAFETY_TARGETS.death             },
       // medError = out-of-range / inappropriate dispensings ÷ total dispensings
       // (informational — no target/trend; see safetyRows)
       medError:          { events: m.comps.medError, pct: (() => { const dn = m.wf.adjTotal + m.noac.dispTotal; return dn > 0 ? parseFloat((m.comps.medError / dn * 100).toFixed(1)) : 0 })(), prev: 0, target: 0 },
@@ -723,23 +791,23 @@ const liveKpi = computed<KpiPeriodData>(() => {
       wfAppropriateness: {
         value: m.wf.active > 0 ? parseFloat((m.wf.appropriate / m.wf.active * 100).toFixed(1)) : 0,
         n: m.wf.appropriate, d: m.wf.active,
-        prev: ops.qualityPrev.wfAppropriateness, target: KPI_QUALITY_TARGETS.wfAppropriateness,
+        prev: 0, target: KPI_QUALITY_TARGETS.wfAppropriateness,
       },
       noacAppropriateness: {
         value: m.noac.active > 0 ? parseFloat((m.noac.appropriate / m.noac.active * 100).toFixed(1)) : 0,
         n: m.noac.appropriate, d: m.noac.active,
-        prev: ops.qualityPrev.noacAppropriateness, target: KPI_QUALITY_TARGETS.noacAppropriateness,
+        prev: 0, target: KPI_QUALITY_TARGETS.noacAppropriateness,
       },
       wfTtrGoal: {
         value: m.wf.ttrTotal > 0 ? parseFloat((m.wf.ttrGoalMet / m.wf.ttrTotal * 100).toFixed(1)) : 0,
         n: m.wf.ttrGoalMet, d: m.wf.ttrTotal,
-        prev: ops.qualityPrev.wfTtrGoal, target: KPI_QUALITY_TARGETS.wfTtrGoal,
+        prev: 0, target: KPI_QUALITY_TARGETS.wfTtrGoal,
       },
-      avgLOS: { ...ops.avgLOS, target: KPI_QUALITY_TARGETS.avgLOS },
+      avgLOS: { ...ops.avgLOS, prev: 0, target: KPI_QUALITY_TARGETS.avgLOS },
     },
 
     atsResponse: {
-      resolutionRate: { ...ops.atsResolution, target: KPI_ATS_TARGETS.resolutionRate },
+      resolutionRate: { ...ops.atsResolution, prev: 0, target: KPI_ATS_TARGETS.resolutionRate },
       acceptanceRate: (() => {
         // Combined WF dose adjustment + NOAC dispensing concordance
         const combinedTotal    = m.wf.adjTotal    + m.noac.dispTotal
@@ -748,11 +816,11 @@ const liveKpi = computed<KpiPeriodData>(() => {
           value: combinedTotal > 0 ? parseFloat((combinedAccepted / combinedTotal * 100).toFixed(1)) : 0,
           n: combinedAccepted,
           d: combinedTotal,
-          prev: ops.atsAcceptancePrev, target: KPI_ATS_TARGETS.acceptanceRate,
+          prev: 0, target: KPI_ATS_TARGETS.acceptanceRate,
         }
       })(),
-      responseTimeHr: { ...ops.atsResponseTime, target: KPI_ATS_TARGETS.responseTimeHr },
-      resolutionTimeHr: { ...ops.atsResolutionTime, target: KPI_ATS_TARGETS.resolutionTimeHr },
+      responseTimeHr: { ...ops.atsResponseTime, prev: 0, target: KPI_ATS_TARGETS.responseTimeHr },
+      resolutionTimeHr: { ...ops.atsResolutionTime, prev: 0, target: KPI_ATS_TARGETS.resolutionTimeHr },
     },
 
     efficiency: {
@@ -764,35 +832,17 @@ const liveKpi = computed<KpiPeriodData>(() => {
 })
 
 
-// ── Safety rows ───────────────────────────────────────────────────────────────
+// ── Safety rows — informational (count + rate only; no target/trend/badge) ────
 const safetyRows = computed<SafetyRow[]>(() => {
   const s = liveKpi.value.safety
-  const defs: Array<{ key: string; name: string; m: typeof s.bleeding }> = [
-    { key: 'bleeding',          name: 'เลือดออกรุนแรง',          m: s.bleeding          },
-    { key: 'thrombosis',        name: 'ลิ่มเลือดอุดตัน',          m: s.thrombosis        },
-    { key: 'aeHospitalization', name: 'นอน รพ. จากผลข้างเคียง',   m: s.aeHospitalization },
-    { key: 'death',             name: 'เสียชีวิต',                m: s.death             },
-    { key: 'medError',          name: 'ความคลาดเคลื่อนทางยา',     m: s.medError          },
+  return [
+    { key: 'bleeding',          name: 'เลือดออกรุนแรง',        events: s.bleeding.events,          pct: s.bleeding.pct          },
+    { key: 'thrombosis',        name: 'ลิ่มเลือดอุดตัน',        events: s.thrombosis.events,        pct: s.thrombosis.pct        },
+    { key: 'aeHospitalization', name: 'นอน รพ. จากผลข้างเคียง', events: s.aeHospitalization.events, pct: s.aeHospitalization.pct },
+    { key: 'death',             name: 'เสียชีวิต',              events: s.death.events,             pct: s.death.pct             },
+    { key: 'medError',          name: 'ความคลาดเคลื่อนทางยา',   events: s.medError.events,          pct: s.medError.pct          },
   ]
-  return defs.map(({ key, name, m }) => {
-    // medError = dispensing-appropriateness complement → informational only
-    // (no target / trend / pass-fail), per product decision
-    if (key === 'medError') {
-      return { key, name, events: m.events, pct: m.pct, target: 0, status: 'pass' as StatusLevel, trendLabel: '', trendDir: 'flat' as const, statusLabel: '', informational: true }
-    }
-    const status = safetyStatus(m.pct, m.target)
-    const delta  = parseFloat((m.pct - m.prev).toFixed(1))
-    // Safety: ▲ worsened (bad), ▼ improved (good)
-    const trendDir   = delta === 0 ? 'flat' : delta > 0 ? 'up' : 'down'
-    const trendLabel = delta === 0 ? '—'
-      : delta > 0 ? `▲ ${delta.toFixed(1)}%` : `▼ ${Math.abs(delta).toFixed(1)}%`
-    return { key, name, events: m.events, pct: m.pct, target: m.target, status, trendLabel, trendDir, statusLabel: safetyStatusLabel[status] }
-  })
 })
-
-const safetyPassCount = computed(() => safetyRows.value.filter(r => !r.informational && r.status === 'pass').length)
-const safetyWarnCount = computed(() => safetyRows.value.filter(r => !r.informational && r.status === 'warn').length)
-const safetyFailCount = computed(() => safetyRows.value.filter(r => !r.informational && r.status === 'fail').length)
 
 // ── Quality bar rows ──────────────────────────────────────────────────────────
 const qualityBarRows = computed<QualityBarRow[]>(() => {
@@ -1154,14 +1204,6 @@ const tabs = computed(() => [
 .ksafe-en--nz { color: var(--bma-emergency); }
 .ksafe-eu { font-family: var(--bma-font-thai); font-size: 10px; color: var(--bma-text-muted); }
 .ksafe-pct { justify-content: flex-end; font-family: var(--bma-font-data); font-size: 12px; font-weight: 700; color: var(--bma-text-muted); }
-.ksafe-pct--fail { color: var(--bma-emergency); }
-.ksafe-pct--warn { color: var(--bma-urgency-text); }
-.ksafe-pct--pass { color: var(--bma-text-muted); }
-.ksafe-trend { justify-content: flex-end; font-family: var(--bma-font-data); font-size: 11px; font-weight: 600; white-space: nowrap; color: var(--bma-text-muted); }
-.ksafe-trend--up   { color: var(--bma-emergency); }
-.ksafe-trend--down { color: var(--bma-success-text); }
-.ksafe-trend--flat { color: var(--bma-text-disabled); }
-.ksafe-target { justify-content: flex-end; font-family: var(--bma-font-data); font-size: 11px; font-weight: 500; color: var(--bma-text-muted); white-space: nowrap; }
 
 /* Quality rows */
 .kqual-rows { display: flex; flex-direction: column; gap: 0; }
@@ -1261,6 +1303,24 @@ const tabs = computed(() => [
 .filter-search .filter-input { padding: 0 12px 0 34px; }
 .filter-date   .filter-input { padding: 0 34px 0 12px; }
 .filter-input::placeholder   { color: var(--bma-text-disabled); }
+/* Hospital filter — matches .filter-input, native select with chevron */
+.filter-select {
+  flex-shrink: 0;
+  height: 38px;
+  max-width: 220px;
+  border: 1.5px solid var(--bma-border);
+  border-radius: var(--bma-radius-md);
+  font-family: var(--bma-font-thai);
+  font-size: 14px;
+  color: var(--bma-text-primary);
+  background: var(--bma-surface) url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 4l3 3 3-3' stroke='%238c8c8c' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 10px center;
+  padding: 0 30px 0 12px;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color var(--bma-transition-fast);
+}
+.filter-select:focus { border-color: var(--bma-green-300); }
 .filter-input:focus          { border-color: var(--bma-green-500); }
 .btn-search {
   height: 38px; padding: 0 20px;
@@ -1604,6 +1664,53 @@ const tabs = computed(() => [
 .kpi-custom-row--strip {
   margin:  0 -24px;
   padding: 8px 24px;
+}
+/* Hospital multi-select row */
+.kpi-hospital-row {
+  display:       flex;
+  align-items:   center;
+  gap:           12px;
+  flex-wrap:     wrap;
+  padding:       8px 0;
+  border-bottom: 1px solid var(--bma-border-subtle);
+}
+.kpi-hosp-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.kpi-hosp-chip {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           6px;
+  height:        30px;
+  padding:       0 12px 0 8px;
+  border:        1px solid var(--bma-border);
+  border-radius: var(--bma-radius-full);
+  background:    var(--bma-surface);
+  font-family:   var(--bma-font-thai);
+  font-size:     12px;
+  color:         var(--bma-text-tertiary);
+  cursor:        pointer;
+  transition:    background var(--bma-transition-fast), border-color var(--bma-transition-fast), color var(--bma-transition-fast);
+}
+.kpi-hosp-chip:hover { border-color: var(--bma-green-300); }
+.kpi-hosp-chip--on {
+  background:   var(--bma-green-50);
+  border-color: var(--bma-green-500);
+  color:        var(--bma-green-700);
+  font-weight:  600;
+}
+.kpi-hosp-check {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           16px;
+  height:          16px;
+  border-radius:   var(--bma-radius-xs);
+  border:          1.5px solid var(--bma-border);
+  background:      var(--bma-surface);
+  color:           var(--bma-neutral-0);
+}
+.kpi-hosp-chip--on .kpi-hosp-check {
+  background:   var(--bma-green-500);
+  border-color: var(--bma-green-500);
 }
 
 /* slide transition for the period strip itself */

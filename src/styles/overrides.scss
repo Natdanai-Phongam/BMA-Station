@@ -140,6 +140,21 @@ body {
 }
 
 
+// ── VPagination ───────────────────────────────────────────────────────────────
+// Active page renders as variant="text", so it only gets a faint overlay + green
+// (activeColor) ink. But the theme sets border-opacity:1, and the active overlay
+// reuses --v-border-opacity → the overlay becomes a SOLID green layer. Since
+// .v-btn__overlay is position:absolute and .v-btn__content is a static grid item,
+// the solid overlay paints OVER the numeral → it vanishes.
+// Fix: keep the solid green fill, lift the content above it (position:relative),
+// and ink it on-primary white. Selector depth matches Vuetify's own rule so it
+// wins on cascade order — no !important, no :deep.
+.v-pagination .v-pagination__item--is-active {
+  .v-btn__overlay  { opacity: 1; background-color: rgb(var(--v-theme-primary)); }
+  .v-btn__content  { position: relative; color: rgb(var(--v-theme-on-primary)); }
+}
+
+
 // ── VMain content wrapper ─────────────────────────────────────────────────────
 // v-main is not a flex container so v-main__wrap defaults to height: auto.
 // Percentage heights on child route components (content-wrap: height: 100%)

@@ -1,4 +1,5 @@
 import type { ConcurrentMedication, InteractionSeverity } from './patient-detail'
+import type { CriterionResult } from '../noacReference'
 
 export type { InteractionSeverity }
 
@@ -28,6 +29,9 @@ export interface DrugResult {
   adjustmentReason?:       string
   contraindicationReason?: string
   interactions:            DrugInteractionResult[]
+  /** NVAF dose-reduction criteria evaluated against the patient (drives the
+   *  live criteria checklist). Empty when reduction doesn't apply to this path. */
+  criteria?:               CriterionResult[]
   /** Phased/loading regimen for DVT/PE/CAT (e.g. Rivaroxaban 15mg BID ×21d → 20mg OD).
    *  When present, doseAmount/frequency above describe the MAINTENANCE phase. */
   loadingPhase?: {

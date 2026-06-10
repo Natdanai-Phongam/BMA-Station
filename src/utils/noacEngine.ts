@@ -13,13 +13,22 @@
 
 import type { ConcurrentMedication } from '@/data/types/patient-detail'
 import type {
-  NoacDrug,
   RecommendationLevel,
   DrugInteractionResult,
   DrugResult,
   NoacEngineInput,
   NoacRecommendationResult,
 } from '@/data/types/noac'
+import {
+  NOAC_REFERENCE,
+  evaluateReduction,
+  freqThai,
+  type Dose,
+  type CriterionInput,
+  type CriterionResult,
+  type NoacDrugRef,
+  type ReductionEvaluation,
+} from '@/data/noacReference'
 
 // ── Interaction knowledge base ─────────────────────────────────────────────
 
@@ -69,151 +78,174 @@ function matchMeds(meds: ConcurrentMedication[], list: string[]): ConcurrentMedi
   return meds.filter(m => hit(m.name, list))
 }
 
-function mkContra(
-  drug: NoacDrug,
-  nameThai: string,
-  nameEn: string,
-  brandName: string,
-  interactions: DrugInteractionResult[],
-  contraindicationReason: string,
-): DrugResult {
+function mkContra(ref: NoacDrugRef, interactions: DrugInteractionResult[], reason: string): DrugResult {
   return {
-    drug, nameThai, nameEn, brandName,
+    drug: ref.drug, nameThai: ref.nameThai, nameEn: ref.nameEn, brandName: ref.brand,
     level: 'contraindicated',
     doseAmount: '—', doseUnit: '', frequency: '—', frequencyThai: 'ห้ามใช้',
-    contraindicationReason,
+    contraindicationReason: reason,
     interactions,
+  }
+}
+
+/** Build the criterion-test input (P-gp presence uses the moderate–strong inhibitor list). */
+function critInput(input: NoacEngineInput): CriterionInput {
+  return {
+    age: input.age, weightKg: input.weightKg, scrMgDl: input.scrMgDl, crClMlMin: input.crClMlMin,
+    hasPgpInhibitor: matchMeds(input.concurrentMeds, PGP_INHIBITORS).length > 0,
+  }
+}
+
+/** Prose summary of met reduction criteria (the structured `criteria` array is canonical). */
+function reductionReason(ev: ReductionEvaluation): string {
+  const met = ev.results.filter(r => r.met).map(r => `${r.label} ${r.patientValue}`)
+  return `ลดขนาดตามเกณฑ์: ${met.join(', ')}`
+}
+
+/** Map a reference loading phase into the DrugResult shape. */
+function loadingFrom(ref: NoacDrugRef): DrugResult['loadingPhase'] {
+  const lp = ref.vte.loading
+  if (!lp) return undefined
+  return {
+    doseAmount: lp.dose.amount, doseUnit: lp.dose.unit,
+    frequency: lp.dose.freq, frequencyThai: freqThai(lp.dose.freq),
+    durationText: lp.durationText,
+  }
+}
+
+interface DrugResultParts {
+  adjustmentReason?: string
+  doseNote?:         string
+  loadingPhase?:     DrugResult['loadingPhase']
+  interactions:      DrugInteractionResult[]
+  criteria?:         CriterionResult[]
+}
+
+/** Assemble a usable DrugResult — identity/dose pulled from the reference. */
+function drugResult(ref: NoacDrugRef, level: RecommendationLevel, dose: Dose, parts: DrugResultParts): DrugResult {
+  return {
+    drug: ref.drug, nameThai: ref.nameThai, nameEn: ref.nameEn, brandName: ref.brand,
+    level,
+    doseAmount: dose.amount, doseUnit: dose.unit,
+    frequency: dose.freq, frequencyThai: freqThai(dose.freq),
+    adjustmentReason: parts.adjustmentReason,
+    doseNote:         parts.doseNote,
+    loadingPhase:     parts.loadingPhase,
+    interactions:     parts.interactions,
+    criteria:         parts.criteria,
   }
 }
 
 // ── Drug evaluators ────────────────────────────────────────────────────────
 
 function evalApixaban(input: NoacEngineInput): DrugResult {
-  const { age, weightKg, scrMgDl, crClMlMin, concurrentMeds } = input
+  const ref = NOAC_REFERENCE.apixaban
+  const meds = input.concurrentMeds
   const interactions: DrugInteractionResult[] = []
 
-  // Absolute contraindication: CrCl < 15
-  if (crClMlMin < 15) {
-    return mkContra(
-      'apixaban', 'อะพิกซาแบน', 'Apixaban', 'Eliquis®', interactions,
-      `CrCl ${crClMlMin} mL/min (ต่ำกว่า 15) — ห้ามใช้`,
-    )
+  // Absolute contraindication: CrCl below renal cut-off
+  if (input.crClMlMin < ref.renalContraCrClBelow) {
+    return mkContra(ref, interactions, `CrCl ${input.crClMlMin} mL/min (ต่ำกว่า ${ref.renalContraCrClBelow}) — ห้ามใช้`)
   }
 
   // Strong dual inhibitors (P-gp + CYP3A4) → contraindicated
-  const strongDual = matchMeds(concurrentMeds, STRONG_DUAL_INHIBITORS)
+  const strongDual = matchMeds(meds, STRONG_DUAL_INHIBITORS)
   if (strongDual.length) {
-    strongDual.forEach(m => interactions.push({
-      medicationName: m.name,
-      severity: 'contraindicated',
-      note: 'P-gp + CYP3A4 inhibitor อย่างแรง — ห้ามใช้ร่วม',
-    }))
-    return mkContra(
-      'apixaban', 'อะพิกซาแบน', 'Apixaban', 'Eliquis®', interactions,
-      `${strongDual.map(m => m.name).join(', ')} — ห้ามใช้ร่วมกัน`,
-    )
+    strongDual.forEach(m => interactions.push({ medicationName: m.name, severity: 'contraindicated', note: 'P-gp + CYP3A4 inhibitor อย่างแรง — ห้ามใช้ร่วม' }))
+    return mkContra(ref, interactions, `${strongDual.map(m => m.name).join(', ')} — ห้ามใช้ร่วมกัน`)
   }
 
   let level: RecommendationLevel = 'recommended'
-  let doseAmount = '5'
+  let dose: Dose = ref.nvaf.standard
   let adjustmentReason: string | undefined
+  let criteria: CriterionResult[] | undefined
   let loadingPhase: DrugResult['loadingPhase']
 
   if (input.indication === 'NVAF') {
     // NVAF: 5 mg BID; reduce to 2.5 if ≥ 2 of (age≥80, ≤60kg, SCr≥1.5)
-    const criteria = [age >= 80, weightKg <= 60, scrMgDl >= 1.5]
-    if (criteria.filter(Boolean).length >= 2) {
-      doseAmount = '2.5'
+    const ev = evaluateReduction(ref, critInput(input))
+    criteria = ev.results
+    if (ev.reduce) {
+      dose = ref.nvaf.reduced!
       level = 'dose-adjusted'
-      const parts: string[] = []
-      if (age >= 80)       parts.push(`อายุ ${age} ปี (≥80)`)
-      if (weightKg <= 60)  parts.push(`น้ำหนัก ${weightKg} kg (≤60)`)
-      if (scrMgDl >= 1.5)  parts.push(`SCr ${scrMgDl} mg/dL (≥1.5)`)
-      adjustmentReason = `เกณฑ์ลดขนาดยา: ${parts.join(', ')}`
+      adjustmentReason = reductionReason(ev)
     }
   } else {
     // DVT/PE/CAT: loading 10 mg BID ×7 วัน → maintenance 5 mg BID
-    loadingPhase = { doseAmount: '10', doseUnit: 'mg', frequency: 'BID', frequencyThai: '2 ครั้ง/วัน', durationText: '7 วันแรก' }
+    loadingPhase = loadingFrom(ref)
+    dose = ref.vte.maintenance!
   }
 
   // P-gp–only inhibitors (not strong CYP3A4) → monitor
-  const pgpOnly = matchMeds(concurrentMeds, PGP_INHIBITORS)
+  matchMeds(meds, PGP_INHIBITORS)
     .filter(m => !hit(m.name, STRONG_DUAL_INHIBITORS))
-  pgpOnly.forEach(m => {
-    interactions.push({ medicationName: m.name, severity: 'monitor', note: 'P-gp inhibitor: ติดตามอาการเลือดออก' })
-    if (level === 'recommended') level = 'caution'
-  })
+    .forEach(m => {
+      interactions.push({ medicationName: m.name, severity: 'monitor', note: 'P-gp inhibitor: ติดตามอาการเลือดออก' })
+      if (level === 'recommended') level = 'caution'
+    })
 
   // Inducers → warning (avoid)
-  matchMeds(concurrentMeds, PGP_INDUCERS).forEach(m => {
+  matchMeds(meds, PGP_INDUCERS).forEach(m => {
     interactions.push({ medicationName: m.name, severity: 'warning', note: 'ลดระดับยา Apixaban อย่างมีนัยสำคัญ — หลีกเลี่ยง' })
     level = 'caution'
   })
 
   // NSAIDs → bleeding risk
-  matchMeds(concurrentMeds, NSAIDS).forEach(m => {
+  matchMeds(meds, NSAIDS).forEach(m => {
     interactions.push({ medicationName: m.name, severity: 'warning', note: 'เพิ่มความเสี่ยงเลือดออก' })
   })
 
-  return {
-    drug: 'apixaban', nameThai: 'อะพิกซาแบน', nameEn: 'Apixaban', brandName: 'Eliquis®',
-    level, doseAmount, doseUnit: 'mg', frequency: 'BID', frequencyThai: '2 ครั้ง/วัน',
-    adjustmentReason, loadingPhase, interactions,
-  }
+  return drugResult(ref, level, dose, { adjustmentReason, loadingPhase, interactions, criteria })
 }
 
 function evalRivaroxaban(input: NoacEngineInput): DrugResult {
-  const { crClMlMin, concurrentMeds } = input
+  const ref = NOAC_REFERENCE.rivaroxaban
+  const meds = input.concurrentMeds
   const interactions: DrugInteractionResult[] = []
 
-  // Absolute contraindication: CrCl < 15
-  if (crClMlMin < 15) {
-    return mkContra(
-      'rivaroxaban', 'ริวาร็อกซาแบน', 'Rivaroxaban', 'Xarelto®', interactions,
-      `CrCl ${crClMlMin} mL/min (ต่ำกว่า 15) — ห้ามใช้`,
-    )
+  // Absolute contraindication: CrCl below renal cut-off
+  if (input.crClMlMin < ref.renalContraCrClBelow) {
+    return mkContra(ref, interactions, `CrCl ${input.crClMlMin} mL/min (ต่ำกว่า ${ref.renalContraCrClBelow}) — ห้ามใช้`)
   }
 
   // Strong dual inhibitors → contraindicated
-  const strongDual = matchMeds(concurrentMeds, STRONG_DUAL_INHIBITORS)
+  const strongDual = matchMeds(meds, STRONG_DUAL_INHIBITORS)
   if (strongDual.length) {
-    strongDual.forEach(m => interactions.push({
-      medicationName: m.name,
-      severity: 'contraindicated',
-      note: 'P-gp + CYP3A4 inhibitor อย่างแรง — ห้ามใช้ร่วม',
-    }))
-    return mkContra(
-      'rivaroxaban', 'ริวาร็อกซาแบน', 'Rivaroxaban', 'Xarelto®', interactions,
-      `${strongDual.map(m => m.name).join(', ')} — ห้ามใช้ร่วมกัน`,
-    )
+    strongDual.forEach(m => interactions.push({ medicationName: m.name, severity: 'contraindicated', note: 'P-gp + CYP3A4 inhibitor อย่างแรง — ห้ามใช้ร่วม' }))
+    return mkContra(ref, interactions, `${strongDual.map(m => m.name).join(', ')} — ห้ามใช้ร่วมกัน`)
   }
 
   let level: RecommendationLevel = 'recommended'
-  let doseAmount = '20'
+  let dose: Dose = ref.nvaf.standard
   let adjustmentReason: string | undefined
   let doseNote: string | undefined
+  let criteria: CriterionResult[] | undefined
   let loadingPhase: DrugResult['loadingPhase']
 
   if (input.indication === 'NVAF') {
     // NVAF: 20 mg OD with food; CrCl 15–49 → 15 mg OD
-    if (crClMlMin >= 15 && crClMlMin < 50) {
-      doseAmount = '15'
+    const ev = evaluateReduction(ref, critInput(input))
+    criteria = ev.results
+    if (ev.reduce) {
+      dose = ref.nvaf.reduced!
       level = 'dose-adjusted'
-      adjustmentReason = `CrCl ${crClMlMin} mL/min (15–49): ลดขนาดยาเป็น 15 mg OD`
+      adjustmentReason = `CrCl ${input.crClMlMin} mL/min (15–49): ลดขนาดยาเป็น 15 mg OD`
+    } else {
+      doseNote = ref.nvaf.note
     }
-    if (doseAmount === '20') doseNote = 'รับประทานพร้อมมื้อเย็น (เพิ่มการดูดซึม)'
   } else {
     // DVT/PE/CAT: loading 15 mg BID ×21 วัน → maintenance 20 mg OD (พร้อมอาหาร)
-    doseNote = 'รับประทานพร้อมอาหาร'
-    loadingPhase = { doseAmount: '15', doseUnit: 'mg', frequency: 'BID', frequencyThai: '2 ครั้ง/วัน', durationText: '21 วันแรก' }
-    if (crClMlMin >= 15 && crClMlMin < 50) {
+    doseNote = ref.vte.note
+    loadingPhase = loadingFrom(ref)
+    dose = ref.vte.maintenance!
+    if (input.crClMlMin >= 15 && input.crClMlMin < 50) {
       level = 'caution'
-      adjustmentReason = `CrCl ${crClMlMin} mL/min: ใช้ด้วยความระมัดระวังใน DVT/PE`
+      adjustmentReason = `CrCl ${input.crClMlMin} mL/min: ใช้ด้วยความระมัดระวังใน DVT/PE`
     }
   }
 
   // P-gp–only inhibitors → monitor
-  matchMeds(concurrentMeds, PGP_INHIBITORS)
+  matchMeds(meds, PGP_INHIBITORS)
     .filter(m => !hit(m.name, STRONG_DUAL_INHIBITORS))
     .forEach(m => {
       interactions.push({ medicationName: m.name, severity: 'monitor', note: 'ติดตามระดับยาและอาการเลือดออก' })
@@ -221,173 +253,127 @@ function evalRivaroxaban(input: NoacEngineInput): DrugResult {
     })
 
   // Inducers
-  matchMeds(concurrentMeds, PGP_INDUCERS).forEach(m => {
+  matchMeds(meds, PGP_INDUCERS).forEach(m => {
     interactions.push({ medicationName: m.name, severity: 'warning', note: 'ลดระดับยา Rivaroxaban — หลีกเลี่ยง' })
     level = 'caution'
   })
 
-  matchMeds(concurrentMeds, NSAIDS).forEach(m => {
+  matchMeds(meds, NSAIDS).forEach(m => {
     interactions.push({ medicationName: m.name, severity: 'warning', note: 'เพิ่มความเสี่ยงเลือดออก' })
   })
 
-  return {
-    drug: 'rivaroxaban', nameThai: 'ริวาร็อกซาแบน', nameEn: 'Rivaroxaban', brandName: 'Xarelto®',
-    level, doseAmount, doseUnit: 'mg', frequency: 'OD', frequencyThai: '1 ครั้ง/วัน',
-    doseNote, adjustmentReason, loadingPhase, interactions,
-  }
+  return drugResult(ref, level, dose, { adjustmentReason, doseNote, loadingPhase, interactions, criteria })
 }
 
 function evalDabigatran(input: NoacEngineInput): DrugResult {
-  const { age, crClMlMin, concurrentMeds } = input
+  const ref = NOAC_REFERENCE.dabigatran
+  const meds = input.concurrentMeds
   const interactions: DrugInteractionResult[] = []
 
-  // Absolute contraindication: CrCl < 30
-  if (crClMlMin < 30) {
-    return mkContra(
-      'dabigatran', 'ดาบิแกตแรน', 'Dabigatran', 'Pradaxa®', interactions,
-      `CrCl ${crClMlMin} mL/min (ต่ำกว่า 30) — ห้ามใช้`,
-    )
+  // Absolute contraindication: CrCl below renal cut-off
+  if (input.crClMlMin < ref.renalContraCrClBelow) {
+    return mkContra(ref, interactions, `CrCl ${input.crClMlMin} mL/min (ต่ำกว่า ${ref.renalContraCrClBelow}) — ห้ามใช้`)
   }
 
   // P-gp inhibitors that are absolute contraindications for Dabigatran
-  const pgpContras = matchMeds(concurrentMeds, DABIGATRAN_PGPI_CONTRAS)
+  const pgpContras = matchMeds(meds, DABIGATRAN_PGPI_CONTRAS)
   if (pgpContras.length) {
-    pgpContras.forEach(m => interactions.push({
-      medicationName: m.name,
-      severity: 'contraindicated',
-      note: 'P-gp inhibitor อย่างแรง — ห้ามใช้ร่วมกับ Dabigatran',
-    }))
-    return mkContra(
-      'dabigatran', 'ดาบิแกตแรน', 'Dabigatran', 'Pradaxa®', interactions,
-      `${pgpContras.map(m => m.name).join(', ')} — ห้ามใช้ร่วมกัน`,
-    )
+    pgpContras.forEach(m => interactions.push({ medicationName: m.name, severity: 'contraindicated', note: 'P-gp inhibitor อย่างแรง — ห้ามใช้ร่วมกับ Dabigatran' }))
+    return mkContra(ref, interactions, `${pgpContras.map(m => m.name).join(', ')} — ห้ามใช้ร่วมกัน`)
   }
 
   let level: RecommendationLevel = 'recommended'
-  let doseAmount = '150'
+  let dose: Dose = ref.nvaf.standard
   let adjustmentReason: string | undefined
   let doseNote: string | undefined
+
+  // Dose reduction (applies to all indications): age≥75 / CrCl 30–49 / P-gp inhibitor
+  const ev = evaluateReduction(ref, critInput(input))
+  if (ev.reduce) {
+    dose = ref.nvaf.reduced!
+    level = 'dose-adjusted'
+    adjustmentReason = reductionReason(ev)
+  }
+
   if (input.indication !== 'NVAF') {
     // DVT/PE/CAT: requires ≥ 5 days parenteral lead-in (no oral loading phase)
-    doseNote = 'เริ่มหลังให้ยาฉีด (parenteral) อย่างน้อย 5 วัน'
+    doseNote = ref.vte.note
     if (input.indication === 'CAT') doseNote += ' · ไม่ใช่ยาหลักสำหรับ CAT'
   }
 
-  // Dose reduction criteria
-  const ageAdj      = age >= 75
-  const crClAdj     = crClMlMin >= 30 && crClMlMin < 50
-  const pgpPresent  = matchMeds(concurrentMeds, PGP_INHIBITORS).length > 0
-
-  if (ageAdj || crClAdj || pgpPresent) {
-    doseAmount = '110'
-    level = 'dose-adjusted'
-    const parts: string[] = []
-    if (ageAdj)     parts.push(`อายุ ${age} ปี (≥75)`)
-    if (crClAdj)    parts.push(`CrCl ${crClMlMin} mL/min (30–49)`)
-    if (pgpPresent) parts.push('P-gp inhibitor ร่วม')
-    adjustmentReason = `ลดขนาดยา: ${parts.join(', ')}`
-  }
-
   // P-gp inhibitors not already contraindicated → warning note
-  matchMeds(concurrentMeds, PGP_INHIBITORS)
+  matchMeds(meds, PGP_INHIBITORS)
     .filter(m => !hit(m.name, DABIGATRAN_PGPI_CONTRAS))
     .forEach(m => {
-      interactions.push({
-        medicationName: m.name,
-        severity: 'warning',
-        note: `เพิ่มระดับ Dabigatran ในเลือด — ลดขนาดยาตามเกณฑ์ด้านบน`,
-      })
+      interactions.push({ medicationName: m.name, severity: 'warning', note: `เพิ่มระดับ Dabigatran ในเลือด — ลดขนาดยาตามเกณฑ์ด้านบน` })
     })
 
   // Inducers
-  matchMeds(concurrentMeds, PGP_INDUCERS).forEach(m => {
+  matchMeds(meds, PGP_INDUCERS).forEach(m => {
     interactions.push({ medicationName: m.name, severity: 'warning', note: 'ลดระดับยา Dabigatran อย่างมีนัยสำคัญ — หลีกเลี่ยง' })
     level = 'caution'
   })
 
-  matchMeds(concurrentMeds, NSAIDS).forEach(m => {
+  matchMeds(meds, NSAIDS).forEach(m => {
     interactions.push({ medicationName: m.name, severity: 'warning', note: 'เพิ่มความเสี่ยงเลือดออก' })
   })
 
-  return {
-    drug: 'dabigatran', nameThai: 'ดาบิแกตแรน', nameEn: 'Dabigatran', brandName: 'Pradaxa®',
-    level, doseAmount, doseUnit: 'mg', frequency: 'BID', frequencyThai: '2 ครั้ง/วัน',
-    adjustmentReason, doseNote, interactions,
-  }
+  return drugResult(ref, level, dose, { adjustmentReason, doseNote, interactions, criteria: ev.results })
 }
 
 function evalEdoxaban(input: NoacEngineInput): DrugResult {
-  const { weightKg, crClMlMin, concurrentMeds } = input
+  const ref = NOAC_REFERENCE.edoxaban
+  const meds = input.concurrentMeds
   const interactions: DrugInteractionResult[] = []
 
-  // Absolute contraindication: CrCl < 15
-  if (crClMlMin < 15) {
-    return mkContra(
-      'edoxaban', 'เอโดซาแบน', 'Edoxaban', 'Lixiana®', interactions,
-      `CrCl ${crClMlMin} mL/min (ต่ำกว่า 15) — ห้ามใช้`,
-    )
+  // Absolute contraindication: CrCl below renal cut-off
+  if (input.crClMlMin < ref.renalContraCrClBelow) {
+    return mkContra(ref, interactions, `CrCl ${input.crClMlMin} mL/min (ต่ำกว่า ${ref.renalContraCrClBelow}) — ห้ามใช้`)
   }
 
   // Rifampicin is contraindicated with edoxaban
-  const rifam = matchMeds(concurrentMeds, RIFAMPICIN)
+  const rifam = matchMeds(meds, RIFAMPICIN)
   if (rifam.length) {
-    rifam.forEach(m => interactions.push({
-      medicationName: m.name,
-      severity: 'contraindicated',
-      note: 'P-gp inducer อย่างแรง — ลดระดับยาอย่างมีนัยสำคัญ ห้ามใช้ร่วม',
-    }))
-    return mkContra(
-      'edoxaban', 'เอโดซาแบน', 'Edoxaban', 'Lixiana®', interactions,
-      `${rifam.map(m => m.name).join(', ')} — ห้ามใช้ร่วมกัน`,
-    )
+    rifam.forEach(m => interactions.push({ medicationName: m.name, severity: 'contraindicated', note: 'P-gp inducer อย่างแรง — ลดระดับยาอย่างมีนัยสำคัญ ห้ามใช้ร่วม' }))
+    return mkContra(ref, interactions, `${rifam.map(m => m.name).join(', ')} — ห้ามใช้ร่วมกัน`)
   }
 
   let level: RecommendationLevel = 'recommended'
-  let doseAmount = '60'
+  let dose: Dose = ref.nvaf.standard
   let adjustmentReason: string | undefined
   let doseNote: string | undefined
-  if (input.indication !== 'NVAF') {
-    // DVT/PE/CAT: requires ≥ 5 days parenteral lead-in (no oral loading phase)
-    doseNote = 'เริ่มหลังให้ยาฉีด (parenteral) อย่างน้อย 5 วัน'
+
+  // Dose reduction (applies to all indications): CrCl 15–50 / weight ≤60 / P-gp inhibitor
+  const ev = evaluateReduction(ref, critInput(input))
+  if (ev.reduce) {
+    dose = ref.nvaf.reduced!
+    level = 'dose-adjusted'
+    adjustmentReason = reductionReason(ev)
   }
 
-  // Dose reduction: CrCl 15–50 OR weight ≤60 OR P-gp inhibitor
-  const crClAdj    = crClMlMin >= 15 && crClMlMin <= 50
-  const weightAdj  = weightKg <= 60
-  const pgpAdj     = matchMeds(concurrentMeds, PGP_INHIBITORS).length > 0
-
-  if (crClAdj || weightAdj || pgpAdj) {
-    doseAmount = '30'
-    level = 'dose-adjusted'
-    const parts: string[] = []
-    if (crClAdj)   parts.push(`CrCl ${crClMlMin} mL/min (15–50)`)
-    if (weightAdj) parts.push(`น้ำหนัก ${weightKg} kg (≤60)`)
-    if (pgpAdj)    parts.push('P-gp inhibitor ร่วม')
-    adjustmentReason = `ลดขนาดยา: ${parts.join(', ')}`
+  if (input.indication !== 'NVAF') {
+    // DVT/PE/CAT: requires ≥ 5 days parenteral lead-in (no oral loading phase)
+    doseNote = ref.vte.note
   }
 
   // P-gp inhibitor notes
-  matchMeds(concurrentMeds, PGP_INHIBITORS).forEach(m => {
+  matchMeds(meds, PGP_INHIBITORS).forEach(m => {
     interactions.push({ medicationName: m.name, severity: 'warning', note: 'P-gp inhibitor: ลดขนาดยา Edoxaban (ดูด้านบน)' })
   })
 
   // Other inducers
-  matchMeds(concurrentMeds, PGP_INDUCERS)
+  matchMeds(meds, PGP_INDUCERS)
     .filter(m => !hit(m.name, RIFAMPICIN))
     .forEach(m => {
       interactions.push({ medicationName: m.name, severity: 'warning', note: 'ลดระดับยา Edoxaban — หลีกเลี่ยง' })
       level = 'caution'
     })
 
-  matchMeds(concurrentMeds, NSAIDS).forEach(m => {
+  matchMeds(meds, NSAIDS).forEach(m => {
     interactions.push({ medicationName: m.name, severity: 'warning', note: 'เพิ่มความเสี่ยงเลือดออก' })
   })
 
-  return {
-    drug: 'edoxaban', nameThai: 'เอโดซาแบน', nameEn: 'Edoxaban', brandName: 'Lixiana®',
-    level, doseAmount, doseUnit: 'mg', frequency: 'OD', frequencyThai: '1 ครั้ง/วัน',
-    adjustmentReason, doseNote, interactions,
-  }
+  return drugResult(ref, level, dose, { adjustmentReason, doseNote, interactions, criteria: ev.results })
 }
 
 // ── Main export ────────────────────────────────────────────────────────────

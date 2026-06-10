@@ -17,6 +17,10 @@
           @keydown.enter="applyFilter"
         />
       </div>
+      <select v-model="hospitalFilter" class="filter-select">
+        <option value="">ทุกโรงพยาบาล</option>
+        <option v-for="h in hospitalOptions" :key="h" :value="h">{{ h }}</option>
+      </select>
       <!-- Date from picker -->
       <v-menu v-model="dateFromMenu" :close-on-content-click="false" location="bottom start">
         <template #activator="{ props: mp }">
@@ -27,7 +31,7 @@
               placeholder="วันที่เริ่มต้น"
               readonly
             />
-            <button v-if="dateFrom" class="fi-clear-btn" @click.stop="dateFrom = null; applyFilter()">
+            <button v-if="dateFrom" class="fi-clear-btn" @click.stop="dateFrom = null">
               <PhX :size="13" color="var(--bma-text-muted)" />
             </button>
             <PhCalendar v-else :size="15" color="var(--bma-text-disabled)" class="fi-icon-r" />
@@ -36,7 +40,7 @@
         <v-date-picker
           v-model="dateFrom"
           :max="dateTo ?? undefined"
-          @update:model-value="dateFromMenu = false; applyFilter()"
+          @update:model-value="dateFromMenu = false"
         />
       </v-menu>
 
@@ -50,7 +54,7 @@
               placeholder="วันที่สิ้นสุด"
               readonly
             />
-            <button v-if="dateTo" class="fi-clear-btn" @click.stop="dateTo = null; applyFilter()">
+            <button v-if="dateTo" class="fi-clear-btn" @click.stop="dateTo = null">
               <PhX :size="13" color="var(--bma-text-muted)" />
             </button>
             <PhCalendar v-else :size="15" color="var(--bma-text-disabled)" class="fi-icon-r" />
@@ -59,11 +63,11 @@
         <v-date-picker
           v-model="dateTo"
           :min="dateFrom ?? undefined"
-          @update:model-value="dateToMenu = false; applyFilter()"
+          @update:model-value="dateToMenu = false"
         />
       </v-menu>
       <button class="btn-search" @click="applyFilter">ค้นหา</button>
-      <button v-if="isFiltered" class="btn-clear" @click="clearFilter">ล้าง</button>
+      <button class="btn-clear" :disabled="!hasFilter" @click="clearFilter">ล้าง</button>
     </div>
 
     <!-- Table card -->
@@ -201,9 +205,15 @@ const dateFrom     = ref<Date | null>(null)   // v-date-picker model (Date objec
 const dateTo       = ref<Date | null>(null)
 const dateFromMenu = ref(false)
 const dateToMenu   = ref(false)
+const hospitalFilter = ref('')
 const activeSearch   = ref('')
+const activeHospital = ref('')
 const activeDateFrom = ref<string | null>(null)  // ISO string for filter comparison
 const activeDateTo   = ref<string | null>(null)
+
+const hospitalOptions = computed(() =>
+  [...new Set(props.rows.map(p => p.hospital))].sort((a, b) => a.localeCompare(b, 'th'))
+)
 
 /** Convert Date → ISO YYYY-MM-DD for string comparison in filter */
 function toISO(d: Date | null): string | null {
@@ -224,26 +234,36 @@ function formatDisplayDate(d: Date): string {
 
 function applyFilter() {
   activeSearch.value   = searchQuery.value.trim().toLowerCase()
+  activeHospital.value = hospitalFilter.value
   activeDateFrom.value = toISO(dateFrom.value)
   activeDateTo.value   = toISO(dateTo.value)
   page.value = 1
 }
 
 function clearFilter() {
-  searchQuery.value = ''
-  dateFrom.value    = null
-  dateTo.value      = null
+  searchQuery.value    = ''
+  hospitalFilter.value = ''
+  dateFrom.value       = null
+  dateTo.value         = null
   applyFilter()
 }
 
+// Any control set → drives the always-rendered Clear button's enabled state
+const hasFilter = computed(() =>
+  searchQuery.value !== '' || hospitalFilter.value !== '' || dateFrom.value != null || dateTo.value != null
+)
+// A filter is actually APPLIED → drives the footer "(filtered from N)"
 const isFiltered = computed(() =>
-  activeSearch.value !== '' || dateFrom.value != null || dateTo.value != null
+  activeSearch.value !== '' || activeHospital.value !== '' || activeDateFrom.value != null || activeDateTo.value != null
 )
 
 const filteredRows = computed(() => {
   let list = props.rows
   if (activeSearch.value) {
     list = list.filter(p => p.name.toLowerCase().includes(activeSearch.value))
+  }
+  if (activeHospital.value) {
+    list = list.filter(p => p.hospital === activeHospital.value)
   }
   if (activeDateFrom.value || activeDateTo.value) {
     list = list.filter(p => {
@@ -337,5 +357,6 @@ const pagedRows = computed(() =>
   white-space:   nowrap;
   flex-shrink:   0;
 }
-.btn-clear:hover { background: var(--bma-neutral-100, #F5F5F5); border-color: var(--bma-border-card); }
+.btn-clear:hover:not(:disabled) { background: var(--bma-neutral-100, #F5F5F5); border-color: var(--bma-border-card); }
+.btn-clear:disabled { opacity: 0.4; cursor: default; }
 </style>

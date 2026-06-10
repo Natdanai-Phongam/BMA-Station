@@ -13,7 +13,7 @@ import type {
   WarfarinPageData, WarfarinProfile, InrRecord, DoseAdjustment, TtrResult,
   PillStrengthMg, InrTargetRange, ConcurrentMed,
 } from '../../src/data/types/warfarin'
-import { randInt, randNormal, chance, pick, weighted } from './rng'
+import { randInt, randFloat, randNormal, chance, pick, weighted } from './rng'
 import { isoDate } from './pools'
 import { warfarinVisits } from './schedule'
 import type { GenPatient } from './identity'
@@ -67,10 +67,10 @@ function rosendaal(history: InrRecord[], range: InrTargetRange): { value: number
 }
 
 export function generateWarfarin(p: GenPatient): WarfarinPageData {
-  const good = chance(`${p.id}:control`, 0.68)       // well-controlled → TTR ≥ goal
+  const good = p.wfGood ?? chance(`${p.id}:control`, 0.42)   // well-controlled → TTR ≥ goal (KPI quota)
   const range = pickRange(p.id)
   const mid = (range.min + range.max) / 2
-  const sd = good ? 0.23 : 0.85
+  const sd = good ? 0.23 : 1.15
   const { active, primary } = pickPills(p.id)
 
   // concurrent meds — ~15% have a clinically significant interaction
@@ -94,8 +94,25 @@ export function generateWarfarin(p: GenPatient): WarfarinPageData {
   const inrHistory: InrRecord[] = []
   const doseAdjustments: DoseAdjustment[] = []
 
+  // Latest-INR-in-range (drives the "Warfarin appropriateness" KPI) is set
+  // INDEPENDENTLY of control quality (which drives TTR) so the two KPIs can
+  // diverge as required (e.g. 53% appropriate vs 33% TTR-goal).
+  const lastInRange = p.wfLastApp ?? chance(`${p.id}:lastapp`, 0.57)
+
   visits.forEach((date, i) => {
-    const inr = Math.round(randNormal(`${p.id}:inr${i}`, mid, sd, 1.2, 5.0, 1) * 10) / 10
+    const isLast = i === visits.length - 1
+    let inr: number
+    if (isLast) {
+      // in/out of the KPI therapeutic band (2.0–3.0) — matches how the
+      // appropriateness KPI classifies the latest INR
+      inr = lastInRange
+        ? Math.round(randFloat(`${p.id}:linr`, 2.0, 3.0, 1) * 10) / 10
+        : chance(`${p.id}:linrhl`, 0.5)
+          ? Math.round(randFloat(`${p.id}:linrl`, 1.2, 1.9, 1) * 10) / 10
+          : Math.round(randFloat(`${p.id}:linrh`, 3.1, 4.6, 1) * 10) / 10
+    } else {
+      inr = Math.round(randNormal(`${p.id}:inr${i}`, mid, sd, 1.2, 5.0, 1) * 10) / 10
+    }
     const measuredAt = timeAt(date, p.id, i)
     inrHistory.push({ id: `inr-${p.id}-${i + 1}`, patientId: p.id, inrValue: inr, measuredAt, source: 'manual' })
 

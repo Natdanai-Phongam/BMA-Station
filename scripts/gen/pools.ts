@@ -21,12 +21,17 @@ export const LAST_NAMES = [
   'บัวงาม', 'คงทน', 'สุขสันต์', 'เพชรน้อย', 'ทวีสิน', 'มงคล', 'อินทรา', 'โพธิ์ทอง', 'ศรีนวล', 'จิตรกร',
 ]
 
+// The programme runs across 4 BMA hospitals. Each patient is flagged with one
+// (weighted so counts are deliberately uneven, ~10–20 apart). Tables filter by
+// name; KPIs aggregate per hospitalId (multi-select).
 export const HOSPITALS = [
-  'โรงพยาบาลกลาง', 'โรงพยาบาลตากสิน', 'โรงพยาบาลเจริญกรุงประชารักษ์', 'โรงพยาบาลสิรินธร',
-  'โรงพยาบาลราษฎร์บูรณะ', 'โรงพยาบาลหัวเฉียว', 'โรงพยาบาลบางขุนเทียน',
-  'ศูนย์บริการสาธารณสุข 1', 'ศูนย์บริการสาธารณสุข 2', 'ศูนย์บริการสาธารณสุข 3',
-  'ศูนย์บริการสาธารณสุข 4', 'ศูนย์บริการสาธารณสุข 5',
+  { id: 'h1', name: 'โรงพยาบาลตากสิน', weight: 27 },
+  { id: 'h2', name: 'โรงพยาบาลกลาง', weight: 26 },
+  { id: 'h3', name: 'โรงพยาบาลเจริญกรุงประชารักษ์', weight: 24 },
+  { id: 'h4', name: 'โรงพยาบาลราชพิพัฒน์', weight: 23 },
 ] as const
+
+export type Hospital = typeof HOSPITALS[number]
 
 export const INSURANCE_TYPES = [
   ['บัตรทอง (UC)', 60],

@@ -332,6 +332,9 @@
         </div>
       </div>
 
+      <!-- ── Row 6: NOAC dosing reference (drug-agnostic lookup, collapsible) ── -->
+      <NoacReferenceTable :default-open="true" />
+
     </template>
   </div>
 
@@ -359,6 +362,7 @@ import { repo } from '@/data/repository'
 import { computeNoacRecommendations } from '@/utils/noacEngine'
 import { useCrCl } from '@/composables/useCrCl'
 import NoacDispensingDrawer from '@/components/noac/NoacDispensingDrawer.vue'
+import NoacReferenceTable from '@/components/noac/NoacReferenceTable.vue'
 
 const props = defineProps<{
   patientId: string

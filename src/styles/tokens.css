@@ -165,7 +165,7 @@
   --bma-cols-kpi-half:    1fr 1fr;           /* KPI secondary container */
 
   /* KPI panel internal grids */
-  --bma-cols-ksafe: 1fr auto auto auto auto 84px;  /* Safety metric grid — metrics content-sized; badge fixed */
+  --bma-cols-ksafe: 1fr auto auto;  /* Safety metric grid — name · ราย · % (informational) */
   --bma-cols-kats:  1fr auto auto 84px;             /* ATS response grid — value/target content-sized; badge column fixed */
 
   /* AtsConsult room — chat (left) + info panel (right) */
