@@ -1,117 +1,29 @@
-# Mock Data — Structure and Relationships
+# Mock Data — file catalogue
 
-> **Status:** Complete for v1 development. All patient IDs (w001–w013, w002, n001–n006) have full entries across every relevant file.
+> All data is **generated**, not hand-edited. Run `npx tsx scripts/generate-ats-data.ts` to regenerate; never edit these JSON files by hand. Architecture lives in `/DATA.md`.
 
----
+~597 patients · window 1 Apr – 31 May 2026 · IDs: `w###` (Warfarin, 292) · `n###` (NOAC, 305). A few curated edge cases up front (e.g. `n002` dialysis, `n003` CrCl<15, `n004` mechanical valve, `n005` major interaction, `n006` DVT, `n007` CAT).
 
-## Patient ID Conventions
+## Files the generator writes (7)
 
-| Prefix | Program | Count | Example |
-|--------|---------|-------|---------|
-| `w`    | Warfarin | 12 patients (w001, w003–w013) | w001 = นาย บุญรอด ขจรศักดิ์ |
-| `n`    | NOACs    | 6 patients (n001–n006) | n001 = นางสาว พัชรินทร์ สุวรรณโกมล |
-| `w002` | NOACs (therapy-switched) | 1 patient | switched from Warfarin → Apixaban on 2568-01-15 |
+| File | Owns |
+|---|---|
+| `patient-detail.json` | per-patient demographics, allergies, `currentTherapy`, complications, `vitalStatus` (alive/deceased) + `mortality`, concurrentMedications |
+| `warfarin-patients.json` | WF clinical: `profile` + `inrHistory` + `doseAdjustments` + `ttr` (Rosendaal) + `latestInr` |
+| `noac-patients.json` | NOAC clinical: `profile` + `dispensingHistory[]` (labData, drug, dose, `clinicalStatus`, `wasTopRecommendation`, override, withhold) |
+| `ats-patients.json` | dashboard lists `{warfarin[], noacs[]}` (id, name, HN, hospital, weight, referred, crcl/egfr) |
+| `patient-list.json` | **Tier-1** light projection — precomputed `status`, `concordanceClass`, `deceased`, `ttrValue`, `majorInteractions`, `lastDispensedAt` per patient (what the dashboard tables read) |
+| `kpi-summary.json` | **per-hospital** pre-aggregated `PeriodMetrics`: `meta` (hospitals, dataMinDate) · `ranges[from\|to][hospitalId]` · `ops[hospitalId][month\|quarter\|year]` |
+| `consultations.json` | ATS consult threads |
 
-> `w002` appears in `warfarin-patients.json` only as **historical pre-switch data**. Their canonical program is NOACs per `ats-patients.json`.
+`physicians.json` is a generator **input** (read, not written). `kpi-operational.json` / `ats-dashboard.json` are legacy and no longer regenerated.
 
----
+## Cross-file rules
 
-## Files and What They Own
+- `patient-detail` ⊇ (WF ∪ NOAC); a patient is in exactly one therapy (no WF/NOAC overlap).
+- `currentTherapy` in `patient-detail` is the canonical therapy classification — not the presence of a clinical record.
+- `kpi-summary.ranges[*]` counts are additive; summing all hospitals = the all-hospital total (verifiable by re-running `computePeriodMetrics` over the raw data).
 
-### `ats-patients.json` — Canonical program membership list
-The **source of truth** for which program a patient belongs to.
+## Types — `src/data/types/`
 
-- `warfarin[]` — patients currently managed under Warfarin protocol (w001, w003–w013)
-- `noacs[]` — patients currently managed under NOACs protocol (w002, n001–n006)
-- Includes: id, name, HN, hospital, status, CrCl, eGFR (NOACs only), weight, referred
-- Used by: `DdAtsDashboard.vue` (patient lists), `AtsPatientDetail.vue` (`derivedTherapy` computed)
-
-**Do not use `warfarin-patients.json` or `noac-patients.json` to determine therapy classification.**
-
----
-
-### `patient-detail.json` — Full demographic + clinical profile
-One entry per patient. Loaded when opening `AtsPatientDetail`.
-
-- Fields: id, name, HN, age, dob, sex, bloodGroup, phone, insuranceType
-- Fields: allergies[], totalComplications, riskLevel, complicationSummary[], complications[]
-- Fields: currentTherapy (`"warfarin"` | `"noacs"`)
-- Fields: concurrentMedications[] (present for patients with relevant drug interactions — w002, n006)
-
-Coverage: **w001–w013 + n001–n006** ✓
-
----
-
-### `warfarin-patients.json` — Warfarin clinical data
-Dispensing history and dose tracking for Warfarin patients.
-
-- Top-level keys: patient IDs (w001, w002, w003, …w013)
-- Per patient: `profile` (indication, targetINR, currentDose, doseHistory[]) + `dispensingHistory[]`
-- `w002` entry = **historical data only** (pre-switch period). Kept intentionally for clinical audit trail.
-
-Coverage: **w001–w013 including w002** ✓
-
----
-
-### `noac-patients.json` — NOACs clinical data
-Dispensing history and NOAC recommendation records for NOACs patients.
-
-- Top-level keys: patient IDs (w002, n001–n006)
-- Per patient: `profile` (indication, hasBleedScore, currentDrug, currentDose, therapyStartDate, followUpMonths) + `dispensingHistory[]`
-- Each `dispensingHistory` record: id, patientId, dispensedAt, labData (weightKg, scrMgDl, crClMlMin, measuredAt), drugDispensed, dose, systemRank, wasTopRecommendation, pharmacistNote, nextFollowUpDate
-
-Coverage: **w002 + n001–n006** ✓
-
----
-
-### `therapy-switches.json` — Historical therapy change log
-One record per therapy switch event.
-
-- Fields: patientId, fromTherapy, toTherapy, switchDate, reason, clinicianNote
-- Currently: 1 record — w002 (Warfarin → NOACs, 2568-01-15)
-
----
-
-### `types/` — TypeScript interface definitions
-
-| File | Interfaces |
-|------|-----------|
-| `ats-patients.ts` | `AtsPatient`, `AtsWarfarinPatient`, `AtsPatientsData` |
-| `patient-detail.ts` | `PatientDetail`, `Complication`, `Allergy`, `ConcurrentMedication` |
-| `warfarin.ts` | `WarfarinProfile`, `DispensingRecord`, `DoseHistoryEntry` |
-| `noac.ts` | `NoacProfile`, `NoacDispensingRecord`, `NoacLabData`, `NoacRecommendationResult` |
-
----
-
-## NOACs Patient Status Reference
-
-| Status | Meaning | Patients |
-|--------|---------|---------|
-| `appropriate` | Dose and drug match clinical guidelines | w002, n001, n003 |
-| `underdose` | Dose lower than guideline recommendation | n002 |
-| `overdose` | Dose higher than guideline recommendation | n004 |
-| `contra` | Drug contraindicated for this patient's renal function | n005 |
-| `interaction` | Significant drug-drug interaction detected | n006 |
-
-## Warfarin Patient Status Reference
-
-| Status | Meaning |
-|--------|---------|
-| `in-range` | INR within therapeutic target (2.0–3.0) |
-| `over-range` | INR above target |
-| `under-range` | INR below target |
-
----
-
-## Adding New Patients
-
-When adding a new patient to the system, update files **in this order**:
-
-1. `ats-patients.json` — add to `warfarin[]` or `noacs[]` array (program list)
-2. `patient-detail.json` — add demographic + clinical profile entry
-3. `warfarin-patients.json` OR `noac-patients.json` — add therapy-specific clinical data
-4. `therapy-switches.json` — only if patient has switched programs
-
-Use the next available ID:
-- Warfarin: next after `w013` → `w014`
-- NOACs: next after `n006` → `n007`
+`patient-detail.ts` (PatientDetail, Complication, VitalStatus, Mortality, ConcurrentMedication) · `warfarin.ts` (WarfarinProfile, InrRecord, DoseAdjustment, WARFARIN_STRENGTHS) · `noac.ts` (DrugResult + `criteria`, NoacEngineInput, RecommendationLevel) · `noac-dispensing.ts` (NoacProfile, NoacDispensingRecord, NoacClinicalStatus) · `kpi-operational.ts` (PeriodMetrics, SafetyRow). Repository contracts (KpiSummary, WfListEntry, NoacListEntry) live in `src/data/repository/types.ts`.

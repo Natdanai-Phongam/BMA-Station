@@ -1,727 +1,91 @@
-# BMA Doctor — Design Brief
+# BMA Doctor — Design System
 
-> **For Claude Design onboarding.**  
-> Read alongside `src/styles/tokens.css` and `src/styles/tokens-warfarin.css` — the token files hold exact values; this document holds design intent, semantic rules, and what the tokens mean clinically.
-
----
-
-## Product + Users
-
-**BMA Doctor (หมอ กทม.)** is a clinical decision-support tool for pharmacists and physicians in Bangkok Metropolitan Administration (BMA) public health clinics. Primary user: pharmacist reviewing 20–40 patients per session at a desktop workstation in a busy outpatient department. Secondary: supervising physician auditing dose rationale.
-
-**Register: `product`.** This is operational medical software — not a consumer app, not a marketing site. Every element must justify its presence in terms of clinical workflow efficiency. The aesthetic is informed by the environment: bright clinic lighting, time pressure, Thai-language context.
-
-**Success metric for the main screen:** A pharmacist can review an INR result, select or confirm a dose adjustment, and record the decision in **under 90 seconds**.
+> Design intent + rules. **Exact values live in `src/styles/tokens.css` + `tokens-warfarin.css`** — never restate them here; point to the token. Register: `product` (design serves the workflow). Product/users/principles: see `PRODUCT.md`.
 
 ---
 
-## Visual Identity
+## Visual identity
 
-### Brand Color
+- **Brand:** `#00744B` BMA green = authority/correctness, "in range", confirmed/saved. Use via `--bma-green-*`.
+- **Neutrals:** warm near-black → white, tinted toward the brand hue. Never pure `#000`/`#fff`. Tokens `--bma-text-*`, `--bma-surface-*`, `--bma-border-*`.
+- **Typography (hard rule):** **Sarabun** for everything — `--bma-font-data` (numbers/doses/dates/labels/badges) and `--bma-font-thai` (Thai prose/buttons) are both Sarabun (`--bma-font-data` aliases `--bma-font-thai`). INR hero = 56px Sarabun 800 (largest element on screen, 800 = heaviest available Sarabun weight, used wherever 900 is specified).
+- **Spacing = 4pt grid.** Every size/pad/gap is a multiple of 4 (`--bma-space-*`). Exempt: border-width (1/2px), font-size micro-scale (10/11/13/14px). No odd values (3/5/7/9/11). Heights via `--bma-h-*`, radius via `--bma-radius-*`.
+- **Font-size justification:** any size outside {12,14,16,18,20,24,32} or <12px needs a code comment with WCAG AA proof. Never `--bma-text-muted` (#8C8C8C) under 18px (fails AA).
+- **Elevation:** cards `--bma-shadow-card`. Drawers `−6px 0 32px rgba(0,0,0,.14)`.
 
-`#00744B` — BMA Green. Used for: active nav, primary CTAs, "therapeutic" INR state, confirmed/saved states. It reads as authority and correctness in the clinical context — *green means safe and in range*.
+---
 
-### Neutral Scale
+## INR status system — the core
 
-Warm near-black (`#343330`) to white. Seven steps used for text hierarchy: primary → secondary → tertiary → muted → disabled. Background: `#F5F5F5` (page) over `#FFFFFF` (card/panel).
+INR drives every state change in the Warfarin module. 6 states, each a colour language (tokens in `tokens-warfarin.css`). **State changes information hierarchy, not just colour.**
 
-### Typography
-
-Two fonts, strictly separated by information type:
-
-| Font | Variable | Used for |
+| State | Trigger | Register |
 |---|---|---|
-| **Inter** | `--bma-font-data` | INR values, doses, dates, numeric data, clinical labels, badges |
-| **Sarabun** | `--bma-font-thai` | Thai body text, button labels, instructions, notes |
+| `therapeutic` | in range | green, calm, confirmatory CTA |
+| `low` | below range | amber, action needed |
+| `supra` | above range | deep orange |
+| `very-high` | ≥ 4.5 | red, hold dose |
+| `critical` | ≥ 5 | deeper red, hold + oral Vit K |
+| `emergency` | ≥ 10 | darkest red + pulse, 80% overlay, IV Vit K |
 
-**Rule:** Numbers are never set in Sarabun. Thai prose is never set in Inter.
+`WfDoseDrawer` overlay intensity scales with severity (22% therapeutic → 80% emergency); title/icon/CTA label adapt to state. Drawer (not modal) so the trend chart + log stay visible during the decision.
 
-**INR value display size:** 56px Inter 900 (the largest element on any screen — it is the primary input signal).
+## NOAC module design
 
-### Spacing — 4-Point Grid System
+NOAC dosing is **rule-based** (engine computes the correct drug/dose from CrCl/weight), so the decision is *match vs mismatch*, not titration.
 
-This project uses a **4-point grid** (the flexible variant of the 8-point grid). Every spacing, sizing, and padding value must be a multiple of 4: `4, 8, 12, 16, 20, 24, 32, 40, 48, 64px`. No off-grid values.
-
-**Why this matters:** Every screen size divides evenly by 4. At 2× retina density, 4px = 8 physical pixels — clean, no sub-pixel blur. When every element is on the same grid, visual rhythm emerges without effort.
-
-**Token system:**
-
-| Token | Value | Use |
-|---|---|---|
-| `--bma-space-1` | 4px | Micro gaps, icon-to-label |
-| `--bma-space-2` | 8px | Internal badge padding, tight rows |
-| `--bma-space-3` | 12px | Card padding (compact), cell padding |
-| `--bma-space-4` | 16px | Standard card padding, section gaps |
-| `--bma-space-6` | 24px | Between sections |
-| `--bma-space-8` | 32px | Large section gaps |
-| `--bma-space-12` | 48px | Page-level separation |
-
-**Component size tokens (heights):**
-
-| Token | Value | Use |
-|---|---|---|
-| `--bma-h-input` | 40px | Filter inputs, text fields |
-| `--bma-h-btn-sm` | 32px | Pagination buttons, icon buttons |
-| `--bma-h-btn-md` | 40px | Standard action buttons |
-| `--bma-h-btn-lg` | 48px | Primary CTAs |
-| `--bma-h-chip` | 24px | Status chips, count badges |
-
-**Border-radius scale:**
-
-| Token | Value | Use |
-|---|---|---|
-| `--bma-radius-xs` | 4px | Micro elements (severity bars) |
-| `--bma-radius-sm` | 6px | Small badges, icon wraps, action buttons |
-| `--bma-radius-md` | 8px | Inputs, standard buttons |
-| `--bma-radius-lg` | 12px | Cards, panels, tooltips |
-| `--bma-radius-xl` | 16px | Modals, drawers |
-| `--bma-radius-full` | 9999px | Pills, status badges |
-
-**Enforcement rules:**
-- Never hardcode px values in component CSS — always use a token or a 4pt-multiple
-- `border-width` is exempt: 1px and 2px are standard border conventions, not grid values
-- Typography font-size is exempt: 10, 11, 13, 14px are acceptable micro-scale exceptions
-- No `1.5px` borders — use 1px or 2px
-- No odd numbers (3, 5, 7, 9, 11px) for spacing/sizing — if tempted, round to nearest 4pt multiple
-
-**Font size justification rule (WCAG-driven)**
-
-Any font size outside the standard scale (12, 14, 16, 18, 20, 24, 32px) or below 12px MUST be accompanied by a code comment stating:
-1. **Why** the exception is needed (clinical data density, label role, etc.)
-2. **Contrast verification**: the color + size combination must meet WCAG AA (4.5:1 for < 18px normal / < 14px bold; 3:1 for large text)
-3. **Background awareness**: if the element can appear on a tinted background (e.g. INR state modules), contrast must be verified on the darkest expected background
-
-Example of a justified exception:
-```css
-/* 11px: section eyebrow — always paired with 14px+ value below it.
-   Using --bma-text-secondary (#454545): contrast = 9.73:1 on white, 8.61:1 on green-50. ✓ WCAG AA */
-.my-label { font-size: 11px; color: var(--bma-text-secondary); }
-```
-
-Do NOT use `--bma-text-muted` (#8C8C8C) for text smaller than 18px — it fails WCAG AA on white (3.37:1) and is worse on all tinted backgrounds.
-
-**Common pattern sizes (verified on 4pt grid):**
-
-```css
-/* Badges / chips */
-padding: 2px 8px;   /* compact chip */
-padding: 4px 8px;   /* standard badge */
-padding: 4px 12px;  /* wide badge */
-
-/* Table cells */
-padding: 10px 14px; /* data table td — note: 10 not ÷4, but accepted as table exception */
-padding: 12px;      /* v-data-table override */
-
-/* Gaps */
-gap: 4px;   /* icon-to-label, tight row items */
-gap: 8px;   /* standard flex gap */
-gap: 12px;  /* card internal sections */
-gap: 16px;  /* between cards */
-```
-
-### Elevation
-
-Cards: `0 2px 8px rgba(0,0,0,0.08)`. Drawers: `−6px 0 32px rgba(0,0,0,0.14)`. No hard drop shadows on interactive elements.
+- **`NoacCurrentVsRecommended`** — `ปัจจุบัน → ที่ควรเป็นวันนี้`. Current faded (the "from"), recommended in a **state-tinted box** (green = keep / amber = change), verdict + reason inside the box. Arrow always shown. Sits as the head of the "คำแนะนำการจ่ายยา" card; concurrent meds beside it (2-col).
+- **`NoacDispensingDrawer`** — drug cards expand on select to show a **criteria checklist** (patient value vs threshold, ✓/✗, met rows amber-tinted) + an explicit **dose-level choice** (standard/reduced); picking a non-recommended dose → real `clinicalStatus` (under/overdose) + required override reason. Shared `.ndd-seg` segmented selector for dose + days-supply (native, not Vuetify chips).
+- **`NoacReferenceTable`** — collapsible drug-agnostic lookup (all 4 NOACs × scenarios), reads `noacReference.ts`.
+- Status chips on a same-hue tint get `border: 1px solid currentColor` so they lift off.
 
 ---
 
-## INR Status Color System
+## Layout & patterns
 
-**This is the core design system of the product.** INR (International Normalized Ratio) drives every state change. There are 6 clinical states, each with its own color language. These tokens live in `src/styles/tokens-warfarin.css`.
+**Two-zone page:** white header zone (title/back/breadcrumb, 16–24px) over `#F5F5F5` content zone (cards/tables, 20–24px). White cards on grey — never nested white-on-white, never nested cards.
 
-| State | Trigger | Visual register | Key token |
-|---|---|---|---|
-| `therapeutic` | INR in target range | Green — calm, confirmed | `--bma-green-500`, `--bma-success-text` |
-| `low` | INR below range | Amber — caution, action needed | `--inr-low-text: #B45309` |
-| `supra` | INR above range | Deep orange — elevated risk | `--inr-supra-text: #E65100` |
-| `very-high` | INR ≥ 4.5 | Red — hold dose | `--bma-emergency` |
-| `critical` | INR ≥ 5 | Deeper red — hold + oral Vit K | `--inr-critical-text: #B71C1C` |
-| `emergency` | INR ≥ 10 | Darkest red + pulse animation | `--inr-emergency-fill: #B71C1C`, `--inr-emergency-deep: #6A0000` |
-
-**Design rule:** State is not just color — it changes *information hierarchy*. At `therapeutic`, the screen is calm and the CTA is confirmatory. At `emergency`, the screen visually restricts attention: 80% overlay, solid red header, pulsing border.
-
-### State → Layout mapping
-
-```
-therapeutic  →  calm layout, green CTA "ยืนยันและบันทึก Visit"
-low / supra  →  adjustment layout, orange CTA, dose options visible
-very-high    →  hold layout, red CTA, directive list replaces dose options
-critical     →  hold layout, deeper red, Vit K dosage shown
-emergency    →  maximum severity, full overlay, IV Vit K protocol
-```
+**Reusable patterns** (extracted from AtsPatientDetail; apply before defaulting to generic card grids):
+1. Progressive depth — identity → snapshot → analytics → raw table, top to bottom.
+2. Tab badges as volumetric counts (only when >0).
+3. Clinical-module summary block (header-right): per-protocol 3 critical metrics.
+4. Four-metric KPI strip (number + unit + trend + context line).
+5. Interactive filter cards (category stats double as table filters).
+6. Inline sparkline in compact cards (≤2 peaks).
+7. Severity proportional bar + dot legend.
+8. Chart + side-stats panel (`1fr 280px`).
+9. Direct chart annotation (single PEAK marker).
+10. Triple-encoded dates (BE absolute + relative + row recency).
+11. Allergy chips (amber, dot prefix) — safety data only.
+12. Dual-CTA header (one filled primary max).
+13. Severity badges in cells (filled, all-caps, `radius-sm`).
+14. Table record count `แสดง N / N รายการ` (denominator stays total when filtered).
 
 ---
 
-## Two-Zone Page Layout
+## Vuetify customization protocol
 
-Every page uses this structure:
+**Decision rule — Vuetify for behaviour, tokens for looks.** Reach for a Vuetify component when *behaviour* is the value (form, dialog, menu, data-table, date-picker, pagination, nav) — rebuilding that is worse than a few Layer-4 overrides. For pure *presentation* (card, KPI strip, badge, status pill) use a plain element + `--bma-*` tokens: zero coupling to Vuetify internals, trivially controllable. The design system's source of truth is the **tokens + SASS scale + theme**, which *both* Vuetify components and custom elements consume — consistency without forcing everything through Vuetify. Don't migrate a working token-styled element into a Vuetify component just to "use Vuetify"; that *adds* coupling.
 
-```
-┌──────────────────────────────────────────────────────┐
-│  .page  — white, 16–24px padding (top·sides)         │  ← header zone
-│  page title  ·  back button  ·  breadcrumb           │
-└──────────────────────────────────────────────────────┘
-┌──────────────────────────────────────────────────────┐
-│  .main-wrap  — #F5F5F5 background, 20–24px padding   │  ← content zone
-│  cards, tables, charts                               │
-└──────────────────────────────────────────────────────┘
-```
+Push every customization to the **highest lever it can live on**, in this order before any external CSS:
+1. **Theme** (`vuetify.ts`) — semantic colour roles + `variables` (border-color, opacities, shadows).
+2. **Global defaults** (`vuetify.ts`) — default props per component (`rounded`/`border`/`variant`/`density`). The only way to give one component a different shape than the global scale — Vuetify 3 **cannot** override per-component SASS vars (`$card-border-radius` etc.) via configFile; they only cascade from globals.
+3. **SASS vars** (`settings.scss`) — compile-time *scale* overrides (`$border-radius-root`, the `$rounded` map, `$typography`). Reshapes the whole system; use for system-wide decisions, not single-component fixes.
+4. **CSS overrides** (`overrides.scss`) — only structural CSS layers 1–3 can't reach; **natural specificity matching Vuetify's selector depth**.
+5. **Scoped CSS** — component presentation only; never to override Vuetify internals.
 
-Cards sit on the gray surface. White card on gray background — not nested white-on-white.
-
-> **Padding is per-page, all on the 4pt grid** — `.page` uses `16px 24px 0` (AtsPatientDetail) or `24px 24px 0` (DdAtsDashboard); `.main-wrap` uses `20–24px`. There is no fixed `18px` value (it would violate the 4pt grid).
+**Layer-4 guardrail.** The real maintenance liability is *depth into Vuetify's DOM* (`.v-card__overlay`, `.v-pagination__item--is-active` = private API that breaks on upgrades), not line count. If a component needs **>3** Layer-4 overrides it's fighting Vuetify → move it to a custom element instead. **No `:deep`/`!important` "มั่วๆ".** `!important` only to counter Vuetify's own `!important`. Target the narrowest selector; document why each Layer-4 override (every `!important`, every `.v-*__*` selector) is needed in one line.
 
 ---
 
-## Component Inventory
+## Collaboration protocol — ถามก่อนเสมอเมื่อไม่แน่ใจ
 
-### `BmaStatusBadge`
-Small inline badge for ATS patient severity. Uses BMA semantic colors (emergency/urgency/elective/success). Not used in warfarin screens — the INR badge system is separate.
+Design decisions affect a real clinical workflow; a wrong guess costs more than asking. **Ask before implementing** when: (1) a colour/pattern/layout not already in tokens/DESIGN; (2) a trade-off between principles; (3) ambiguous UX requirement; (4) a non-standard font size (needs contrast proof); (5) a non-token fixed width/height. Format: state the context → 2–3 options with trade-offs → a recommendation → wait for confirmation. Don't "ลองก่อนแล้วค่อยถาม" on design — reverting after implementation costs more.
 
-### `BmaKpiCard`
-Stat card for the DD-ATS dashboard. Shows a numeric KPI, label, delta, and optional sparkline. Uses Inter for numbers, Sarabun for labels.
+## Must / must-not
 
-### `WfDoseDrawer` — **primary tool**
-Right-side drawer panel (42% width, min 440px). 3-step clinical workflow:
-1. **Verify INR** — display INR value with edit affordance
-2. **Protocol / Dose Options** — hold box or selectable dose cards
-3. **Confirm & Save** — dose summary, remarks field, save CTA
+Thai primary (English only for INR/TTR/HOLD/mg-wk) · BE dates `20/04/69` · numbers and prose both Sarabun · body ≥14px, data labels ≥10px · WCAG AA on all text · **no colour-only severity** (always pair with label/icon) · 0.5-tablet rounding.
 
-Overlay intensity scales with INR severity (`22%` therapeutic → `80%` emergency).
+No emoji · no consumer pastels / rounded-illustration style · no dark-mode/neon/terminal aesthetics · no decorative non-clinical elements · no looping animation except the emergency pulse · never reduce data density "for aesthetics".
 
-The drawer title, header icon, and save button label all adapt to INR state. See `src/components/WfDoseDrawer.vue` for full state machine.
-
-### Inline pages
-
-| Page | Route | Summary |
-|---|---|---|
-| `ConsultList` | `/` | Patient queue list for the Consult module |
-| `DdAtsDashboard` | `/dd-ats` | ATS overview: doughnut charts + patient tables |
-| `AtsPatientDetail` | `/dd-ats/patient/:id` | Single patient: complication history + bar chart |
-| `WarfarinDoseTool` | `/dd-ats/patient/:id/dose` | **Main warfarin screen** — INR hero, schedule, chart, log |
-
----
-
-## WarfarinDoseTool — Screen Map
-
-This is the most complex screen. Four card rows, full-width layout:
-
-```
-┌──────────────────────────────────────────────────────────────────────┐
-│  Row 1: [THIS VISIT card  60%] [TTR card  40%]                       │
-├──────────────────────────────────────────────────────────────────────┤
-│  Row 2: 7-day tablet schedule (full width)                           │
-├──────────────────────────────────────────────────────────────────────┤
-│  Row 3: INR trend line chart (full width)                            │
-├──────────────────────────────────────────────────────────────────────┤
-│  Row 4: Dose adjustment log table (full width)                       │
-└──────────────────────────────────────────────────────────────────────┘
-```
-
-### THIS VISIT card anatomy
-
-```
-┌─ Header ──────────────────────────────────────────────┐
-│  eyebrow: "THIS VISIT"  ·  date chip  ·  saved badge  │
-├─ Body ─────────────────────────────────────────────────┤
-│  [INR value 56px] [status badge]  │  [current dose]   │
-│  [directive note / hold steps]    │  [mg/wk]          │
-├─ Footer ───────────────────────────────────────────────┤
-│  [CTA button — state-adaptive label]                   │
-└────────────────────────────────────────────────────────┘
-```
-
-Header and footer use `--bma-surface-light` (#FAFAFA) background. Body is white. This 3-part structure is the canonical BMA card pattern.
-
-### TTR card
-Solid color card (green/red/gray depending on TTR status). White text throughout. Shows TTR %, method, status badge.
-
----
-
-## Design Constraints
-
-### Must
-- Thai text primary; English only for technical labels (INR, TTR, HOLD, mg/wk)
-- Buddhist era dates: `20/04/69` format
-- Numbers always Inter; prose always Sarabun
-- Minimum 14px body text; clinical data labels minimum 10px
-- WCAG AA contrast on all text
-- No color-only encoding for severity — always pair with label or icon
-- Pill rounding to 0.5 tablet
-
-### Must not
-- No emoji anywhere in the UI
-- No consumer-app pastels or rounded illustration style
-- No dark mode aesthetics (neon, terminal colors)
-- No decorative elements that carry no clinical information
-- No looping animations except the EMERGENCY pulse (clinically necessary attention signal)
-- Never reduce data density "for aesthetics" — this is not a portfolio piece
-
----
-
-## Drug Interaction Flag
-
-When a patient has INR-modulating concurrent medications, a small chip appears in the INR hero card:
-
-```
-↑ INR  →  amber chip  (--wf-interact-increase-*)
-↓ INR  →  blue chip   (--wf-interact-decrease-*)
-```
-
-Amber (↑) mirrors the low-INR warning palette (`--inr-low-*`). Blue (↓) uses a distinct saturated clinical blue (`--wf-interact-decrease-text: #1565C0`).
-
-> **Note:** This decrease-blue (#1565C0) no longer matches the recolored 3 mg pill blue (`--wf-pill-blue: #4A8FD4`). The stale `/* = --wf-pill-blue */` comment in `tokens-warfarin.css` predates the pill recolor — the two blues are now intentionally independent.
-
----
-
-## Warfarin Pill Visual System
-
-Three strength colors rendered as physical colored shapes in the 7-day schedule.
-**Source of truth:** `src/data/types/warfarin.ts → WARFARIN_STRENGTHS`. Tablet colors are **circular** (full = dot, half = D-shape), not oval.
-
-| Shape | Token | Hex | Meaning |
-|---|---|---|---|
-| Full circle | `--wf-pill-orange` | `#E07840` | 2 mg tablet (ส้ม) |
-| Full circle | `--wf-pill-blue` | `#4A8FD4` | 3 mg tablet (น้ำเงิน) |
-| Full circle | `--wf-pill-pink` | `#D94E8A` | 5 mg tablet (ชมพู) |
-| Half (D-shape) | matching strength color | — | 0.5 tablet |
-
----
-
-## Clinical Status Color Tokens
-
-Beyond the INR system, the patient table and KPI panels use these semantic color tokens. All are defined in `tokens.css` — never hardcode hex equivalents.
-
-### Row tint backgrounds (table rows by status)
-
-| Token | Hex | Use |
-|---|---|---|
-| `--bma-row-underdose-bg` | `#FFFBF5` | under-range / underdose row background |
-| `--bma-row-underdose-hover` | `#FFF3E0` | hover state |
-| `--bma-row-overdose-bg` | `#FFF8F8` | over-range / overdose / contra / interaction row |
-| `--bma-row-overdose-hover` | `#FEECEC` | hover state |
-
-### Soft area backgrounds
-
-| Token | Hex | Use |
-|---|---|---|
-| `--bma-emergency-bg-soft` | `#FFF5F5` | Large-area emergency tint (tooltip overlays, alert boxes) |
-| `--bma-urgency-bg-soft` | `#FFF3E0` | Large-area urgency tint |
-
-*Note:* `--bma-emergency-bg` and `--bma-urgency-bg` are rgba — they're for small inline uses. Use the `-soft` variants for large areas where rgba can look washed out over colored backgrounds.
-
-### Extended clinical status text colors
-
-| Token | Hex | Use |
-|---|---|---|
-| `--bma-underdose-text` | `#E65100` | Under-range / underdose text (deeper than urgency-text) |
-| `--bma-interaction-text` | `#7B52AB` | Drug interaction badge text |
-
-### Status badge backgrounds
-
-| Token | Hex | Use |
-|---|---|---|
-| `--bma-contra-bg` | `#E8EAF6` | Contraindication badge background |
-| `--bma-interaction-bg` | `#F3EEFF` | Drug interaction badge background |
-
----
-
-## Anti-references
-
-When generating anything for this product, explicitly avoid:
-
-1. **Hospital HIS aesthetics** — gray form grids, nested tabs, tiny Comic Sans–era fonts
-2. **Consumer health pastel palette** — soft mints, baby blues, rounded friendly icons
-3. **Wellness app register** — motivational copy, progress rings, gamification
-4. **Dev tool dark mode** — terminal blacks, neon greens/purples
-5. **Marketing landing pages** — hero sections, gradient backgrounds, large illustrations
-
-The reference aesthetic is closer to Bloomberg Terminal (density, Inter, data-first) than to any consumer product — but warm, Thai, and legible rather than cold and English-only.
-
----
-
-*Source files: `src/styles/tokens.css` · `src/styles/tokens-warfarin.css` · `src/components/WfDoseDrawer.vue` · `src/pages/WarfarinDoseTool.vue`*
-
----
-
-## Extracted Design Patterns — AtsPatientDetail Reference
-
-> Patterns extracted from visual analysis of the AtsPatientDetail screen.  
-> Each pattern is graded by clinical information density vs. pixel cost.  
-> Apply these to any new page or component before defaulting to generic card grids.
-
----
-
-### Pattern 1 — Progressive Information Depth (Top → Bottom)
-
-**What it does:** Information density increases as you scroll. Identity (who) is at the top, snapshot metrics (what's urgent) follow, then analytics (trend), then full history (audit trail).
-
-```
-Layer 1: Patient identity — name, HN, demographics, allergies
-Layer 2: Clinical snapshot — INR, TTR, NOACS metrics (decision inputs)
-Layer 3: Aggregated analytics — KPI strip, category cards, chart
-Layer 4: Raw history — searchable, filterable table
-```
-
-**Why it works clinically:** A pharmacist scanning quickly can stop at the layer they need. If the INR alone is enough, they never need to reach layer 4. No decision requires scrolling past its supporting data.
-
-**Apply to:** Any patient-facing page. Never mix layer 3 analytics above layer 2 clinical snapshot. Never put raw tables above KPI summaries.
-
----
-
-### Pattern 2 — Tab Badges as Volumetric Signals
-
-**What it does:** Each tab label carries a count badge showing how many records exist inside, before the user enters.
-
-```
-ภาวะแทรกซ้อน [5]  |  Warfarin Dose Tool  |  INR History [14]  |  ยาที่ใช้ [7]
-```
-
-**Why it works:** Zero cost — replaces "open tab, read count, close tab" with a single glance. Clinically: a pharmacist immediately knows if the complication history is 0 or 14 before spending time.
-
-**Rules:**
-- Only show badge when count > 0. Empty tabs show no badge, not [0].
-- Tabs without a natural record count (tools, calculators) carry no badge — don't force a number.
-- Badge uses Inter, same token as all numeric data: `--bma-font-data`.
-
-**Apply to:** All tabs that contain a list of clinical records.
-
----
-
-### Pattern 3 — Clinical Module Summary Block (Header-Right Zone)
-
-**What it does:** The page header splits into two columns. Left: patient demographics. Right: a "Clinical Modules" panel listing the active treatment protocols, each showing its 3 most critical metrics inline.
-
-```
-┌─ Patient Info ─────────────────┬─ CLINICAL MODULES ─────────────────────┐
-│  ชื่อ-นามสกุล                  │  ● WARFARIN                             │
-│  นายสมชาย มั่นคง  HN 67123456  │  INR 10.5 EMERGENCY │ 35mg │ TTR 29%   │
-│  อายุ / เพศ / กรุ่เลือด         ├─────────────────────────────────────────┤
-│  สิทธิการรักษา                  │  ● NOACS                                │
-│  ● Penicillin  ● Aspirin        │  65kg │ SCR 1.5 mg/dL │ CRCL 58mL/min  │
-└────────────────────────────────┴─────────────────────────────────────────┘
-```
-
-**Why it works:** A clinician managing both Warfarin and NOACs for the same patient can see both protocol summaries without navigating. The right panel is a decision gate — it tells you whether to act before you even reach the tabs.
-
-**Color coding:** Each module dot color matches the severity state. Warfarin red dot = active alert; NOACS green dot = no alert.
-
-**Apply to:** Any patient detail page where more than one clinical protocol is active.
-
----
-
-### Pattern 4 — Four-Metric KPI Strip
-
-**What it does:** A single horizontal card holds 4 metrics, each with: a primary number, a unit, a trend indicator (badge or chip), and a context line.
-
-```
-┌─────────────────┬──────────────────────┬──────────────┬───────────────────┐
-│  TOTAL EVENTS   │  DAYS SINCE LAST     │  SEVERITY    │  EVENT RATE       │
-│  12 MO          │  EVENT               │  INDEX       │  TREND            │
-│  5 ครั้ง  ↗+2   │  23 วัน  12 มิ.ย.68  │  1/5 severe  │  0.42/mo  ↘-18%  │
-│  เพิ่มจาก 3 ครั้ง │  Bleeding · UGIB     │  mod 1 · mild 3│  rolling 90 วัน  │
-└─────────────────┴──────────────────────┴──────────────┴───────────────────┘
-```
-
-**Typography rules:**
-- Primary number: Inter 28–32px 700 — use `--bma-text-kpi-card` (28px) or `--bma-text-kpi-md` (32px), never hardcode
-- Unit: Inter 13px 400, color muted, positioned inline after the number
-- Trend badge: filled pill, Inter 12px — `↗ +2` red fill, `↘ -18%` green fill
-- Context line: Sarabun 12px muted — explains the metric scope in Thai
-
-**Why it works:** Four decisions, one glance, zero navigation. The context line prevents the number from being ambiguous (is this 5 events per month or 5 events ever?).
-
-**Do not use for:** Metrics that require explanation longer than one short line. If a metric needs a tooltip to understand, it belongs in a detail section, not the strip.
-
----
-
-### Pattern 5 — Interactive Filter Cards (Dual-Function Category Cards)
-
-**What it does:** Summary cards for each data category serve double duty: they display the category's stats AND act as filter controls for the table below.
-
-```
-┌─ Bleeding ──────────────────────────────┐
-│  เลือดออก            ล่าสุด 12 มิ.ย. 68  │
-│  2 ครั้ง/ปี    ╱‾╲____sparkline________  │
-│  ━━━━━━━━━━━━━━━░░░░░░░░░  severity bar  │
-│  ● severe 1    ● mild 1                  │
-└──────────────────────────────────────────┘
-```
-
-**Anatomy:**
-1. **Header row:** category name + dot color + last-event date (right-aligned, Inter 11px muted)
-2. **Count row:** primary count (Inter 28px 700 → `--bma-text-kpi-card`) + sparkline chart (60px wide, 32px tall, inline)
-3. **Severity bar:** full-width proportional bar split by severity colors
-4. **Legend row:** dot + label + count per severity level
-
-**Selected state:** Border color matches category color at full opacity; background tints slightly (4% opacity of category color). No heavy shadow — the border change is enough.
-
-**Filter hint:** A single line "คลิกการ์ดเพื่อกรองตาราง" right-aligned above the card grid, 11px muted. Appears once; disappears after first interaction.
-
-**Apply to:** Any page with multiple data categories that feed a single table. Never use regular tabs for this — the card format lets you compare category volumes at a glance.
-
----
-
-### Pattern 6 — Inline Sparkline in Compact Cards
-
-**What it does:** A micro line chart (approx. 60×32px) sits inside the count row of a compact card, showing the trend over time without consuming a full chart panel.
-
-**Rules:**
-- No axes, no grid lines, no labels — pure shape
-- Stroke weight: 1.5px
-- Color matches the category (red for Bleeding, blue for Thromboembolism, orange/amber for Side Effects)
-- Area fill: category color at 10–15% opacity
-- Render via Chart.js with `tension: 0.4`, `pointRadius: 0`
-
-**Why it works:** A sparkline in 60×32px answers "is this trending up or down?" without requiring the user to read a chart. It takes less space than a single digit.
-
-**Do not use for:** Time series with more than 2 visible peaks — the shape becomes unreadable at sparkline scale. Use a full chart instead.
-
----
-
-### Pattern 7 — Severity Proportional Bar
-
-**What it does:** A full-width horizontal bar split into colored segments representing severity distribution. Below: a dot-label legend per segment.
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━░░░░░░░░░░░░░░
-● severe 1                 ● mild 1
-```
-
-**Colors:**
-- Severe: `--bma-emergency` red
-- Moderate: `--bma-urgency` orange  
-- Mild: `--bma-success` green
-
-**Rules:**
-- Bar height: 6px, border-radius: 3px (pill ends)
-- Segment proportional to count (not fixed width per segment)
-- Legend uses dot (8px circle) + Sarabun 12px label + Inter 12px count
-
-**Why it works:** Shows severity distribution as a shape, not a table. A quick glance reveals whether a patient's bleeding events are predominantly severe or mostly mild — without reading any numbers.
-
-**Apply to:** Any breakdown of a categorical count by severity or status.
-
----
-
-### Pattern 8 — Chart + Side Stats Panel Layout
-
-**What it does:** A full-width section splits horizontally: the chart occupies ~65% of the width, and a stats summary panel occupies the remaining ~35%.
-
-```
-┌─ Chart (65%) ──────────────────────────┬─ Summary (35%) ──────────┐
-│                                         │  TOTAL EVENTS             │
-│    ▓  PEAK                              │  5 ครั้ง / 12 เดือน       │
-│    ▓  ▓                                 │  เฉลี่ย 0.42 ครั้ง/เดือน  │
-│  ▓ ▓  ▓ ▓                              │                            │
-│  ─────────── ม.ค. ก.พ. มี.ค. ...       │  PEAK MONTH               │
-│                                         │  พ.ค. 2568                │
-│  Legend chips row                       │  BY TYPE                  │
-│  ● Bleeding  ● Thromboembolism  ● Side  │  ● Bleeding  2            │
-└─────────────────────────────────────────┴───────────────────────────┘
-```
-
-**Rules:**
-- Chart uses CSS grid: `grid-template-columns: 1fr 280px` (or similar fixed right panel)
-- Right panel contains only computed/derived stats, never raw data
-- Right panel background: same `#FFFFFF` card, separated by a 1px divider or gap — no nested card border
-
-**Why it works:** A chart alone requires the viewer to interpret peaks visually. The stats panel does the interpretation — "PEAK MONTH: พ.ค. 2568, 3 ครั้ง" — so the chart and text reinforce each other.
-
----
-
-### Pattern 9 — Direct Chart Annotation (PEAK Marker)
-
-**What it does:** The tallest bar in the chart receives a direct annotation: a "PEAK" label above the bar with a dashed vertical line pointing down into it.
-
-**Implementation:** Chart.js custom plugin or `afterDraw` hook — draw `PEAK` text (Inter 10px uppercase, muted color) + a 1px dashed vertical line from the label down to the bar top.
-
-**Rules:**
-- Only one PEAK marker per chart
-- Annotation only appears if the peak is clearly defined (one month > all others by ≥2 events)
-- If all months are equal, no annotation
-- The PEAK label links semantically to the "PEAK MONTH" stat in the right panel
-
-**Apply to:** Any bar or line chart where a single outlier period is clinically significant.
-
----
-
-### Pattern 10 — Triple-Encoding Temporal Data
-
-**What it does:** Date-sensitive data in a table is displayed with three concurrent encodings:
-
-1. **Absolute date in Buddhist Era:** `12 มิ.ย. 2568` — the canonical clinical record
-2. **Relative time:** `23 วันที่แล้ว` — immediate human readability
-3. **Recency heat:** Row position (newest at top) implies recency without additional UI
-
-**Typography:**
-- Absolute date: Sarabun 14px 600, primary color
-- Relative time: Sarabun 12px muted, below the date
-
-**Why it works:** A pharmacist reading the table needs both: the absolute date for documentation and the relative time for clinical urgency (was this last week or last year?). Showing only one forces mental arithmetic.
-
----
-
-### Pattern 11 — Allergy Chip Pattern
-
-**What it does:** Drug allergies display as inline pill chips with a colored dot prefix, inside the patient info section.
-
-```
-● Penicillin   ● Aspirin
-```
-
-**Rules:**
-- Background: light amber tint (`--bma-urgency-bg`, urgency at 10% opacity)
-- Border: `--bma-urgency-ring` (urgency at 25% opacity)
-- Dot: solid `--bma-urgency` orange (8px)
-- Text: Sarabun 13px, color `--bma-urgency-text` (`#E07A00`)
-- Chips wrap inline; they do not truncate
-
-**Why it works:** Allergies are a safety-critical data type. The amber color signals caution without screaming emergency. The dot is a second signal encoding (not color-only). The chip format lets multiple allergies coexist without a list.
-
-**Do not use this format for:** Non-safety categorical data (blood type, insurance type). Those are plain text. The amber chip carries clinical weight — use it only for contraindications and allergy flags.
-
----
-
-### Pattern 12 — Dual CTA Hierarchy in Page Header
-
-**What it does:** The page header's right side holds exactly two action buttons with clearly different visual weight.
-
-```
-[  พิมพ์สรุป  ]    [ เริ่ม Warfarin Dose Tool ]
-   secondary           primary
-   outline             filled BMA green
-```
-
-**Rules:**
-- Never more than one filled (primary) button in the header
-- Secondary action: outlined button, same border-radius as primary, no background fill
-- If there are three or more actions, collapse secondary actions into a `...` overflow menu
-- Primary CTA label names the main workflow continuation, not a generic "Continue" or "Next"
-
-**Why it works:** A pharmacist's eye goes directly to the filled green button — no ambiguity about which action is primary. The outline button is available but subordinate.
-
----
-
-### Pattern 13 — Severity Badge System (Table Cells)
-
-**What it does:** Clinical severity in table cells uses filled, high-contrast, all-caps badges — not text, not soft chips.
-
-| Severity | Background | Text |
-|---|---|---|
-| SEVERE | `--bma-emergency` (#B72C2C) | white |
-| MODERATE | `--bma-urgency` (#FB8C00) | white |
-| MILD | `--bma-success` (#4CAF50) | white |
-
-**Rules:**
-- All-caps: yes — severity is a classification, not prose. All-caps differentiates it visually from type labels (which use Title Case)
-- No border, only background fill — a bordered badge at this scale reads as weaker than its clinical weight
-- Border-radius: `--bma-radius-sm` (4px) — square-ish, not pill. Pill shape is for status/state (e.g., "สิ้นสุดการรักษา"); square is for categorical severity
-
-**Do not use for:** Non-severity categorical labels. The filled badge carries the semantic weight of a clinical judgment.
-
----
-
-### Pattern 14 — Table Record Count Display
-
-**What it does:** The table header shows the current record window and total count in a single phrase.
-
-```
-ประวัติภาวะแทรกซ้อน  แสดง 5 / 5 รายการ
-```
-
-**Format:** `แสดง [visible] / [total] รายการ`
-
-**Rules:**
-- Position: inline with the table title, not below it
-- Typography: Sarabun 13px muted — supporting info, not primary
-- When filtered: `แสดง 2 / 5 รายการ` — the denominator stays total, making it clear a filter is active
-- When showing all: `แสดง 5 / 5 รายการ` — still show it, so the pharmacist knows this is the complete history
-
----
-
-## Framework Customization Protocol (Vuetify 3)
-
-### Principle: Respect the Framework's Design System
-
-When a component library (Vuetify 3) is already chosen, **exhaust the framework's own customization mechanisms before writing any external CSS**. Jumping to CSS overrides as a first move creates specificity wars, breaks component internals, and makes framework upgrades risky.
-
-### Customization Hierarchy — Use in This Order
-
-| Layer | Where | Use When |
-|---|---|---|
-| **1. Theme** | `vuetify.ts → createVuetify({ theme })` | Defining semantic color roles: primary, error, on-primary, surface, etc. |
-| **2. Global Defaults** | `vuetify.ts → createVuetify({ defaults })` | Setting default props for every component globally (color, variant, density, rounded, elevation, style) |
-| **3. SASS Variables** | `settings.scss` | Compile-time overrides of Vuetify's own internal scales (heights, spacing, border-radius system) |
-| **4. CSS Overrides** | `overrides.scss` | Structural CSS Vuetify doesn't expose through layers 1–3. Must be targeted and justified. |
-| **5. Scoped CSS** | `<style scoped>` in each component | Component-specific presentation only. Never used to override Vuetify internals. |
-
-**Before writing any CSS override, ask:** Can layers 1–3 achieve this? If yes — do it there. CSS override is a last resort.
-
-### CSS Override Rules (Layer 4)
-
-- **No `!important` on broad selectors.** `.v-btn { border-radius: ... !important }` applies to icon buttons, date picker buttons, nav buttons — breaking all of them silently. `!important` is only justified to counter Vuetify's own `!important` rules.
-- **No redundant overrides.** If `vuetify.ts` defaults already set a property via a prop, do not re-set it in `overrides.scss`. Duplication creates hidden conflicts.
-- **Target the narrowest selector possible.** Prefer `.v-btn--variant-outlined.v-btn--color-error` over `.v-btn`.
-- **Document why CSS is needed here** when a rule is written — if the justification is missing, the rule is probably in the wrong layer.
-
-### What Lives Where in BMA Doctor
-
-| What | Correct Layer | Notes |
-|---|---|---|
-| Brand colors, on-colors, surface roles | Theme | Already in `vuetify.ts` |
-| `rounded`, `elevation`, `variant`, `density` defaults | Defaults | Already in `vuetify.ts` |
-| `font-family`, `font-weight`, `text-transform`, `letter-spacing` on VBtn | Defaults → `style` prop | Already in `vuetify.ts` — **not in overrides.scss** |
-| `border-radius` on VBtn | Defaults → `rounded: 'md'` | **Not in overrides.scss** — `!important` breaks icon buttons |
-| `color`, `hideHeader`, `hide-header` on VDatePicker | Defaults | Move from template props to `vuetify.ts` |
-| `border-bottom` on VAppBar | CSS Override (layer 4) | Vuetify has no defaults prop for this |
-| `border-right` on VNavigationDrawer | CSS Override (layer 4) | Same reason |
-| `box-shadow`, `border` on VCard | CSS Override (layer 4) | Theme variables don't cover custom BMA values |
-| VDatePicker selected day text color | CSS Override (layer 4) | Vuetify's own CSS (`surface-variant`) conflicts — last resort justified |
-| Scrollbar styling | CSS Override (layer 4) | No Vuetify mechanism |
-
----
-
-## Collaboration Protocol
-
-**ถามก่อนเสมอเมื่อไม่แน่ใจ — ห้ามตัดสินใจเองในเรื่อง Design**
-
-Design decisions ใน BMA Doctor มีผลต่อ clinical workflow จริงๆ การเดาผิดมีต้นทุนสูงกว่าการถามช้าไปหนึ่งขั้น
-
-### เมื่อไหร่ต้องถามก่อน implement
-
-1. **Design direction ที่ไม่มีใน DESIGN.md หรือ tokens** — ถ้าคิดจะใช้สี pattern layout หรือ component ที่ไม่มีบรรทัดฐานในระบบ ให้เสนอ options แล้วรอ confirmation
-
-2. **Trade-off ระหว่าง principles** — เช่น "ลด visual noise" vs "เพิ่ม affordance" ไม่มีคำตอบเดียว ถามว่าในบริบทนี้ priority คืออะไร
-
-3. **Ambiguous UX requirements** — ถ้า user story บอกว่า "แสดงข้อมูล" แต่ไม่บอกว่าแสดงอย่างไร แสดงเมื่อไหร่ หรือแสดงให้ใคร ให้ถามก่อนสร้าง
-
-4. **Non-standard font sizes** — ทุก font size นอก scale มาตรฐาน (12, 14, 16, 18, 20, 24, 32px) ต้องมีเหตุผลและ contrast verification ก่อน implement (ดูหัวข้อ "Font size justification rule")
-
-5. **Layout ที่ไม่มี responsive plan** — ถ้าจะใช้ fixed width / height ที่ไม่มีใน token ให้ระบุว่าตัดสินใจได้เองหรือรอ approval
-
-### รูปแบบการถาม
-
-เมื่อไม่แน่ใจ ให้นำเสนอแบบนี้:
-- อธิบาย **context** ว่าเจอปัญหาอะไร
-- เสนอ **options 2-3 แนวทาง** พร้อม trade-off ของแต่ละอัน
-- ระบุ **recommendation** ถ้ามี พร้อมเหตุผล
-- รอ confirmation ก่อน implement
-
-ห้ามเขียนโค้ด "ลองก่อนแล้วค่อยถาม" ในเรื่อง design — เพราะ revert หรือ redesign หลัง implement มีต้นทุนสูงกว่าการถามก่อนมาก
-
----
-
-## Pattern Application Priority
-
-When building a new page in BMA Doctor, apply these patterns in this order:
-
-1. **Page structure:** Two-zone layout (Pattern from Two-Zone section above)
-2. **Patient context:** Clinical Module Summary Block if patient-specific (Pattern 3)
-3. **Tabs:** Volumetric badges if tabs contain records (Pattern 2)
-4. **Summary layer:** KPI Strip for aggregate metrics (Pattern 4)
-5. **Category breakdown:** Interactive Filter Cards if multiple types exist (Pattern 5)
-6. **Visualization:** Chart + Side Stats Panel for time-series data (Pattern 8)
-7. **Details layer:** Table with record count, dual-date format, severity badges (Patterns 13, 14, 10)
-
-> Source: Visual analysis of `AtsPatientDetail` screenshots, cross-referenced against `PRODUCT.md` clinical workflow requirements.
+**Anti-references:** hospital HIS clutter · consumer health pastels · wellness gamification · dev-tool dark mode · marketing hero/gradient pages. Reference register ≈ Bloomberg Terminal (dense, data-first) but warm, Thai, legible.
