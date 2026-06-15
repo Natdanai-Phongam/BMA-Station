@@ -199,6 +199,19 @@
           <!-- Panel header -->
           <div class="chat-panel-hd">
             <span class="chat-panel-title">บันทึกการปรึกษา</span>
+            <!-- Identity picker — no auth in this prototype; "ทำในนาม" flips the
+                 acting user so an approval can be demoed end to end. Identity (not
+                 role) defines self for the self-approval guard. -->
+            <label class="chat-user-switch">
+              <span class="chat-user-switch-lbl">ทำในนาม</span>
+              <select
+                class="chat-user-select"
+                :value="CURRENT_USER.id"
+                @change="setCurrentUser(($event.target as HTMLSelectElement).value)"
+              >
+                <option v-for="u in CONSULT_USERS" :key="u.id" :value="u.id">{{ u.name }}</option>
+              </select>
+            </label>
           </div>
 
           <!-- Message list -->
@@ -272,6 +285,48 @@
                             </span>
                           </div>
                         </div>
+                      </div>
+                    </template>
+                    <!-- Approval request card -->
+                    <template v-else-if="(item as any).msgType === 'approval-request'">
+                      <div class="dose-adj-card req-card" :class="`req-card--${reqStatus(item as any)}`">
+                        <div class="dose-adj-header">
+                          <span class="dose-adj-title">คำขอปรับยา</span>
+                          <span class="req-status" :class="`req-status--${reqStatus(item as any)}`">
+                            {{ reqStatusLabel[reqStatus(item as any)] }}
+                          </span>
+                        </div>
+                        <div class="dose-adj-numbers">
+                          <span class="dose-adj-old">{{ (item as any).doseData.oldDose.toFixed(1) }}</span>
+                          <span class="dose-adj-arrow">→</span>
+                          <span class="dose-adj-new">{{ (item as any).doseData.newDose.toFixed(1) }}</span>
+                          <span class="dose-adj-unit">mg/wk</span>
+                        </div>
+                        <div class="dose-adj-delta">
+                          <span class="dose-adj-pct" :class="(item as any).doseData.pct > 0 ? 'dose-adj-pct--up' : (item as any).doseData.pct < 0 ? 'dose-adj-pct--down' : 'dose-adj-pct--flat'">{{ (item as any).doseData.pct > 0 ? '+' : '' }}{{ (item as any).doseData.pct.toFixed(1) }}%</span>
+                        </div>
+                        <div class="dose-adj-meta">INR ณ วันที่เสนอ: {{ (item as any).doseData.inr.toFixed(1) }}</div>
+                        <p v-if="(item as any).reason" class="req-reason">{{ (item as any).reason }}</p>
+                        <div v-if="isReqStale(item as any) && reqStatus(item as any) === 'pending'" class="req-stale">
+                          <PhWarning :size="12" /> ขนาดยาปัจจุบันเปลี่ยนไปแล้ว — ตรวจสอบก่อนอนุมัติ
+                        </div>
+                        <!-- actions while pending — self can't approve own (guard);
+                             others can accept; anyone may counter; proposer may cancel -->
+                        <div v-if="isPending(item as any)" class="req-actions">
+                          <button v-if="canAccept(item as any)" class="req-btn req-btn--accept" @click="acceptRequest(item as any)">ยอมรับ</button>
+                          <button class="req-btn req-btn--revise" @click="reviseRequest(item as any)">ตรวจสอบแผนการจ่ายยา</button>
+                          <button v-if="canWithdraw(item as any)" class="req-btn req-btn--withdraw" @click="withdrawRequest(item as any)" title="ยกเลิกคำขอ">ยกเลิก</button>
+                          <span v-if="isMine(item as any)" class="req-self-note">คำขอของคุณ — ให้ผู้อื่นยอมรับ</span>
+                        </div>
+                      </div>
+                    </template>
+                    <!-- Approval response / withdrawn — compact status line -->
+                    <template v-else-if="(item as any).msgType === 'approval-response' || (item as any).msgType === 'approval-withdrawn'">
+                      <div class="req-note">
+                        <PhCheckCircle v-if="(item as any).msgType === 'approval-response'" :size="13" />
+                        <PhProhibit v-else :size="13" />
+                        {{ (item as any).sender }}
+                        {{ (item as any).msgType === 'approval-response' ? 'อนุมัติคำขอแล้ว — ดำเนินการสั่งจ่ายในระบบ HIS' : 'ยกเลิกคำขอ' }}
                       </div>
                     </template>
                     <!-- Standard chat bubble -->
@@ -393,11 +448,14 @@
               <button
                 class="consult-dose-cta"
                 :class="{ 'consult-dose-cta--reviewing': consultDrawerOpen }"
-                :disabled="consultDrawerOpen"
-                @click="consultDrawerOpen = true"
+                :disabled="consultDrawerOpen || !!pendingReq"
+                @click="openConsultDrawer()"
               >
-                {{ consultDrawerOpen ? 'กำลังตรวจสอบ Dose...' : 'ปรับขนาดยา Warfarin' }}
-                <PhArrowRight v-if="!consultDrawerOpen" :size="13" />
+                <template v-if="pendingReq">มีคำขอค้างอยู่ — จัดการก่อน</template>
+                <template v-else>
+                  {{ consultDrawerOpen ? 'กำลังตรวจสอบ Dose...' : 'ปรับขนาดยา Warfarin' }}
+                  <PhArrowRight v-if="!consultDrawerOpen" :size="13" />
+                </template>
               </button>
             </div>
 
@@ -483,8 +541,10 @@
       :data="wfData"
       :is-open="consultDrawerOpen"
       :patient-id="patientId"
+      :default-post-to-consult="true"
       @close="consultDrawerOpen = false"
       @saved="onConsultSaved"
+      @forward-consult="onConsultForward"
     />
   </div>
 </template>
@@ -496,7 +556,7 @@ import type { Component } from 'vue'
 import {
   PhArrowLeft, PhArrowSquareOut,
   PhDrop, PhHeartbeat,
-  PhArrowRight,
+  PhArrowRight, PhWarning, PhCheckCircle, PhProhibit,
 } from '@phosphor-icons/vue'
 import {
   Chart as ChartJS,
@@ -508,9 +568,8 @@ import {
 import type { TooltipItem } from 'chart.js'
 import { Bar } from 'vue-chartjs'
 import type { PatientDetail, ComplicationType } from '@/data/types/patient-detail'
-import type { WarfarinPageData } from '@/data/types/warfarin'
 import { DEFAULT_TARGET_RANGE, PILL_CONFIG } from '@/data/types/warfarin'
-import type { DoseAdjustment, InrRecord, WeeklySchedule, PillStrengthMg } from '@/data/types/warfarin'
+import type { DoseAdjustment, InrRecord, PillStrengthMg, WeeklySchedule } from '@/data/types/warfarin'
 import { getInrStatus } from '@/utils/inrStatus'
 import { buildWeeklySchedule } from '@/utils/warfarinDosing'
 import { formatThaiDate } from '@/utils/date'
@@ -524,6 +583,8 @@ import AtsPatientHeader  from '@/components/AtsPatientHeader.vue'
 import ConsultComposer      from '@/components/consult/ConsultComposer.vue'
 import WfDoseDrawer         from '@/components/WfDoseDrawer.vue'
 import BmaTablePagination   from '@/components/BmaTablePagination.vue'
+import { useConsultStore, type ConsultMsg, CURRENT_USER, setCurrentUser, CONSULT_USERS } from '@/composables/useConsultStore'
+import { useWarfarinStore } from '@/composables/useWarfarinStore'
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip)
 
@@ -534,8 +595,10 @@ const patientId = computed(() => route.params.id as string)
 const loading     = ref(true)
 // shallowRef: large read-only source maps — avoid deep-proxying the dataset
 const allDetail   = shallowRef<Record<string, PatientDetail>>({})
-const allWarfarin = shallowRef<Record<string, WarfarinPageData>>({})
 const allNoac     = shallowRef<Record<string, NoacPatientData>>({})
+// Warfarin data now lives in the shared store (single source of truth across the
+// dose-tool tab + this consult tab); see useWarfarinStore.
+const wfStore     = useWarfarinStore()
 
 // ats-patients.json is the canonical classification of which program each patient belongs to.
 // Using this (not warfarin/noac data keys) avoids false positives when a patient's ID
@@ -544,7 +607,7 @@ const patientsList = shallowRef<AtsPatientsData>({ lastSyncedAt: '', warfarin: [
 const noacsIdSet   = computed(() => new Set(patientsList.value.noacs.map(p => p.id)))
 
 const p        = computed<PatientDetail>(() => allDetail.value[patientId.value]  ?? allDetail.value['w002'])
-const wfData   = computed(() => allWarfarin.value[patientId.value] ?? null)
+const wfData   = computed(() => wfStore.get(patientId.value))
 const noacData = computed<NoacPatientData | null>(() => allNoac.value[patientId.value] ?? allNoac.value['w002'] ?? null)
 const latestNoacLab = computed(() => {
   const history = noacData.value?.dispensingHistory
@@ -588,18 +651,9 @@ const tabs = computed<{ value: TabValue; label: string; count: number | null }[]
 // ── Consultation room ─────────────────────────────────────────────────────────
 const physicians   = shallowRef<Record<string, Physician>>({})
 
-type ConsultMsg = {
-  id:       string
-  role:     'doctor' | 'pharmacist' | 'nurse'
-  sender:   string
-  text:     string
-  time:     string
-  dateISO:  string
-  msgType?: 'dose-adjustment'
-  doseData?: { oldDose: number; newDose: number; pct: number; inr: number; schedule: WeeklySchedule }
-}
-
-const seedData = shallowRef<Record<string, ConsultMsg[]>>({})
+// Consult thread comes from the shared store (seeded from repo + local appends,
+// persisted) so the dose tool and the consult room write the same thread.
+const consult = useConsultStore()
 
 const consultRoleLabel: Record<string, string> = {
   doctor:     'แพทย์',
@@ -622,40 +676,32 @@ const attendingPhysician = computed<Physician | null>(() => {
   return drId ? (physicians.value[drId] ?? null) : null
 })
 
-// Reactive counter — incremented when wfData.latestInr is mutated externally
-// (allWarfarin is a plain JS object, not reactive() — computed won't re-run on mutation)
-const consultDataVersion = ref(0)
-
-// Chat messages — seeded from JSON, appended locally on send
-const consultMessages = ref<ConsultMsg[]>([])   // seeded after async load (see onMounted)
+// Reactive merged thread from the shared store (seed + local appends)
+const consultMessages = computed<ConsultMsg[]>(() => consult.messages(patientId.value))
 const composerRef     = ref<InstanceType<typeof ConsultComposer> | null>(null)
 const chatScrollEl    = ref<HTMLElement | null>(null)
 
-watch(patientId, (id) => {
-  consultMessages.value = [...(seedData.value[id] ?? [])]
+watch(patientId, () => {
   composerRef.value?.clear()
   if (activeTab.value === 'consult') scrollChatBottom()
 })
 
 onMounted(async () => {
   try {
-    const [detail, wf, noac, ats, phys, consults] = await Promise.all([
+    const [detail, , noac, ats, phys] = await Promise.all([
       repo.getPatientDetails(),
-      repo.getWarfarinPatients(),
+      wfStore.ensureLoaded(),
       repo.getNoacPatients(),
       repo.getAtsPatients(),
       repo.getPhysicians(),
-      repo.getConsultations(),
     ])
     allDetail.value    = detail
-    allWarfarin.value  = wf
     allNoac.value      = noac
     patientsList.value = ats
     physicians.value   = phys
-    seedData.value     = consults as unknown as Record<string, ConsultMsg[]>
-    // re-derive once data is in (defaults were computed against empty maps)
-    activeTab.value       = defaultTab(derivedTherapy.value)
-    consultMessages.value = [...(seedData.value[patientId.value] ?? [])]
+    // re-derive once data is in (defaults were computed against empty maps);
+    // the consult thread is served reactively by the shared store
+    activeTab.value    = defaultTab(derivedTherapy.value)
   } catch (e) {
     console.error('[AtsPatientDetail] load failed', e)
   } finally {
@@ -686,7 +732,6 @@ const currentSchedule = computed(() => {
 
 // Item 3: INR status via utility (consistent with rest of system)
 const consultInrStatus = computed(() => {
-  void consultDataVersion.value   // dependency on version → re-runs when counter increments
   if (!wfData.value?.latestInr) return 'therapeutic' as const
   return getInrStatus(
     wfData.value.latestInr.inrValue,
@@ -806,57 +851,96 @@ const chatSuggestions = computed<string[]>(() => {
 // ── Dose Drawer (opened from consultation room) ───────────────────────────────
 const consultDrawerOpen = ref(false)
 
-function onConsultSaved(payload: { newDoseMgWk: number; newAdj: DoseAdjustment; newInr?: InrRecord }) {
-  if (!wfData.value) return
+function onConsultSaved(payload: { newDoseMgWk: number; newAdj: DoseAdjustment; newInr?: InrRecord; postToConsult: boolean }) {
+  // Mutates the shared store object → wfData (and the dose-tool tab) update
+  // reactively, no manual version bump needed.
+  wfStore.applyDoseAdjustment(patientId.value, payload)
 
-  // Apply same mutations as WarfarinDoseTool.onDrawerSaved
-  if (payload.newInr) {
-    wfData.value.inrHistory.push(payload.newInr)
-    wfData.value.latestInr = payload.newInr
-    consultDataVersion.value++   // invalidate consultInrStatus + consultProtocolNote
+  // Post the dose-adjustment card to the thread (opt-in; attributed to the actor)
+  if (payload.postToConsult) {
+    const a = payload.newAdj
+    consult.postDoseAdjustment(patientId.value, {
+      oldDose: a.oldDoseMgWk, newDose: a.newDoseMgWk, pct: a.percentChange,
+      inr: a.inrAtAdjustment, schedule: a.weeklySchedule,
+    })
   }
-  wfData.value.doseAdjustments.push(payload.newAdj)
-  wfData.value.profile.currentDoseMgWk = payload.newDoseMgWk
-  wfData.value.profile.activePillsMg   = [...payload.newAdj.activePillsMg]
-  wfData.value.profile.pillStrengthMg  = payload.newAdj.activePillsMg[0]
-
-  // Auto-post dose adjustment notification card to chat
-  const adj = payload.newAdj
-  const dr  = attendingPhysician.value
-  const now = new Date()
-  consultMessages.value.push({
-    id:      `msg-dose-${Date.now()}`,
-    role:    'doctor',
-    sender:  dr?.name ?? 'แพทย์',
-    text:    '',
-    time:    now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', hour12: false }),
-    dateISO: now.toISOString().slice(0, 10),
-    msgType: 'dose-adjustment',
-    doseData: {
-      oldDose:  adj.oldDoseMgWk,
-      newDose:  adj.newDoseMgWk,
-      pct:      adj.percentChange,
-      inr:      adj.inrAtAdjustment,
-      schedule: adj.weeklySchedule,
-    },
-  })
   scrollChatBottom()
 }
+
+// ── Approval flow ─────────────────────────────────────────────────────────────
+type WfPlan = { oldDose: number; newDose: number; pct: number; inr: number; schedule: WeeklySchedule }
+// Set when the drawer is opened to counter an existing request → the new request
+// supersedes it (replyTo). Null for a fresh request.
+const counterReplyTo = ref<string | null>(null)
+
+// The single open request for this patient (drives card actions + the 1-pending rule).
+const pendingReq = computed(() => consult.pendingRequest(patientId.value))
+
+function openConsultDrawer(replyTo: string | null = null) {
+  counterReplyTo.value = replyTo
+  consultDrawerOpen.value = true
+}
+
+// Drawer "ส่งต่อปรึกษาเคส" → post the composed plan as an approval request (no commit).
+function onConsultForward(plan: WfPlan) {
+  consult.postApprovalRequest(patientId.value, plan, CURRENT_USER, {
+    replyTo: counterReplyTo.value ?? undefined,
+  })
+  counterReplyTo.value = null
+  scrollChatBottom()
+}
+
+// Accept a pending request → commit the proposed plan + record the approval.
+function acceptRequest(req: ConsultMsg) {
+  if (!req.doseData || !wfData.value) return
+  const d = req.doseData
+  const now = new Date().toISOString()
+  const newInr = d.inr !== wfData.value.latestInr.inrValue
+    ? { id: `inr${Date.now()}`, patientId: patientId.value, inrValue: d.inr, measuredAt: now, source: 'manual' as const }
+    : undefined
+  const newAdj: DoseAdjustment = {
+    id: `adj${Date.now()}`, patientId: patientId.value, adjustedAt: now,
+    adjustedBy: CURRENT_USER.name, inrAtAdjustment: d.inr, inrSource: 'manual',
+    oldDoseMgWk: d.oldDose, newDoseMgWk: d.newDose, percentChange: d.pct,
+    pillStrengthMg: wfData.value.profile.pillStrengthMg,
+    activePillsMg: [...wfData.value.profile.activePillsMg],
+    weeklySchedule: d.schedule, systemSuggested: false,
+  }
+  wfStore.applyDoseAdjustment(patientId.value, { newDoseMgWk: d.newDose, newAdj, newInr, postToConsult: false })
+  consult.postApprovalResponse(patientId.value, req.id, CURRENT_USER)
+  scrollChatBottom()
+}
+
+// "ตรวจสอบแผนการจ่ายยา" — counter: open the drawer to compose a superseding plan.
+function reviseRequest(req: ConsultMsg) {
+  openConsultDrawer(req.id)
+}
+
+function withdrawRequest(req: ConsultMsg) {
+  consult.withdrawRequest(patientId.value, req.id, CURRENT_USER)
+}
+
+// Card helpers
+const reqStatus = (req: ConsultMsg) => consult.requestStatus(patientId.value, req.id)
+const reqStatusLabel: Record<string, string> = {
+  pending: 'รอตอบรับ', approved: 'อนุมัติแล้ว', superseded: 'มีคำขอใหม่แทน', withdrawn: 'ยกเลิกแล้ว',
+}
+// The proposer's plan was computed against this old dose; flag if the live dose has moved since.
+const isReqStale = (req: ConsultMsg) =>
+  !!req.doseData && !!wfData.value && req.doseData.oldDose !== wfData.value.profile.currentDoseMgWk
+// Equal rights regardless of role; "self" is the identity (userId), not the role.
+const isPending  = (req: ConsultMsg) => reqStatus(req) === 'pending'
+const isMine     = (req: ConsultMsg) => CURRENT_USER.id === req.userId
+const canAccept  = (req: ConsultMsg) => isPending(req) && !isMine(req)   // self-approval guard
+const canWithdraw = (req: ConsultMsg) => isPending(req) && isMine(req)   // cancel your own only
 
 // ── Handle send from ConsultComposer ─────────────────────────────────────────
 function onComposerSend({ text, files }: { text: string; files: File[] }) {
   const fileNote = files.length
     ? `${text ? '\n' : ''}📎 ${files.map(f => f.name).join(', ')}`
     : ''
-  const dr = attendingPhysician.value
-  consultMessages.value.push({
-    id:      `msg-local-${Date.now()}`,
-    role:    'doctor',
-    sender:  dr ? dr.name : 'แพทย์',
-    text:    text + fileNote,
-    time:    new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', hour12: false }),
-    dateISO: new Date().toISOString().slice(0, 10),
-  })
+  // Attribute to the current role (see chat-header role switch), not a hardcoded doctor.
+  consult.postMessage(patientId.value, CURRENT_USER.role, CURRENT_USER.name, text + fileNote)
   scrollChatBottom()
 }
 
@@ -958,7 +1042,7 @@ const peakPlugin = {
     const barX = (chart.getDatasetMeta(0).data[idx] as any).x
 
     ctx.save()
-    ctx.font = '700 8.5px Inter, sans-serif'
+    ctx.font = '700 8.5px Sarabun, sans-serif'
     const label = 'PEAK'
     const tw    = ctx.measureText(label).width
     const padX  = 5;  const boxH = 13
@@ -1358,6 +1442,14 @@ const chartOptions = {
   font-weight: 700;
   color: var(--bma-text-primary);
 }
+/* Identity picker — prototype-only "ทำในนาม" (act as) */
+.chat-user-switch { display: flex; align-items: center; gap: 6px; }
+.chat-user-switch-lbl { font-family: var(--bma-font-thai); font-size: 11px; color: var(--bma-text-muted); }
+.chat-user-select {
+  font-family: var(--bma-font-thai); font-size: 11px; font-weight: 600;
+  padding: 3px 8px; border: 1px solid var(--bma-border-card); border-radius: var(--bma-radius-md);
+  background: var(--bma-surface); color: var(--bma-text-primary); cursor: pointer;
+}
 /* legend removed — role context now lives in right panel participant chips */
 
 .chat-messages {
@@ -1628,7 +1720,7 @@ const chartOptions = {
   border-radius: var(--bma-radius-full);
   background: var(--bma-surface-subtle);
   border: 1px solid var(--bma-border-subtle);
-  font-family: var(--bma-font-thai);   /* Thai month names → Sarabun, not Inter */
+  font-family: var(--bma-font-thai);   /* Thai month names → Sarabun */
   font-size: 11px;
   color: var(--bma-text-muted);
 }
@@ -1714,7 +1806,7 @@ const chartOptions = {
   border-left: 1px solid var(--bma-border-subtle);
 }
 .consult-stat:last-child { padding-right: 0; }
-/* Inter for clinical abbreviations (INR, TTR, CrCl, SCr) per DESIGN.md: clinical labels = --bma-font-data.
+/* Clinical abbreviations (INR, TTR, CrCl, SCr) use --bma-font-data per DESIGN.md.
    WCAG: --bma-text-secondary (#454545) = 9.73:1 on white ✓ (text-muted failed at 3.37:1) */
 .consult-stat-label { font-family: var(--bma-font-data); font-size: 10px; font-weight: 600; color: var(--bma-text-secondary); letter-spacing: .03em; }
 .consult-stat-val   { font-family: var(--bma-font-data); font-size: 20px; font-weight: 700; color: var(--bma-text-primary); line-height: 1; }
@@ -1821,6 +1913,45 @@ const chartOptions = {
   padding: 10px 14px;
   min-width: 200px;
   max-width: min(420px, 90%);
+}
+/* ── Approval request card ─────────────────────────────────────── */
+/* Pending = amber (action needed); approved keeps green; terminal = muted */
+.req-card--pending    { background: var(--bma-urgency-bg-soft, #FFF8E6); border-color: var(--bma-urgency, #FB8C00); }
+.req-card--superseded,
+.req-card--withdrawn  { background: var(--bma-surface-subtle); border-color: var(--bma-border-card); opacity: .8; }
+.req-status {
+  font-family: var(--bma-font-data); font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: var(--bma-radius-full); border: 1px solid currentColor;
+}
+.req-status--pending    { color: var(--bma-urgency, #C76A00); }
+.req-status--approved   { color: var(--bma-green-600); }
+.req-status--superseded,
+.req-status--withdrawn  { color: var(--bma-text-muted); }
+.req-reason {
+  margin: 6px 0 0; font-family: var(--bma-font-thai); font-size: 12px;
+  color: var(--bma-text-secondary); line-height: 1.4;
+}
+.req-stale {
+  display: flex; align-items: center; gap: 4px; margin-top: 6px;
+  font-family: var(--bma-font-thai); font-size: 11px; font-weight: 600; color: var(--bma-emergency);
+}
+.req-actions { display: flex; gap: 8px; margin-top: 10px; align-items: center; }
+.req-btn {
+  font-family: var(--bma-font-thai); font-size: 12px; font-weight: 700;
+  padding: 6px 12px; border-radius: var(--bma-radius-md); cursor: pointer;
+  border: 1px solid transparent; transition: all var(--bma-transition-fast);
+}
+.req-btn--accept   { background: var(--bma-green-500); color: #fff; flex: 1; }
+.req-btn--accept:hover { background: var(--bma-green-600); }
+.req-btn--revise   { background: var(--bma-surface); color: var(--bma-green-600); border-color: var(--bma-green-500); flex: 1.4; }
+.req-btn--revise:hover { background: var(--bma-green-50); }
+.req-btn--withdraw { background: var(--bma-surface); color: var(--bma-text-secondary); border-color: var(--bma-border-card); }
+.req-btn--withdraw:hover { border-color: var(--bma-emergency); color: var(--bma-emergency); }
+.req-self-note { font-family: var(--bma-font-thai); font-size: 10px; color: var(--bma-text-muted); font-style: italic; align-self: center; }
+.req-note {
+  display: flex; align-items: center; gap: 5px; align-self: center;
+  font-family: var(--bma-font-thai); font-size: 11px; color: var(--bma-text-muted);
+  padding: 4px 0;
 }
 .dose-adj-header {
   display: flex;

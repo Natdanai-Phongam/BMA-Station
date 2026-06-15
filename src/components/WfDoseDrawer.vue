@@ -466,17 +466,27 @@
                   <PhWarning :size="11" color="var(--bma-emergency)" />{{ saveError }}
                 </div>
               </Transition>
-              <v-btn
-                color="confirm"
-                variant="flat"
-                block
-                :disabled="saveDisabled"
-                class="dwr-btn-save"
-                @click="saveAdjustment"
-              >
-                <PhFloppyDisk :size="16" />
-                {{ saveLabel }}
-              </v-btn>
+              <div class="dwr-btn-row">
+                <v-btn
+                  color="primary"
+                  variant="outlined"
+                  class="dwr-btn-consult"
+                  @click="forwardToConsult"
+                >
+                  <PhChatCircle :size="16" />
+                  ส่งต่อปรึกษาเคส
+                </v-btn>
+                <v-btn
+                  color="confirm"
+                  variant="flat"
+                  :disabled="saveDisabled"
+                  class="dwr-btn-save"
+                  @click="saveAdjustment"
+                >
+                  <PhFloppyDisk :size="16" />
+                  {{ saveLabel }}
+                </v-btn>
+              </div>
             </div>
           </div>
         </div>
@@ -501,7 +511,7 @@
 import { ref, computed, watch, nextTick } from 'vue'
 import {
   PhX, PhWarning, PhCheckCircle, PhCheck,
-  PhFloppyDisk, PhInfo, PhPill, PhPencilSimple, PhCalendarBlank,
+  PhFloppyDisk, PhInfo, PhPill, PhPencilSimple, PhCalendarBlank, PhChatCircle,
 } from '@phosphor-icons/vue'
 import type {
   WarfarinPageData, DoseSuggestion, WeeklySchedule,
@@ -521,16 +531,23 @@ const props = defineProps<{
   isOpen: boolean
   patientId: string
   hn?: string
+  /** Default the "ส่งเข้าห้องปรึกษา" toggle (true when opened from the consult room). */
+  defaultPostToConsult?: boolean
 }>()
 
 const emit = defineEmits<{
   close: []
-  saved: [payload: { newDoseMgWk: number; newAdj: DoseAdjustment; newInr?: InrRecord }]
+  saved: [payload: { newDoseMgWk: number; newAdj: DoseAdjustment; newInr?: InrRecord; postToConsult: boolean }]
+  forwardConsult: [plan: { oldDose: number; newDose: number; pct: number; inr: number; schedule: WeeklySchedule }]
 }>()
+
+// "Send this adjustment into the consultation thread" — opt-in (default off in the
+// dose tool, on in the consult room).
+const postToConsult = ref(false)
 
 // Reset state when drawer opens
 watch(() => props.isOpen, (open) => {
-  if (open) resetForm()
+  if (open) { resetForm(); postToConsult.value = props.defaultPostToConsult ?? false }
 })
 
 function resetForm() {
@@ -811,15 +828,8 @@ const adminMethod = computed(() => {
   return unique.length === 1 ? `${unique[0]} เม็ด ทุกวัน` : unique.map(t => `${t} เม็ด`).join(' สลับ ')
 })
 
-const saveLabel = computed(() => {
-  if (selectedOption.value?.holdNote) return 'บันทึก — คงขนาดยาเดิม 1 สัปดาห์'
-  if (suggestion.value.direction === 'hold') {
-    return suggestion.value.trigger === 'therapeutic'
-      ? 'บันทึกการเยี่ยมชม — คงขนาดยาเดิม'
-      : 'บันทึก HOLD — ไม่ปรับยา'
-  }
-  return 'บันทึกและอัปเดตตาราง'
-})
+// Interim label (pending the larger dispensing-flow redesign)
+const saveLabel = computed(() => 'ยอมรับตามคำแนะนำ')
 
 // ── Toast ─────────────────────────────────────────────────────
 const toast = ref({ show: false, message: '', type: 'success' as 'success' | 'error' })
@@ -833,6 +843,32 @@ function showToast(message: string, type: 'success' | 'error' = 'success') {
 
 // ── Save ──────────────────────────────────────────────────────
 let closeTimer: ReturnType<typeof setTimeout> | null = null
+
+// "ส่งต่อปรึกษาเคส" — send the composed plan into the chat as an approval request
+// (no commit). Same validation as save so the proposed plan is well-formed.
+function forwardToConsult() {
+  if (inrInput.value !== confirmedInr.value) {
+    showToast('กรุณายืนยัน INR ก่อนส่งคำขอ', 'error')
+    return
+  }
+  if (activePillsLocal.value.length === 0) {
+    saveError.value = 'กรุณาเลือกขนาดเม็ดยาก่อนส่งคำขอ'
+    return
+  }
+  if (suggestion.value.direction !== 'hold' && !selectedOption.value) {
+    saveError.value = 'กรุณาเลือกตัวเลือก หรือกำหนดขนาดยาใหม่ก่อนส่งคำขอ'
+    return
+  }
+  saveError.value = ''
+  emit('forwardConsult', {
+    oldDose:  props.data.profile.currentDoseMgWk,
+    newDose:  form.value.newDoseMgWk,
+    pct:      parseFloat(form.value.percentChange.toFixed(1)),
+    inr:      confirmedInr.value,
+    schedule: activeSchedule.value,
+  })
+  emit('close')
+}
 
 function saveAdjustment() {
   if (inrInput.value !== confirmedInr.value) {
@@ -879,8 +915,8 @@ function saveAdjustment() {
     overrideReason:  form.value.overrideReason || undefined,
   }
 
-  showToast(`บันทึกเรียบร้อย — ขนาดยาใหม่ ${newDose.toFixed(1)} mg/wk`)
-  emit('saved', { newDoseMgWk: newDose, newAdj, newInr })
+  showToast(`บันทึกการตัดสินใจแล้ว · ขนาดยา ${newDose.toFixed(1)} mg/wk — ดำเนินการสั่งจ่ายในระบบ HIS`)
+  emit('saved', { newDoseMgWk: newDose, newAdj, newInr, postToConsult: postToConsult.value })
 
   if (closeTimer) clearTimeout(closeTimer)
   closeTimer = setTimeout(() => emit('close'), 1400)
@@ -1441,13 +1477,20 @@ function formatDate(iso: string) {
   font-size: 11px; color: var(--bma-emergency); font-weight: 600; white-space: nowrap;
 }
 
-/* dwr-btn-save — migrated to v-btn color="confirm". Only override font (Vuetify defaults system font) */
-.dwr-btn-save {
+/* Two-button row: secondary (outlined) + primary accept (filled, wider). */
+.dwr-btn-row { display: flex; gap: 8px; align-items: stretch; }
+.dwr-btn-consult { flex: 1; }        /* secondary — narrower */
+.dwr-btn-save    { flex: 1.8; }      /* primary accept — wider */
+
+/* dwr-btn-save / dwr-btn-consult — v-btn. Only override font (Vuetify defaults system font) */
+.dwr-btn-save,
+.dwr-btn-consult {
   font-family: var(--bma-font-thai) !important;
   font-size: 14px !important;
   font-weight: 700 !important;
 }
-.dwr-btn-save :deep(.v-btn__content) { gap: 8px; }
+.dwr-btn-save :deep(.v-btn__content),
+.dwr-btn-consult :deep(.v-btn__content) { gap: 8px; }
 
 /* ── Transitions ─────────────────────────────────────────────── */
 .dwr-fade-enter-active, .dwr-fade-leave-active { transition: opacity .18s ease; }

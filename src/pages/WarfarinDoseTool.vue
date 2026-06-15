@@ -1,15 +1,6 @@
 <template>
   <div class="content-wrap">
 
-    <!-- ── Toast ──────────────────────────────────────────────── -->
-    <Transition name="toast">
-      <div v-if="toast.show" class="toast" :class="`toast--${toast.type}`">
-        <PhCheckCircle v-if="toast.type === 'success'" :size="16" />
-        <PhWarning v-else :size="16" />
-        {{ toast.message }}
-      </div>
-    </Transition>
-
     <!-- ── Loading state ──────────────────────────────────────── -->
     <div v-if="loading" class="wf-loading">กำลังโหลดข้อมูล…</div>
 
@@ -251,7 +242,6 @@
               <th>การเปลี่ยนแปลง</th>
               <th>แนวทางการจ่ายยา</th>
               <th>หมายเหตุ</th>
-              <th>จัดการ</th>
             </tr>
           </thead>
           <tbody>
@@ -259,7 +249,6 @@
               <tr
                 class="log-row"
                 :class="[
-                  row.adjustment && editingAdjId === row.adjustment.id ? 'log-row--editing' : '',
                   !row.adjustment ? 'log-row--no-action' : '',
                   { 'log-row--out': inrOutOfRange(row.inr.inrValue) },
                 ]"
@@ -304,42 +293,10 @@
 
                 <!-- Remarks -->
                 <td class="td-remarks">{{ row.adjustment?.remarks || '—' }}</td>
-
-                <!-- Edit -->
-                <td>
-                  <button
-                    v-if="row.adjustment"
-                    class="edit-btn"
-                    :class="editingAdjId === row.adjustment.id ? 'edit-btn--active' : ''"
-                    @click="editingAdjId === row.adjustment.id ? cancelEdit() : startEdit(row.adjustment)"
-                  >
-                    <PhX v-if="editingAdjId === row.adjustment.id" :size="14" color="var(--bma-emergency)" />
-                    <PhPencilSimple v-else :size="14" color="var(--bma-text-tertiary)" />
-                  </button>
-                  <span v-else class="col-dash">—</span>
-                </td>
-              </tr>
-
-              <!-- Inline edit row -->
-              <tr v-if="row.adjustment && editingAdjId === row.adjustment.id" class="log-edit-row">
-                <td colspan="7">
-                  <div class="log-edit-fields">
-                    <div class="log-edit-group">
-                      <label class="log-edit-label">หมายเหตุ</label>
-                      <input v-model="editFields.remarks" class="log-edit-input" placeholder="ระบุหมายเหตุ..." />
-                    </div>
-                    <div class="log-edit-group">
-                      <label class="log-edit-label">Override Reason</label>
-                      <input v-model="editFields.overrideReason" class="log-edit-input" placeholder="ระบุเหตุผล (ถ้ามี)..." />
-                    </div>
-                    <button class="btn-log-save" @click="saveEdit(row.adjustment)">บันทึก</button>
-                    <button class="btn-log-cancel" @click="cancelEdit">ยกเลิก</button>
-                  </div>
-                </td>
               </tr>
             </template>
             <tr v-if="unifiedLog.length === 0">
-              <td colspan="7" class="td-empty">ยังไม่มีประวัติการวัด INR และการปรับยา</td>
+              <td colspan="6" class="td-empty">ยังไม่มีประวัติการวัด INR และการปรับยา</td>
             </tr>
           </tbody>
         </table>
@@ -365,6 +322,7 @@
       :hn="patientHn"
       @close="drawerOpen = false"
       @saved="onDrawerSaved"
+      @forward-consult="onForwardConsult"
     />
     </template>
 
@@ -372,13 +330,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, shallowRef, computed, reactive, onMounted } from 'vue'
+import { ref, shallowRef, computed, onMounted } from 'vue'
 import {
   PhCalculator, PhWarning, PhCheckCircle,
   PhCalendar, PhPrinter,
-  PhPencilSimple, PhCaretDown, PhX,
+  PhPencilSimple, PhCaretDown,
 } from '@phosphor-icons/vue'
 import WfDoseDrawer from '@/components/WfDoseDrawer.vue'
+import { useConsultStore } from '@/composables/useConsultStore'
+import { useWarfarinStore } from '@/composables/useWarfarinStore'
 import {
   Chart as ChartJS, LineElement, PointElement,
   CategoryScale, LinearScale, Tooltip, Filler,
@@ -398,7 +358,7 @@ ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip,
 
 // ── Section D: Concurrent meds helpers ───────────────────────
 const majorInteractions = computed(() =>
-  data.profile.concurrentMeds?.filter(m => m.severity === 'major') ?? []
+  data.value.profile.concurrentMeds?.filter(m => m.severity === 'major') ?? []
 )
 
 const majorInteractionEffect = computed(() => {
@@ -410,13 +370,25 @@ const majorInteractionEffect = computed(() => {
 
 
 const props = defineProps<{ patientId: string; embedded?: boolean }>()
+const consult = useConsultStore()
+const store   = useWarfarinStore()
 
 const loading = ref(true)
 const atsPatients = shallowRef<AtsPatientsData>({ lastSyncedAt: '', warfarin: [], noacs: [] })
-// Reactive patient record — populated after the async load (see onMounted).
-// Template + drawer are guarded behind `loading`, so they never read the empty
-// shell before data arrives.
-const data = reactive({} as WarfarinPageData)
+
+// Valid-but-empty shell so `data.value` is never null → read sites stay simple
+// (`data.value.x`, no per-computed guards). Never displayed: the template + drawer
+// are gated behind `loading`, which only clears after the store has the record.
+const EMPTY_WF: WarfarinPageData = {
+  profile:   { patientId: '', pillStrengthMg: 5, activePillsMg: [5], currentDoseMgWk: 0, therapyStartDate: '' },
+  latestInr: { id: '', patientId: '', inrValue: 0, measuredAt: '', source: 'manual' },
+  inrHistory: [],
+  doseAdjustments: [],
+  ttr: { value: 0, status: 'insufficient-data', fromDate: '', toDate: '', daysInRange: 0, daysCalculable: 0 },
+}
+
+// Single source of truth — the shared store object (see useWarfarinStore).
+const data = computed<WarfarinPageData>(() => store.get(props.patientId) ?? EMPTY_WF)
 
 // Resolve the real Hospital Number (HN) from the patient summary list.
 // Falls back to undefined so the drawer can gracefully degrade to showing the ID.
@@ -437,13 +409,12 @@ const visitSavedDose = ref(0)   // seeded from data after async load (see onMoun
 
 onMounted(async () => {
   try {
-    const [allPatients, ats] = await Promise.all([
-      repo.getWarfarinPatients(),
+    const [, ats] = await Promise.all([
+      store.ensureLoaded(),
       repo.getAtsPatients(),
     ])
     atsPatients.value = ats
-    Object.assign(data, allPatients[props.patientId] ?? allPatients['w009'])
-    visitSavedDose.value = data.profile?.currentDoseMgWk ?? 0
+    visitSavedDose.value = data.value.profile.currentDoseMgWk
   } catch (e) {
     console.error('[WarfarinDoseTool] load failed', e)
   } finally {
@@ -451,25 +422,32 @@ onMounted(async () => {
   }
 })
 
-function onDrawerSaved(payload: { newDoseMgWk: number; newAdj: DoseAdjustment; newInr?: InrRecord }) {
-  if (payload.newInr) {
-    data.inrHistory.push(payload.newInr)
-    data.latestInr = payload.newInr
-  }
-  data.doseAdjustments.push(payload.newAdj)
-  data.profile.currentDoseMgWk = payload.newDoseMgWk
-  data.profile.activePillsMg   = [...payload.newAdj.activePillsMg]
-  data.profile.pillStrengthMg  = payload.newAdj.activePillsMg[0]  // primary = largest
+// "ส่งต่อปรึกษาเคส" from the dose tool → post the plan as an approval request.
+function onForwardConsult(plan: { oldDose: number; newDose: number; pct: number; inr: number; schedule: WeeklySchedule }) {
+  consult.postApprovalRequest(props.patientId, plan)
+}
+
+function onDrawerSaved(payload: { newDoseMgWk: number; newAdj: DoseAdjustment; newInr?: InrRecord; postToConsult: boolean }) {
+  store.applyDoseAdjustment(props.patientId, payload)
   visitSavedDose.value = payload.newDoseMgWk
   visitSaved.value     = true
+
+  // Opt-in: surface this adjustment in the patient's consultation thread
+  if (payload.postToConsult) {
+    const a = payload.newAdj
+    consult.postDoseAdjustment(props.patientId, {
+      oldDose: a.oldDoseMgWk, newDose: a.newDoseMgWk, pct: a.percentChange,
+      inr: a.inrAtAdjustment, schedule: a.weeklySchedule,
+    })
+  }
 }
 
 // ── INR status ────────────────────────────────────────────────
 const latestInrStatus = computed<InrStatus>(() =>
-  getInrStatus(data.latestInr.inrValue, data.profile.targetRange ?? DEFAULT_TARGET_RANGE)
+  getInrStatus(data.value.latestInr.inrValue, data.value.profile.targetRange ?? DEFAULT_TARGET_RANGE)
 )
 const heroSuggestion = computed(() =>
-  computeDosingSuggestion(data.latestInr.inrValue, data.profile)
+  computeDosingSuggestion(data.value.latestInr.inrValue, data.value.profile)
 )
 // CTA label adapts to INR state — signals to the doctor what they're about to do
 const heroCta = computed(() => {
@@ -499,33 +477,23 @@ const suggestionIconColor = computed(() => ({
 
 // ── Pill / schedule helpers ───────────────────────────────────
 const currentSchedule = computed<WeeklySchedule>(() =>
-  buildWeeklySchedule(data.profile.currentDoseMgWk, data.profile.activePillsMg)
+  buildWeeklySchedule(data.value.profile.currentDoseMgWk, data.value.profile.activePillsMg)
 )
 
-
-// ── Toast ─────────────────────────────────────────────────────
-const toast = ref({ show: false, message: '', type: 'success' as 'success' | 'error' })
-let toastTimer: ReturnType<typeof setTimeout> | null = null
-
-function showToast(message: string, type: 'success' | 'error' = 'success') {
-  if (toastTimer) clearTimeout(toastTimer)
-  toast.value = { show: true, message, type }
-  toastTimer = setTimeout(() => { toast.value.show = false }, 3000)
-}
 
 // ── INR range micro-track ────────────────────────────────────
 const INR_TRACK_MIN = 1.0
 const INR_TRACK_MAX = 5.0
 
 const targetZoneStyle = computed(() => {
-  const { min, max } = data.profile.targetRange ?? DEFAULT_TARGET_RANGE
+  const { min, max } = data.value.profile.targetRange ?? DEFAULT_TARGET_RANGE
   const left  = ((min - INR_TRACK_MIN) / (INR_TRACK_MAX - INR_TRACK_MIN)) * 100
   const width = ((max - min) / (INR_TRACK_MAX - INR_TRACK_MIN)) * 100
   return { left: `${left.toFixed(1)}%`, width: `${width.toFixed(1)}%` }
 })
 
 const markerLeft = computed(() => {
-  const inr = data.latestInr.inrValue
+  const inr = data.value.latestInr.inrValue
   const pct = Math.min(Math.max(
     (inr - INR_TRACK_MIN) / (INR_TRACK_MAX - INR_TRACK_MIN), 0.04
   ), 0.96)
@@ -537,13 +505,13 @@ const ttrColorClass = computed(() => ({
   'goal-met':           'green',
   'below-goal':         'red',
   'insufficient-data':  'gray',
-}[data.ttr.status]))
+}[data.value.ttr.status]))
 
 const ttrBadgeLabel = computed(() => ({
   'goal-met':           'GOAL MET',
   'below-goal':         'BELOW GOAL',
   'insufficient-data':  'ข้อมูลไม่เพียงพอ',
-}[data.ttr.status]))
+}[data.value.ttr.status]))
 
 // ── Unified INR visit log (INR history + adjustment action per visit) ──────
 const LOG_PREVIEW_COUNT = 5
@@ -557,10 +525,10 @@ type VisitRow = {
 // Join inrHistory + doseAdjustments by visit date (same-day = same clinical visit)
 const unifiedLog = computed<VisitRow[]>(() => {
   const adjByDate = new Map<string, DoseAdjustment>()
-  for (const adj of data.doseAdjustments)
+  for (const adj of data.value.doseAdjustments)
     adjByDate.set(adj.adjustedAt.slice(0, 10), adj)
 
-  return [...data.inrHistory]
+  return [...data.value.inrHistory]
     .sort((a, b) => b.measuredAt.localeCompare(a.measuredAt))
     .map(inr => ({
       inr,
@@ -572,28 +540,13 @@ const visibleLog = computed(() =>
   showAllLog.value ? unifiedLog.value : unifiedLog.value.slice(0, LOG_PREVIEW_COUNT)
 )
 
-
-// ── Inline log editing ────────────────────────────────────────
-const editingAdjId = ref<string | null>(null)
-const editFields   = reactive({ remarks: '', overrideReason: '' })
-
-function startEdit(adj: DoseAdjustment) {
-  editingAdjId.value        = adj.id
-  editFields.remarks        = adj.remarks        ?? ''
-  editFields.overrideReason = adj.overrideReason ?? ''
-}
-function cancelEdit() { editingAdjId.value = null }
-function saveEdit(adj: DoseAdjustment) {
-  adj.remarks        = editFields.remarks        || undefined
-  adj.overrideReason = editFields.overrideReason || undefined
-  editingAdjId.value = null
-  showToast('อัปเดตบันทึกเรียบร้อย')
-}
+// Visit log is read-only — a decision log is append-only; past entries are
+// superseded by new visits, never edited in place (honest "log, not record").
 
 // ── INR chart with target-range band ─────────────────────────
 const inrChartData = computed(() => {
-  const { min: tMin, max: tMax } = data.profile.targetRange ?? DEFAULT_TARGET_RANGE
-  const records = [...data.inrHistory].sort(
+  const { min: tMin, max: tMax } = data.value.profile.targetRange ?? DEFAULT_TARGET_RANGE
+  const records = [...data.value.inrHistory].sort(
     (a, b) => new Date(a.measuredAt).getTime() - new Date(b.measuredAt).getTime()
   )
   const labels = records.map(r => formatDate(r.measuredAt.slice(0, 10)))
@@ -646,7 +599,7 @@ const inrChartData = computed(() => {
 })
 
 const inrChartOptions = computed(() => {
-  const maxInr = data.inrHistory.reduce((m, r) => Math.max(m, r.inrValue), 0)
+  const maxInr = data.value.inrHistory.reduce((m, r) => Math.max(m, r.inrValue), 0)
   const yMax   = Math.ceil(Math.max(5, maxInr) + 0.5)
   return {
     responsive:          true,
@@ -695,14 +648,14 @@ function formatDateTime(iso: string) {
   }
 }
 function inrChipClass(inr: number) {
-  const tr = data.profile.targetRange ?? DEFAULT_TARGET_RANGE
+  const tr = data.value.profile.targetRange ?? DEFAULT_TARGET_RANGE
   if (inr < tr.min) return 'inr-chip--low'
   if (inr > tr.max) return 'inr-chip--high'
   return 'inr-chip--ok'
 }
 /** Dose given while INR out of target range → per-visit med-dispensing feedback */
 function inrOutOfRange(inr: number): boolean {
-  const tr = data.profile.targetRange ?? DEFAULT_TARGET_RANGE
+  const tr = data.value.profile.targetRange ?? DEFAULT_TARGET_RANGE
   return inr < tr.min || inr > tr.max
 }
 function pctBadgeClass(pct: number) {
@@ -719,19 +672,6 @@ function pctBadgeClass(pct: number) {
   font-size: var(--bma-text-sm);
   color: var(--bma-text-tertiary);
 }
-
-/* ── Toast ──────────────────────────────────────────────────── */
-.toast {
-  position: fixed; top: 20px; right: 24px; z-index: 9999;
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 16px; border-radius: var(--bma-radius-lg);
-  font-size: 13px; font-weight: 600; box-shadow: var(--bma-shadow-md);
-}
-.toast--success { background: var(--bma-green-800); color: var(--bma-surface); }
-.toast--error   { background: var(--bma-emergency);  color: var(--bma-surface); }
-
-.toast-enter-active, .toast-leave-active { transition: all var(--bma-transition-default); }
-.toast-enter-from, .toast-leave-to { opacity: 0; transform: translateY(-8px); }
 
 /* ── Main wrap ───────────────────────────────────────────────── */
 .main-wrap { padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
@@ -1112,14 +1052,6 @@ function pctBadgeClass(pct: number) {
 .pct-badge--down    { background: var(--inr-very-high-bg); color: var(--bma-emergency); }
 .pct-badge--neutral { background: var(--bma-surface-subtle); color: var(--bma-text-muted); }
 
-.edit-btn {
-  width: 28px; height: 28px; border-radius: var(--bma-radius-sm);
-  border: 1.5px solid var(--bma-border-card); background: var(--bma-surface);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: all var(--bma-transition-fast);
-}
-.edit-btn:hover { border-color: var(--bma-green-500); background: var(--bma-green-50); }
-
 .log-show-more { border-top: 1px solid var(--bma-border-subtle); padding: 10px; text-align: center; }
 .btn-show-more {
   display: inline-flex; align-items: center; gap: 5px;
@@ -1159,40 +1091,11 @@ function pctBadgeClass(pct: number) {
 
 
 /* ── P0-C: Log row states ────────────────────────────────────── */
-.log-row--editing  { background: var(--bma-surface-light); }
 .log-row--no-action { opacity: 0.55; }
 /* Dose given while INR out of target range — per-visit dispensing feedback */
 .log-row--out, .log-row--out:hover { background: var(--bma-urgency-bg-soft); }
 .log-maintain-text  { font-family: var(--bma-font-thai); font-size: 12px; color: var(--bma-text-muted); }
 .log-no-action-text { font-family: var(--bma-font-thai); font-size: 11px; color: var(--bma-text-disabled); font-style: italic; }
-.log-edit-row > td {
-  padding: 10px 18px 14px; background: var(--bma-surface-light);
-  border-bottom: 1px solid var(--bma-border-subtle);
-}
-.log-edit-fields { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
-.log-edit-group  { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 160px; }
-.log-edit-label  { font-size: 11px; color: var(--bma-text-muted); font-weight: 600; }
-.log-edit-input  {
-  height: 34px; border: 1.5px solid var(--bma-border); border-radius: var(--bma-radius-sm);
-  padding: 0 10px; font-family: var(--bma-font-thai); font-size: 13px; color: var(--bma-text-primary);
-  outline: none; transition: border-color var(--bma-transition-fast);
-}
-.log-edit-input:focus { border-color: var(--bma-green-500); }
-.btn-log-save {
-  height: 34px; padding: 0 14px; border: none; border-radius: var(--bma-radius-sm);
-  background: var(--bma-green-500); color: var(--bma-surface);
-  font-family: var(--bma-font-thai); font-size: 13px; font-weight: 700;
-  cursor: pointer; white-space: nowrap; transition: background var(--bma-transition-fast);
-}
-.btn-log-save:hover  { background: var(--bma-green-600); }
-.btn-log-cancel {
-  height: 34px; padding: 0 12px;
-  border: 1.5px solid var(--bma-border); border-radius: var(--bma-radius-sm); background: var(--bma-surface); color: var(--bma-text-tertiary);
-  font-family: var(--bma-font-thai); font-size: 13px; font-weight: 600;
-  cursor: pointer; white-space: nowrap; transition: background var(--bma-transition-fast);
-}
-.btn-log-cancel:hover { background: var(--bma-surface-subtle); }
-.edit-btn--active { border-color: var(--bma-emergency-ring) !important; background: var(--bma-emergency-bg-soft) !important; }
 
 /* ── Hold state directives ───────────────────────────────────── */
 .inr-hold-steps {
@@ -1257,7 +1160,7 @@ function pctBadgeClass(pct: number) {
 }
 .interact-tip-inner { font-size: 0; /* collapse whitespace */ }
 .interact-tip-header {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Sarabun', sans-serif;
   font-size: 10px; font-weight: 700;
   color: var(--bma-green-500);
   text-transform: uppercase; letter-spacing: .08em;
@@ -1273,7 +1176,7 @@ function pctBadgeClass(pct: number) {
   display: flex; align-items: center; gap: 7px;
 }
 .interact-tip-dir {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Sarabun', sans-serif;
   font-size: 10px; font-weight: 700;
   padding: 2px 6px; border-radius: 4px;
   flex-shrink: 0; white-space: nowrap;
@@ -1285,7 +1188,7 @@ function pctBadgeClass(pct: number) {
   background: var(--bma-complication-thrombosis-bg); color: var(--bma-complication-thrombosis-color); border: 1px solid var(--bma-complication-thrombosis-bg);
 }
 .interact-tip-name {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Sarabun', sans-serif;
   font-size: 12px; font-weight: 700;
   color: var(--bma-text-primary);
 }
