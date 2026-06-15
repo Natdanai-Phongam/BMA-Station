@@ -344,18 +344,28 @@
             placeholder="บันทึกเพิ่มเติม..."
             rows="3"
           />
-          <v-btn
-            color="confirm"
-            variant="flat"
-            block
-            :loading="isSaving"
-            :disabled="!canSave"
-            class="ndd-btn-save"
-            @click="save"
-          >
-            <PhCheckCircle :size="16" />
-            {{ isWithhold ? 'บันทึกการงดจ่ายยา' : 'บันทึกการจ่ายยา' }}
-          </v-btn>
+          <div class="ndd-btn-row">
+            <v-btn
+              color="primary"
+              variant="outlined"
+              class="ndd-btn-consult"
+              @click="forwardToConsult"
+            >
+              <PhChatCircle :size="16" />
+              ส่งต่อปรึกษาเคส
+            </v-btn>
+            <v-btn
+              color="confirm"
+              variant="flat"
+              :loading="isSaving"
+              :disabled="!canSave"
+              class="ndd-btn-save"
+              @click="save"
+            >
+              <PhCheckCircle :size="16" />
+              ยอมรับตามคำแนะนำ
+            </v-btn>
+          </div>
         </section>
 
       </div><!-- /ndd-body -->
@@ -368,7 +378,7 @@
 import { ref, computed, watch, nextTick } from 'vue'
 import {
   PhX, PhCheckCircle, PhWarning, PhProhibit,
-  PhStar, PhInfo, PhArrowsClockwise, PhCheck,
+  PhStar, PhInfo, PhArrowsClockwise, PhCheck, PhChatCircle,
 } from '@phosphor-icons/vue'
 import type { PatientDetail } from '@/data/types/patient-detail'
 import type { NoacOverrideCode, RecommendationLevel, DrugResult } from '@/data/types/noac'
@@ -391,6 +401,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   close: []
   saved: [record: NoacDispensingRecord]
+  forwardConsult: []
 }>()
 
 // ── Constants ─────────────────────────────────────────────────────────────────
@@ -588,6 +599,12 @@ const canSave = computed(() => {
 // ── Save ──────────────────────────────────────────────────────────────────────
 // Unidirectional, mirrors WfDoseDrawer → WarfarinDoseTool: the drawer does NOT mutate
 // props. It emits the record; NoacAlgorithm.onDispensingRecordSaved applies it.
+// "ส่งต่อปรึกษาเคส" — secondary action. Behaviour TBD; emits an event the parent
+// can wire later (forward this case to the consultation room).
+function forwardToConsult() {
+  emit('forwardConsult')
+}
+
 async function save() {
   if (!canSave.value) return
   isSaving.value = true
@@ -652,7 +669,7 @@ async function save() {
   }
 
   isSaving.value = false
-  toast.value = { show: true, type: 'success', message: isWithhold.value ? 'บันทึกการงดจ่ายยาเรียบร้อย' : 'บันทึกการจ่ายยาเรียบร้อย' }
+  toast.value = { show: true, type: 'success', message: isWithhold.value ? 'บันทึกการตัดสินใจงดจ่ายยาแล้ว' : 'บันทึกการตัดสินใจแล้ว — ดำเนินการสั่งจ่ายในระบบ HIS' }
   setTimeout(() => { toast.value.show = false }, 1400)
   setTimeout(() => emit('saved', record), 1400)
   setTimeout(() => emit('close'), 1500)
@@ -864,7 +881,7 @@ async function save() {
   color: var(--bma-text-secondary);
   display: block; margin-bottom: 4px;
 }
-/* Inputs — numbers = Inter per DESIGN.md ("Numbers are never set in Sarabun") */
+/* Inputs — numbers use --bma-font-data per DESIGN.md */
 .ndd-lab-input {
   height: 36px;
   border: 1.5px solid var(--bma-border);
@@ -1134,14 +1151,21 @@ async function save() {
 }
 
 /* ── Footer — matches WfDoseDrawer step-3 save area ─────────── */
-/* Save button — v-btn color="confirm" handles all states via Vuetify theme.
+/* Two-button row: secondary (outlined) + primary accept (filled, wider). */
+.ndd-btn-row { display: flex; gap: 8px; align-items: stretch; }
+.ndd-btn-consult { flex: 1; }        /* secondary — narrower */
+.ndd-btn-save    { flex: 1.8; }      /* primary accept — wider */
+
+/* Save / consult buttons — v-btn handles states via Vuetify theme.
    Only override font to ensure Sarabun (Vuetify defaults to system font for label) */
-.ndd-btn-save {
+.ndd-btn-save,
+.ndd-btn-consult {
   font-family: var(--bma-font-thai) !important;
   font-size: 14px !important;
   font-weight: 700 !important;
 }
-.ndd-btn-save :deep(.v-btn__content) { gap: 8px; }
+.ndd-btn-save :deep(.v-btn__content),
+.ndd-btn-consult :deep(.v-btn__content) { gap: 8px; }
 
 /* ── Animations — exact WfDoseDrawer timing ──────────────────── */
 .ndd-overlay-enter-active, .ndd-overlay-leave-active { transition: opacity .25s ease; }

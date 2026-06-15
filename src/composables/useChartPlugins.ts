@@ -13,7 +13,7 @@ export function makeCenterPlugin(total: number) {
       ctx.save()
       ctx.textAlign    = 'center'
       ctx.textBaseline = 'middle'
-      ctx.font         = '900 26px Inter, sans-serif'
+      ctx.font         = '900 26px Sarabun, sans-serif'
       ctx.fillStyle    = '#343330'
       ctx.fillText(String(total), cx, cy - 9)
       ctx.font         = '400 10px Sarabun, sans-serif'

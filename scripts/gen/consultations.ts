@@ -40,17 +40,36 @@ const NOAC_THREAD: Tmpl = (p) => [
   { role: 'doctor', text: `ให้ปรับตามคำแนะนำของระบบได้เลยครับ และนัดติดตามค่าไตอีก 1 เดือน` },
 ]
 
+// Curated threads — richer, clinically-grounded, always included (keyed by patient id).
+// Numbers reflect that patient's generated record; update if the record changes.
+const CURATED: Record<string, { date: string; msgs: { role: GenConsultMsg['role']; text: string }[] }> = {
+  w001: {
+    date: '2026-05-28',
+    msgs: [
+      { role: 'pharmacist', text: 'สวัสดีครับ ขอเรียนปรึกษาผู้ป่วย นาย ถาวร มีสุข HN 692087811 (Warfarin) ครับ' },
+      { role: 'pharmacist', text: 'INR ล่าสุด 4.2 สูงกว่าช่วงเป้าหมาย 2.0–3.0 · TTR 3 เดือนล่าสุด 27% คุมได้ไม่ดี ระบบแนะนำงด/ลดขนาด ขอความเห็นแพทย์ครับ' },
+      { role: 'pharmacist', text: 'สอบถามผู้ป่วยแล้วยังไม่มีอาการเลือดออก ไม่มีจ้ำเขียว ปัสสาวะ/อุจจาระสีปกติครับ' },
+      { role: 'doctor', text: 'รับทราบครับ INR 4.2 ยังไม่ถึง 4.5 และไม่มีเลือดออก ให้งดยา 1 มื้อ แล้วลดขนาดลงราว 10% นัดเจาะ INR ซ้ำใน 1 สัปดาห์' },
+      { role: 'doctor', text: 'รบกวนซักเรื่องการกินยาสม่ำเสมอ อาหารกลุ่มผักใบเขียว และยา/สมุนไพรที่เพิ่งเริ่มใหม่ด้วยครับ น่าจะเป็นเหตุที่ TTR ต่ำ' },
+      { role: 'pharmacist', text: 'รับทราบครับ จะ counsel เรื่อง adherence + อาหาร ตั้งงดยา 1 มื้อ และปรับขนาดจาก 30 เป็น 27 mg/สัปดาห์ครับ' },
+      { role: 'nurse', text: 'ลงนัดติดตาม INR สัปดาห์หน้า และโทรแจ้งผู้ป่วยเรื่องงดยา 1 มื้อเรียบร้อยค่ะ' },
+    ],
+  },
+}
+
 export function generateConsultations(patients: GenPatient[], physicians: Record<string, { name: string }>): Record<string, GenConsultMsg[]> {
   const out: Record<string, GenConsultMsg[]> = {}
   // prefer referred-ish patients; just take a seeded subset
   const pool = shuffle('consult:pool', patients.filter(p => chance(`${p.id}:referred`, 0.12)).map(p => p.id))
-  const chosen = pool.slice(0, THREAD_COUNT)
+  // curated patients always included (richer threads), then fill with the random pool
+  const curatedIds = Object.keys(CURATED).filter(id => patients.some(p => p.id === id))
+  const chosen = [...curatedIds, ...pool.filter(id => !CURATED[id]).slice(0, THREAD_COUNT)]
 
   for (const id of chosen) {
     const p = patients.find(x => x.id === id)!
-    const tmpl = p.therapy === 'warfarin' ? WF_THREAD : NOAC_THREAD
-    const msgs = tmpl(p)
-    const date = isoDate(addDays(WINDOW_START, randInt(`consult:${id}:day`, WINDOW_DAYS - 20, WINDOW_DAYS)))
+    const curated = CURATED[id]
+    const msgs = curated ? curated.msgs : (p.therapy === 'warfarin' ? WF_THREAD : NOAC_THREAD)(p)
+    const date = curated ? curated.date : isoDate(addDays(WINDOW_START, randInt(`consult:${id}:day`, WINDOW_DAYS - 20, WINDOW_DAYS)))
     const drName = physicians[p.attendingPhysicianId]?.name ?? 'นพ. แพทย์เวร'
     const rph = pick(`consult:${id}:rph`, PHARMACISTS)
     const nurse = pick(`consult:${id}:nurse`, NURSES)

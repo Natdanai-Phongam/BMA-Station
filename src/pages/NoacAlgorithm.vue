@@ -145,80 +145,17 @@
           <p class="na-rec-sub">คำนวณตามข้อมูลผู้ป่วย ณ วันนี้ — ยืนยันกับแพทย์ก่อนสั่งยา</p>
         </div>
 
-        <!-- Body zone (white) -->
+        <!-- Body zone (white) — advisory (comparison) | concurrent meds -->
         <div class="na-rec-body">
+         <div class="na-rec-context">
 
-        <!-- Previous dispensing suggestion -->
-        <div v-if="lastDispensing && suggestion" class="na-suggestion" :class="`na-suggestion--${suggestion.type}`">
-          <PhCheckCircle v-if="suggestion.type === 'ok'" :size="14" class="na-suggestion-icon" />
-          <PhInfo v-else-if="suggestion.type === 'changed'" :size="14" class="na-suggestion-icon" />
-          <PhWarning v-else :size="14" class="na-suggestion-icon" />
-          <div class="na-suggestion-body">
-            <span class="na-suggestion-meta">
-              จ่ายล่าสุด:
-              <strong>{{ lastDispensing.drugDispensed ? `${drugNameMap[lastDispensing.drugDispensed]} ${lastDispensing.dose}` : 'งดจ่ายยา' }}</strong>
-              · {{ daysSince }} วันที่แล้ว
-            </span>
-            <span class="na-suggestion-text">{{ suggestion.text }}</span>
-          </div>
-        </div>
-
-        <!-- Inline decision context: recommendation (wider) | concurrent meds -->
-        <div class="na-rec-context">
-
-          <!-- Recommendation advisory — top pick + flag summary (full compare in drawer) -->
-          <div class="na-rec-advice">
-            <span class="na-subsec-label">คำแนะนำ NOAC</span>
-            <div v-if="recommendedDrug && recommendedDrug.level !== 'contraindicated'" class="na-rec-body-row">
-              <!-- Hero (left): featured #1 recommendation -->
-              <div class="na-rec-hero">
-                <div class="na-rec-hero-head">
-                  <PhStar :size="14" weight="fill" class="na-rec-hero-star" />
-                  <span class="na-rec-hero-name">{{ recommendedDrug.nameEn }}</span>
-                </div>
-                <div class="na-rec-hero-dose">
-                  <span class="na-rec-hero-num">{{ recommendedDrug.doseAmount }}</span>
-                  <span class="na-rec-hero-unit">{{ recommendedDrug.doseUnit }}</span>
-                  <span v-if="recommendedDrug.frequency && recommendedDrug.frequency !== '—'" class="freq-chip" :title="recommendedDrug.frequencyThai">{{ recommendedDrug.frequency }}</span>
-                </div>
-                <div v-if="recommendedDrug.loadingPhase" class="na-rec-loading">
-                  <PhInfo :size="11" />
-                  เริ่ม {{ recommendedDrug.loadingPhase.doseAmount }} {{ recommendedDrug.loadingPhase.doseUnit }} {{ recommendedDrug.loadingPhase.frequency }} ×{{ recommendedDrug.loadingPhase.durationText }}
-                </div>
-                <div class="na-rec-hero-status" :class="`na-rec-hero-status--${recommendedDrug.level}`">
-                  <PhCheckCircle v-if="recommendedDrug.level === 'recommended'" :size="12" weight="fill" />
-                  <PhWarningCircle v-else-if="recommendedDrug.level === 'dose-adjusted'" :size="12" />
-                  <PhWarning v-else :size="12" />
-                  <span>{{ levelLabel[recommendedDrug.level] }}</span>
-                </div>
-              </div>
-              <!-- Alternatives (right): tidy divided list -->
-              <div class="na-rec-alts">
-                <div
-                  v-for="(alt, i) in alternativeDrugs"
-                  :key="alt.drug"
-                  class="na-rec-alt-item"
-                  :class="{ 'na-rec-alt-item--contra': alt.level === 'contraindicated' }"
-                >
-                  <span class="na-rec-alt-rank">{{ i + 2 }}</span>
-                  <span class="na-rec-alt-name">{{ alt.nameEn }}</span>
-                  <template v-if="alt.level !== 'contraindicated'">
-                    <span class="na-rec-alt-dose">{{ alt.doseAmount }} {{ alt.doseUnit }}</span>
-                    <span v-if="alt.frequency && alt.frequency !== '—'" class="freq-chip freq-chip--sm">{{ alt.frequency }}</span>
-                  </template>
-                  <span v-else class="na-rec-alt-ci">ห้ามใช้</span>
-                </div>
-              </div>
-            </div>
-            <div v-else class="na-rec-none">
-              <PhProhibit :size="14" weight="bold" />
-              <span>ไม่มีตัวเลือกที่จ่ายได้ตาม Lab ปัจจุบัน</span>
-            </div>
-            <span class="na-rec-hint">เทียบรายละเอียดทั้งหมดในขั้นตอนจ่ายยา</span>
-          </div>
-
-          <!-- Section divider -->
-          <div class="na-rec-divider" aria-hidden="true"></div>
+          <!-- Current vs recommended — merged advisory head (replaces tint banner + ranked list) -->
+          <NoacCurrentVsRecommended
+            bare
+            :result="result"
+            :last-dispensing="lastDispensing"
+            :days-since="daysSince"
+          />
 
           <!-- Concurrent medications — context for drug selection -->
           <div class="na-rec-meds">
@@ -242,7 +179,7 @@
             <p v-else class="na-no-meds">ไม่มียาร่วมที่บันทึกไว้</p>
           </div>
 
-        </div>
+         </div><!-- /na-rec-context -->
         </div><!-- /na-rec-body -->
 
         <!-- Footer action zone (surface-light) — primary action after review → compare -->
@@ -333,7 +270,7 @@
       </div>
 
       <!-- ── Row 6: NOAC dosing reference (drug-agnostic lookup, collapsible) ── -->
-      <NoacReferenceTable :default-open="true" />
+      <NoacReferenceTable />
 
     </template>
   </div>
@@ -352,9 +289,9 @@
 
 <script setup lang="ts">
 import { ref, shallowRef, computed, watch, onMounted } from 'vue'
-import { PhWarning, PhWarningCircle, PhProhibit, PhArrowRight, PhCheckCircle, PhCheck, PhStar, PhInfo, PhCaretDown } from '@phosphor-icons/vue'
+import { PhWarning, PhProhibit, PhArrowRight, PhCheck, PhCaretDown } from '@phosphor-icons/vue'
 import type { PatientDetail } from '@/data/types/patient-detail'
-import type { NoacIndication, RecommendationLevel } from '@/data/types/noac'
+import type { NoacIndication } from '@/data/types/noac'
 import { concordanceLabel, concordanceBadgeClass } from '@/utils/noac-helpers'
 import type { NoacPatientData, NoacDispensingRecord, NoacClinicalStatus } from '@/data/types/noac-dispensing'
 import { formatThaiDate } from '@/utils/date'
@@ -363,6 +300,7 @@ import { computeNoacRecommendations } from '@/utils/noacEngine'
 import { useCrCl } from '@/composables/useCrCl'
 import NoacDispensingDrawer from '@/components/noac/NoacDispensingDrawer.vue'
 import NoacReferenceTable from '@/components/noac/NoacReferenceTable.vue'
+import NoacCurrentVsRecommended from '@/components/noac/NoacCurrentVsRecommended.vue'
 
 const props = defineProps<{
   patientId: string
@@ -533,43 +471,7 @@ const daysSince = computed(() => {
   return Math.floor(diff / (1000 * 60 * 60 * 24))
 })
 
-const suggestion = computed(() => {
-  const rec    = lastDispensing.value
-  const drugs  = result.value.drugs
-  if (!rec || !drugs.length) return null
-  if (!rec.drugDispensed) {
-    return { type: 'changed' as const, text: 'ครั้งก่อนงดจ่ายยา — ทบทวนตาม Lab ปัจจุบัน' }
-  }
-  const lastDrugKey     = rec.drugDispensed
-  const rank1           = drugs[0]
-  const lastInCurrent   = drugs.find(d => d.drug === lastDrugKey)
-  const lastRank        = drugs.findIndex(d => d.drug === lastDrugKey)
-  const lastName        = drugNameMap[lastDrugKey] ?? lastDrugKey
-
-  if (lastInCurrent?.level === 'contraindicated') {
-    return { type: 'danger' as const,
-      text: `${lastName} ${rec.dose} ที่เคยได้รับมีข้อห้ามใช้ตาม Lab ปัจจุบัน — แนะนำ ${rank1.nameEn} แทน` }
-  }
-  if (lastRank === 0) {
-    return { type: 'ok' as const,
-      text: `${lastName} ${rec.dose} ยังอยู่ในแนวทาง — Lab ปัจจุบันสอดคล้องกับการจ่ายครั้งที่แล้ว` }
-  }
-  return { type: 'changed' as const,
-    text: `Lab เปลี่ยน — พิจารณาเปลี่ยนจาก ${lastName} เป็น ${rank1.nameEn} ${rank1.doseAmount} ${rank1.doseUnit} (อันดับ 1)` }
-})
-
-// ── Recommendation advisory (page shows summary; full compare lives in drawer) ─
-const recommendedDrug  = computed(() => result.value.drugs[0] ?? null)
-const alternativeDrugs = computed(() => result.value.drugs.slice(1))
-
 // ── Labels ─────────────────────────────────────────────────────────────────
-const levelLabel: Record<RecommendationLevel, string> = {
-  'recommended':     'ใช้ได้ทันที',
-  'dose-adjusted':   'ปรับขนาดก่อนจ่าย',
-  'caution':         'ติดตามหลังจ่าย',
-  'contraindicated': 'ห้ามใช้',
-}
-
 const interactionLabel: Record<string, string> = {
   'contraindicated': 'ห้ามใช้ร่วม',
   'warning':         'ต้องระวัง',
@@ -937,26 +839,6 @@ function dispenseDate(iso: string) {
   color: var(--bma-success-text);
 }
 
-/* Previous dispensing suggestion */
-.na-suggestion {
-  display: flex; align-items: flex-start; gap: 8px;
-  padding: 12px; border-radius: var(--bma-radius-md);
-  border: 1px solid;
-}
-.na-suggestion--ok      { background: var(--bma-success-bg-solid); border-color: var(--bma-green-200); }
-.na-suggestion--changed { background: var(--bma-urgency-bg-soft);  border-color: var(--bma-urgency-ring); }
-.na-suggestion--danger  { background: var(--bma-emergency-bg-soft); border-color: var(--bma-emergency-ring); }
-.na-suggestion-icon { flex-shrink: 0; margin-top: 1px; }
-.na-suggestion--ok      .na-suggestion-icon { color: var(--bma-success-text); }
-.na-suggestion--changed .na-suggestion-icon { color: var(--bma-urgency-text); }
-.na-suggestion--danger  .na-suggestion-icon { color: var(--bma-emergency); }
-.na-suggestion-body { display: flex; flex-direction: column; gap: 2px; }
-.na-suggestion-meta { font-size: 11px; color: var(--bma-text-tertiary); }
-.na-suggestion-text { font-size: 13px; font-weight: 600; }
-.na-suggestion--ok      .na-suggestion-text { color: var(--bma-success-text); }
-.na-suggestion--changed .na-suggestion-text { color: var(--bma-urgency-text); }
-.na-suggestion--danger  .na-suggestion-text { color: var(--bma-emergency); }
-
 /* Dispense CTA — matches consult-dose-cta pattern */
 /* Primary CTA — filled green, mirrors WarfarinDoseTool .inr-hero-cta */
 .na-dispense-cta {
@@ -972,57 +854,11 @@ function dispenseDate(iso: string) {
 }
 .na-dispense-cta:hover { background: var(--bma-green-600); }
 
-/* Recommendation advisory + concurrent meds — inline decision context.
-   Full interactive drug comparison lives in NoacDispensingDrawer (no duplication).
-   Type tiers: 16 dose-num / 14 name (primary) · 12 unit/freq (secondary) · 11 micro */
-.na-rec-context { display: grid; grid-template-columns: 3fr 1px 2fr; gap: 20px; align-items: start; }
-.na-rec-advice, .na-rec-meds { display: flex; flex-direction: column; gap: 8px; }
-.na-rec-divider { align-self: stretch; background: var(--bma-border-subtle); }
+/* Recommendation card body — advisory (comparison) | concurrent meds */
+.na-rec-context { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.na-rec-meds { display: flex; flex-direction: column; gap: 8px; }
 
-/* Advisory — hero (left, featured) + alternatives tidy divided list (right).
-   Neutral (no coloured panel — avoids clashing with the green suggestion box /
-   history accents). Featured stands out via size + star + badge, not colour. */
-.na-rec-body-row { display: grid; grid-template-columns: 1fr 1.2fr; gap: 16px; align-items: start; }
-
-/* Hero (left) */
-.na-rec-hero { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
-.na-rec-hero-head { display: flex; align-items: center; gap: 6px; }
-.na-rec-hero-star { color: var(--bma-green-600); flex-shrink: 0; }
-.na-rec-hero-name { font-family: var(--bma-font-data); font-size: 16px; font-weight: 700; color: var(--bma-text-primary); }
-.na-rec-hero-dose { display: flex; align-items: center; gap: 6px; }
-.na-rec-loading { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--bma-text-tertiary); }
-.na-rec-loading > svg { flex-shrink: 0; color: var(--bma-elective); }
-.na-rec-hero-num  { font-family: var(--bma-font-data); font-size: 16px; font-weight: 700; color: var(--bma-green-600); }
-.na-rec-hero-unit { font-family: var(--bma-font-data); font-size: 12px; color: var(--bma-text-secondary); }
-
-
-/* Alternatives (right) — tidy divided list */
-.na-rec-alts { display: flex; flex-direction: column; }
-.na-rec-alt-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--bma-border-subtle); }
-.na-rec-alt-item:first-child { padding-top: 0; }
-.na-rec-alt-item:last-child { border-bottom: none; }
-.na-rec-alt-rank { font-family: var(--bma-font-data); font-size: 11px; font-weight: 700; color: var(--bma-text-tertiary); min-width: 12px; flex-shrink: 0; }
-.na-rec-alt-name { font-family: var(--bma-font-data); font-size: 12px; font-weight: 600; color: var(--bma-text-primary); flex: 1; min-width: 0; }
-.na-rec-alt-dose { font-family: var(--bma-font-data); font-size: 12px; font-weight: 600; color: var(--bma-text-secondary); white-space: nowrap; }
-.na-rec-alt-ci   { font-size: 11px; font-weight: 600; color: var(--bma-emergency); white-space: nowrap; }
-.na-rec-alt-item--contra .na-rec-alt-name { color: var(--bma-text-tertiary); text-decoration: line-through; }
-
-.na-rec-none { display: flex; align-items: center; gap: 6px; color: var(--bma-emergency); font-size: 13px; font-weight: 600; padding: 8px 0; border-top: 1px solid var(--bma-border-subtle); }
-.na-rec-hint { font-size: 11px; color: var(--bma-text-tertiary); font-style: italic; }
-
-/* Level badge — shared with drawer */
-/* Recommendation level — icon + text caution line with a soft level-tinted bg
-   (subtle highlight, no border — distinct from the freq pill chip) */
-.na-rec-hero-status {
-  display: inline-flex; align-items: center; gap: 4px; align-self: flex-start;
-  font-size: 12px; font-weight: 600;
-  padding: 2px 8px; border-radius: var(--bma-radius-sm);
-}
-.na-rec-hero-status > svg { flex-shrink: 0; }
-.na-rec-hero-status--recommended  { color: var(--bma-success-text); background: var(--bma-success-bg-solid); }
-.na-rec-hero-status--dose-adjusted { color: var(--bma-urgency-text); background: var(--bma-urgency-bg-soft); }
-.na-rec-hero-status--caution       { color: var(--bma-urgency-text); background: var(--bma-urgency-bg-soft); }
-/* Thai section label — Sarabun (no Inter), used by advisory + meds */
+/* Thai section label — Sarabun, used by advisory + meds */
 .na-subsec-label {
   font-size: 11px; font-weight: 700;
   color: var(--bma-text-tertiary);
@@ -1151,7 +987,6 @@ function dispenseDate(iso: string) {
 @media (max-width: 767px) {
   /* .na-top-row columns collapse via --bma-cols-status-row token (overrides.scss) */
   .na-rec-context { grid-template-columns: 1fr; }   /* advisory + meds stack */
-  .na-rec-divider { height: 1px; }                  /* becomes a horizontal rule when stacked */
   .na-dispense-cta { width: 100%; justify-content: center; }
   .na-patient-params { flex-wrap: wrap; }
   .na-param { min-width: 80px; }
