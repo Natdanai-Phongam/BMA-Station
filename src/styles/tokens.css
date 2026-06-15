@@ -4,7 +4,7 @@
    directly in any component without importing anything.
    ─────────────────────────────────────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Inter:wght@400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap');
 
 :root {
   /* ── Brand: BMA Green ──────────────────────────────────────────────────── */
@@ -98,7 +98,7 @@
 
   /* ── Typography ──────────────────────────────────────────────────────────── */
   --bma-font-thai:  'Sarabun', sans-serif;
-  --bma-font-data:  'Inter', sans-serif;
+  --bma-font-data:  var(--bma-font-thai);
 
   /* Type scale */
   --bma-text-xs:   12px;

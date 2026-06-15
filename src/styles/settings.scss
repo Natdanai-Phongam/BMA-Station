@@ -31,6 +31,16 @@
   // ── Border radius ───────────────────────────────────────────────────────────
   // $border-radius-root drives $button-border-radius and $button-icon-border-radius.
   // VBtn gets 8px, icon VBtn gets 50% — both automatic, no CSS override needed.
-  // Note: lg = 2× = 16px (not 12px) — VCard override stays in overrides.scss.
   $border-radius-root: 8px,
+
+  // Full $rounded map (replaces Vuetify's default sm/md/lg/xl multiples of
+  // $border-radius-root) so `rounded="lg"` etc. match the BMA radius scale
+  // (sm=4, md=8, lg=12, xl=16 — see --bma-radius-* in tokens.css).
+  $rounded: (
+    'sm': 4px,
+    null: 8px,
+    'lg': 12px,
+    'xl': 16px,
+    'pill': 9999px,
+  ),
 );

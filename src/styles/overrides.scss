@@ -69,20 +69,20 @@ body {
   background-color: var(--bma-green-600) !important;
 }
 
-// Outlined danger — cancel / destructive
-.v-btn--variant-outlined.v-btn--color-error {
-  border-color: var(--bma-emergency) !important;
-  color: var(--bma-emergency) !important;
-}
+// Outlined danger — cancel / destructive.
+// border-color + text color come natively from color="error" (theme.error =
+// #B72C2C = --bma-emergency). Only the hover tint needs an override: Vuetify's
+// outlined hover is a 4% currentColor overlay; BMA wants a 10% emergency fill.
 .v-btn--variant-outlined.v-btn--color-error:hover {
   background-color: var(--bma-emergency-bg) !important;
 }
 
 // ── VCard ─────────────────────────────────────────────────────────────────────
 
+// border-radius (rounded:'lg' → 12px) and border (border:'thin' → border-color
+// variable, #D9D9D9 = --bma-border) come from vuetify.ts defaults + the
+// $rounded map in settings.scss — no override needed for either.
 .v-card {
-  border-radius: var(--bma-radius-lg) !important;
-  border: 1px solid var(--bma-border) !important;
   box-shadow: var(--bma-shadow-card) !important;
   transition: box-shadow var(--bma-transition-default),
               border-color var(--bma-transition-default);

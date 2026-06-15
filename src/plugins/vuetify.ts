@@ -5,7 +5,7 @@ import '@mdi/font/css/materialdesignicons.css'
 
 // ─── BMA Doctor Light Theme ────────────────────────────────────────────────────
 // Primary: BMA green #00744B | Medical status: error=Emergency, warning=Urgency,
-// info=Elective, success=InRange | Typography: Sarabun (Thai) + Inter (data)
+// info=Elective, success=InRange | Typography: Sarabun (Thai + data)
 
 const bmaLight: ThemeDefinition = {
   dark: false,
@@ -108,12 +108,14 @@ export default createVuetify({
     // to prevent leaking into internal VBtn instances of composite components.
 
     // ── Cards ─────────────────────────────────────────────────────────────────
-    // Shadow and exact radius are controlled in overrides.scss — defaults provide
-    // the semantic shape cue (rounded-lg) and suppress Material elevation.
-    // VCard: rounded not set — border-radius 12px is handled in overrides.scss
-    // (SASS gives 8px from root; 12px requires explicit CSS override)
+    // rounded:'lg' → 12px ($rounded map in settings.scss) and border:'thin' uses
+    // the 'border-color' theme variable (#D9D9D9 = --bma-border) — both match
+    // BMA tokens natively, no CSS override needed. Shadow stays in overrides.scss
+    // (Vuetify's elevation utility classes use !important, so ours must too).
     VCard: {
       elevation: 0,
+      rounded:   'lg',
+      border:    'thin',
     },
 
     // ── Date / Time pickers ───────────────────────────────────────────────────
